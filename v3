@@ -36,7 +36,26 @@ Window:EditOpenButton({
     Draggable = true,
 })
 
+-------- SERVICES
+local marketplace_service = game:GetService("MarketplaceService")
+local user_input_service = game:GetService("VirtualInputManager")
+local replicated_storage = game:GetService("ReplicatedStorage")
+local virtual_user = game:GetService("VirtualUser")
+local run_service = game:GetService("RunService")
+local workspace = game:GetService("Workspace")
+local players = game:GetService("Players")
+local stats = game:GetService("Stats")
+
+local info = marketplace_service:GetProductInfo(game.PlaceId)
+local get_gc = getconnections or get_signal_cons
+local local_player = players.LocalPlayer
+
 -----------------------------------------------------------Tabs--------------------------------------------------------------
+local InfoTab = Window:Tab({
+Title = "Info",
+Icon = "user",
+Locked = false,
+})
 
 local MainTab = Window:Tab({
   Title = "Main [OLD]",
@@ -50,7 +69,18 @@ local MainTab = Window:Tab({
             Icon = "house",
             Locked = false,
           })
-            
+local FarmTab = Window:Tab({
+Title = "Farm",
+Icon = "shovel",
+Locked = false,
+})
+
+local SettingsTab = Window:Tab({
+Title = "Settings",
+Icon = "settings",
+Locked = false,
+})
+
 --Window:SelectTab(1) -- Number of Tab
 
 
@@ -203,3 +233,257 @@ local ToggleCook = MainTab:Toggle({
 		end
 	end
                 })
+
+------- Main2Tab
+local Lighting = game:GetService("Lighting")
+local RunService = game:GetService("RunService")
+
+local noclipConnection
+local noclipEnabled = false
+
+local nofog88 = false
+local Retro_Radio88 = false
+local Retro_Tv88 = false
+local fullbright88 = false
+
+-- bruh
+local oldClockTime = Lighting.ClockTime
+local oldGlobalShadows = Lighting.GlobalShadows
+local oldFogEnd = Lighting.FogEnd
+local oldFogStart = Lighting.FogStart
+
+getgenv().settings = {
+    auto_dirty_dish = false,
+    auto_give_food = false,
+    auto_do_order = false,
+    auto_order = false,
+    fps = false,
+    nofog = false,
+    Retro_Radio = false,
+    full_bright = false,
+    auto_bill = false,
+    auto_cook = false,
+    auto_seat = false,
+    fast_npcs = false,
+    auto_tip = false,
+    noclip = false,
+    toggle_delay = 0.1,
+    selected_place = "",
+    selected_food = "",
+}
+
+local building_names = {}
+local ingredients = {}
+
+for _, v in next, ingredient_module do
+    for i, v2 in next, v do
+        if i == "DisplayName" then
+            table.insert(ingredients, v2)
+        end
+    end
+end
+
+for _, v in next, buildings:GetChildren() do
+    table.insert(building_names, v.Name)
+end
+
+table.insert(building_names, "Tycoon")
+
+-- you can mess around w this idk
+func = hookfunction(path_utility.GetMovementTime, function(...)
+    if settings.fast_npcs then
+        return 0.01
+    end
+    return func(...)
+end)
+
+surface.DescendantAdded:Connect(function(v)
+    task.wait(1)
+    if settings.auto_dirty_dish and v.Name == "Trash" and v:GetAttribute("Taken") and v.Parent then
+        replicated_storage:WaitForChild("Events"):WaitForChild("Restaurant"):WaitForChild("TaskCompleted"):FireServer({ Tycoon = tycoon, Name = "CollectDishes", FurnitureModel = v.Parent.Parent })
+    end
+
+    if settings.auto_bill and v.Name == "Bill" and v.Parent then
+        replicated_storage:WaitForChild("Events"):WaitForChild("Restaurant"):WaitForChild("TaskCompleted"):FireServer({ Tycoon = tycoon, Name = "CollectBill", FurnitureModel = v.Parent })
+    end
+end)
+
+local FncSection = Main2Tab:Section({ 
+    Title = "Main Functions",
+})
+local OrderToggle = Main2Tab:Toggle({
+    Title = "Auto Take Orders",
+    Desc = "takes customer orders automatically",
+    Icon = "",
+    Type = "Checkbox",
+    Value = false, -- default value
+    Callback = function(Value)
+        settings.auto_order = Value
+        if Value then
+            repeat
+                for _, v in next, local_player.PlayerGui:GetDescendants() do
+                    if v:IsA("ImageLabel") and v.Parent.Parent.Parent.Name == "CustomerSpeechUI" and v.Parent.Parent.Size == UDim2.new(1, 0, 1, 0) then
+                        local group = v.Parent.Parent.Parent.Adornee.Parent.Parent.Name
+                        local customer = v.Parent.Parent.Parent.Adornee.Parent.Name
+                        replicated_storage:WaitForChild("Events"):WaitForChild("Restaurant"):WaitForChild("TaskCompleted"):FireServer({ GroupId = tostring(group), Tycoon = tycoon, Name = "TakeOrder", CustomerId = tostring(customer) })
+                        task.wait()
+                    end
+                end
+                task.wait(settings.toggle_delay)
+            until not settings.auto_order
+        end
+    end
+})
+
+local DishesToggle = Main2Tab:Toggle({
+    Title = "Auto Take Dishes",
+    Desc = "takes dishes automatically",
+    Icon = "",
+    Type = "Checkbox",
+    Value = false, -- default value
+    Callback = function(Value)
+        settings.auto_dirty_dish = Value
+        if Value then
+            for _, v in next, surface:GetDescendants() do
+                if v.Name == "Trash" and v:GetAttribute("Taken") then
+                    replicated_storage:WaitForChild("Events"):WaitForChild("Restaurant"):WaitForChild("TaskCompleted"):FireServer({ Tycoon = tycoon, Name = "CollectDishes", FurnitureModel = v.Parent.Parent })
+                end
+            end
+        end
+    end
+})
+
+local SeatToggle = Main2Tab:Toggle({
+    Title = "Auto Seat Customers",
+    Desc = "seats customers automatically",
+    Icon = "",
+    Type = "Checkbox",
+    Value = false, -- default value
+    Callback = function(Value)
+        settings.auto_seat = Value
+        if Value then
+            repeat
+                for _, v in next, local_player.PlayerGui:GetDescendants() do
+                    if v:IsA("TextLabel") 
+                        and v.Text:lower():find("table") 
+                        and v.Parent.Parent.Parent.Name == "CustomerSpeechUI" 
+                        and v.Parent.Parent.Size == UDim2.new(1, 0, 1, 0) then
+
+                        local group = v.Parent.Parent.Parent.Adornee.Parent.Parent.Name
+
+                        for _, v2 in next, surface:GetChildren() do
+                            if v2.Name:find("T") and not v2:GetAttribute("InUse") then
+                                replicated_storage
+                                    :WaitForChild("Events")
+                                    :WaitForChild("Restaurant")
+                                    :WaitForChild("TaskCompleted")
+                                    :FireServer({
+                                        GroupId = tostring(group),
+                                        Tycoon = tycoon,
+                                        Name = "SendToTable",
+                                        FurnitureModel = v2
+                                    })
+                                task.wait(0.2)
+                                break -- ส่งลูกค้าหนึ่งกลุ่มต่อหนึ่งโต๊ะ
+                            end
+                        end
+                    end
+                end
+                task.wait(settings.toggle_delay or 1)
+            until not settings.auto_seat
+        end
+    end
+})
+
+local CashToggle = Main2Tab:Toggle({
+    Title = "Auto Collect Bills",
+    Desc = "takes customers' payments automatically",
+    Icon = "",
+    Type = "Checkbox",
+    Value = false, -- default value
+    Callback = function(Value)
+        settings.auto_bill = Value
+        if Value then
+            for _, v in next, surface:GetDescendants() do
+                if v.Name == "Bill" then
+                    replicated_storage:WaitForChild("Events"):WaitForChild("Restaurant"):WaitForChild("TaskCompleted"):FireServer({ Tycoon = tycoon, Name = "CollectBill", FurnitureModel = v.Parent })
+                end
+            end
+        end
+    end
+})
+
+local ServeToggle = Main2Tab:Toggle({
+    Title = "Auto Serve Orders",
+    Desc = "serve orders automatically",
+    Icon = "",
+    Type = "Checkbox",
+    Value = false, -- default value
+    Callback = function(Value)
+        settings.auto_give_food = Value
+        if Value then
+            repeat
+                if #food:GetChildren() > 0 then
+                    for _, v in next, food:GetChildren() do
+                        if not v:GetAttribute("Taken") then
+                            replicated_storage:WaitForChild("Events"):WaitForChild("Restaurant"):WaitForChild("GrabFood"):InvokeServer(v)
+                            for _, v2 in next, local_player.PlayerGui:GetDescendants() do
+                                if v2:IsA("ImageLabel") and v2.Parent and v2.Parent.Parent.Parent.Name == "CustomerSpeechUI" and v2.Parent.Parent.Size == UDim2.new(1, 0, 1, 0) then
+                                    local group = v2.Parent.Parent.Parent.Adornee.Parent.Parent.Name
+                                    local customer = v2.Parent.Parent.Parent.Adornee.Parent.Name
+                                    replicated_storage:WaitForChild("Events"):WaitForChild("Restaurant"):WaitForChild("TaskCompleted"):FireServer({ Name = "Serve", GroupId = tostring(group), Tycoon = tycoon, FoodModel = v, CustomerId = tostring(customer) })
+                                    task.wait()
+                                end
+                            end
+                        end
+                    end
+                end
+                task.wait(settings.toggle_delay)
+            until not settings.auto_give_food
+        end
+    end
+})
+
+local CookToggle = Main2Tab:Toggle({
+    Title = "Auto Cook",
+    Desc = "cooks orders automatically",
+    Icon = "",
+    Type = "Checkbox",
+    Value = false, -- default value
+    Callback = function(Value)
+        settings.auto_cook = Value
+        if Value then
+            local oven = nil
+            for _, v in next, surface:GetDescendants() do
+                if v.Name:find("Oven") then
+                    oven = v.Parent
+                    break
+                end
+            end
+            repeat
+                if oven then
+                    replicated_storage:WaitForChild("Events"):WaitForChild("Cook"):WaitForChild("CookInputRequested"):FireServer("Interact", oven, "Oven")
+                    task.wait()
+                end
+                task.wait(settings.toggle_delay)
+            until not settings.auto_cook
+        end
+    end
+})
+
+local TipToggle = Main2Tab:Toggle({
+    Title = "Auto Collect Tip",
+    Desc = "collect tip on jar automatically",
+    Icon = "",
+    Type = "Checkbox",
+    Value = false, -- default value
+    Callback = function(Value)
+        settings.auto_tip = Value
+        if Value then
+            repeat
+                replicated_storage:WaitForChild("Events"):WaitForChild("Restaurant"):WaitForChild("TipsCollected"):FireServer(tycoon)
+                task.wait(settings.toggle_delay)
+            until not settings.auto_tip
+        end
+    end
+})
