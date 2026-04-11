@@ -1,0 +1,205 @@
+local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
+
+local Window = WindUI:CreateWindow({
+    Title = "tkgoo.crzy | RT3",
+    Icon = "door-open",
+    Author = "Takgoo",
+    Folder = "RT3Main",
+    Size = UDim2.fromOffset(490, 320),
+    Transparent = true,
+    Theme = "Dark",
+    SideBarWidth = 190,
+    Background = "", -- rbxassetid only
+    BackgroundImageTransparency = 0.42,
+    HideSearchBar = true,
+    ScrollBarEnabled = false,
+    User = {
+        Enabled = false,
+        Anonymous = true,
+        Callback = function()
+            print("clicked")
+        end,
+    },
+})
+
+Window:EditOpenButton({
+    Title = "RT3",
+    Icon = "Box",
+    CornerRadius = UDim.new(0,10),
+    StrokeThickness = 1.75,
+    Color = ColorSequence.new( -- gradient
+        Color3.fromHex("6FA8DC"), 
+        Color3.fromHex("CFE2F3")
+    ),
+    OnlyMobile = false,
+    Enabled = true,
+    Draggable = true,
+})
+
+-----------------------------------------------------------Tabs--------------------------------------------------------------
+
+local MainTab = Window:Tab({
+  Title = "Main [OLD]",
+    Icon = "house",
+    Desc = "",
+    Locked = false,
+})
+
+          local Main2Tab = Window:Tab({
+            Title = "Main [NEW]",
+            Icon = "house",
+            Locked = false,
+          })
+            
+--Window:SelectTab(1) -- Number of Tab
+
+
+----------------------------------------------------------Main------------------------------------------------------------------
+local players = game:GetService("Players")
+local replicated_storage = game:GetService("ReplicatedStorage")
+local workspace = game:GetService("Workspace")
+
+local local_player = players.LocalPlayer
+local tycoon = nil
+local surface = nil
+local temp = workspace:FindFirstChild("Temp")
+
+for _, v in workspace:FindFirstChild("Tycoons"):GetDescendants() do
+	if v.Name == "Player" and v.Value == local_player then
+		tycoon = v.Parent
+	end
+end
+
+if tycoon then
+	surface = tycoon:WaitForChild("Items"):WaitForChild("Surface")
+end
+
+-----------------------------
+-- AUTO TAKE ORDER
+-----------------------------
+local takeOrderRunning = false
+local takeOrderThread = nil
+
+local ToggleTakeOrder = MainTab:Toggle({
+	Title = "Auto Take Order",
+	Desc = "Take customer's order automatically.",
+	Icon = "bird",
+	Type = "Checkbox",
+	Default = false,
+	Callback = function(state)
+		takeOrderRunning = state
+		if takeOrderRunning then
+			takeOrderThread = task.spawn(function()
+				while takeOrderRunning do
+					for _, ui in pairs(local_player.PlayerGui:GetChildren()) do
+						if ui.Name == "CustomerSpeechUI" and ui:FindFirstChild("Adornee") then
+							local adornee = ui:FindFirstChild("Adornee")
+							local group = adornee.Parent and adornee.Parent.Parent and adornee.Parent.Parent.Name
+							local customer = adornee.Parent and adornee.Parent.Name
+							if group and customer and tycoon then
+								replicated_storage:WaitForChild("Events"):WaitForChild("Restaurant"):WaitForChild("TaskCompleted"):FireServer({
+									GroupId = tostring(group),
+									Tycoon = tycoon,
+									Name = "TakeOrder",
+									CustomerId = tostring(customer)
+								})
+							end
+						end
+					end
+					task.wait(0.5)
+				end
+			end)
+		elseif takeOrderThread then
+			task.cancel(takeOrderThread)
+		end
+	end
+})
+
+-----------------------------
+-- AUTO DO ORDER
+-----------------------------
+local orderSettings = {
+	auto_do_order = false,
+	toggle_delay = 0.25,
+}
+
+local autoDoOrderThread = nil
+
+local ToggleDoOrder = MainTab:Toggle({
+	Title = "Auto Do Order",
+	Desc = "",
+	Icon = "clipboard",
+	Type = "Checkbox",
+	Default = false,
+	Callback = function(state)
+		orderSettings.auto_do_order = state
+		if state then
+			autoDoOrderThread = task.spawn(function()
+				while orderSettings.auto_do_order do
+					if temp then
+						for _, v in temp:GetDescendants() do
+							if v:IsA("ProximityPrompt") then
+								fireproximityprompt(v)
+								task.wait()
+							end
+						end
+					end
+					task.wait(orderSettings.toggle_delay)
+				end
+			end)
+		elseif autoDoOrderThread then
+			task.cancel(autoDoOrderThread)
+		end
+	end
+})
+
+-----------------------------
+-- AUTO COOK
+-----------------------------
+local cookSettings = {
+	auto_cook = false,
+	toggle_delay = 0.25,
+}
+
+local autoCookThread = nil
+
+local ToggleCook = MainTab:Toggle({
+	Title = "Auto Cook",
+	Desc = "Cook order's automatically.",
+	Icon = "flame",
+	Type = "Checkbox",
+	Default = false,
+	Callback = function(state)
+		cookSettings.auto_cook = state
+		if state then
+			autoCookThread = task.spawn(function()
+				local oven = nil
+				if surface then
+					for _, v in surface:GetDescendants() do
+						if v.Name:find("Oven") then
+							oven = v.Parent
+							break
+						end
+					end
+				end
+				while cookSettings.auto_cook do
+					if oven then
+						local cookEvents = replicated_storage:FindFirstChild("Events")
+						if cookEvents then
+							local cookModule = cookEvents:FindFirstChild("Cook")
+							if cookModule then
+								local cookInput = cookModule:FindFirstChild("CookInputRequested")
+								if cookInput then
+									cookInput:FireServer("Interact", oven, "Oven")
+								end
+							end
+						end
+					end
+					task.wait(cookSettings.toggle_delay)
+				end
+			end)
+		elseif autoCookThread then
+			task.cancel(autoCookThread)
+		end
+	end
+                })
