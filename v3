@@ -272,7 +272,7 @@ getgenv().settings = {
     selected_food = "",
 }
 
-local building_names = {}
+--[[local building_names = {}
 local ingredients = {}
 
 for _, v in next, ingredient_module do
@@ -307,7 +307,7 @@ surface.DescendantAdded:Connect(function(v)
         replicated_storage:WaitForChild("Events"):WaitForChild("Restaurant"):WaitForChild("TaskCompleted"):FireServer({ Tycoon = tycoon, Name = "CollectBill", FurnitureModel = v.Parent })
     end
 end)
-
+]]
 local FncSection = Main2Tab:Section({ 
     Title = "Main Functions",
 })
