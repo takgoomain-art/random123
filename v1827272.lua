@@ -38,6 +38,20 @@ local Window = WindUI:CreateWindow({
     Author = "by Liquid Management", -- optional
 })
 
+WindUI:Notify({
+                Title = "Liquid Hub • Loaded!",
+                Content = "Loaded successfuly!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+
+WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Explore the features of the script, enjoy!",
+                Duration = 4, -- 3 seconds
+                Icon = "bell",
+})
+
 ------ TABS
 local Main = Window:Tab({
     Title = "Info",
@@ -178,6 +192,42 @@ else
     local blxfrt = Script:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Blox Fruits game.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+end
+
+
+local grow = Script:Section({ 
+    Title = "[🥕] Grow a Garden",
+})
+
+if GAG then
+    local idk = Script:Button({
+    Title = "🔓No Hub",
+    Desc = "",
+    Locked = false,
+    Callback = function()
+
+            end
+        })
+
+else
+    local gagg = Script:Paragraph({
+    Title = "NOTICE:",
+    Desc = "You're not in Grow a Garden game.",
     --Color = "Red",
     --Image = "",
     --ImageSize = 30,
