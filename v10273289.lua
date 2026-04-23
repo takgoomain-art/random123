@@ -5,8 +5,7 @@ print("Loading Functions....")
 print("LOADED! Wait 2 seconds to direct to the Fluent Ui.")
 
 
-local Fluent, SaveManager, InterfaceManager = loadstring(game:HttpGet("https://github.com/discoart/FluentPlus/releases/latest/download/main.lua"))()
-
+local Fluent, SaveManager, InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/discoart/FluentPlus/refs/heads/main/alpha.lua"))()
 local Window = Fluent:CreateWindow({
     Title = "Liquid Hub", --.. Fluent.Version
     SubTitle = "UNIVERSAL SCR",
@@ -26,7 +25,7 @@ local Tabs = {
 
 local MainSection = Tabs.Main:AddSection("Liquid Hub Introduction", "home") -- Title, Optional Icon
 
---Tabs.Main:AddDiscord("Liquid Hub Discord Community", {Invite = "https://discord.gg/"})
+Tabs.Main:AddDiscord("Liquid Hub Discord Community", {Invite = "https://discord.gg/"})
 
 Main:AddParagraph({
     Title = "Warmest Greetings!",
