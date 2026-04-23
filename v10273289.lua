@@ -5,7 +5,7 @@ print("Loading Functions....")
 print("LOADED! Wait 2 seconds to direct to the Fluent Ui.")
 
 
-local Fluent, SaveManager, InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/discoart/FluentPlus/refs/heads/main/alpha.lua"))()
+local Fluent, SaveManager, InterfaceManager = loadstring(Game:HttpGet("https://raw.githubusercontent.com/discoart/FluentPlus/refs/heads/main/Beta.lua"))()
 local Window = Fluent:CreateWindow({
     Title = "Liquid Hub", --.. Fluent.Version
     SubTitle = "UNIVERSAL SCR",
