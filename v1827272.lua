@@ -109,7 +109,7 @@ local Credits = Main:Paragraph({
 })
 
 ------ Scripts Tab
-local Info = Script:Section({ 
+local Scripsss = Script:Section({ 
     Title = "SCRIPTS SECTION",
 })
 local MarketplaceService = game:GetService("MarketplaceService")
@@ -149,3 +149,48 @@ local Game = Script:Paragraph({
     }
     ]]
 })
+
+local bf = Script:Section({ 
+    Title = "[🍎] Blox Fruits",
+})
+
+if BloxFruits then
+    local Redz = Script:Button({
+    Title = "🔓 Redz Hub",
+    Desc = "",
+    Locked = false,
+    Callback = function()
+        local Settings = { 
+    Translator = true;   -- true / false
+}
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/heads/main/main.luau"))(Settings)
+                WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+    end
+})
+    
+else
+    local blxfrt = Script:Paragraph({
+    Title = "NOTICE:",
+    Desc = "You're not in Blox Fruits game.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+end
