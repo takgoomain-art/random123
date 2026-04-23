@@ -53,10 +53,22 @@ WindUI:Notify({
 })
 
 ------ TABS
+local Section1 = Window:Section({
+    Title = "Informations",
+    Icon = "",
+    Opened = true,
+})
+
 local Main = Window:Tab({
     Title = "Info",
     Icon = "info", -- optional
     Locked = false,
+})
+
+local Section2 = Window:Section({
+    Title = "Main",
+    Icon = "bird",
+    Opened = true,
 })
 
 local Script = Window:Tab({
@@ -69,6 +81,12 @@ local More = Window:Tab({
     Title = "More Scripts",
     Icon = "bird", -- optional
     Locked = false,
+})
+
+local Section3= Window:Section({
+    Title = "Misc",
+    Icon = "",
+    Opened = true,
 })
 
 local Settings = Window:Tab({
@@ -103,6 +121,26 @@ local WC = Main:Paragraph({
     ]]
 })
 
+local DiscordServerParagraph = Main:Paragraph({
+			Title = "Liquid Hub | Community,
+			Desc = "Join to our Discord Community!!,
+			--Image = "https://cdn.discordapp.com/icons/"
+			--	.. Response.guild.id
+			--	.. "/"
+			--	.. Response.guild.icon
+			--	.. ".png?size=1024",
+			--Thumbnail = "https://cdn.discordapp.com/banners/1300692552005189632/35981388401406a4b7dffd6f447a64c4.png?size=512",
+			--ImageSize = 48,
+			Buttons = {
+				{
+					Title = "Copy link",
+					Icon = "link",
+					Callback = function()
+						setclipboard("https://discord.gg/")
+					end,
+				},
+			},
+		})
 local Credits = Main:Paragraph({
     Title = "Credentials",
     Desc = "Liquid Hub is giving credits to the owner of the script that is listed here.",
