@@ -4,6 +4,18 @@ print("Loading Assets.....")
 print("Loading Functions....")
 print("99.99999%")
 
+if game.PlaceId == 126884695634066 then
+    GAG = true
+elseif game.PlaceId == 4924922222 then
+    Brookhaven = true
+elseif game.PlaceId == 119048529960596 then
+    RT3 = true
+elseif game.PlaceId == 2753915549 then
+    BloxFruits = true
+elseif game.PlaceId == 77747658251236 then
+    SailorPiece = true
+end
+
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
 WindUI:Popup({
@@ -84,7 +96,49 @@ local Credits = Main:Paragraph({
     --Image = "",
     --ImageSize = 30,
     --Thumbnail = "",
-    --ThumbnailSize = 80,
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+
+------ Scripts Tab
+local Info = Script:Section({ 
+    Title = "SCRIPTS SECTION",
+})
+local MarketplaceService = game:GetService("MarketplaceService")
+
+-- Assume Server is your Fluent UI server object managing the UI
+--[[ local Server =  your Fluent UI Server object here ]]
+
+-- Function to get the current game name from PlaceId
+local function getCurrentGameName()
+    local success, info = pcall(function()
+        return MarketplaceService:GetProductInfo(game.PlaceId)
+    end)
+    if success and info then
+        return info.Name
+    else
+        return "Unknown Game"
+    end
+end
+
+local gameName = getCurrentGameName()
+
+local Game = Script:Paragraph({
+    Title = "Game you're in:",
+    Desc = gameName ~= "" and gameName or "The game cannot be identified.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
     Locked = false,
     --[[Buttons = {
         {
