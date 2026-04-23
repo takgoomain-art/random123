@@ -27,13 +27,13 @@ local MainSection = Tabs.Main:AddSection("Liquid Hub Introduction", "home") -- T
 
 --Tabs.Main:AddDiscord("Liquid Hub Discord Community", {Invite = "https://discord.gg/"})
 
-Main:AddParagraph({
+Tabs.Main:AddParagraph({
     Title = "Warmest Greetings!",
     Content = "We are Liquid Hub, ready to provide you an op scripts inside Roblox..\n All the scripts listed here are all SAFE.\n We thank you for using our scripts.\n This universal script project is all self-developed.",
     Icon = "info" -- Optional icon
 })
 
-Main:AddParagraph({
+Tabs.Main:AddParagraph({
     Title = "Credentials",
     Content = "We give credits to all of the owners of the scripts listed on this project.",
     Icon = "info" -- Optional Icon
@@ -52,7 +52,7 @@ Main:AddParagraph({
 local ScriptSection = Tabs.Scripts:AddSection("SCRIPTS SECTION", "laptop") -- Title, Optional Icon
 
 local BF = Tabs.Scripts:AddSection("BLOX FRUITS", "apple")
-local Redz = Scripts:AddButton({
+local Redz = Tabs.Scripts:AddButton({
     Title = "Redz Hub",
     Description = "",
     Icon = "",
