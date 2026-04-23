@@ -26,7 +26,7 @@ local Tabs = {
 
 local MainSection = Tabs.Main:AddSection("Liquid Hub Introduction", "home") -- Title, Optional Icon
 
-Tabs.Main:AddDiscord("Liquid Hub Discord Community", {Invite = "https://discord.gg/"})
+--Tabs.Main:AddDiscord("Liquid Hub Discord Community", {Invite = "https://discord.gg/"})
 
 Main:AddParagraph({
     Title = "Warmest Greetings!",
@@ -82,3 +82,4 @@ Fluent:Notify({
     Duration = 7,
     Icon = "check"
 })
+print("LOADED! Wait 2 seconds to direct to the Fluent Ui.")
