@@ -25,7 +25,7 @@ local Tabs = {
 
 local MainSection = Tabs.Main:AddSection("Liquid Hub Introduction", "home") -- Title, Optional Icon
 
-Tabs.Main:AddDiscord("Liquid Hub Discord Community", {Invite = "https://discord.gg/"})
+--Tabs.Main:AddDiscord("Liquid Hub Discord Community", {Invite = "https://discord.gg/"})
 
 Main:AddParagraph({
     Title = "Warmest Greetings!",
