@@ -83,11 +83,11 @@ local More = Window:Tab({
     Locked = false,
 })
 
-local Section3 = Window:Section({
+--[[local Section3 = Window:Section({
     Title = "Misc",
     Icon = "",
     Opened = true,
-})
+})]]
 
 local Settings = Window:Tab({
     Title = "Settings",
