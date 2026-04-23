@@ -53,11 +53,11 @@ WindUI:Notify({
 })
 
 ------ TABS
-local Section1 = Window:Section({
+--[[local Section1 = Window:Section({
     Title = "Informations",
     Icon = "",
     Opened = true,
-})
+})]]
 
 local Main = Window:Tab({
     Title = "Info",
@@ -65,11 +65,11 @@ local Main = Window:Tab({
     Locked = false,
 })
 
-local Section2 = Window:Section({
+--[[local Section2 = Window:Section({
     Title = "Main",
     Icon = "bird",
     Opened = true,
-})
+})]]
 
 local Script = Window:Tab({
     Title = "Scripts",
@@ -83,7 +83,7 @@ local More = Window:Tab({
     Locked = false,
 })
 
-local Section3= Window:Section({
+local Section3 = Window:Section({
     Title = "Misc",
     Icon = "",
     Opened = true,
