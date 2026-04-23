@@ -65,9 +65,9 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/h
     end
 })
 
-local SP = Tabs.Scripts:AddSection("Sailor Piece", "⛵")
+local SP = Tabs.Scripts:AddSection("Sailor Piece", "boat")
 
-local RT3 = Tabs.Scripts:AddSection("Restaurant Tycoon 1/2/3", "chef")
+local RT3 = Tabs.Scripts:AddSection("Restaurant Tycoon 1/2/3", "chef-hat")
 
 local PSG = Tabs.Scripts:AddSection("Pet Simulator X/99/GO", "cat")
 
