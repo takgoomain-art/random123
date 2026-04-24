@@ -8,6 +8,7 @@ print("Loading Functions....")
 print("99.99999%")
 
 print("Detecting Executor...")
+
 if game.PlaceId == 126884695634066 then
     GAG = true
 elseif game.PlaceId == 4924922222 then
@@ -185,6 +186,10 @@ local Credits = Main:Paragraph({
     }
     ]]
 })
+local exesect = Main:Section({
+	Title = "💻 Executor Status",
+})
+
 local function detectExecutor()
     if identifyexecutor then
         return identifyexecutor()
@@ -205,13 +210,10 @@ end
 
 local executorName = detectExecutor()
 
-local exesect = Main:Section({
-	Title = "💻 Executor Status",
-})
 
 local exe = Main:Paragraph({
     Title = "Executor:",
-    Desc = executorName ~= "" and executorName or "Unable to detect executor..",
+    Desc = executorName or "Unable to detect executor..",
     --Color = "Red",
     --Image = "",
     --ImageSize = 30,
@@ -760,5 +762,5 @@ local iy = More:Button({
 
 print("Loaded every function of the script...")
 
-print("Executor Detected: " .. executorName)
+--print("Executor Detected: " .. executorName)
 print("Refreshing the system....")
