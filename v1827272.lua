@@ -1,3 +1,6 @@
+print("Starting to Load...")
+
+print("Now Loading ...")
 print("Loading UI........")
 print("Loading Script....")
 print("Loading Assets.....")
