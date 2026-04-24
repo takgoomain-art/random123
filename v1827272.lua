@@ -76,19 +76,19 @@ local Section1 = Window:Section({
     Opened = f--alse,
 })
 
-local Main = Window:Tab({
+local Main = Section1.Window:Tab({
     Title = "Info",
     Icon = "info", -- optional
     Locked = false,
 })
 
-local lp = Window:Tab({
+local lp = Section1.Window:Tab({
 	Title = "Player",
 	Icon = "user", -- optional
 	Locked = false,
 })
 
-local Server = Window:Tab({
+local Server = Section1.Window:Tab({
 	Title = "Server",
 	Icon = "globe",
 	Locked = false,
@@ -100,13 +100,13 @@ local Section2 = Window:Section({
     Opened = true,
 })
 
-local Script = Window:Tab({
+local Script = Section2.Window:Tab({
     Title = "Scripts",
     Icon = "bird", -- optional
     Locked = false,
 })
 
-local More = Window:Tab({
+local More = Section2.Window:Tab({
     Title = "More Scripts",
     Icon = "bird", -- optional
     Locked = false,
@@ -125,7 +125,7 @@ local Section3 = Window:Section({
     Opened = true,
 })
 
-local Settings = Window:Tab({
+local Settings = Section3.Window:Tab({
     Title = "Settings",
     Icon = "settings", -- optional
     Locked = false,
