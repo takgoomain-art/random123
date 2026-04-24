@@ -373,6 +373,88 @@ UserInputService.JumpRequest:Connect(function()
         end
     end
 end)
+
+-- 🔥 UNIVERSAL ANTI AFK - Works sa ALL GAMES/EXECUTORS
+local AntiAFKEnabled = false
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local VirtualUser = game:GetService("VirtualUser")
+local player = Players.LocalPlayer
+
+local connections = {}
+
+local antiAFKToggle = lp:Toggle({
+    Title = "Anti AFK",
+    Desc = "",
+    Value = true,
+    Callback = function(Value)
+        AntiAFKEnabled = Value
+        
+        if Value then
+            print("🚀 Anti AFK STARTED")
+            
+            -- METHOD 1: VirtualUser (Most Compatible)
+            connections.virtualUser = spawn(function()
+                while AntiAFKEnabled do
+                    pcall(function()
+                        VirtualUser:CaptureController()
+                        VirtualUser:ClickButton2(Vector2.new())
+                    end)
+                    wait(55) -- 55 seconds
+                end
+            end)
+            
+            -- METHOD 2: Heartbeat (Blox Fruits/Strict games)
+            connections.heartbeat = RunService.Heartbeat:Connect(function()
+                if AntiAFKEnabled and player.Character then
+                    local humanoid = player.Character:FindFirstChild("Humanoid")
+                    if humanoid then
+                        humanoid:Move(Vector3.new(0, 0, 0.1))
+                    end
+                end
+            end)
+            
+            -- METHOD 3: Keypress backup
+            connections.keypress = spawn(function()
+                while AntiAFKEnabled do
+                    pcall(function()
+                        if keypress then
+                            keypress(0x57) -- W
+                            wait(0.1)
+                            keyrelease(0x57)
+                        end
+                    end)
+                    wait(120)
+                end
+            end)
+            
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Anti AFK ACTIVE",
+                Duration = 3,
+                Icon = "shield-check",
+            })
+            
+        else
+            -- CLEANUP
+            for name, connection in pairs(connections) do
+                if typeof(connection) == "RBXScriptConnection" then
+                    connection:Disconnect()
+                elseif typeof(connection) == "thread" then
+                    task.cancel(connection)
+                end
+            end
+            connections = {}
+            
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Anti AFK OFF",
+                Duration = 2,
+                Icon = "x-circle",
+            })
+        end
+    end
+})
 ------- SERVER TAB
 local statuss = Server:Section({ 
     Title = "Game Status",
