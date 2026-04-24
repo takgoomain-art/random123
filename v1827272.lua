@@ -208,6 +208,8 @@ spawn(function()
     end
 end)
 
+local lastCopyTime = 0
+local copyCooldown = 2
 local id = Server:Paragraph({
     Title = "Server ID",
     Desc = game.JobId ~= "" and game.JobId or "Server ID not available.",
@@ -231,8 +233,34 @@ local id = Server:Paragraph({
     }
     
 })
+local id2 = Server:Input({
+    Title = "Server Id",
+    Desc = "Enter Server Id",
+    Value = "Default value",
+    InputIcon = "bird",
+    Type = "Input", -- or "Textarea"
+    Placeholder = "Enter ID...",
+    Callback = function(Value) 
+			getgenv().Job = Value
+        print("text entered: ")
+    end
+})
+local lastTeleportTime = 0
+local teleportCooldown = 5
+local joinn = Server:Button({
+    Title = "Join Server",
+    Desc = "Join to the server id input.",
+    Locked = false,
+    Callback = function()
+        if tick() - lastTeleportTime >= teleportCooldown then
+            lastTeleportTime = tick()
+            game:GetService("TeleportService"):TeleportToPlaceInstance(game.placeId, getgenv().Job, game.Players.LocalPlayer)        
+		end
+    end
+})
 
-
+local lastTeleportTime = 0
+local teleportCooldown = 4
 local rjoin = Server:Button({
     Title = "Rejoin Server",
     Desc = "",
