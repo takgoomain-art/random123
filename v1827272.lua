@@ -231,6 +231,9 @@ local exe = Main:Paragraph({
 })
 
 ------- PLAYER TAB
+local WalkSpeedEnabled = false
+local WalkSpeedValue = 16
+
 local speed = lp:Slider({
     Title = "Walkspeed",
     Desc = "Set walkspeed value",
@@ -253,8 +256,6 @@ local speed = lp:Slider({
     end
 })
 
-local WalkSpeedEnabled = false
-local WalkSpeedValue = 16
 local WsV = lp:Toggle({
     Title = "Enable Walkspeed",
     Desc = "",
@@ -271,6 +272,9 @@ local WsV = lp:Toggle({
         print("Toggle Activated")
     end
 })
+
+local JumpHeightEnabled = false
+local JumpHeightValue = 50  -- Default Jump Power
 
 local jumpp = lp:Slider({
     Title = "Jump Height",
@@ -294,8 +298,6 @@ local jumpp = lp:Slider({
     end
 })
 
-local JumpHeightEnabled = false
-local JumpHeightValue = 50  -- Default Jump Power
 local jumpH = lp:Toggle({
     Title = "Enable Jump Height",
     Desc = "",
