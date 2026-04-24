@@ -231,6 +231,9 @@ local exe = Main:Paragraph({
 })
 
 ------- PLAYER TAB
+local lpS = lp:Section({
+	Title = "Player Movement",
+})
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
@@ -325,6 +328,51 @@ if player.Character and player.Character:FindFirstChild("Humanoid") then
     updateWalkSpeed()
     updateJumpPower()
 end
+
+-- Add mo to sa Player tab (lp) kasama ng Walkspeed/JumpPower mo
+
+local InfiniteJumpEnabled = false
+local UserInputService = game:GetService("UserInputService")
+local player = game.Players.LocalPlayer
+
+-- INFINITE JUMP TOGGLE
+local infJumpToggle = lp:Toggle({
+    Title = "Inf Jump",
+    Desc = "",
+    Value = false,
+    Callback = function(Value)
+        InfiniteJumpEnabled = Value
+        
+        if Value then
+            print("🦘 Infinite Jump ON")
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Infinite Jump Enabled!",
+                Duration = 4,
+                Icon = "arrow-up",
+            })
+        else
+            print("🦘 Infinite Jump OFF")
+        end
+    end
+})
+
+-- INFINITE JUMP LOGIC
+UserInputService.JumpRequest:Connect(function()
+    if InfiniteJumpEnabled then
+        local character = player.Character
+        if character and character:FindFirstChild("Humanoid") then
+            -- Method 1: Direct jump
+            character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+            
+            -- Method 2: Velocity boost
+            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+            if humanoidRootPart then
+                humanoidRootPart.Velocity = Vector3.new(0, 50, 0)
+            end
+        end
+    end
+end)
 ------- SERVER TAB
 local statuss = Server:Section({ 
     Title = "Game Status",
