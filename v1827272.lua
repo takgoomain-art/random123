@@ -211,7 +211,7 @@ local exesect = Main:Section({
 
 local exe = Main:Paragraph({
     Title = "Executor:",
-    Desc = executorName -= "" and executorName or "Unable to detect executor..",
+    Desc = executorName ~= "" and executorName or "Unable to detect executor..",
     --Color = "Red",
     --Image = "",
     --ImageSize = 30,
