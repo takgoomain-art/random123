@@ -568,7 +568,83 @@ local rtg = Script:Paragraph({
     }
     ]]
 })
-end
 
+
+local ynotjoi2n = Script:Button({
+    Title = "Join Game",
+    Desc = "Join in Restaurant Tycoon 2.",
+    Locked = false,
+    Callback = function()
+        -- Extract PlaceId from URL (119048529960596)
+        local placeId = 3398014311
+        
+        -- Method 1: TeleportService (Recommended)
+        local success, err = pcall(function()
+            game:GetService("TeleportService"):Teleport(placeId, game.Players.LocalPlayer)
+        end)
+        
+        if success then
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Teleporting to the game... Please wait!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+            print("🚀 Teleporting to Restaurant Tycoon 2...")
+        else
+            warn("❌ Teleport failed: " .. tostring(err))
+        end
+        
+        -- Method 2: Fallback (Copy Link)
+        if not success then
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Failed to join, please try again later!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+            print("📋 Game link copied to clipboard!")
+        end
+    end
+})
+
+local ynotjoin = Script:Button({
+    Title = "Join Game",
+    Desc = "Join in Restaurant Tycoon 3.",
+    Locked = false,
+    Callback = function()
+        -- Extract PlaceId from URL (119048529960596)
+        local placeId = 119048529960596
+        
+        -- Method 1: TeleportService (Recommended)
+        local success, err = pcall(function()
+            game:GetService("TeleportService"):Teleport(placeId, game.Players.LocalPlayer)
+        end)
+        
+        if success then
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Teleporting to the game... Please wait!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+            print("🚀 Teleporting to Restaurant Tycoon 3...")
+        else
+            warn("❌ Teleport failed: " .. tostring(err))
+        end
+        
+        -- Method 2: Fallback (Copy Link)
+        if not success then
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Failed to join, please try again later!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+            print("📋 Game link copied to clipboard!")
+        end
+		end
+})
+end -- else end 
 print("Loaded every function of the script...")
 print("Refreshing the system....")
