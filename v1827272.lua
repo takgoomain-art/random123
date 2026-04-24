@@ -225,6 +225,7 @@ local id = Server:Paragraph({
 				if tick() - lastCopyTime >= copyCooldown then
             lastCopyTime = tick()
             setclipboard(tostring(game.JobId))
+					end
 				end,
         }
     }
