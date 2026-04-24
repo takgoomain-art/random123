@@ -229,6 +229,89 @@ local exe = Main:Paragraph({
     }
     ]]
 })
+
+------- PLAYER TAB
+local speed = lp:Slider({
+    Title = "Walkspeed",
+    Desc = "Set walkspeed value",
+    
+    -- To make float number supported, 
+    -- make the Step a float number.
+    -- example: Step = 0.1
+    Step = 1,
+    Value = {
+        Min = 16,
+        Max = 500,
+        Default = 16,
+    },
+    Callback = function(Value)
+			WalkSpeedValue = Value
+        if WalkSpeedEnabled then
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+			end
+        print("sliderrr")
+    end
+})
+
+local WalkSpeedEnabled = false
+local WalkSpeedValue = 16
+local WsV = lp:Toggle({
+    Title = "Enable Walkspeed",
+    Desc = "",
+    Icon = "",
+    Type = "Checkbox",
+    Value = false, -- default value
+    Callback = function(Value) 
+			        WalkSpeedEnabled = Value
+        if Value then
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeedValue
+        else
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+			end
+        print("Toggle Activated")
+    end
+})
+
+local jumpp = lp:Slider({
+    Title = "Jump Height",
+    Desc = "Set jump height value",
+    
+    -- To make float number supported, 
+    -- make the Step a float number.
+    -- example: Step = 0.1
+    Step = 1,
+    Value = {
+        Min = 50,
+        Max = 120,
+        Default = 50,
+    },
+    Callback = function(Value)
+			JumpHeightValue = Value
+        if JumpHeightEnabled then
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+			end
+        print("Slider Active")
+    end
+})
+
+local JumpHeightEnabled = false
+local JumpHeightValue = 50  -- Default Jump Power
+local jumpH = lp:Toggle({
+    Title = "Enable Jump Height",
+    Desc = "",
+    Icon = "",
+    Type = "Checkbox",
+    Value = false, -- default value
+    Callback = function(Value) 
+			        JumpHeightEnabled = Value
+        if Value then
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = JumpHeightValue
+        else
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+			end
+        print("Toggle Activated")
+    end
+})
 ------- SERVER TAB
 local statuss = Server:Section({ 
     Title = "Game Status",
