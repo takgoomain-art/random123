@@ -699,5 +699,22 @@ else
 })
 
 end
+
+local idkkk = More:Section({
+		Title = "More Scripts Section",
+})
+
+local fe = More:Section({
+		Title = "FE SCRIPTS",
+})
+
+local iy = More:Button({
+	Title = "🔓 Infinite Yield",
+	Desc = "",
+	Locked = false,
+	Callback = function()
+			loadstring(game:HttpGet('https://cdn.robloxscripts.gg/public/furky/furky-infinite-yield-roblox-admin-script-source.lua'))()
+		end})
+
 print("Loaded every function of the script...")
 print("Refreshing the system....")
