@@ -58,7 +58,7 @@ WindUI:Notify({
 local Section1 = Window:Section({
     Title = "Informations",
     Icon = "",
-    Opened = true,
+    Opened = false,
 })
 
 local Main = Window:Tab({
@@ -69,7 +69,7 @@ local Main = Window:Tab({
 
 local Section2 = Window:Section({
     Title = "Main",
-    Icon = "bird",
+    Icon = "",
     Opened = true,
 })
 
@@ -85,11 +85,11 @@ local More = Window:Tab({
     Locked = false,
 })
 
---[[local Section3 = Window:Section({
+local Section3 = Window:Section({
     Title = "Misc",
     Icon = "",
     Opened = true,
-})]]
+})
 
 local Settings = Window:Tab({
     Title = "Settings",
@@ -305,6 +305,10 @@ elseif RT2 then
 })
 
 else
+	local rtggg = Script:Section({
+		Title = "[👨‍🍳] Restaurant Tycoon",
+})
+	
 local rtg = Script:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in any Restaurant Tycoon game.",
