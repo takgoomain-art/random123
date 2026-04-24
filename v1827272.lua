@@ -97,6 +97,13 @@ local More = Window:Tab({
     Locked = false,
 })
 
+--[[local GameCodes = Window:Tab({
+	Title = "Game Codes",
+	Icon = "pencil",
+	Locked = false,
+})
+]]
+
 local Section3 = Window:Section({
     Title = "Misc",
     Icon = "",
