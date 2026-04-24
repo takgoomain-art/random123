@@ -176,6 +176,10 @@ local Credits = Main:Paragraph({
 })
 
 ------- SERVER TAB
+local statuss = Server:Section({ 
+    Title = "Game Status",
+})
+
 local T = Server:Paragraph({
     Title = "⏳ Game Time",
     Desc = "",
@@ -208,6 +212,10 @@ spawn(function()
     end
 end)
 
+local svv = Server:Section({ 
+    Title = "Server Status",
+})
+
 local lastCopyTime = 0
 local copyCooldown = 2
 local id = Server:Paragraph({
@@ -236,8 +244,8 @@ local id = Server:Paragraph({
 local id2 = Server:Input({
     Title = "Server Id",
     Desc = "Enter Server Id",
-    Value = "Default value",
-    InputIcon = "bird",
+    Value = "Enter ID",
+    --InputIcon = "bird",
     Type = "Input", -- or "Textarea"
     Placeholder = "Enter ID...",
     Callback = function(Value) 
@@ -410,7 +418,37 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/h
 })
     end
 })
-    
+	
+local azuree = Script:Button({
+    Title = "🔓 W-Azure",
+    Desc = "",
+    Locked = false,
+    Callback = function()   
+		loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end
+		})
+	local hohoo = Script:Button({
+    Title = "🔐 HoHo Hub",
+    Desc = "",
+    Locked = false,
+    Callback = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
+               WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end
+		})
+
+	
 else
     local blxfrt = Script:Paragraph({
     Title = "NOTICE:",
@@ -510,3 +548,6 @@ local rtg = Script:Paragraph({
     ]]
 })
 end
+
+print("Loaded every function of the script...")
+print("Refreshing the system....")
