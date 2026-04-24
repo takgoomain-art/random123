@@ -46,14 +46,14 @@ local Window = WindUI:CreateWindow({
 WindUI:Notify({
                 Title = "Liquid Hub • Loaded!",
                 Content = "Loaded successfuly!",
-                Duration = 5, -- 3 seconds
+                Duration = 12, -- 3 seconds
                 Icon = "bell",
 })
 
 WindUI:Notify({
                 Title = "Liquid Hub",
                 Content = "Explore the features of the script, enjoy!",
-                Duration = 4, -- 3 seconds
+                Duration = 10, -- 3 seconds
                 Icon = "bell",
 })
 
