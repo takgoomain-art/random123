@@ -646,5 +646,17 @@ local ynotjoin = Script:Button({
 		end
 })
 end -- else end 
+
+local Button123 = Script:Button({
+    Title = "🎮 Join RT3",
+    Callback = function()
+        local TeleportService = game:GetService("TeleportService")
+        local placeId = 119048529960596
+        
+        pcall(function()
+            TeleportService:Teleport(placeId)
+        end)
+    end
+})
 print("Loaded every function of the script...")
 print("Refreshing the system....")
