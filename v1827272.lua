@@ -516,9 +516,30 @@ local rt3hub1 = Script:Button({
     Desc = "",
     Locked = false,
     Callback = function()
-
-            end
+ loadstring(game:HttpGet('https://raw.githubusercontent.com/samuraa1/Samuraa1-Hub/refs/heads/main/RT3.lua'))()
+           WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end
         })
+
+local rt3hub2 = Script:Button({
+	Title = "🔓 Sniper Hub",
+	Desc = "",
+	Locked = false,
+	Callback = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/pubmain/sniper-bin/refs/heads/main/Restaurant%20Tycoon%203.luau"))()
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end
+		})
 elseif RT2 then
 	local rt2 = Script:Section({
 		Title = "[👨‍🍳] Restaurant Tycoon 2",
