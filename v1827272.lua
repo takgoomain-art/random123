@@ -637,6 +637,27 @@ end
 local Scripsss = Script:Section({ 
     Title = "SCRIPTS SECTION",
 })
+
+local Game = Script:Paragraph({
+    Title = "🗝️ KEY SYSTEM STATUS",
+    Desc = "🔐 - The script has a key system.\n🔓 - The script system has no key system.\n❓ - No info of key system found.",
+    Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+
+
 local MarketplaceService = game:GetService("MarketplaceService")
 
 -- Assume Server is your Fluent UI server object managing the UI
@@ -728,6 +749,45 @@ local azuree = Script:Button({
 			end
 		})
 
+	local qntmonyx = Script:Button({
+		Title = "🔓 Quantum ONYX",
+		Desc = "",
+		Locked = false,
+		Callback = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/Trustmenotcondom/QTONYX/refs/heads/main/QuantumOnyx.lua"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
+	local script222 = Script:Button({
+		Title = "🔓 Nat Hub",
+		Desc = "",
+		Locked = false,
+		Callback = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/ArdyBotzz/NatHub/refs/heads/master/bf.lua"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
+	local cokka = Script:Button({
+		Title = "🔐 Cokka Hub",
+		Desc = "",
+		Locked = false,
+		Callback = function()
+				loadstring(game:HttpGet"https://raw.githubusercontent.com/UserDevEthical/Loadstring/main/CokkaHub.lua")()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
 	
 else
     local blxfrt = Script:Paragraph({
@@ -757,7 +817,7 @@ local grow = Script:Section({
 
 if GAG then
     local idk = Script:Button({
-    Title = "🔓No Hub",
+    Title = "🔓 No Hub",
     Desc = "",
     Locked = false,
     Callback = function()
@@ -792,7 +852,7 @@ local rt3 = Script:Section({
 })
 
 local rt3hub1 = Script:Button({
-    Title = "🔓Samuraa1 Hub",
+    Title = "🔓 Samuraa1 Hub",
     Desc = "",
     Locked = false,
     Callback = function()
