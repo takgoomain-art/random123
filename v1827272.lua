@@ -569,7 +569,8 @@ local rtg = Script:Paragraph({
     ]]
 })
 
-
+--[[ WORSTTTT
+	
 local ynotjoi2n = Script:Button({
     Title = "Join Game",
     Desc = "Join in Restaurant Tycoon 2.",
@@ -657,6 +658,36 @@ local Button123 = Script:Button({
             TeleportService:Teleport(placeId)
         end)
     end
+})]]
+end -- real else end
+
+local spp = Script:Section({
+		Title = "[⛵] Sailor Piece",
 })
+
+if SailorPiece then
+	print(".")
+
+else
+	local silor = Script:Paragraph({
+    Title = "NOTICE:",
+    Desc = "You're not in Sailor Piece game.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+
+end
 print("Loaded every function of the script...")
 print("Refreshing the system....")
