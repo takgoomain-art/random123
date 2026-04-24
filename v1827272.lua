@@ -762,5 +762,5 @@ local iy = More:Button({
 
 print("Loaded every function of the script...")
 
---print("Executor Detected: " .. executorName)
+print("Executor Detected: " .. executorName)
 print("Refreshing the system....")
