@@ -7,6 +7,7 @@ print("Loading Assets.....")
 print("Loading Functions....")
 print("99.99999%")
 
+print("Detecting Executor...")
 if game.PlaceId == 126884695634066 then
     GAG = true
 elseif game.PlaceId == 4924922222 then
@@ -184,7 +185,48 @@ local Credits = Main:Paragraph({
     }
     ]]
 })
+local function detectExecutor()
+    if identifyexecutor then
+        return identifyexecutor()
+    elseif syn then
+        return "Synapse X"
+    elseif KRNL_LOADED then
+        return "KRNL"
+    elseif is_sirhurt_closure then
+        return "SirHurt"
+    elseif pebc_execute then
+        return "ProtoSmasher"
+    elseif getexecutorname then
+        return getexecutorname()
+    else
+        return "Executor Unknown"
+    end
+end
 
+local executorName = detectExecutor()
+
+local exesect = Main:Section({
+	Title = "💻 Executor Status",
+})
+
+local exe = Main:Paragraph({
+    Title = "Executor:",
+    Desc = executorName -= "" and executorName or "Unable to detect executor..",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
 ------- SERVER TAB
 local statuss = Server:Section({ 
     Title = "Game Status",
@@ -717,4 +759,6 @@ local iy = More:Button({
 		end})
 
 print("Loaded every function of the script...")
+
+print("Executor Detected: " .. executorName)
 print("Refreshing the system....")
