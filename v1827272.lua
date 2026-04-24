@@ -10,6 +10,8 @@ elseif game.PlaceId == 4924922222 then
     Brookhaven = true
 elseif game.PlaceId == 119048529960596 then
     RT3 = true
+elseif game.PlaceId == 3398014311 then
+	RT2 = true
 elseif game.PlaceId == 2753915549 then
     BloxFruits = true
 elseif game.PlaceId == 77747658251236 then
@@ -129,6 +131,7 @@ local DiscordServerParagraph = Main:Paragraph({
 			--	.. "/"
 			--	.. Response.guild.icon
 			--	.. ".png?size=1024",
+		    Thumbnail = "discord-stroke",
 			--Thumbnail = "https://cdn.discordapp.com/banners/1300692552005189632/35981388401406a4b7dffd6f447a64c4.png?size=512",
 			--ImageSize = 48,
 			Buttons = {
@@ -266,6 +269,45 @@ else
     local gagg = Script:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Grow a Garden game.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+end
+
+if RT3 then
+local rt3 = Script:Section({ 
+    Title = "[👨‍🍳] Restaurant Tycoon 3",
+})
+
+local rt3hub1 = Script:Button({
+    Title = "🔓Samuraa1 Hub",
+    Desc = "",
+    Locked = false,
+    Callback = function()
+
+            end
+        })
+elseif RT2 then
+	local rt2 = Script:Section({
+		Title = "[👨‍🍳] Restaurant Tycoon 2",
+})
+
+else
+local rtg = Script:Paragraph({
+    Title = "NOTICE:",
+    Desc = "You're not in any Restaurant Tycoon game.",
     --Color = "Red",
     --Image = "",
     --ImageSize = 30,
