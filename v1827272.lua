@@ -23,10 +23,10 @@ local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/rel
 WindUI:Popup({
     Title = "Welcome to the Liquid Hub!",
     Icon = "info",
-    Content = "Hello! Click the Continue button to access the script completely.",
+    Content = "Hello! Click the Get Started button to access the script completely.",
     Buttons = {
         {
-            Title = "Continue",
+            Title = "Get Started",
             Icon = "arrow-right",
             Callback = function() end,
             Variant = "Primary",
@@ -65,6 +65,18 @@ local Main = Window:Tab({
     Title = "Info",
     Icon = "info", -- optional
     Locked = false,
+})
+
+local lp = Window:Tab({
+	Title = "Player",
+	Icon = "user", -- optional
+	Locked = false,
+})
+
+local Server = Window:Tab({
+	Title = "Server",
+	Icon = "globe",
+	Locked = false,
 })
 
 local Section2 = Window:Section({
@@ -163,6 +175,147 @@ local Credits = Main:Paragraph({
     ]]
 })
 
+------- SERVER TAB
+local T = Server:Paragraph({
+    Title = "⏳ Game Time",
+    Desc = "",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+function UpdateTime()
+    local GameTime = math.floor(workspace.DistributedGameTime + 0.5)
+    local Hour = math.floor(GameTime / (60^2)) % 24
+    local Minute = math.floor(GameTime / (60^1)) % 60
+    local Second = math.floor(GameTime / (60^0)) % 60
+    T:SetDesc(Hour.." Hour (h) "..Minute.." Minute (m) "..Second.." Second (s) ")
+end
+spawn(function()
+    while true do
+        UpdateTime()
+        wait(1)
+    end
+end)
+
+local id = Server:Paragraph({
+    Title = "Server ID",
+    Desc = game.JobId ~= "" and game.JobId or "Server ID not available.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    Buttons = {
+        {
+            Icon = "link",
+            Title = "Copy Server ID",
+            Callback = function()
+				if tick() - lastCopyTime >= copyCooldown then
+            lastCopyTime = tick()
+            setclipboard(tostring(game.JobId))
+				end,
+        }
+    }
+    
+})
+
+
+local rjoin = Server:Button({
+    Title = "Rejoin Server",
+    Desc = "",
+    Locked = false,
+    Callback = function()
+        if tick() - lastTeleportTime >= teleportCooldown then
+            lastTeleportTime = tick()
+            game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)        
+		end
+    end
+})
+	
+local Hop = Server:Button({
+    Title = "Server Hop",
+    Desc = "",
+    Locked = false,
+    Callback = function()
+        Hop()
+    end
+})
+
+function Hop()
+    local PlaceID = game.PlaceId
+    local AllIDs = {}
+    local foundAnything = ""
+    local actualHour = os.date("!*t").hour
+    local Deleted = false
+    function TPReturner()
+        local Site;
+        if foundAnything == "" then
+            Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
+        else
+            Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
+        end        
+        local ID = ""
+        if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
+            foundAnything = Site.nextPageCursor
+        end        
+        local num = 0
+        for i,v in pairs(Site.data) do
+            local Possible = true
+            ID = tostring(v.id)            
+            if tonumber(v.maxPlayers) > tonumber(v.playing) then
+                for _,Existing in pairs(AllIDs) do
+                    if num ~= 0 then
+                        if ID == tostring(Existing) then
+                            Possible = false
+                        end
+                    else
+                        if tonumber(actualHour) ~= tonumber(Existing) then
+                            local delFile = pcall(function()
+                                AllIDs = {}
+                                table.insert(AllIDs, actualHour)
+                            end)
+                        end
+                    end
+                    num = num + 1
+                end
+                if Possible == true then
+                    table.insert(AllIDs, ID)
+                    wait(0.1)
+                    pcall(function()
+                        game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                    end)
+                    wait(1)
+                    break
+                end
+            end
+        end
+    end
+    function Teleport() 
+        while true do
+            pcall(function()
+                TPReturner()
+                if foundAnything ~= "" then
+                    TPReturner()
+                end
+            end)
+            wait(2)
+        end
+    end
+    Teleport()
+end
+	
 ------ Scripts Tab
 local Scripsss = Script:Section({ 
     Title = "SCRIPTS SECTION",
