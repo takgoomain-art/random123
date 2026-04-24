@@ -231,16 +231,33 @@ local exe = Main:Paragraph({
 })
 
 ------- PLAYER TAB
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
 local WalkSpeedEnabled = false
 local WalkSpeedValue = 16
+local JumpHeightEnabled = false
+local JumpHeightValue = 50
 
+-- FUNCTION TO UPDATE VALUES SAFELY
+local function updateWalkSpeed()
+    local character = player.Character
+    if character and character:FindFirstChild("Humanoid") then
+        character.Humanoid.WalkSpeed = WalkSpeedEnabled and WalkSpeedValue or 16
+    end
+end
+
+local function updateJumpPower()
+    local character = player.Character
+    if character and character:FindFirstChild("Humanoid") then
+        character.Humanoid.JumpPower = JumpHeightEnabled and JumpHeightValue or 50
+    end
+end
+
+-- WALKSPED SLIDER
 local speed = lp:Slider({
     Title = "Walkspeed",
     Desc = "Set walkspeed value",
-    
-    -- To make float number supported, 
-    -- make the Step a float number.
-    -- example: Step = 0.1
     Step = 1,
     Value = {
         Min = 16,
@@ -248,72 +265,66 @@ local speed = lp:Slider({
         Default = 16,
     },
     Callback = function(Value)
-			WalkSpeedValue = Value
-        if WalkSpeedEnabled then
-            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
-			end
-        print("sliderrr")
+        WalkSpeedValue = Value
+        updateWalkSpeed() -- Apply immediately
+        print("Walkspeed set to: " .. Value)
     end
 })
 
+-- WALKSPED TOGGLE
 local WsV = lp:Toggle({
     Title = "Enable Walkspeed",
     Desc = "",
-    Icon = "",
-    Type = "Checkbox",
-    Value = false, -- default value
-    Callback = function(Value) 
-			        WalkSpeedEnabled = Value
-        if Value then
-            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeedValue
-        else
-            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
-			end
-        print("Toggle Activated")
+    Value = false,
+    Callback = function(Value)
+        WalkSpeedEnabled = Value
+        updateWalkSpeed()
+        print("Walkspeed " .. (Value and "ON" or "OFF"))
     end
 })
 
-local JumpHeightEnabled = false
-local JumpHeightValue = 50  -- Default Jump Power
-
+-- JUMP POWER SLIDER
 local jumpp = lp:Slider({
     Title = "Jump Height",
     Desc = "Set jump height value",
-    
-    -- To make float number supported, 
-    -- make the Step a float number.
-    -- example: Step = 0.1
     Step = 1,
     Value = {
         Min = 50,
-        Max = 120,
+        Max = 500,
         Default = 50,
     },
     Callback = function(Value)
-			JumpHeightValue = Value
-        if JumpHeightEnabled then
-            game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
-			end
-        print("Slider Active")
+        JumpHeightValue = Value
+        updateJumpPower()
+        print("JumpPower set to: " .. Value)
     end
 })
 
+-- JUMP POWER TOGGLE
 local jumpH = lp:Toggle({
     Title = "Enable Jump Height",
     Desc = "",
-    Icon = "",
-    Type = "Checkbox",
-    Value = false, -- default value
-    Callback = function(Value) 
-			        JumpHeightEnabled = Value
-        if Value then
-            game.Players.LocalPlayer.Character.Humanoid.JumpPower = JumpHeightValue
-        else
-            game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
-			end
-        print("Toggle Activated")
+    Value = false,
+    Callback = function(Value)
+        JumpHeightEnabled = Value
+        updateJumpPower()
+        print("JumpHeight " .. (Value and "ON" or "OFF"))
     end
 })
+
+
+player.CharacterAdded:Connect(function(character)
+    character:WaitForChild("Humanoid")
+    wait(0.1)
+    updateWalkSpeed()
+    updateJumpPower()
+end)
+
+
+if player.Character and player.Character:FindFirstChild("Humanoid") then
+    updateWalkSpeed()
+    updateJumpPower()
+end
 ------- SERVER TAB
 local statuss = Server:Section({ 
     Title = "Game Status",
