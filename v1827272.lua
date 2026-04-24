@@ -73,7 +73,7 @@ end, 990)]]
 local Section1 = Window:Section({
     Title = "Informations",
     Icon = "",
-    Opened = f--alse,
+    Opened = false,
 })
 
 local Main = Section1.Window:Tab({
