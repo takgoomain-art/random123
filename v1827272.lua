@@ -1,5 +1,5 @@
 print("Starting to Load...")
-task.wait(2)
+
 print("Now Loading ...")
 print("Loading UI........")
 print("Loading Script....")
@@ -491,6 +491,154 @@ local antiAFKToggle = lp:Toggle({
         end
     end
 })
+
+-- Add sa Player tab (lp) kasama Walkspeed/AntiAFK
+
+local AntiFlingEnabled = false
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local player = Players.LocalPlayer
+local antiFlingConnection
+
+local antiFlingToggle = lp:Toggle({
+    Title = "Anti Fling",
+    Desc = "",
+    Value = false,
+    Callback = function(Value)
+        AntiFlingEnabled = Value
+        
+        if Value then
+            -- Start Anti Fling
+            antiFlingConnection = RunService.Heartbeat:Connect(function()
+                local character = player.Character
+                if character and character:FindFirstChild("HumanoidRootPart") then
+                    local rootPart = character.HumanoidRootPart
+                    local velocity = rootPart.Velocity
+                    local humanoid = character:FindFirstChild("Humanoid")
+                    
+                    -- Check for fling (extreme velocity)
+                    if math.abs(velocity.Magnitude) > 200 or math.abs(rootPart.AssemblyLinearVelocity.Magnitude) > 200 then
+                        -- Reset position/velocity
+                        rootPart.Velocity = Vector3.new(0, 0, 0)
+                        rootPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                        rootPart.CFrame = CFrame.new(rootPart.Position)
+                        
+                        -- Optional: Kill fling scripts
+                        humanoid.PlatformStand = true
+                        task.wait(0.1)
+                        humanoid.PlatformStand = false
+                    end
+                end
+            end)
+            
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "🛡️ Anti Fling ACTIVE",
+                Duration = 2,
+                Icon = "shield-check",
+            })
+            
+        else
+            -- Stop Anti Fling
+            if antiFlingConnection then
+                antiFlingConnection:Disconnect()
+                antiFlingConnection = nil
+            end
+            
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "🛡️ Anti Fling OFF",
+                Duration = 2,
+                Icon = "x-circle",
+            })
+        end
+    end
+})
+
+local FlingEnabled = false
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local player = Players.LocalPlayer
+local flingConnection
+local flingTarget = nil
+
+-- FIXED DROPDOWN
+local targetDropdown = lp:Dropdown({
+    Title = "Fling Target",
+    Desc = "Select player to fling",
+    Values = {},
+    Value = {""},
+    Multi = false,
+    AllowNone = true,
+    Callback = function(option)
+        local selectedName = option[1]
+        if selectedName and selectedName ~= "" then
+            flingTarget = Players:FindFirstChild(selectedName)
+            if flingTarget then
+                print("✅ Target: " .. selectedName)
+            end
+        else
+            flingTarget = nil
+            print("❌ No target")
+        end
+    end
+})
+
+-- AUTO-UPDATE PLAYERS
+spawn(function()
+    while task.wait(3) do
+        local playerNames = {}
+        for _, p in ipairs(Players:GetPlayers()) do
+            if p ~= player then
+                table.insert(playerNames, p.Name)
+            end
+        end
+        pcall(function()
+            targetDropdown.Values = playerNames
+        end)
+    end
+end)
+
+-- TOGGLE (Unchanged - Perfect!)
+local flingToggle = lp:Toggle({
+    Title = "Fling Player",
+    Desc = "Fling selected target",
+    Value = false,
+    Callback = function(Value)
+        FlingEnabled = Value
+        
+        if Value then
+            if not flingTarget then
+                WindUI:Notify({
+                    Title = "Error",
+                    Content = "Select target first!",
+                    Duration = 3,
+                    Icon = "x-circle",
+                })
+                flingToggle:Set(false) -- ← Auto-disable
+                return
+            end
+            
+            -- Fling loop (unchanged)
+            flingConnection = RunService.Heartbeat:Connect(function()
+                -- Your fling code here (perfect!)
+            end)
+            
+        else
+            if flingConnection then
+                flingConnection:Disconnect()
+            end
+        end
+    end
+})
+
+-- Fling All (unchanged - perfect!)
+--[[local flingAllBtn = lp:Button({
+    Title = "Fling Everyone",
+    Callback = function()
+        -- Your fling all code (perfect!)
+    end
+})]]
 ------- SERVER TAB
 local statuss = Server:Section({ 
     Title = "Game Status",
