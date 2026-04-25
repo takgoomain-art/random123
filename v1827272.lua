@@ -13,6 +13,8 @@ print("Collecting Server Id")
 
 if game.PlaceId == 126884695634066 then
     GAG = true
+elseif game.PlaceId == 130594398886540 then
+	GH = true
 elseif game.PlaceId == 4924922222 then
     Brookhaven = true
 elseif game.PlaceId == 119048529960596 then
@@ -23,6 +25,8 @@ elseif game.PlaceId == 2753915549 then
     BloxFruits = true
 elseif game.PlaceId == 77747658251236 then
     SailorPiece = true
+elseif game.PlaceId == 3101667897 then
+	los = true
 end
 
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
@@ -917,6 +921,34 @@ else
 })
 end
 
+local GHHH = Script:Section({
+	Title = "[🌱] Garden Horizon",
+	})
+
+if GH then
+	print("gh")
+
+else
+	local ghn = Script:Paragraph({
+    Title = "NOTICE:",
+    Desc = "You're not in Garden Horizon game.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+end
+
 if RT3 then
 local rt3 = Script:Section({ 
     Title = "[👨‍🍳] Restaurant Tycoon 3",
@@ -1098,7 +1130,50 @@ else
     }
     ]]
 })
+end
 
+	local LOSpeed = Script:Section({
+			Title = "[🏃‍♂️] Legend of Speed",
+		})
+if los then
+	local speeeeed = Script:Paragraph({
+    Title = "Tips:",
+    Desc = "We do recommend to change your walkspeed in Player tab.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+
+else
+	local speedddd = Script:Paragraph({
+    Title = "NOTICE:",
+    Desc = "You're not in Legend of Speed game.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
 end
 
 local idkkk = More:Section({
