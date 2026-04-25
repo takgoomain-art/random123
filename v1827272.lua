@@ -562,7 +562,7 @@ local LocalPlayer = Players.LocalPlayer
 local flingConnection
 local flingTarget = nil
 
--- 1. GetPlayerNames function
+-- 1. GetPlayerNames
 local function GetPlayerNames()
     local playerNames = {}
     for _, player in ipairs(Players:GetPlayers()) do
@@ -573,14 +573,14 @@ local function GetPlayerNames()
     return playerNames
 end
 
--- 2. UpdatePlayers function  
+-- 2. UpdatePlayers
 local function UpdatePlayers()
     local newPlayers = GetPlayerNames()
     targetDropdown.Values = newPlayers
-    print("Updated " .. #newPlayers .. " players")
+    print("Loaded players:", table.concat(newPlayers, ", "))
 end
 
--- 3. DROPDOWN
+-- 3. DROPDOWN (FIXED)
 local targetDropdown = lp:Dropdown({
     Title = "Fling Target",
     Desc = "Select player to fling",
@@ -590,85 +590,108 @@ local targetDropdown = lp:Dropdown({
     AllowNone = true,
     Callback = function(option)
         local selectedName = option[1]
+        print("DROPDOWN SELECTED:", selectedName) -- DEBUG
+        
         if selectedName and selectedName ~= "" then
             flingTarget = Players:FindFirstChild(selectedName)
-            print("Target selected: " .. selectedName)
+            if flingTarget then
+                print("✅ TARGET FOUND:", flingTarget.Name, "Character:", flingTarget.Character ~= nil)
+                WindUI:Notify({
+                    Title = "Target Set",
+                    Content = flingTarget.Name,
+                    Duration = 2,
+                })
+            else
+                print("❌ PLAYER NOT FOUND:", selectedName)
+                flingTarget = nil
+            end
         else
+            print("No selection")
             flingTarget = nil
-            print("No target selected")
         end
     end
 })
 
 -- 4. REFRESH BUTTON
 lp:Button({
-    Title = "Update Player's List",
+    Title = "🔄 Refresh Players",
     Callback = UpdatePlayers
 })
 
--- 5. 🔥 FLING TOGGLE (ACTIVATION!)
+-- 5. FLING TOGGLE (ENHANCED CHECKS)
 local flingToggle = lp:Toggle({
-    Title = "Fling Selected Player",
-    Desc = "Activate fling on selected target",
+    Title = "💥 START FLING",
     Value = false,
     Callback = function(Value)
         FlingEnabled = Value
+        print("TOGGLE:", Value, "Target:", flingTarget and flingTarget.Name) -- DEBUG
         
         if Value then
-            -- CHECK IF TARGET SELECTED
-            if not flingTarget or not flingTarget.Character then
-                WindUI:Notify({
-                    Title = "❌ No Target",
-                    Content = "Select player first!",
-                    Duration = 3,
-                    Icon = "x-circle",
-                })
-                flingToggle:Set(false) -- Auto turn off
+            -- DETAILED TARGET CHECK
+            if not flingTarget then
+                print("❌ NO TARGET SET")
+                WindUI:Notify({Title = "❌ Error", Content = "No target selected!", Duration = 3})
+                flingToggle:Set(false)
                 return
             end
             
-            -- START FLING LOOP
+            if not flingTarget.Parent then
+                print("❌ TARGET DISCONNECTED")
+                WindUI:Notify({Title = "❌ Error", Content = "Target left server!", Duration = 3})
+                flingToggle:Set(false)
+                return
+            end
+            
+            if not flingTarget.Character then
+                print("❌ NO CHARACTER")
+                WindUI:Notify({Title = "❌ Error", Content = "Target has no character!", Duration = 3})
+                flingToggle:Set(false)
+                return
+            end
+            
+            local targetRoot = flingTarget.Character:FindFirstChild("HumanoidRootPart")
+            if not targetRoot then
+                print("❌ NO HUMANOIDROOTPART")
+                WindUI:Notify({Title = "❌ Error", Content = "Target invalid!", Duration = 3})
+                flingToggle:Set(false)
+                return
+            end
+            
+            print("✅ ALL CHECKS PASSED - STARTING FLING")
+            
+            -- FLING LOOP
             flingConnection = RunService.Heartbeat:Connect(function()
                 if FlingEnabled and flingTarget and flingTarget.Character then
                     local targetRoot = flingTarget.Character:FindFirstChild("HumanoidRootPart")
                     local myRoot = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
                     
                     if targetRoot and myRoot then
-                        -- FLING METHODS
-                        targetRoot.CFrame = myRoot.CFrame * CFrame.new(math.random(-5,5), 10, math.random(-5,5))
-                        targetRoot.Velocity = Vector3.new(
-                            math.random(-400, 400),
-                            math.random(300, 600),
-                            math.random(-400, 400)
-                        )
-                        targetRoot.AngularVelocity = Vector3.new(50, 50, 50)
+                        print("FLINGING...") -- DEBUG
+                        targetRoot.CFrame = myRoot.CFrame * CFrame.new(0, 5, -10)
+                        targetRoot.Velocity = Vector3.new(math.random(-300,300), 400, math.random(-300,300))
                     end
                 end
             end)
             
             WindUI:Notify({
-                Title = "💥 FLING ACTIVE",
-                Content = "Flinging " .. flingTarget.Name,
+                Title = "💥 FLINGING",
+                Content = flingTarget.Name,
                 Duration = 3,
                 Icon = "zap",
             })
             
         else
-            -- STOP FLING
             if flingConnection then
                 flingConnection:Disconnect()
                 flingConnection = nil
             end
-            WindUI:Notify({
-                Title = "⏹️ Fling Stopped",
-                Duration = 2,
-            })
         end
     end
 })
 
--- Initial load
+-- Initial setup
 UpdatePlayers()
+
 -- Fling All (unchanged - perfect!)
 --[[local flingAllBtn = lp:Button({
     Title = "Fling Everyone",
