@@ -1,5 +1,5 @@
 print("Starting to Load...")
-
+task.wait(2)
 print("Now Loading ...")
 print("Loading UI........")
 print("Loading Script....")
@@ -76,7 +76,7 @@ end, 990)
 local Section1 = Window:Section({
     Title = "Informations",
     Icon = "",
-    Opened = false,
+    Opened = true,
 })
 
 local Main = Section1:Tab({
@@ -600,7 +600,26 @@ local rjoin = Server:Button({
 		end
     end
 })
-	
+
+function Hop()
+    WindUI:Notify({Title = "Hopping...", Content = "Finding servers...", Duration = 2})
+    
+    -- Get first page only (FAST)
+    local servers = game:GetService("HttpService"):JSONDecode(
+        game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=50")
+    ).data
+    
+    for _, server in ipairs(servers) do
+        if server.playing < server.maxPlayers * 0.8 then
+            game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, server.id)
+            return
+        end
+    end
+    
+    -- Fallback
+    game:GetService("TeleportService"):Teleport(game.PlaceId)
+end
+
 local Hop = Server:Button({
     Title = "Server Hop",
     Desc = "",
@@ -610,68 +629,7 @@ local Hop = Server:Button({
     end
 })
 
-function Hop()
-    local PlaceID = game.PlaceId
-    local AllIDs = {}
-    local foundAnything = ""
-    local actualHour = os.date("!*t").hour
-    local Deleted = false
-    function TPReturner()
-        local Site;
-        if foundAnything == "" then
-            Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
-        else
-            Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
-        end        
-        local ID = ""
-        if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
-            foundAnything = Site.nextPageCursor
-        end        
-        local num = 0
-        for i,v in pairs(Site.data) do
-            local Possible = true
-            ID = tostring(v.id)            
-            if tonumber(v.maxPlayers) > tonumber(v.playing) then
-                for _,Existing in pairs(AllIDs) do
-                    if num ~= 0 then
-                        if ID == tostring(Existing) then
-                            Possible = false
-                        end
-                    else
-                        if tonumber(actualHour) ~= tonumber(Existing) then
-                            local delFile = pcall(function()
-                                AllIDs = {}
-                                table.insert(AllIDs, actualHour)
-                            end)
-                        end
-                    end
-                    num = num + 1
-                end
-                if Possible == true then
-                    table.insert(AllIDs, ID)
-                    wait(0.1)
-                    pcall(function()
-                        game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
-                    end)
-                    wait(1)
-                    break
-                end
-            end
-        end
-    end
-    function Teleport() 
-        while true do
-            pcall(function()
-                TPReturner()
-                if foundAnything ~= "" then
-                    TPReturner()
-                end
-            end)
-            wait(2)
-        end
-    end
-    Teleport()
-end
+
 	
 ------ Scripts Tab
 local Scripsss = Script:Section({ 
