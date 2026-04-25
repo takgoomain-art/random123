@@ -212,7 +212,7 @@ local DiscordServerParagraph = Main:Paragraph({
 			--	.. "/"
 			--	.. Response.guild.icon
 			--	.. ".png?size=1024",
-		    Thumbnail = "discord-stroke",
+		    Thumbnail = "https://cdn.discordapp.com/attachments/1370249607405244416/1497554322072797284/75100e24-bbd5-4052-8404-32c4c31ecc1a.jpg?ex=69edf1a5&is=69eca025&hm=dfaf406b4df410cf62a3c1c6c3bcef8e49cc768079dfbe23ce6c00f9997a0633&",
 			--Thumbnail = "https://cdn.discordapp.com/banners/1300692552005189632/35981388401406a4b7dffd6f447a64c4.png?size=512",
 			--ImageSize = 48,
 			Buttons = {
