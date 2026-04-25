@@ -76,19 +76,19 @@ local Section1 = Window:Section({
     Opened = false,
 })
 
-local Main = Window:Tab({
+local Main = Section1:Tab({
     Title = "Info",
     Icon = "info", -- optional
     Locked = false,
 })
 
-local lp = Window:Tab({
+local lp = Section1:Tab({
 	Title = "Player",
 	Icon = "user", -- optional
 	Locked = false,
 })
 
-local Server = Window:Tab({
+local Server = Section1:Tab({
 	Title = "Server",
 	Icon = "globe",
 	Locked = false,
@@ -100,13 +100,13 @@ local Section2 = Window:Section({
     Opened = true,
 })
 
-local Script = Window:Tab({
+local Script = Section2:Tab({
     Title = "Scripts",
     Icon = "bird", -- optional
     Locked = false,
 })
 
-local More = Window:Tab({
+local More = Section2:Tab({
     Title = "More Scripts",
     Icon = "bird", -- optional
     Locked = false,
@@ -125,7 +125,7 @@ local Section3 = Window:Section({
     Opened = true,
 })
 
-local Settings = Window:Tab({
+local Settings = Section3:Tab({
     Title = "Settings",
     Icon = "settings", -- optional
     Locked = false,
@@ -138,15 +138,17 @@ local Info = Main:Section({
     Title = "Liquid Hub Intro",
 })
 
-Main:Section({
+Info:Space({ Columns = 3 })
+
+Info:Section({
 		Title = "What is Liquid Hub?",
 		TextSize = 20,
 		FontWeight = Enum.FontWeight.SemiBold,
 	})
 
-	Main:Space()
+	Info:Space()
 
-	Main:Section({
+	Info:Section({
 		Title = "Liquid Hub is a universal hub where you can find different scripts in different games! Use it and power-up your multi-tasking script.\nHappy Scripting!",
 		TextSize = 14,
 		TextTransparency = 0.35,
