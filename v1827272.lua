@@ -926,7 +926,13 @@ local GHHH = Script:Section({
 	})
 
 if GH then
-	print("gh")
+	local winddhub = Script:Button({
+			Title = "🔓 Wind Hub",
+			Desc = "",
+			Locked = false,
+			Callback = function()
+				loadstring(game:HttpGet('https://raw.githubusercontent.com/Maanaaaa/WindHub/refs/heads/main/MainScript.luau'))()
+			end})
 
 else
 	local ghn = Script:Paragraph({
