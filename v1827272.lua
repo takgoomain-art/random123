@@ -1074,36 +1074,6 @@ local iy = More:Button({
 
 ----------- SETTINGS TAB
 
-local Themes = {}
-local ThemesModule = WindUI.Themes
-for _ThemeName, ThemeData in pairs(ThemesModule) do
-	table.insert(Themes, _ThemeName)
-end
-
-Settings:Section({
-	Title = "Theme Settings",
-	Desc = "Customize your UI theme",
-})
-
-Settings:Space({ Columns = 2 })
-
-local CachedPRData = {}
-local Remote = ReplicatedStorage:WaitForChild("GetPullRequestData")
-
-Settings:Dropdown({
-	Title = "Select Theme",
-	Value = ThemeName,
-	Values = Themes,
-	Callback = function(value)
-		ThemeName = value
-		--Window:SetTitle("Theme '" .. ThemeName .. "'")
-		WindUI:SetTheme(ThemeName)
-		WindUI:Notify({
-			Title = "Theme Changed",
-			Content = "Now using " .. ThemeName .. " theme",
-				end
-		})
-			
 Settings:Button({
 		Title = "Destroy Window UI",
 		Color = Color3.fromHex("#ff4830"),
