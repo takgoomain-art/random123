@@ -1,3 +1,11 @@
+--[[
+
+Welcome, Skidders! You've come here, we're glad.
+So it means our obfuscator or security is weak?
+
+]]
+
+
 print("Starting to Load...")
 
 print("Now Loading ...")
@@ -29,6 +37,21 @@ elseif game.PlaceId == 3101667897 then
 	los = true
 end
 
+--[[ 
+
+== GAME SUMMARY ==
+GAG = Grow a Garden
+GH  = Garden Horizon
+BH  = Brookhaven RP
+RT3 = Restaurant Tycoon 3
+RT2 = Restaurant Tycoon 2
+BF  = Blox Fruits
+SP  = Sailor Piece
+los = Legend of Speed
+
+Tab: Script Tab
+
+]]
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
 
