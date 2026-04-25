@@ -76,19 +76,19 @@ local Section1 = Window:Section({
     Opened = false,
 })
 
-local Main = Section1.Window:Tab({
+local Main = Window:Tab({
     Title = "Info",
     Icon = "info", -- optional
     Locked = false,
 })
 
-local lp = Section1.Window:Tab({
+local lp = Window:Tab({
 	Title = "Player",
 	Icon = "user", -- optional
 	Locked = false,
 })
 
-local Server = Section1.Window:Tab({
+local Server = Window:Tab({
 	Title = "Server",
 	Icon = "globe",
 	Locked = false,
@@ -100,13 +100,13 @@ local Section2 = Window:Section({
     Opened = true,
 })
 
-local Script = Section2.Window:Tab({
+local Script = Window:Tab({
     Title = "Scripts",
     Icon = "bird", -- optional
     Locked = false,
 })
 
-local More = Section2.Window:Tab({
+local More = Window:Tab({
     Title = "More Scripts",
     Icon = "bird", -- optional
     Locked = false,
@@ -125,7 +125,7 @@ local Section3 = Window:Section({
     Opened = true,
 })
 
-local Settings = Section3.Window:Tab({
+local Settings = Window:Tab({
     Title = "Settings",
     Icon = "settings", -- optional
     Locked = false,
@@ -1055,6 +1055,19 @@ local iy = More:Button({
 	Callback = function()
 			loadstring(game:HttpGet('https://cdn.robloxscripts.gg/public/furky/furky-infinite-yield-roblox-admin-script-source.lua'))()
 		end})
+
+----------- SETTINGS TAB
+
+Settings:Button({
+		Title = "Destroy Window UI",
+		Color = Color3.fromHex("#ff4830"),
+		Justify = "Center",
+		Icon = "shredder",
+		IconAlign = "Left",
+		Callback = function()
+			Window:Destroy()
+		end,
+	})
 
 print("Loaded every function of the script...")
 
