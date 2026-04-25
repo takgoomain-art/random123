@@ -558,15 +558,33 @@ local antiFlingToggle = lp:Toggle({
 local FlingEnabled = false
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
-local player = Players.LocalPlayer
+local LocalPlayer = Players.LocalPlayer
 local flingConnection
 local flingTarget = nil
 
--- FIXED DROPDOWN
+-- 1. GetPlayerNames function
+local function GetPlayerNames()
+    local playerNames = {}
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player.Name ~= LocalPlayer.Name then
+            table.insert(playerNames, player.Name)
+        end
+    end
+    return playerNames
+end
+
+-- 2. UpdatePlayers function  
+local function UpdatePlayers()
+    local newPlayers = GetPlayerNames()
+    targetDropdown.Values = newPlayers
+    print("Updated " .. #newPlayers .. " players")
+end
+
+-- 3. DROPDOWN
 local targetDropdown = lp:Dropdown({
     Title = "Fling Target",
     Desc = "Select player to fling",
-    Values = {},
+    Values = GetPlayerNames(),
     Value = {""},
     Multi = false,
     AllowNone = true,
@@ -574,64 +592,83 @@ local targetDropdown = lp:Dropdown({
         local selectedName = option[1]
         if selectedName and selectedName ~= "" then
             flingTarget = Players:FindFirstChild(selectedName)
-            if flingTarget then
-                print("✅ Target: " .. selectedName)
-            end
+            print("Target selected: " .. selectedName)
         else
             flingTarget = nil
-            print("❌ No target")
+            print("No target selected")
         end
     end
 })
 
--- AUTO-UPDATE PLAYERS
-spawn(function()
-    while task.wait(3) do
-        local playerNames = {}
-        for _, p in ipairs(Players:GetPlayers()) do
-            if p ~= player then
-                table.insert(playerNames, p.Name)
-            end
-        end
-        pcall(function()
-            targetDropdown.Values = playerNames
-        end)
-    end
-end)
+-- 4. REFRESH BUTTON
+lp:Button({
+    Title = "Update Player's List",
+    Callback = UpdatePlayers
+})
 
--- TOGGLE (Unchanged - Perfect!)
+-- 5. 🔥 FLING TOGGLE (ACTIVATION!)
 local flingToggle = lp:Toggle({
-    Title = "Fling Player",
-    Desc = "Fling selected target",
+    Title = "Fling Selected Player",
+    Desc = "Activate fling on selected target",
     Value = false,
     Callback = function(Value)
         FlingEnabled = Value
         
         if Value then
-            if not flingTarget then
+            -- CHECK IF TARGET SELECTED
+            if not flingTarget or not flingTarget.Character then
                 WindUI:Notify({
-                    Title = "Error",
-                    Content = "Select target first!",
+                    Title = "❌ No Target",
+                    Content = "Select player first!",
                     Duration = 3,
                     Icon = "x-circle",
                 })
-                flingToggle:Set(false) -- ← Auto-disable
+                flingToggle:Set(false) -- Auto turn off
                 return
             end
             
-            -- Fling loop (unchanged)
+            -- START FLING LOOP
             flingConnection = RunService.Heartbeat:Connect(function()
-                -- Your fling code here (perfect!)
+                if FlingEnabled and flingTarget and flingTarget.Character then
+                    local targetRoot = flingTarget.Character:FindFirstChild("HumanoidRootPart")
+                    local myRoot = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                    
+                    if targetRoot and myRoot then
+                        -- FLING METHODS
+                        targetRoot.CFrame = myRoot.CFrame * CFrame.new(math.random(-5,5), 10, math.random(-5,5))
+                        targetRoot.Velocity = Vector3.new(
+                            math.random(-400, 400),
+                            math.random(300, 600),
+                            math.random(-400, 400)
+                        )
+                        targetRoot.AngularVelocity = Vector3.new(50, 50, 50)
+                    end
+                end
             end)
             
+            WindUI:Notify({
+                Title = "💥 FLING ACTIVE",
+                Content = "Flinging " .. flingTarget.Name,
+                Duration = 3,
+                Icon = "zap",
+            })
+            
         else
+            -- STOP FLING
             if flingConnection then
                 flingConnection:Disconnect()
+                flingConnection = nil
             end
+            WindUI:Notify({
+                Title = "⏹️ Fling Stopped",
+                Duration = 2,
+            })
         end
     end
 })
 
+-- Initial load
+UpdatePlayers()
 -- Fling All (unchanged - perfect!)
 --[[local flingAllBtn = lp:Button({
     Title = "Fling Everyone",
