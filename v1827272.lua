@@ -1005,12 +1005,26 @@ local rt3hub3 = Script:Button({
 		Callback = function()
              loadstring(game:HttpGet("https://raw.githubusercontent.com/BaconBossScript/BeeconHub/main/BeeconHub"))()
 			end})
-			
+
+local rt3hub4 = Script:Button({
+		Title = "🔐 Seisen Hub",
+		Desc = "",
+		Locked = false, 
+		Callback = function()
+			loadstring(game:HttpGet("https://api.junkie-development.de/api/v1/luascripts/public/8ac2e97282ac0718aeeb3bb3856a2821d71dc9e57553690ab508ebdb0d1569da/download"))()
+			end})
+
 elseif RT2 then
 	local rt2 = Script:Section({
 		Title = "[👨‍🍳] Restaurant Tycoon 2",
 })
-
+local rt2hub1 = Script:Button({
+		Title = "❓ Miwazen",
+		Desc = "",
+		Locked = false,
+		Callback = function()
+			loadstring(game:HttpGet("https://restaurant.liverzmods.workers.dev"))();
+			end})
 else
 	local rtggg = Script:Section({
 		Title = "[👨‍🍳] Restaurant Tycoon",
