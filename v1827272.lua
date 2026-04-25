@@ -997,6 +997,15 @@ local rt3hub2 = Script:Button({
 })
 			end
 		})
+
+local rt3hub3 = Script:Button({
+		Title = "🔐 Beecon Hub",
+		Desc = "",
+		Locked = false,
+		Callback = function()
+             loadstring(game:HttpGet("https://raw.githubusercontent.com/BaconBossScript/BeeconHub/main/BeeconHub"))()
+			end})
+			
 elseif RT2 then
 	local rt2 = Script:Section({
 		Title = "[👨‍🍳] Restaurant Tycoon 2",
