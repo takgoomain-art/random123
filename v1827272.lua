@@ -4,10 +4,12 @@ print("Now Loading ...")
 print("Loading UI........")
 print("Loading Script....")
 print("Loading Assets.....")
+print("Loading Tabs..")
 print("Loading Functions....")
 print("99.99999%")
 
 print("Detecting Executor...")
+print("Collecting Server Id")
 
 if game.PlaceId == 126884695634066 then
     GAG = true
@@ -132,6 +134,7 @@ local Settings = Section3:Tab({
     Locked = false,
 })
 
+print("Tabs Loaded")
 
 --- MAIN INFO
 
@@ -380,6 +383,12 @@ local infJumpToggle = lp:Toggle({
             })
         else
             print("🦘 Infinite Jump OFF")
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Infinite Jump Disabled!",
+                Duration = 4,
+                Icon = "arrow-down",
+            })
         end
     end
 })
@@ -548,6 +557,10 @@ local id = Server:Paragraph({
     }
     
 })
+
+print("Server Id Collected")
+print("Server Id: " .. game.JobId)
+
 local id2 = Server:Input({
     Title = "Server Id",
     Desc = "Enter Server Id",
