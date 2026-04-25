@@ -1221,6 +1221,17 @@ local lightingToggle = Settings:Toggle({
 })
 
 Settings:Button({
+		Title = "PShader Custom Lighting",
+		Desc = "Loads PShader Lighting script",
+		Callback = function()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/takgoomain-art/random123/refs/heads/main/shader.lua"))()
+
+		end})
+
+Settings:Section({
+		Title = "UI",
+	})
+Settings:Button({
 		Title = "Destroy Window UI",
 		Color = Color3.fromHex("#ff4830"),
 		Justify = "Center",
