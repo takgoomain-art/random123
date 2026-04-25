@@ -61,14 +61,15 @@ WindUI:Notify({
                 Icon = "bell",
 })
 
---[[Window:CreateTopbarButton("theme-switcher", "moon", function()
+WindUI:SetTheme("Dark")
+Window:CreateTopbarButton("theme-switcher", "moon", function()
     WindUI:SetTheme(WindUI:GetCurrentTheme() == "Dark" and "Light" or "Dark")
     WindUI:Notify({
         Title = "Theme Changed",
         Content = "Current theme: "..WindUI:GetCurrentTheme(),
         Duration = 2
     })
-end, 990)]]
+end, 990)
 ------ TABS
 local Section1 = Window:Section({
     Title = "Informations",
