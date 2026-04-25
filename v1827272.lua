@@ -899,6 +899,14 @@ if GAG then
 
             end
         })
+	
+	local ronix = Script:Button({
+		Title = "🔐 Ronix Hub",
+		Desc = "",
+		Locked = false,
+		Callback = function()
+				loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/fda9babd071d6b536a745774b6bc681c.lua"))()
+			end})
 
 else
     local gagg = Script:Paragraph({
