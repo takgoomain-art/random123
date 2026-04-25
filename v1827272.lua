@@ -138,7 +138,21 @@ local Info = Main:Section({
     Title = "Liquid Hub Intro",
 })
 
-local WC = Main:Paragraph({
+Main:Section({
+		Title = "What is Liquid Hub?",
+		TextSize = 20,
+		FontWeight = Enum.FontWeight.SemiBold,
+	})
+
+	Main:Space()
+
+	Main:Section({
+		Title = "Liquid Hub is a universal hub where you can find different scripts in different games! Use it and power-up your multi-tasking script.\nHappy Scripting!",
+		TextSize = 14,
+		TextTransparency = 0.35,
+		FontWeight = Enum.FontWeight.Medium,
+	})
+--[[local WC = Main:Paragraph({
     Title = "Warmest Greetings!",
     Desc = "Liquid Hub is a script where you can find anything.\nEnjoy and have fun while using our script!\n Happy Scriping!",
     --Color = "Red",
@@ -154,9 +168,9 @@ local WC = Main:Paragraph({
             Callback = function() print("1 Button") end,
         }
     }
-    ]]
+    
 })
-
+]]
 local DiscordServerParagraph = Main:Paragraph({
 			Title = "Liquid Hub | Community",
 			Desc = "Join to our Discord Community!!",
