@@ -1120,6 +1120,7 @@ local iy = More:Button({
 ----------- SETTINGS TAB
 
 -- Simple one-toggle lighting (Player/Settings tab)
+-- Simple one-toggle lighting (Player/Settings tab)
 
 local Lighting = game:GetService("Lighting")
 local StarterGui = game:GetService("StarterGui")
@@ -1127,8 +1128,8 @@ local effects = {}
 local vignetteGui = nil
 
 local lightingToggle = Settings:Toggle({
-    Title = "RTX Summer Lighting",
-	Desc = "Enabling this could cause serious lag on some devices.",
+    Title = "RTX Summer Lighting [BETA]",
+    Desc = "Enabling this could cause serious lag on some device.",
     Value = false,
     Callback = function(Value)
         if Value then
@@ -1185,21 +1186,36 @@ local lightingToggle = Settings:Toggle({
             WindUI:Notify({Title = "🌅", Content = "Lighting ON", Duration = 2})
             
         else
-            -- CLEANUP
-            for _, effect in pairs(effects) do
-                if effect then effect:Destroy() end
+            -- 🔥 COMPLETE ROBLOX RESET
+            for _, obj in pairs(Lighting:GetChildren()) do
+                if obj:IsA("PostEffect") or obj:IsA("Sky") or obj:IsA("Atmosphere") then
+                    obj:Destroy()
+                end
             end
-            if vignetteGui then vignetteGui:Destroy() end
+            
+            if vignetteGui then
+                vignetteGui:Destroy()
+                vignetteGui = nil
+            end
             
             effects = {}
-            vignetteGui = nil
             
-            -- Reset Lighting
-            Lighting.Ambient = Color3.fromRGB(0,0,0)
+            -- FULL DEFAULT RESET
+            Lighting:ClearAllChildren()
+            Lighting.Ambient = Color3.fromRGB(0, 0, 0)
             Lighting.Brightness = 1
+            Lighting.ColorShift_Bottom = Color3.fromRGB(0, 0, 0)
+            Lighting.ColorShift_Top = Color3.fromRGB(0, 0, 0)
+            Lighting.EnvironmentDiffuseScale = 1
+            Lighting.EnvironmentSpecularScale = 1
             Lighting.GlobalShadows = false
+            Lighting.OutdoorAmbient = Color3.fromRGB(127, 127, 127)
+            Lighting.ShadowSoftness = 1
+            Lighting.ClockTime = 14
+            Lighting.GeographicLatitude = 0
+            Lighting.ExposureCompensation = 0
             
-            WindUI:Notify({Title = "🌅", Content = "Lighting OFF", Duration = 2})
+            WindUI:Notify({Title = "✅", Content = "Lighting FULLY Reset", Duration = 2})
         end
     end
 })
