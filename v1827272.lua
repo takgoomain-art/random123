@@ -528,7 +528,7 @@ local player = Players.LocalPlayer
 local antiFlingConnection
 
 local antiFlingToggle = lp:Toggle({
-    Title = "Anti Fling",
+    Title = "Anti Fling [BETA]",
     Desc = "",
     Value = false,
     Callback = function(Value)
@@ -886,6 +886,18 @@ local azuree = Script:Button({
                 Icon = "bell",
 })
 			end})
+	local idkkkbro = Script:Button({
+			Title = "🔐 Zyphrax Hub",
+			Desc = "",
+			Locked = false, 
+			Callback = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/BlackNode17/Zyphrax-Hub/refs/heads/main/Gateway"))()
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+			end})
 	
 else
     local blxfrt = Script:Paragraph({
@@ -929,7 +941,12 @@ if GAG then
 		Locked = false,
 		Callback = function()
 				loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/fda9babd071d6b536a745774b6bc681c.lua"))()
-			end})
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+					end})
 
 else
     local gagg = Script:Paragraph({
@@ -963,7 +980,12 @@ if GH then
 			Locked = false,
 			Callback = function()
 				loadstring(game:HttpGet('https://raw.githubusercontent.com/Maanaaaa/WindHub/refs/heads/main/MainScript.luau'))()
-			end})
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+							end})
 
 else
 	local ghn = Script:Paragraph({
@@ -1027,7 +1049,12 @@ local rt3hub3 = Script:Button({
 		Locked = false,
 		Callback = function()
              loadstring(game:HttpGet("https://raw.githubusercontent.com/BaconBossScript/BeeconHub/main/BeeconHub"))()
-			end})
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+									end})
 
 local rt3hub4 = Script:Button({
 		Title = "🔐 Seisen Hub",
@@ -1035,7 +1062,12 @@ local rt3hub4 = Script:Button({
 		Locked = false, 
 		Callback = function()
 			loadstring(game:HttpGet("https://api.junkie-development.de/api/v1/luascripts/public/8ac2e97282ac0718aeeb3bb3856a2821d71dc9e57553690ab508ebdb0d1569da/download"))()
-			end})
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+											end})
 
 elseif RT2 then
 	local rt2 = Script:Section({
@@ -1047,7 +1079,12 @@ local rt2hub1 = Script:Button({
 		Locked = false,
 		Callback = function()
 			loadstring(game:HttpGet("https://restaurant.liverzmods.workers.dev"))();
-			end})
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+													end})
 else
 	local rtggg = Script:Section({
 		Title = "[👨‍🍳] Restaurant Tycoon",
@@ -1374,6 +1411,7 @@ Settings:Button({
 		IconAlign = "Left",
 		Callback = function()
 			Window:Destroy()
+															
 		end,
 	})
 
