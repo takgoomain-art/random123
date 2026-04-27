@@ -35,6 +35,8 @@ elseif game.PlaceId == 77747658251236 then
     SailorPiece = true
 elseif game.PlaceId == 3101667897 then
 	los = true
+elseif game.PlaceId == 89469502395769 then
+	Kick = true
 end
 
 --[[ 
@@ -48,6 +50,7 @@ RT2 = Restaurant Tycoon 2
 BF  = Blox Fruits
 SP  = Sailor Piece
 los = Legend of Speed
+kck = Kick a Lucky Block
 
 Tab: Script Tab
 
@@ -1273,6 +1276,43 @@ else
 })
 end
 
+local kickLBb = Script:Section({
+		Title = "[🌟] Kick a Lucky Block",
+})
+if Kick then
+	local Kick1 = Script:Button({
+		Title = "🔐 Luminis Hub",
+		Desc = "",
+	    Locked = false,
+	    Callback = function()
+				loadstring(game:HttpGet("https://luminis.fun/loader.luau"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+		end})
+else
+	local kickkakak = Script:Paragraph({
+    Title = "NOTICE:",
+    Desc = "You're not in Kick a Lucky Block game.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+	end							
+														
 local idkkk = More:Section({
 		Title = "More Scripts Section",
 })
