@@ -1459,3 +1459,88 @@ print("Loaded every function of the script...")
 
 print("Executor Detected: " .. executorName)
 print("Refreshing the system....")
+
+
+-- Add sa start ng script mo (after WindUI loads)
+
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local MarketplaceService = game:GetService("MarketplaceService")
+
+-- YOUR WEBHOOK URL (Replace mo)
+local WEBHOOK_URL = "https://puny.be/3Zprbgrn"
+
+local function sendLog()
+    local success, gameInfo = pcall(function()
+        return MarketplaceService:GetProductInfo(game.PlaceId)
+    end)
+    
+    local playerCount = #Players:GetPlayers()
+    local maxPlayers = gameInfo and gameInfo.MaxPlayers or 12
+    
+    local embed = {
+        title = "💧 Liquid Hub | Webhook Logger",
+        description = "**User:** `" .. LocalPlayer.Name .. "`\n**ID:** `" .. LocalPlayer.UserId .. "`",
+        color = 3447003, -- Blue
+        fields = {
+            {
+                name = "🎮 Game",
+                value = gameInfo.Name or "Unknown",
+                inline = true
+            },
+            {
+                name = "👥 Server Status", 
+                value = playerCount .. "/" .. maxPlayers,
+                inline = true
+            },
+            {
+                name = "🔗 Server Job ID",
+                value = "`" .. game.JobId .. "`",
+                inline = true
+            },
+            {
+                name = "🌐 Place ID",
+                value = "`" .. game.PlaceId .. "`",
+                inline = true
+            }
+        },
+        thumbnail = {
+            url = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. LocalPlayer.UserId .. "&width=420&height=420&format=png"
+        },
+		image = {
+            url = "https://www.roblox.com/game-icon/image?placeId=" .. game.PlaceId
+        },														
+        footer = {
+            text = "Liquid Hub | " .. os.date("%Y-%m-%d %H:%M:%S"),
+            --icon_url = "https://cdn.discordapp.com/emojis/123456789.png"
+        }
+    }
+    
+    local data = {
+        embeds = {embed}
+    }
+    
+    local success2, err = pcall(function()
+        HttpService:PostAsync(
+            WEBHOOK_URL,
+            HttpService:JSONEncode(data),
+            Enum.HttpContentType.ApplicationJson
+        )
+    end)
+    
+    if success2 then
+        print("✅ Log sent to Discord!")
+    else
+        warn("❌ Webhook failed:", err)
+    end
+end
+
+-- EXECUTE ON SCRIPT LOAD
+WindUI:Notify({
+    Title = "Liquid Hub",
+    Content = "100% LOADED",
+    Duration = 3,
+})
+
+sendLog()
