@@ -855,7 +855,7 @@ print("Server Id: " .. game.JobId)
 local id2 = svv:Input({
     Title = "Server Id",
     Desc = "Enter Server Id",
-    Value = "Enter ID",
+    Value = "",
     --InputIcon = "bird",
     Type = "Input", -- or "Textarea"
     Placeholder = "Enter ID...",
