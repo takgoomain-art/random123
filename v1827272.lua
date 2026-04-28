@@ -1594,7 +1594,7 @@ end
 
 table.insert(embedFields, {
     name = "[🎮] Game",
-    value = "`" .. gameInfo.Name or "Unknown" .. "`",
+    value = "`" .. game.Name or "Unknown" .. "`",
     inline = false
 })
 
