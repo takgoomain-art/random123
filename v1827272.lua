@@ -900,6 +900,7 @@ local azuree = Script:Button({
                 Content = "Script Executed!",
                 Duration = 5, -- 3 seconds
                 Icon = "bell",
+					})
 			end})
 	
 else
@@ -949,6 +950,7 @@ if GAG then
                 Content = "Script Executed!",
                 Duration = 5, -- 3 seconds
                 Icon = "bell",
+							})
 					end})
 
 else
@@ -1070,7 +1072,8 @@ local rt3hub4 = Script:Button({
                 Content = "Script Executed!",
                 Duration = 5, -- 3 seconds
                 Icon = "bell",
-											end})
+									})
+							end})
 
 elseif RT2 then
 	local rt2 = Script:Section({
@@ -1087,7 +1090,8 @@ local rt2hub1 = Script:Button({
                 Content = "Script Executed!",
                 Duration = 5, -- 3 seconds
                 Icon = "bell",
-													end})
+									})
+							end})
 else
 	local rtggg = Script:Section({
 		Title = "[👨‍🍳] Restaurant Tycoon",
@@ -1291,7 +1295,8 @@ if Kick then
                 Content = "Script Executed!",
                 Duration = 5, -- 3 seconds
                 Icon = "bell",
-		end})
+									})
+									end})
 else
 	local kickkakak = Script:Paragraph({
     Title = "NOTICE:",
@@ -1462,7 +1467,7 @@ print("Refreshing the system....")
 
 -- Add sa start ng script mo (after WindUI loads)
 
---[[local HttpService = game:GetService("HttpService")
+local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local MarketplaceService = game:GetService("MarketplaceService")
