@@ -620,6 +620,25 @@ local antiFlingToggle = lp:Toggle({
         -- Your fling all code (perfect!)
     end
 })]]
+
+local RBLXS = lp:Section({
+		Title = "Roblox Character",
+	})
+
+lp:Button({
+	Title = "Reset Character",
+	Callback = function()
+		Players.LocalPlayer.Character:BreakJoints()
+	end,
+})
+
+lp:Button({
+	Title = "Leave Game",
+	Callback = function()
+		Players.LocalPlayer:Kick("You left the game.")
+	end,
+})
+
 ------- SERVER TAB
 local statuss = Server:Section({ 
     Title = "Game Status",
