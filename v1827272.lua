@@ -1450,8 +1450,7 @@ Settings:Button({
 		Icon = "shredder",
 		IconAlign = "Left",
 		Callback = function()
-			Window:Destroy()
-															
+			Window:Destroy()														
 		end,
 	})
 
@@ -1463,7 +1462,7 @@ print("Refreshing the system....")
 
 -- Add sa start ng script mo (after WindUI loads)
 
-local HttpService = game:GetService("HttpService")
+--[[local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local MarketplaceService = game:GetService("MarketplaceService")
