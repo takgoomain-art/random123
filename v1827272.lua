@@ -58,7 +58,6 @@ Tab: Script Tab
 
 
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
-local ConfigManager = Window.ConfigManager
 
 WindUI:Popup({
     Title = "Welcome to the Liquid Hub!",
