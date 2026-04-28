@@ -616,6 +616,169 @@ lp:Button({
 	end,
 })
 
+local ESPbro = lp:Section({
+		Title = "ESP",
+	})
+
+-- Add sa Player tab (lp)
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+local RainbowESPEnabled = false
+local espConnections = {}
+local highlightConnections = {}
+
+local rainbowToggle = lp:Toggle({
+    Title = "ESP [RAINBOW]",
+    Desc = "Rainbow name tags + highlights",
+    Value = false,
+    Callback = function(Value)
+        RainbowESPEnabled = Value
+        
+        if Value then
+            -- ENABLE ESP + HIGHLIGHTS
+            local function createRainbowESP(player)
+                if player == LocalPlayer then return end
+                
+                local function setupESP(character)
+                    local head = character:WaitForChild("Head", 5)
+                    if not head then return end
+                    
+                    -- Clean previous ESP
+                    local oldESP = head:FindFirstChild("RainbowESP")
+                    if oldESP then oldESP:Destroy() end
+                    
+                    -- BillboardGui
+                    local billboard = Instance.new("BillboardGui")
+                    billboard.Name = "RainbowESP"
+                    billboard.Adornee = head
+                    billboard.Size = UDim2.new(4, 0, 1.5, 0)
+                    billboard.StudsOffset = Vector3.new(0, 3, 0)
+                    billboard.AlwaysOnTop = true
+                    billboard.Parent = head
+                    
+                    local textLabel = Instance.new("TextLabel")
+                    textLabel.Size = UDim2.new(1, 0, 1, 0)
+                    textLabel.BackgroundTransparency = 1
+                    textLabel.TextScaled = true
+                    textLabel.Text = player.Name
+                    textLabel.Font = Enum.Font.GothamBold
+                    textLabel.TextStrokeTransparency = 0
+                    textLabel.TextStrokeColor3 = Color3.new(0,0,0)
+                    textLabel.Parent = billboard
+                    
+                    -- Rainbow loop
+                    local espConn
+                    espConn = RunService.Heartbeat:Connect(function()
+                        if not RainbowESPEnabled or not billboard.Parent then
+                            espConn:Disconnect()
+                            return
+                        end
+                        local hue = tick() % 5 / 5
+                        textLabel.TextColor3 = Color3.fromHSV(hue, 1, 1)
+                    end)
+                    
+                    table.insert(espConnections, espConn)
+                end
+                
+                if player.Character then
+                    setupESP(player.Character)
+                end
+                player.CharacterAdded:Connect(setupESP)
+            end
+            
+            local function applyRainbowHighlight(character)
+                if character:FindFirstChildOfClass("Highlight") then return end
+                
+                local highlight = Instance.new("Highlight")
+                highlight.Parent = character
+                highlight.FillTransparency = 0.5
+                highlight.OutlineTransparency = 0
+                
+                local highlightConn
+                highlightConn = RunService.Heartbeat:Connect(function()
+                    if not RainbowESPEnabled or not highlight.Parent then
+                        highlightConn:Disconnect()
+                        return
+                    end
+                    local hue = tick() % 5 / 5
+                    highlight.FillColor = Color3.fromHSV(hue, 1, 1)
+                    highlight.OutlineColor = Color3.fromHSV(hue, 0.5, 1)
+                end)
+                
+                table.insert(highlightConnections, highlightConn)
+            end
+            
+            -- Apply to all players
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer then
+                    if player.Character then
+                        createRainbowESP(player)
+                        applyRainbowHighlight(player.Character)
+                    end
+                    player.CharacterAdded:Connect(function(char)
+                        createRainbowESP(player)
+                        applyRainbowHighlight(char)
+                    end)
+                end
+            end
+            
+            -- New players
+            Players.PlayerAdded:Connect(function(player)
+                if player ~= LocalPlayer then
+                    player.CharacterAdded:Connect(function(char)
+                        createRainbowESP(player)
+                        applyRainbowHighlight(char)
+                    end)
+                end
+            end)
+            
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "🌈 Rainbow ESP + Highlights ON",
+                Duration = 3,
+                Icon = "rainbow",
+            })
+            
+        else
+            -- CLEANUP
+            for _, conn in pairs(espConnections) do
+                if conn then conn:Disconnect() end
+            end
+            for _, conn in pairs(highlightConnections) do
+                if conn then conn:Disconnect() end end
+            
+            espConnections = {}
+            highlightConnections = {}
+            
+            -- Remove all ESP/Highlights
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player.Character then
+                    local head = player.Character:FindFirstChild("Head")
+                    if head then
+                        local esp = head:FindFirstChild("RainbowESP")
+                        if esp then esp:Destroy() end
+                    end
+                    
+                    for _, obj in pairs(player.Character:GetChildren()) do
+                        if obj:IsA("Highlight") then
+                            obj:Destroy()
+                        end
+                    end
+                end
+            end
+            
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "🌈 Rainbow ESP OFF",
+                Duration = 2,
+                Icon = "eye-off",
+            })
+        end
+    end
+})
 ------- SERVER TAB
 local statuss = Server:Section({ 
     Title = "Game Status",
