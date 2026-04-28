@@ -56,32 +56,8 @@ Tab: Script Tab
 
 ]]
 
-local cloneref = (cloneref or clonereference or function(instance)
-	return instance
-end)
-local ReplicatedStorage = cloneref(game:GetService("ReplicatedStorage"))
-local RunService = cloneref(game:GetService("RunService"))
 
-local WindUI
-
-do
-	local ok, result = pcall(function()
-		return require("./src/Init")
-	end)
-
-	if ok then
-		WindUI = result
-	else
-		if RunService:IsStudio() or not writefile then
-			WindUI = require(ReplicatedStorage:WaitForChild("WindUI"):WaitForChild("Init"))
-		else
-			WindUI =
-				loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"))()
-		end
-	end
-end
-
---local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
+local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
 
 WindUI:Popup({
@@ -102,7 +78,8 @@ local Window = WindUI:CreateWindow({
     Title = "Liquid Hub | Universal",
     Icon = "door-open", -- lucide icon. optional
     Author = "by Liquid Management", -- optional
-})
+    HideSearchBar = false,
+	})
 
 
 WindUI:Notify({
