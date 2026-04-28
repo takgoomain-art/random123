@@ -37,6 +37,8 @@ elseif game.PlaceId == 3101667897 then
 	los = true
 elseif game.PlaceId == 89469502395769 then
 	Kick = true
+elseif game.PlaceId == 17625359962 then
+	Rvs = true
 end
 
 --[[ 
@@ -51,6 +53,7 @@ BF  = Blox Fruits
 SP  = Sailor Piece
 los = Legend of Speed
 kck = Kick a Lucky Block
+Rvs = Rivals
 
 Tab: Script Tab
 
@@ -1668,7 +1671,45 @@ else
     ]]
 })
 	end							
-														
+local rivals = Script:Section({
+		Title = "[🔫] Rivals",
+		Opened = true,
+	})
+
+if Rvs then
+	local forgerivals = rivals:Button({
+			Title = "🔐 Forge Hub",
+			Desc = "",
+			Locked = false,
+			Callback = function()
+				loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/d5ed1fbd4301b1d18d75153c5b47181d.lua"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
+else
+	local rvbro = rivals:Paragraph({
+    Title = "NOTICE:",
+    Desc = "You're not in Rivals game.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+	end	
 local idkkk = More:Section({
 		Title = "More Scripts Section",
 })
