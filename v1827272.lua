@@ -326,7 +326,7 @@ local speed = lp:Slider({
     Step = 1,
     Value = {
         Min = 16,
-        Max = 500,
+        Max = 950,
         Default = 16,
     },
     Callback = function(Value)
@@ -355,7 +355,7 @@ local jumpp = lp:Slider({
     Step = 1,
     Value = {
         Min = 50,
-        Max = 500,
+        Max = 1000,
         Default = 50,
     },
     Callback = function(Value)
