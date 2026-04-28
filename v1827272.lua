@@ -1092,6 +1092,19 @@ local azuree = bf:Button({
                 Icon = "bell",
 })
 			end})
+	local forgee = bf:Button({
+			Title = "🔐 Forge Hub",
+			Desc = "",
+			Locked = false,
+			Callback = function()
+				loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/d5ed1fbd4301b1d18d75153c5b47181d.lua"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
 	local idkkkbro = bf:Button({
 			Title = "🔐 Zyphrax Hub",
 			Desc = "",
@@ -1164,6 +1177,19 @@ if GAG then
                 Icon = "bell",
 							})
 					end})
+	local forgehubbgag = gage:Button({
+			Title = "🔐 Forge Hub",
+			Desc = "",
+			Locked = false,
+			Callback = function()
+				loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/d5ed1fbd4301b1d18d75153c5b47181d.lua"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
 
 else
     local gagg = gage:Paragraph({
@@ -1244,6 +1270,19 @@ if GH then
                 Icon = "bell",
 					})
 					end})
+	local forgegh = Gar:Button({
+			Title = "🔐 Forge Hub",
+			Desc = "",
+			Locked = false,
+			Callback = function()
+				loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/d5ed1fbd4301b1d18d75153c5b47181d.lua"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
 
 else
 	local ghn = Gar:Paragraph({
