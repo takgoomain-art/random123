@@ -1121,10 +1121,18 @@ local gage = Script:Section({
 })
 
 if GAG then
+    local gagapex = gage:Button({
+	Title = "🔓 Apex OT",
+	Desc = "",
+	Locked = false,
+        Callback = function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/takgoo31/KaiXApex/refs/heads/main/ApexOT.lua"))()
+			end})
+	
     local idk = gage:Button({
     Title = "🔓 No Hub",
     Desc = "",
-    Locked = false,
+    Locked = true,
     Callback = function()
 
             end
@@ -1165,6 +1173,39 @@ else
 })
 end
 
+local BH = Script:Section({
+	Title = "[🏡] Brookhaven RP!",
+	Opened = true,
+	})
+if Brookhaven then
+	local apex = BH:Button({
+		Title = "🔓 APEX OT",
+		Desc = "",
+		Locked = false,
+		Callback = function()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/takgoo31/KaiXApex/refs/heads/main/ApexOT.lua"))()
+			end})
+else
+	local broook = BH:Paragraph({
+    Title = "NOTICE:",
+    Desc = "You're not in Brookhaven RP game.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+end
+	
 local Gar = Script:Section({
 	Title = "[🌱] Garden Horizon",
 	Opened = true,
