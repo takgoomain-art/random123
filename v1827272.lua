@@ -1010,7 +1010,20 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/h
 })
     end
 })
-	
+
+	local astrall = bf:Button({
+			Title = "🔓 Astral Hub",
+			Desc = "",
+			Locked = false,
+			Callback = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/Overgustx2/Main/refs/heads/main/BloxFruits_25.html"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
 local azuree = bf:Button({
     Title = "🔓 W-Azure",
     Desc = "",
@@ -1184,6 +1197,12 @@ if Brookhaven then
 		Locked = false,
 		Callback = function()
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/takgoo31/KaiXApex/refs/heads/main/ApexOT.lua"))()
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
 			end})
 else
 	local broook = BH:Paragraph({
