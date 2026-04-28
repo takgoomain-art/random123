@@ -990,7 +990,8 @@ if GH then
                 Content = "Script Executed!",
                 Duration = 5, -- 3 seconds
                 Icon = "bell",
-							end})
+					})
+					end})
 
 else
 	local ghn = Script:Paragraph({
@@ -1059,7 +1060,8 @@ local rt3hub3 = Script:Button({
                 Content = "Script Executed!",
                 Duration = 5, -- 3 seconds
                 Icon = "bell",
-									end})
+					})
+			end})
 
 local rt3hub4 = Script:Button({
 		Title = "🔐 Seisen Hub",
