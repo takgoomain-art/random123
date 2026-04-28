@@ -1573,7 +1573,9 @@ local iy = More:Button({
 		end})
 
 ----------- SETTINGS TAB
-
+local light = Settings:Section({
+		Title = "Lighting",
+	})
 -- Simple one-toggle lighting (Player/Settings tab)
 -- Simple one-toggle lighting (Player/Settings tab)
 
@@ -1582,7 +1584,7 @@ local StarterGui = game:GetService("StarterGui")
 local effects = {}
 local vignetteGui = nil
 
-local lightingToggle = Settings:Toggle({
+local lightingToggle = light:Toggle({
     Title = "RTX Summer Lighting [BETA]",
     Desc = "Enabling this could cause serious lag on some device.",
     Value = false,
@@ -1675,7 +1677,7 @@ local lightingToggle = Settings:Toggle({
     end
 })
 
-Settings:Button({
+light:Button({
 		Title = "PShader Custom Lighting",
 		Desc = "Loads PShader Lighting script",
 		Callback = function()
