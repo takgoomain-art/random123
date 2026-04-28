@@ -599,16 +599,17 @@ local antiFlingToggle = lp:Toggle({
 
 local RBLXS = lp:Section({
 		Title = "Roblox Character",
+		Opened = true,
 	})
 
-lp:Button({
+RBLXS:Button({
 	Title = "Reset Character",
 	Callback = function()
 		Players.LocalPlayer.Character:BreakJoints()
 	end,
 })
 
-lp:Button({
+RBLXS:Button({
 	Title = "Leave Game",
 	Callback = function()
 		Players.LocalPlayer:Kick("You left the game.")
@@ -617,6 +618,7 @@ lp:Button({
 
 local ESPbro = lp:Section({
 		Title = "ESP",
+		Opened = true,
 	})
 
 -- Add sa Player tab (lp)
@@ -629,7 +631,7 @@ local RainbowESPEnabled = false
 local espConnections = {}
 local highlightConnections = {}
 
-local rainbowToggle = lp:Toggle({
+local rainbowToggle = ESPbro:Toggle({
     Title = "ESP [RAINBOW]",
     Desc = "Rainbow name tags + highlights",
     Value = false,
@@ -781,9 +783,10 @@ local rainbowToggle = lp:Toggle({
 ------- SERVER TAB
 local statuss = Server:Section({ 
     Title = "Game Status",
+	Opened = true,
 })
 
-local T = Server:Paragraph({
+local T = statuss:Paragraph({
     Title = "⏳ Game Time",
     Desc = "",
     --Color = "Red",
@@ -817,11 +820,12 @@ end)
 
 local svv = Server:Section({ 
     Title = "Server Status",
+	Opened = true,
 })
 
 local lastCopyTime = 0
 local copyCooldown = 2
-local id = Server:Paragraph({
+local id = svv:Paragraph({
     Title = "Server ID",
     Desc = game.JobId ~= "" and game.JobId or "Server ID not available.",
     --Color = "Red",
@@ -848,7 +852,7 @@ local id = Server:Paragraph({
 print("Server Id Collected")
 print("Server Id: " .. game.JobId)
 
-local id2 = Server:Input({
+local id2 = svv:Input({
     Title = "Server Id",
     Desc = "Enter Server Id",
     Value = "Enter ID",
@@ -862,7 +866,7 @@ local id2 = Server:Input({
 })
 local lastTeleportTime = 0
 local teleportCooldown = 5
-local joinn = Server:Button({
+local joinn = svv:Button({
     Title = "Join Server",
     Desc = "Join to the server id input.",
     Locked = false,
@@ -876,7 +880,7 @@ local joinn = Server:Button({
 
 local lastTeleportTime = 0
 local teleportCooldown = 4
-local rjoin = Server:Button({
+local rjoin = svv:Button({
     Title = "Rejoin Server",
     Desc = "",
     Locked = false,
@@ -907,7 +911,7 @@ function Hop()
     game:GetService("TeleportService"):Teleport(game.PlaceId)
 end
 
-local Hop = Server:Button({
+local Hop = svv:Button({
     Title = "Server Hop",
     Desc = "",
     Locked = false,
@@ -919,13 +923,14 @@ local Hop = Server:Button({
 
 	
 ------ Scripts Tab
-local Scripsss = Script:Section({ 
-    Title = "SCRIPTS SECTION",
+local Scr = Script:Section({ 
+    Title = "🎮 SCRIPTS SECTION",
+	Opened = true,
 })
 
-local Game = Script:Paragraph({
+local Game = Scr:Paragraph({
     Title = "🗝️ KEY SYSTEM STATUS",
-    Desc = "🔐 - The script has a key system.\n🔓 - The script system has no key system.\n❓ - No info of key system found.",
+    Desc = "🔐 - The script has a key system.\n\n🔓 - The script system has no key system.\n\n❓ - No info of key system found.",
     Color = "Red",
     --Image = "",
     --ImageSize = 30,
@@ -962,7 +967,7 @@ end
 
 local gameName = getCurrentGameName()
 
-local Game = Script:Paragraph({
+local Game = Scr:Paragraph({
     Title = "Game you're in:",
     Desc = gameName ~= "" and gameName or "The game cannot be identified.",
     --Color = "Red",
@@ -983,10 +988,11 @@ local Game = Script:Paragraph({
 
 local bf = Script:Section({ 
     Title = "[🍎] Blox Fruits",
+	Opened = true,
 })
 
 if BloxFruits then
-    local Redz = Script:Button({
+    local Redz = bf:Button({
     Title = "🔓 Redz Hub",
     Desc = "",
     Locked = false,
@@ -1005,7 +1011,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/h
     end
 })
 	
-local azuree = Script:Button({
+local azuree = bf:Button({
     Title = "🔓 W-Azure",
     Desc = "",
     Locked = false,
@@ -1019,7 +1025,7 @@ local azuree = Script:Button({
 })
 			end
 		})
-	local hohoo = Script:Button({
+	local hohoo = bf:Button({
     Title = "🔐 HoHo Hub",
     Desc = "",
     Locked = false,
@@ -1034,7 +1040,7 @@ local azuree = Script:Button({
 			end
 		})
 
-	local qntmonyx = Script:Button({
+	local qntmonyx = bf:Button({
 		Title = "🔓 Quantum ONYX",
 		Desc = "",
 		Locked = false,
@@ -1047,7 +1053,7 @@ local azuree = Script:Button({
                 Icon = "bell",
 })
 			end})
-	local script222 = Script:Button({
+	local script222 = bf:Button({
 		Title = "🔓 Nat Hub",
 		Desc = "",
 		Locked = false,
@@ -1060,7 +1066,7 @@ local azuree = Script:Button({
                 Icon = "bell",
 })
 			end})
-	local cokka = Script:Button({
+	local cokka = bf:Button({
 		Title = "🔐 Cokka Hub",
 		Desc = "",
 		Locked = false,
@@ -1073,7 +1079,7 @@ local azuree = Script:Button({
                 Icon = "bell",
 })
 			end})
-	local idkkkbro = Script:Button({
+	local idkkkbro = bf:Button({
 			Title = "🔐 Zyphrax Hub",
 			Desc = "",
 			Locked = false, 
@@ -1088,7 +1094,7 @@ local azuree = Script:Button({
 			end})
 	
 else
-    local blxfrt = Script:Paragraph({
+    local blxfrt = bf:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Blox Fruits game.",
     --Color = "Red",
@@ -1109,12 +1115,13 @@ else
 end
 
 
-local grow = Script:Section({ 
+local gage = Script:Section({ 
     Title = "[🥕] Grow a Garden",
+	Opened = true,
 })
 
 if GAG then
-    local idk = Script:Button({
+    local idk = gage:Button({
     Title = "🔓 No Hub",
     Desc = "",
     Locked = false,
@@ -1123,7 +1130,7 @@ if GAG then
             end
         })
 	
-	local ronix = Script:Button({
+	local ronix = gage:Button({
 		Title = "🔐 Ronix Hub",
 		Desc = "",
 		Locked = false,
@@ -1138,7 +1145,7 @@ if GAG then
 					end})
 
 else
-    local gagg = Script:Paragraph({
+    local gagg = gage:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Grow a Garden game.",
     --Color = "Red",
@@ -1158,12 +1165,13 @@ else
 })
 end
 
-local GHHH = Script:Section({
+local Gar = Script:Section({
 	Title = "[🌱] Garden Horizon",
+	Opened = true,
 	})
 
 if GH then
-	local winddhub = Script:Button({
+	local winddhub = Gar:Button({
 			Title = "🔓 Wind Hub",
 			Desc = "",
 			Locked = false,
@@ -1178,7 +1186,7 @@ if GH then
 					end})
 
 else
-	local ghn = Script:Paragraph({
+	local ghn = Gar:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Garden Horizon game.",
     --Color = "Red",
@@ -1201,9 +1209,10 @@ end
 if RT3 then
 local rt3 = Script:Section({ 
     Title = "[👨‍🍳] Restaurant Tycoon 3",
+	Opened = true,
 })
 
-local rt3hub1 = Script:Button({
+local rt3hub1 = rt3:Button({
     Title = "🔓 Samuraa1 Hub",
     Desc = "",
     Locked = false,
@@ -1218,7 +1227,7 @@ local rt3hub1 = Script:Button({
 			end
         })
 
-local rt3hub2 = Script:Button({
+local rt3hub2 = rt3:Button({
 	Title = "🔓 Sniper Hub",
 	Desc = "",
 	Locked = false,
@@ -1233,7 +1242,7 @@ local rt3hub2 = Script:Button({
 			end
 		})
 
-local rt3hub3 = Script:Button({
+local rt3hub3 = rt3:Button({
 		Title = "🔐 Beecon Hub",
 		Desc = "",
 		Locked = false,
@@ -1247,7 +1256,7 @@ local rt3hub3 = Script:Button({
 					})
 			end})
 
-local rt3hub4 = Script:Button({
+local rt3hub4 = rt3:Button({
 		Title = "🔐 Seisen Hub",
 		Desc = "",
 		Locked = false, 
@@ -1264,8 +1273,9 @@ local rt3hub4 = Script:Button({
 elseif RT2 then
 	local rt2 = Script:Section({
 		Title = "[👨‍🍳] Restaurant Tycoon 2",
+		Opened = true,
 })
-local rt2hub1 = Script:Button({
+local rt2hub1 = rt2:Button({
 		Title = "❓ Miwazen",
 		Desc = "",
 		Locked = false,
@@ -1281,9 +1291,10 @@ local rt2hub1 = Script:Button({
 else
 	local rtggg = Script:Section({
 		Title = "[👨‍🍳] Restaurant Tycoon",
+		Opened = true,
 })
 	
-local rtg = Script:Paragraph({
+local rtg = rtggg:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in any Restaurant Tycoon game.",
     --Color = "Red",
@@ -1396,17 +1407,18 @@ end -- real else end
 
 local spp = Script:Section({
 		Title = "[⛵] Sailor Piece",
+		Opened = true,
 })
 
 if SailorPiece then
-	local ATG = Script:Button({
+	local ATG = spp:Button({
 		Title = "🔓 ATG Hub",
 		Desc = "",
 		Locked = false,
 		Callback = function()
 				loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/c6df1a32acc80543801abbdcbcb18819.lua"))()
 			end})
-	local VAVA = Script:Button({
+	local VAVA = spp:Button({
 		Title = "🔓 VAVA Hub",
 		Desc = "",
 		Locked = false,
@@ -1421,14 +1433,14 @@ if SailorPiece then
 				loadstring(game:HttpGet("https://gist.githubusercontent.com/Nicuse101/cbfabe84baf69caee758ed4677f6e825/raw/31a245b32ed5502ffb9db18c730082bdfa7d1ce6/sailor%2520piece%2520loader"))()
 			end})
 				
-	local alch = Script:Button({
+	local alch = spp:Button({
 		Title = "🔐 Alchemy Hub",
 		Desc = "",
 		Locked = false,
 		Callback = function()
 				loadstring(game:HttpGet('https://getalchemy.net/r'))()
 			end})
-	local ZXhub = Script:Button({
+	local ZXhub = spp:Button({
 		Title = "🔐 ZXC Hub",
 		Desc = "",
 		Locked = false,
@@ -1436,7 +1448,7 @@ if SailorPiece then
 				loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/4b11c259bd6c83ee90ee87880e7cc7a7d3ed4f0f3845cd150bea27d6b8bde6cc/download"))()
 			end})
 
-	local swy = Script:Button({
+	local swy = spp:Button({
 		Title = "🔐 SWY Hub",
 		Desc = "",
 		Locked = false,
@@ -1444,7 +1456,7 @@ if SailorPiece then
 				loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/da18c7b3db7c1d82e01e3ac8b611af2186cf94aa973a2d48bb2302f2afc2fbac/download"))()
 			end})
 
-	local hubbb = Script:Button({
+	local hubbb = spp:Button({
 		Title = "🔐 Ziaa Hub",
 		Desc = "",
 		Locked = false,
@@ -1454,7 +1466,7 @@ if SailorPiece then
 	
 
 else
-	local silor = Script:Paragraph({
+	local silor = spp:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Sailor Piece game.",
     --Color = "Red",
@@ -1476,9 +1488,10 @@ end
 
 	local LOSpeed = Script:Section({
 			Title = "[🏃‍♂️] Legend of Speed",
+		    Opened = true,
 		})
 if los then
-	local speeeeed = Script:Paragraph({
+	local speeeeed = LOSpeed:Paragraph({
     Title = "Tips:",
     Desc = "We do recommend to change your walkspeed in Player tab.",
     --Color = "Red",
@@ -1498,7 +1511,7 @@ if los then
 })
 
 else
-	local speedddd = Script:Paragraph({
+	local speedddd = LOSpeed:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Legend of Speed game.",
     --Color = "Red",
@@ -1520,9 +1533,10 @@ end
 
 local kickLBb = Script:Section({
 		Title = "[🌟] Kick a Lucky Block",
+		Opened = true,
 })
 if Kick then
-	local Kick1 = Script:Button({
+	local Kick1 = kickLBb:Button({
 		Title = "🔐 Luminis Hub",
 		Desc = "",
 	    Locked = false,
@@ -1536,7 +1550,7 @@ if Kick then
 									})
 									end})
 else
-	local kickkakak = Script:Paragraph({
+	local kickkakak = kickLBb:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Kick a Lucky Block game.",
     --Color = "Red",
@@ -1562,9 +1576,10 @@ local idkkk = More:Section({
 
 local fe = More:Section({
 		Title = "FE SCRIPTS",
+		Opened = true,
 })
 
-local iy = More:Button({
+local iy = fe:Button({
 	Title = "🔓 Infinite Yield",
 	Desc = "",
 	Locked = false,
@@ -1574,7 +1589,8 @@ local iy = More:Button({
 
 ----------- SETTINGS TAB
 local light = Settings:Section({
-		Title = "Lighting",
+		Title = "💡 Lighting",
+		Opened = true,
 	})
 -- Simple one-toggle lighting (Player/Settings tab)
 -- Simple one-toggle lighting (Player/Settings tab)
