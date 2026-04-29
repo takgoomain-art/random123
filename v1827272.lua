@@ -1059,6 +1059,22 @@ loadstring(game:HttpGet("https://gistpad.com/raw/loader-775"))()
 })
 			end
 		})
+
+	local relz = bf:Button({
+    Title = "🔓 Relz Hub",
+    Desc = "",
+    Locked = false,
+    Callback = function()   
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Bliqe/Upload/refs/heads/main/Games/BF/Relz.lua"))()		
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end
+		})
+	
 	local hohoo = bf:Button({
     Title = "🔐 HoHo Hub",
     Desc = "",
