@@ -1021,7 +1021,7 @@ if BF1 or BF2 or BF3 then
     Desc = "",
     Locked = false,
     Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/heads/main/main.luau"))(Settings)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/heads/main/main.luau"))()
                 WindUI:Notify({
                 Title = "Liquid Hub",
                 Content = "Script Executed!",
@@ -1061,7 +1061,7 @@ loadstring(game:HttpGet("https://gistpad.com/raw/loader-775"))()
 		})
 
 	local relz = bf:Button({
-    Title = "🔓 Relz Hub",
+    Title = "🔐 Relz Hub",
     Desc = "",
     Locked = false,
     Callback = function()   
