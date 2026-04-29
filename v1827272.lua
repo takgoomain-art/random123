@@ -1723,17 +1723,114 @@ else
 })
 	end	
 
+local SABsection = Script:Section({
+		Title = "[🤖] Steal a Brainrot",
+		Opened = true,
+	})
+
+if SAB then
+	local SABhub1 = SABsection:Button({
+		Title = "🔓 Palku Hub",
+		Desc = "",
+		Locked = false,
+		Callback = function()
+				loadstring(game:HttpGet("https://codeberg.org/hubs/sab/raw/branch/main/palkuhub"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
+	local SABhub2 = SABsection:Button({
+		Title = "🔐 Ather Hub",
+		Desc = "",
+		Locked = false,
+		Callback = function()
+				--DISCORD please join: https://discord.gg/x4ux7pUVJu
+--script_key = "Add key here to auto verify"
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/2529a5f9dfddd5523ca4e22f21cceffa.lua"))()
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
+
+	local SABhub3 = SABsection:Button({
+		Title = "🔐 Space Hub",
+		Desc = "",
+		Locked = false,
+		Callback = function()
+				-- getgenv().GameName = "Steal A Brainrot" -- if u want to play copyes of original game
+loadstring(game:HttpGet('https://raw.githubusercontent.com/ago106/SpaceHub/refs/heads/main/loader.lua'))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
+
+else
+	local sabpa = SABsection:Paragraph({
+    Title = "NOTICE:",
+    Desc = "You're not in Steal a Brainrot game.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+	end	
 if PSX then
 	local psxsection = Script:Section({
 			Title = "[🐾] Pet Simulator X!",
 			Opened = true,
 		})
+	local psxhub1 = psxsection:Button({
+			Title = "🔐 Extreme",
+			Desc = "",
+			Locked = false,
+			Callback = function()
+				loadstring(game:HttpGet("https://xtrm.dev/api/loader"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
 
 elseif PS99 then
 	local ps99section = Script:Section({
 			Title = "[🐱] Pet Simulator 99!",
 			Opened = true,
 		})
+	local ps99hub = ps99section:Button({
+			Title = "🔐 Zap Hub",
+			Desc = "",
+			Locked = false,
+			Callback = function()
+				loadstring(game:HttpGet('https://zaphub.xyz/Exec'))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
+
 
 elseif PG then
 	local pgsection = Script:Section({
