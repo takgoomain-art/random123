@@ -39,6 +39,14 @@ elseif game.PlaceId == 89469502395769 then
 	Kick = true
 elseif game.PlaceId == 17625359962 then
 	Rvs = true
+elseif game.PlaceId == 109983668079237 then
+	SAB = true
+elseif game.PlaceId == 6284583030 then
+	PSX = true
+elseif game.PlaceId == 8737899170 then
+	PS99 = true
+elseif game.PlaceId == 18901165922 then
+	PG = true
 end
 
 --[[ 
@@ -54,6 +62,10 @@ SP  = Sailor Piece
 los = Legend of Speed
 kck = Kick a Lucky Block
 Rvs = Rivals
+SAB = Steal a Brainrot
+PSX = Pet Simulator X
+PS99 = Pet Simulator 99
+PG = Pet's Go
 
 Tab: Script Tab
 
@@ -1694,6 +1706,49 @@ else
 	local rvbro = rivals:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Rivals game.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+	end	
+
+if PSX then
+	local psxsection = Script:Section({
+			Title = "[🐾] Pet Simulator X!",
+			Opened = true,
+		})
+
+elseif PS99 then
+	local ps99section = Script:Section({
+			Title = "[🐱] Pet Simulator 99!",
+			Opened = true,
+		})
+
+elseif PG then
+	local pgsection = Script:Section({
+			Title = "[👾] Pet's Go!",
+			Opened = true,
+		})
+
+else
+	local pssection = Script:Section({
+			Title = "[🐕] Pet Simulators",
+			Opened = true,
+		})
+	local pss = pssection:Paragraph({
+    Title = "NOTICE:",
+    Desc = "You're not in any Pet Simulators game.",
     --Color = "Red",
     --Image = "",
     --ImageSize = 30,
