@@ -47,6 +47,8 @@ elseif game.PlaceId == 8737899170 then
 	PS99 = true
 elseif game.PlaceId == 18901165922 then
 	PG = true
+elseif game.PlaceId == 920587237 then
+	AM = true
 end
 
 --[[ 
@@ -66,6 +68,7 @@ SAB = Steal a Brainrot
 PSX = Pet Simulator X
 PS99 = Pet Simulator 99
 PG = Pet's Go
+AM. = Adopt Me
 
 Tab: Script Tab
 
@@ -1846,6 +1849,41 @@ else
 	local pss = pssection:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in any Pet Simulators game.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+	end	
+
+local Adoptt = Script:Section({
+		Title = "[🐰] Adopt Me!",
+		Opened = true,
+	})
+
+if AM then
+	local AdoptHub1 = Adoptt:Button({
+			Title = "HAHAHAH",
+			Desc = "",
+			Locked = true,
+			Callback = function()
+
+			end})
+
+else
+	local adme = Adoptt:Paragraph({
+    Title = "NOTICE:",
+    Desc = "You're not in Adopt Me game.",
     --Color = "Red",
     --Image = "",
     --ImageSize = 30,
