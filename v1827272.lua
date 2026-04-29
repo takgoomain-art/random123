@@ -1021,10 +1021,6 @@ if BF1 or BF2 or BF3 then
     Desc = "",
     Locked = false,
     Callback = function()
-        local Settings = { 
-    Translator = true;   -- true / false
-}
-
 loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/heads/main/main.luau"))(Settings)
                 WindUI:Notify({
                 Title = "Liquid Hub",
@@ -1049,12 +1045,13 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/h
 })
 			end})
 local azuree = bf:Button({
-    Title = "🔓 W-Azure",
+    Title = "🔓 Feather Hub",
     Desc = "",
     Locked = false,
     Callback = function()   
-		loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()
-			WindUI:Notify({
+				
+loadstring(game:HttpGet("https://gistpad.com/raw/loader-775"))()
+				WindUI:Notify({
                 Title = "Liquid Hub",
                 Content = "Script Executed!",
                 Duration = 5, -- 3 seconds
