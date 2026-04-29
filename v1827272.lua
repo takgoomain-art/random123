@@ -30,7 +30,11 @@ elseif game.PlaceId == 119048529960596 then
 elseif game.PlaceId == 3398014311 then
 	RT2 = true
 elseif game.PlaceId == 2753915549 then
-    BloxFruits = true
+    BF1 = true
+elseif game.PlaceId == 4442272183 then
+	BF2 = true
+elseif game.PlaceId == 7449423635 then
+	BF3 = true
 elseif game.PlaceId == 77747658251236 then
     SailorPiece = true
 elseif game.PlaceId == 3101667897 then
@@ -59,7 +63,9 @@ GH  = Garden Horizon
 BH  = Brookhaven RP
 RT3 = Restaurant Tycoon 3
 RT2 = Restaurant Tycoon 2
-BF  = Blox Fruits
+BF1 = Blox Fruits | First Sea
+BF2 = Blox Fruits | Second Sea
+BF3 = Blox Fruits | Third Sea
 SP  = Sailor Piece
 los = Legend of Speed
 kck = Kick a Lucky Block
@@ -1009,7 +1015,7 @@ local bf = Script:Section({
 	Opened = true,
 })
 
-if BloxFruits then
+if BF1 or BF2 or BF3 then
     local Redz = bf:Button({
     Title = "🔓 Redz Hub",
     Desc = "",
