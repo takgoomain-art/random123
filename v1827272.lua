@@ -1059,7 +1059,34 @@ loadstring(game:HttpGet("https://gistpad.com/raw/loader-775"))()
 })
 			end
 		})
-
+local idkhub1 = bf:Button({
+			Title = "🔓 Lunaris Hub",
+			Desc = "",
+			Locked = false,
+			Callback = function()
+				loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/6aa463bf1351e5896ac04a44c07f78b983a2efc32738c543ac198b73d94cc946/download"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end
+		})
+	local idkhub1 = bf:Button({
+			Title = "❓ Astra Hub",
+			Desc = "",
+			Locked = false,
+			Callback = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/enes14451445-dev/roblox-scripts/main/astrahub.bloxfruit.lua"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end
+		})
 	local relz = bf:Button({
     Title = "🔐 Relz Hub",
     Desc = "",
