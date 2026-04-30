@@ -449,7 +449,7 @@ local Window = WindUI:CreateWindow({
     Color = primaryColor,
     Folder = "CyraaHub",
     HideSearchBar = teleportToPlayerEnabled,
-    Icon = "rbxthumb://type=Asset&id=106624117427771&w=150&h=150",
+    Icon = "",
     MaxSize = Vector2.new(900, 580),
     MinSize = Vector2.new(580, 370),
     NewElements = QEfly,
@@ -459,11 +459,11 @@ local Window = WindUI:CreateWindow({
         CornerRadius = UDim.new(1, harvestMinMultiplier),
         Draggable = QEfly,
         Enabled = QEfly,
-        Icon = "rbxthumb://type=Asset&id=106624117427771&w=150&h=150",
+        Icon = "",
         OnlyMobile = teleportToPlayerEnabled,
         StrokeThickness = 3,
         TextColor = primaryColor,
-        Title = "by komtolmmek2 script"
+        Title = "by Liquid Management"
     },
     Resizable = QEfly,
     ScrollBarEnabled = teleportToPlayerEnabled,
@@ -471,7 +471,7 @@ local Window = WindUI:CreateWindow({
     Size = UDim2.fromOffset(580, 370),
     SubTitle = "v1.harvestMinMultiplier.5",
     Theme = "Garden Theme",
-    Title = "Cyraa Hub",
+    Title = "Liquid Hub",
     Topbar = {ButtonsType = "Mac", Color = Color3.fromRGB(harvestMinMultiplier, harvestMinMultiplier, harvestMinMultiplier), Height = 44},
     Transparent = QEfly
 })
@@ -620,16 +620,17 @@ local _v32 = HomeTab:Paragraph({
     Buttons = {{Callback = function()
     setclipboard("https://discord.gg/BMrXHt4rJv")
 end, Title = "Copy Discord Link"}},
-    Desc = "Cyraa Hub Discord Link!",
+    Desc = "Liquid Hub Community",
     Title = "Discord Server"
 })
-local _v33 = HomeTab:Paragraph({
+--[[local _v33 = HomeTab:Paragraph({
     Buttons = {{Callback = function()
     setclipboard("https://www.tiktok.com/@komtolmmek2script")
 end, Title = "Copy Link"}},
     Desc = "komtolmmek2 Script",
     Title = "TikTok"
 })
+]]
 local FarmTab = Window:Tab({Color = primaryColor, Icon = "solar:cpu-bold", Title = "Farm"})
 local FarmTab = FarmTab
 local HarvestSection = FarmTab:Section({Title = "Auto Harvest"})
