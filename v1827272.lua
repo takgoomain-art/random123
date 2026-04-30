@@ -327,8 +327,60 @@ local Credits = InfoGroup1:Paragraph({
 InfoGroup1:Space()
 
 local InfoGroup2 = Main:Group({})
-local exesect = InfoGroup2:Section({
-	Title = "Client Status",
+
+local Players = game:GetService("Players")
+local MarketplaceService = game:GetService("MarketplaceService")
+
+local player = Players.LocalPlayer
+
+-- 👤 USER INFO
+local username = player.Name
+local displayName = player.DisplayName
+local userId = player.UserId
+
+-- Avatar Image
+local userImage = string.format(
+    "https://www.roblox.com/headshot-thumbnail/image?userId=%d&width=420&height=420&format=png",
+    userId
+)
+
+local userParagraph = InfoGroup2:Paragraph({
+    Title = displayName, -- 🔥 Display Name sa Title
+    Desc = "@" .. username, -- 🔥 Username sa baba
+    Image = userImage,
+    ImageSize = 40,
+    Locked = false,
+})
+
+---
+
+-- 🎮 GAME INFO
+local placeId = game.PlaceId
+local gameName = "Unknown Game"
+local creatorName = "Unknown"
+
+pcall(function()
+    local info = MarketplaceService:GetProductInfo(placeId)
+    gameName = info.Name
+
+    -- Creator info
+    if info.Creator and info.Creator.Name then
+        creatorName = info.Creator.Name
+    end
+end)
+
+-- Game Thumbnail
+local gameImage = string.format(
+    "https://www.roblox.com/asset-thumbnail/image?assetId=%d&width=420&height=420&format=png",
+    placeId
+)
+
+local gameParagraph = InfoGroup2:Paragraph({
+    Title = gameName, -- 🔥 Game Name sa Title
+    Desc = "@" .. creatorName, -- 🔥 Creator username
+    Image = gameImage,
+    ImageSize = 40,
+    Locked = false,
 })
 
 local function detectExecutor()
