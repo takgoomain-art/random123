@@ -135,7 +135,7 @@ local Stats = game:GetService("Stats")
 
 local Tag1 = Window:Tag({
     Title = "Loading...",
-    Icon = "",
+    Icon = "wifi",
     Color = Color3.fromHex("#30ff6a"),
     Radius = 8,
 })
