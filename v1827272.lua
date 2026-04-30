@@ -384,7 +384,6 @@ local gameParagraph = InfoGroup2:Paragraph({
 })
 
 InfoGroup2:Space()
-local InfoGroup3:Group({})
 
 local function detectExecutor()
     if identifyexecutor then
