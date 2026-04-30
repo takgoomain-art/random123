@@ -1588,7 +1588,14 @@ if SailorPiece then
 		Callback = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/Vavadragonss/VavaHubb/refs/heads/main/v1.lua"))()
 			end})
-	local Nicuse = Script:Button({
+	local HOHOSP = spp:Button({
+			Title = "🔐 HoHo Hub",
+			Desc = "",
+			Locked = false,
+			Callback = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
+			end})
+	local Nicuse = spp:Button({
 		Title = "🔐 Nicuse",
 		Desc = "",
 		Locked = false,
@@ -1784,6 +1791,19 @@ if SAB then
 		Locked = false,
 		Callback = function()
 				loadstring(game:HttpGet("https://codeberg.org/hubs/sab/raw/branch/main/palkuhub"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
+	local SABhubidk = SABsection:Button({
+			Title = "🔐 HoHo Hub",
+			Desc = "",
+			Locked = false,
+			Callback = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
 				WindUI:Notify({
                 Title = "Liquid Hub",
                 Content = "Script Executed!",
