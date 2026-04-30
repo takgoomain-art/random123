@@ -129,38 +129,7 @@ Window:CreateTopbarButton("theme-switcher", "moon", function()
     })
 end, 990)
 
-local pingTag = Window:Tag({
-    Title = "Loading...",
-    Icon = "activity",
-    Color = Color3.fromHex("#30ff6a"),
-    Radius = 8,
-})
 
-local function updateStats()
-    local pingValue = Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
-    local fps = math.floor(1 / RunService.Heartbeat:Wait())
-    
-    local pingStr = pingValue .. "ms"
-    local displayText = pingStr .. " | " .. fps .. " FPS"
-    
-    pingTag:SetTitle(displayText)
-    
-    -- Dynamic colors
-    if pingValue > 200 or fps < 30 then
-        pingTag:SetColor(Color3.fromHex("#ff4444")) -- Red
-    elseif pingValue > 100 or fps < 60 then
-        pingTag:SetColor(Color3.fromHex("#ffaa00")) -- Orange
-    else
-        pingTag:SetColor(Color3.fromHex("#30ff6a")) -- Green
-    end
-end
-
--- Update every 0.5s
-RunService.Heartbeat:Connect(function()
-    if tick() % 0.5 < 0.016 then
-        pcall(updateStats)
-    end
-end)
 ------ TABS
 local Section1 = Window:Section({
     Title = "Informations",
@@ -2347,3 +2316,36 @@ if success then
 else
     print("Error sending message: " .. tostring(response))
 end
+
+local pingTag = Window:Tag({
+    Title = "",
+    Icon = "activity",
+    Color = Color3.fromHex("#30ff6a"),
+    Radius = 8,
+})
+
+local function updateStats()
+    local pingValue = Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
+    local fps = math.floor(1 / RunService.Heartbeat:Wait())
+    
+    local pingStr = pingValue .. "ms"
+    local displayText = pingStr .. " | " .. fps .. " FPS"
+    
+    pingTag:SetTitle(displayText)
+    
+    -- Dynamic colors
+    if pingValue > 200 or fps < 30 then
+        pingTag:SetColor(Color3.fromHex("#ff4444")) -- Red
+    elseif pingValue > 100 or fps < 60 then
+        pingTag:SetColor(Color3.fromHex("#ffaa00")) -- Orange
+    else
+        pingTag:SetColor(Color3.fromHex("#30ff6a")) -- Green
+    end
+end
+
+-- Update every 0.5s
+RunService.Heartbeat:Connect(function()
+    if tick() % 0.5 < 0.016 then
+        pcall(updateStats)
+    end
+end)
