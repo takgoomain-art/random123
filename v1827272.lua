@@ -1348,6 +1348,19 @@ if GH then
 })
 			end})
 
+	local flowhub = Gar:Button({
+			Title = "🔐 Flow",
+			Desc = "",
+			Locked = false,
+			Callback = function()
+				loadstring(game:HttpGet("https://rawscripts.net/raw/BOTANIST-Garden-Horizons-Auto-Plant-Auto-Sell-Auto-harvest-and-mutations-Full-afk-127060"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
 else
 	local ghn = Gar:Paragraph({
     Title = "NOTICE:",
