@@ -348,7 +348,7 @@ local userParagraph = InfoGroup2:Paragraph({
     Title = displayName, -- 🔥 Display Name sa Title
     Desc = "@" .. username, -- 🔥 Username sa baba
     Image = userImage,
-    ImageSize = 40,
+    ImageSize = 60,
     Locked = false,
 })
 
@@ -379,9 +379,12 @@ local gameParagraph = InfoGroup2:Paragraph({
     Title = gameName, -- 🔥 Game Name sa Title
     Desc = "@" .. creatorName, -- 🔥 Creator username
     Image = gameImage,
-    ImageSize = 40,
+    ImageSize = 60,
     Locked = false,
 })
+
+InfoGroup2:Space()
+local InfoGroup3:Group({})
 
 local function detectExecutor()
     if identifyexecutor then
