@@ -129,7 +129,83 @@ Window:CreateTopbarButton("theme-switcher", "moon", function()
     })
 end, 990)
 
+local RunService = game:GetService("RunService")
+local Stats = game:GetService("Stats")
+local TweenService = game:GetService("TweenService")
 
+local Tag1 = Window:Tag({
+    Title = "Loading...",
+    Icon = "",
+    Color = Color3.fromHex("#30ff6a"),
+    Radius = 8,
+})
+
+-- FPS variables
+local fps = 60
+local lastTime = tick()
+local frameTimes = {}
+
+-- Smooth FPS (average)
+RunService.RenderStepped:Connect(function()
+    local now = tick()
+    local delta = now - lastTime
+    lastTime = now
+
+    table.insert(frameTimes, delta)
+
+    if #frameTimes > 30 then
+        table.remove(frameTimes, 1)
+    end
+
+    local total = 0
+    for _, v in ipairs(frameTimes) do
+        total += v
+    end
+
+    fps = math.floor(#frameTimes / total)
+end)
+
+-- Smooth color tween
+local currentTween
+
+local function tweenColor(newColor)
+    if currentTween then
+        currentTween:Cancel()
+    end
+
+    currentTween = TweenService:Create(Tag1.Instance, TweenInfo.new(0.3), {
+        BackgroundColor3 = newColor
+    })
+
+    currentTween:Play()
+end
+
+-- Main loop
+task.spawn(function()
+    while true do
+        task.wait(0.5)
+
+        local pingStat = Stats.Network.ServerStatsItem["Data Ping"]
+        local ms = math.floor(pingStat:GetValue())
+
+        local targetColor
+
+        -- Advanced thresholds
+        if ms >= 180 or fps <= 25 then
+            targetColor = Color3.fromRGB(255, 60, 60) -- soft red
+        elseif ms >= 120 or fps <= 50 then
+            targetColor = Color3.fromRGB(255, 200, 0) -- yellow
+        else
+            targetColor = Color3.fromRGB(60, 255, 120) -- green
+        end
+
+        -- Update text
+        Tag1:SetTitle(string.format("%d MS | %d FPS", ms, fps))
+
+        -- Smooth color change
+        tweenColor(targetColor)
+    end
+end)
 ------ TABS
 local Section1 = Window:Section({
     Title = "Informations",
@@ -2317,7 +2393,7 @@ else
     print("Error sending message: " .. tostring(response))
 end
 
-local pingTag = Window:Tag({
+--[[local pingTag = Window:Tag({
     Title = "",
     Icon = "activity",
     Color = Color3.fromHex("#30ff6a"),
@@ -2349,3 +2425,4 @@ RunService.Heartbeat:Connect(function()
         pcall(updateStats)
     end
 end)
+]]
