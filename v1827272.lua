@@ -129,9 +129,9 @@ Window:CreateTopbarButton("theme-switcher", "moon", function()
     })
 end, 990)
 
+ 
 local RunService = game:GetService("RunService")
 local Stats = game:GetService("Stats")
-local TweenService = game:GetService("TweenService")
 
 local Tag1 = Window:Tag({
     Title = "Loading...",
@@ -140,72 +140,42 @@ local Tag1 = Window:Tag({
     Radius = 8,
 })
 
--- FPS variables
-local fps = 60
+local fps = 0
 local lastTime = tick()
-local frameTimes = {}
 
--- Smooth FPS (average)
+-- FPS Calculator
 RunService.RenderStepped:Connect(function()
     local now = tick()
-    local delta = now - lastTime
+    fps = math.floor(1 / (now - lastTime))
     lastTime = now
-
-    table.insert(frameTimes, delta)
-
-    if #frameTimes > 30 then
-        table.remove(frameTimes, 1)
-    end
-
-    local total = 0
-    for _, v in ipairs(frameTimes) do
-        total += v
-    end
-
-    fps = math.floor(#frameTimes / total)
 end)
 
--- Smooth color tween
-local currentTween
-
-local function tweenColor(newColor)
-    if currentTween then
-        currentTween:Cancel()
-    end
-
-    currentTween = TweenService:Create(Tag1.Instance, TweenInfo.new(0.3), {
-        BackgroundColor3 = newColor
-    })
-
-    currentTween:Play()
-end
-
--- Main loop
+-- Main Loop (update UI)
 task.spawn(function()
     while true do
         task.wait(0.5)
 
+        -- Get Ping (MS)
         local pingStat = Stats.Network.ServerStatsItem["Data Ping"]
         local ms = math.floor(pingStat:GetValue())
 
-        local targetColor
+        -- Determine Color
+        local color
 
-        -- Advanced thresholds
-        if ms >= 180 or fps <= 25 then
-            targetColor = Color3.fromRGB(255, 60, 60) -- soft red
-        elseif ms >= 120 or fps <= 50 then
-            targetColor = Color3.fromRGB(255, 200, 0) -- yellow
+        if fps <= 30 or ms >= 150 then
+            color = Color3.fromRGB(255, 0, 0) -- RED
+        elseif fps <= 60 or ms >= 100 then
+            color = Color3.fromRGB(255, 255, 0) -- YELLOW
         else
-            targetColor = Color3.fromRGB(60, 255, 120) -- green
+            color = Color3.fromRGB(0, 255, 0) -- GREEN
         end
 
-        -- Update text
+        -- Update Tag
         Tag1:SetTitle(string.format("%d MS | %d FPS", ms, fps))
-
-        -- Smooth color change
-        tweenColor(targetColor)
+        Tag1:SetColor(color)
     end
 end)
+
 ------ TABS
 local Section1 = Window:Section({
     Title = "Informations",
