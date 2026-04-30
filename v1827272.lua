@@ -281,17 +281,20 @@ Info:Section({
     
 })
 ]]
-local DiscordServerParagraph = Main:Paragraph({
+
+local InfoGroup1 = Main:Group({})
+
+local DiscordServerParagraph = InfoGroup1:Paragraph({
 			Title = "Liquid Hub | Community",
 			Desc = "Join to our Discord Community!!",
-			--Image = "https://cdn.discordapp.com/icons/"
+			Image = "https://cdn.discordapp.com/attachments/1370249607405244416/1497554322072797284/75100e24-bbd5-4052-8404-32c4c31ecc1a.jpg?ex=69edf1a5&is=69eca025&hm=dfaf406b4df410cf62a3c1c6c3bcef8e49cc768079dfbe23ce6c00f9997a0633&",
 			--	.. Response.guild.id
 			--	.. "/"
 			--	.. Response.guild.icon
 			--	.. ".png?size=1024",
-		    Thumbnail = "https://cdn.discordapp.com/attachments/1370249607405244416/1497554322072797284/75100e24-bbd5-4052-8404-32c4c31ecc1a.jpg?ex=69edf1a5&is=69eca025&hm=dfaf406b4df410cf62a3c1c6c3bcef8e49cc768079dfbe23ce6c00f9997a0633&",
-			--Thumbnail = "https://cdn.discordapp.com/banners/1300692552005189632/35981388401406a4b7dffd6f447a64c4.png?size=512",
-			--ImageSize = 48,
+		    Thumbnail = "",
+		--Thumbnail = "https://cdn.discordapp.com/banners/1300692552005189632/35981388401406a4b7dffd6f447a64c4.png?size=512",
+			ImageSize = 31,
 			Buttons = {
 				{
 					Title = "Copy link",
@@ -302,7 +305,7 @@ local DiscordServerParagraph = Main:Paragraph({
 				},
 			},
 		})
-local Credits = Main:Paragraph({
+local Credits = InfoGroup1:Paragraph({
     Title = "Credentials",
     Desc = "Liquid Hub is giving credits to the owner of the script that is listed here.",
     --Color = "Red",
@@ -320,8 +323,12 @@ local Credits = Main:Paragraph({
     }
     ]]
 })
-local exesect = Main:Section({
-	Title = "💻 Executor Status",
+
+InfoGroup1:Space()
+
+local InfoGroup2 = Main:Group({})
+local exesect = InfoGroup2:Section({
+	Title = "Client Status",
 })
 
 local function detectExecutor()
@@ -345,7 +352,7 @@ end
 local executorName = detectExecutor()
 
 
-local exe = Main:Paragraph({
+local exe = InfoGroup2:Paragraph({
     Title = "Executor:",
     Desc = executorName or "Unable to detect executor..",
     --Color = "Red",
