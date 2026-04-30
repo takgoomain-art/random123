@@ -351,10 +351,58 @@ end
 
 local executorName = detectExecutor()
 
+local UIS = game:GetService("UserInputService")
 
+-- 🔍 Executor Detection
+--[[local executorName = (identifyexecutor and identifyexecutor())
+    or (getexecutorname and getexecutorname())
+    or "Unknown Executor"
+]]
+-- 📱 Platform (Mobile / PC / Console)
+local platform = "Unknown"
+
+if UIS.TouchEnabled and not UIS.KeyboardEnabled then
+    platform = "Mobile"
+elseif UIS.KeyboardEnabled then
+    platform = "PC"
+elseif UIS.GamepadEnabled then
+    platform = "Console"
+end
+
+-- 🖥️ Device (iOS / Android / Windows / MacOS)
+local device = "Unknown"
+local platformEnum = UIS:GetPlatform()
+
+if platformEnum == Enum.Platform.IOS then
+    device = "iOS"
+elseif platformEnum == Enum.Platform.Android then
+    device = "Android"
+elseif platformEnum == Enum.Platform.Windows then
+    device = "Windows"
+elseif platformEnum == Enum.Platform.OSX then
+    device = "MacOS"
+else
+    device = "Unsupported"
+end
+
+-- 🧾 Final Description
+local descText = string.format(
+    "Executor: %s\nPlatform: %s\nDevice: %s",
+    executorName,
+    platform,
+    device
+)
+
+-- 📌 UI Output
+--[[local exe = InfoGroup2:Paragraph({
+    Title = "Client Information",
+    Desc = descText,
+    Locked = false,
+})
+]]
 local exe = InfoGroup2:Paragraph({
-    Title = "Executor:",
-    Desc = executorName or "Unable to detect executor..",
+    Title = "Client Information",
+    Desc = descText,
     --Color = "Red",
     --Image = "",
     --ImageSize = 30,
