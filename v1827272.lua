@@ -434,28 +434,38 @@ pcall(function()
     end
 end)
 
--- 👥 Players (current/max)
-local currentPlayers = #Players:GetPlayers()
 local maxPlayers = Players.MaxPlayers
 
-local playerText = string.format("%d/%d", currentPlayers, maxPlayers)
-
--- 🧾 Format
-local descText = string.format(
-    "Place Id: %s\nGame Id: %s\nCreator Name: %s\nCreator Id: %s\nPlayers: %s",
-    tostring(placeId),
-    tostring(gameId),
-    tostring(creatorName),
-    tostring(creatorId),
-    playerText
-)
-
--- 📌 UI
-local gameDetailsParagraph = InfoGroup2:Paragraph({
+-- 📌 Create Paragraph FIRST
+local gameDetailsParagraph = InfoGroup3:Paragraph({
     Title = "Game Details",
-    Desc = descText,
+    Desc = "Loading...",
     Locked = false,
 })
+
+-- 🔄 Update function
+local function updateUI()
+    local currentPlayers = #Players:GetPlayers()
+    local playerText = string.format("%d/%d", currentPlayers, maxPlayers)
+
+    local descText = string.format(
+        "Place Id: %s\nGame Id: %s\nCreator Name: %s\nCreator Id: %s\nPlayers: %s",
+        tostring(placeId),
+        tostring(gameId),
+        tostring(creatorName),
+        tostring(creatorId),
+        playerText
+    )
+
+    gameDetailsParagraph:SetDesc(descText)
+end
+
+-- 🚀 Initial update
+updateUI()
+
+-- 🔁 Live updates
+Players.PlayerAdded:Connect(updateUI)
+Players.PlayerRemoving:Connect(updateUI)
 
 InfoGroup3:Space()
 
