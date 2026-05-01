@@ -102,6 +102,9 @@ local Window = WindUI:CreateWindow({
     Icon = "door-open", -- lucide icon. optional
     Author = "by Liquid Management", -- optional
     HideSearchBar = false,
+	Size = UDim2.fromOffset(580, 460),
+    MinSize = Vector2.new(560, 350),
+    MaxSize = Vector2.new(850, 560),
 	})
 
 
@@ -385,6 +388,34 @@ local gameParagraph = InfoGroup2:Paragraph({
 
 InfoGroup2:Space()
 
+local InfoGroup3 = Main:Group({})
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- 🔁 Execution Counter (global para di ma-reset agad)
+getgenv().ExecutionCount = (getgenv().ExecutionCount or 0) + 1
+
+-- 🧾 Account Info
+local accountId = player.UserId
+local accountAge = player.AccountAge -- in days
+local executionTimes = getgenv().ExecutionCount
+
+-- 📌 Format Desc
+local descText = string.format(
+    "Account ID: %d\nAccount Age: %d days\nExecution Times: %d",
+    accountId,
+    accountAge,
+    executionTimes
+)
+
+-- 📌 UI
+local accountParagraph = InfoGroup3:Paragraph({
+    Title = "Account Details",
+    Desc = descText,
+    Locked = false,
+})
+
 local function detectExecutor()
     if identifyexecutor then
         return identifyexecutor()
@@ -454,7 +485,7 @@ local descText = string.format(
     Locked = false,
 })
 ]]
-local exe = InfoGroup2:Paragraph({
+local exe = InfoGroup3:Paragraph({
     Title = "Client Information",
     Desc = descText,
     --Color = "Red",
