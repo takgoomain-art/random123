@@ -4,7 +4,7 @@ Welcome, Skidders! You've come here, we're glad.
 So it means our obfuscator or security is weak?
 
 ]]
-
+local scriptVersion = "v1.222"
 
 print("Starting to Load...")
 
@@ -178,6 +178,15 @@ task.spawn(function()
         Tag1:SetColor(color)
     end
 end)
+
+
+
+local VersionTag = Window:Tag({
+    Title = scriptVersion,
+    Icon = "github",
+    Color = Color3.fromHex("#3aa3ff"),
+    Radius = 10,
+})
 
 ------ TABS
 local Section1 = Window:Section({
