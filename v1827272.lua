@@ -434,21 +434,24 @@ pcall(function()
     end
 end)
 
--- 👥 Current players sa server
+-- 👥 Players (current/max)
 local currentPlayers = #Players:GetPlayers()
+local maxPlayers = Players.MaxPlayers
+
+local playerText = string.format("%d/%d", currentPlayers, maxPlayers)
 
 -- 🧾 Format
 local descText = string.format(
-    "Place Id: %s\nGame Id: %s\nCreator Name: %s\nCreator Id: %s\nPlayers: %d",
+    "Place Id: %s\nGame Id: %s\nCreator Name: %s\nCreator Id: %s\nPlayers: %s",
     tostring(placeId),
     tostring(gameId),
     tostring(creatorName),
     tostring(creatorId),
-    currentPlayers
+    playerText
 )
 
 -- 📌 UI
-local gameDetailsParagraph = InfoGroup3:Paragraph({
+local gameDetailsParagraph = InfoGroup2:Paragraph({
     Title = "Game Details",
     Desc = descText,
     Locked = false,
