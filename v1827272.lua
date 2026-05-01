@@ -102,7 +102,7 @@ local Window = WindUI:CreateWindow({
     Icon = "door-open", -- lucide icon. optional
     Author = "by Liquid Management", -- optional
     HideSearchBar = false,
-	Size = UDim2.fromOffset(580, 460),
+	Size = UDim2.fromOffset(670, 510),
     MinSize = Vector2.new(560, 350),
     MaxSize = Vector2.new(850, 560),
 	})
@@ -165,9 +165,9 @@ task.spawn(function()
         -- Determine Color
         local color
 
-        if fps <= 30 or ms >= 150 then
+        if fps <= 25 or ms >= 180 then
             color = Color3.fromRGB(255, 0, 0) -- RED
-        elseif fps <= 60 or ms >= 100 then
+        elseif fps <= 40 or ms >= 80 then
             color = Color3.fromRGB(255, 255, 0) -- YELLOW
         else
             color = Color3.fromRGB(0, 255, 0) -- GREEN
@@ -1625,9 +1625,9 @@ else
 })
 end
 
-local rt3group = Script:Group({})
+--local rt3group = Script:Group({})
 if RT3 then
-local rt3 = rt3group:Section({ 
+local rt3 = Script:Section({ 
     Title = "[👨‍🍳] Restaurant Tycoon 3",
 	Opened = true,
 })
@@ -2227,6 +2227,25 @@ local idkkk = More:Section({
 		Title = "More Scripts Section",
 })
 
+local musics = More:Section({
+		Title = "Universal Music Player",
+		Opened = true,
+	})
+
+local spotifymp = musics:Button({
+		Title = "🔓 Ares Spotify Music",
+		Desc = "Loads a universal music script.",
+		Locked = false,
+		Callback = function()
+			loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Spotify-Music-Player-Universal-207570"))()
+		end})
+local YTMusicMp = musics:Button({
+		Title = "🔓 YouTube Music Player",
+		Desc = "Loads a universal music script.",
+		Locked = false,
+		Callback = function()
+			loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-YouTube-Music-Player-72222"))()
+		end})
 local fe = More:Section({
 		Title = "FE SCRIPTS",
 		Opened = true,
