@@ -416,6 +416,74 @@ local accountParagraph = InfoGroup3:Paragraph({
     Locked = false,
 })
 
+local MarketplaceService = game:GetService("MarketplaceService")
+
+local placeId = game.PlaceId
+local gameId = game.GameId
+
+local creatorId = "Unknown"
+local creatorName = "Unknown"
+local gameName = "Unknown"
+local maxPlayers = "Unknown"
+local playing = "Unknown"
+local created = "Unknown"
+local updated = "Unknown"
+local isPublic = "Unknown"
+local favorites = "Unknown"
+local likes = "Unknown"
+
+pcall(function()
+    local info = MarketplaceService:GetProductInfo(placeId)
+
+    gameName = info.Name or "Unknown"
+    maxPlayers = info.MaxPlayers or "Unknown"
+    playing = info.Playing or "Unknown"
+
+    created = info.Created or "Unknown"
+    updated = info.Updated or "Unknown"
+
+    favorites = info.FavoritedCount or "Unknown"
+    likes = info.Likes or "Unknown"
+
+    -- Public / Private
+    if info.IsPublic ~= nil then
+        isPublic = info.IsPublic and "Public" or "Private"
+    end
+
+    -- Creator
+    if info.Creator then
+        creatorId = info.Creator.Id or "Unknown"
+        creatorName = info.Creator.Name or "Unknown"
+    end
+end)
+
+-- 🧾 Format
+local descText = string.format(
+    "🎮 Game: %s\n🆔 Place Id: %s\n🌍 Game Id: %s\n👑 Creator: %s (%s)\n👥 Players: %s/%s\n📅 Created: %s\n♻️ Updated: %s\n🌐 Visibility: %s\n⭐ Favorites: %s\n👍 Likes: %s",
+    tostring(gameName),
+    tostring(placeId),
+    tostring(gameId),
+    tostring(creatorName),
+    tostring(creatorId),
+    tostring(playing),
+    tostring(maxPlayers),
+    tostring(created),
+    tostring(updated),
+    tostring(isPublic),
+    tostring(favorites),
+    tostring(likes)
+)
+
+-- 📌 UI
+local gameDetailsParagraph = InfoGroup3:Paragraph({
+    Title = "Game Details",
+    Desc = descText,
+    Locked = false,
+})
+
+InfoGroup3:Space()
+
+local InfoGroup4 = Main:Group({})
 local function detectExecutor()
     if identifyexecutor then
         return identifyexecutor()
@@ -485,8 +553,8 @@ local descText = string.format(
     Locked = false,
 })
 ]]
-local exe = InfoGroup3:Paragraph({
-    Title = "Client Information",
+local exe = InfoGroup4:Paragraph({
+    Title = "Client Details",
     Desc = descText,
     --Color = "Red",
     --Image = "",
