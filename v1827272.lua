@@ -14,7 +14,7 @@ print("Loading Script....")
 print("Loading Assets.....")
 print("Loading Tabs..")
 print("Loading Functions....")
-print("99.99999%")
+print("Detecting Script Version")
 
 print("Detecting Executor...")
 print("Collecting Server Id")
@@ -187,7 +187,8 @@ local VersionTag = Window:Tag({
     Color = Color3.fromHex("#3aa3ff"),
     Radius = 10,
 })
-
+print("Script Version Detected!")
+print("Script Version:" .. scriptVersion)
 ------ TABS
 local Section1 = Window:Section({
     Title = "Informations",
