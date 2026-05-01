@@ -1841,7 +1841,7 @@ local spp = Script:Section({
 
 if SailorPiece then
 	local ATG = spp:Button({
-		Title = "🔓 ATG Hub",
+		Title = "🔐 ATG Hub",
 		Desc = "",
 		Locked = false,
 		Callback = function()
@@ -1971,8 +1971,22 @@ local kickLBb = Script:Section({
 		Title = "[🌟] Kick a Lucky Block",
 		Opened = true,
 })
+
 if Kick then
 	local Kick1 = kickLBb:Button({
+			Title = "🔐 Rey Hub",
+			Desc = "🗝️ KEY: CAT",
+			Locked = false,
+			Callback = function()
+				loadstring(game:HttpGet("https://pastebin.com/raw/zbKAtUEn"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 6, -- 3 seconds
+                Icon = "bell",
+									})
+									end})
+	local Kick2 = kickLBb:Button({
 		Title = "🔐 Luminis Hub",
 		Desc = "",
 	    Locked = false,
