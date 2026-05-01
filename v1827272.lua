@@ -1252,6 +1252,7 @@ local Game = Scr:Paragraph({
     ]]
 })
 
+--local bfgroup = Script:Group({})
 local bf = Script:Section({ 
     Title = "[🍎] Blox Fruits",
 	Opened = true,
@@ -1624,8 +1625,9 @@ else
 })
 end
 
+local rt3group = Script:Group({})
 if RT3 then
-local rt3 = Script:Section({ 
+local rt3 = rt3group:Section({ 
     Title = "[👨‍🍳] Restaurant Tycoon 3",
 	Opened = true,
 })
