@@ -571,7 +571,10 @@ local exe = InfoGroup4:Paragraph({
 ------- PLAYER TAB
 local lpS = lp:Section({
 	Title = "Player Movement",
+	Icon = "user-pen",
+	Opened = true,
 })
+
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
@@ -669,6 +672,7 @@ end
 
 local moove = lp:Section({
 		Title = "Other Movement",
+		Icon = "user-search",
 		Opened = true,
 	})
 -- Add mo to sa Player tab (lp) kasama ng Walkspeed/JumpPower mo
@@ -937,6 +941,7 @@ local flygui = moove:Button({
 
 local RBLXS = lp:Section({
 		Title = "Roblox Character",
+		Icon = "folder-cog",
 		Opened = true,
 	})
 
@@ -956,6 +961,7 @@ RBLXS:Button({
 
 local ESPbro = lp:Section({
 		Title = "ESP",
+		Icon = "brush",
 		Opened = true,
 	})
 
@@ -1121,6 +1127,7 @@ local rainbowToggle = ESPbro:Toggle({
 ------- SERVER TAB
 local statuss = Server:Section({ 
     Title = "Game Status",
+	Icon = "scroll-text",
 	Opened = true,
 })
 
@@ -1158,6 +1165,7 @@ end)
 
 local svv = Server:Section({ 
     Title = "Server Status",
+	Icon = "scroll-text",
 	Opened = true,
 })
 
@@ -1262,7 +1270,8 @@ local Hop = svv:Button({
 	
 ------ Scripts Tab
 local Scr = Script:Section({ 
-    Title = "🎮 SCRIPTS SECTION",
+    Title = "Game Scripts",
+	Icon = "gamepad-2",
 	Opened = true,
 })
 
@@ -2378,7 +2387,8 @@ else
 })
 	end	
 local idkkk = More:Section({
-		Title = "More Scripts Section",
+		Title = "More Scripts",
+		Icon = "search",
 })
 
 local musics = More:Section({
@@ -2403,6 +2413,7 @@ local YTMusicMp = musics:Button({
 		end})
 local fe = More:Section({
 		Title = "FE SCRIPTS",
+		Icon = "person-standing",
 		Opened = true,
 })
 
@@ -2416,7 +2427,8 @@ local iy = fe:Button({
 
 ----------- SETTINGS TAB
 local light = Settings:Section({
-		Title = "💡 Lighting",
+		Title = "Lighting",
+		Icon = "lightbulb",
 		Opened = true,
 	})
 -- Simple one-toggle lighting (Player/Settings tab)
@@ -2530,6 +2542,7 @@ light:Button({
 
 Settings:Section({
 		Title = "UI",
+		Icon = "hammer",
 	})
 Settings:Button({
 		Title = "Destroy Window UI",
