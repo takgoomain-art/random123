@@ -863,7 +863,57 @@ local antiFlingToggle = lp:Toggle({
     end
 })
 
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 
+local player = Players.LocalPlayer
+
+local noclipEnabled = false
+local connection
+
+-- Function para i-set CanCollide
+local function setNoClip(state)
+    local character = player.Character
+    if not character then return end
+
+    for _, v in pairs(character:GetDescendants()) do
+        if v:IsA("BasePart") then
+            v.CanCollide = not state
+        end
+    end
+end
+
+-- Toggle UI
+local NoClipToggle = InfoGroup2:Toggle({
+    Title = "No Clip",
+    Desc = "",
+    Value = false,
+    Callback = function(state)
+        noclipEnabled = state
+
+        if state then
+            -- Enable noclip loop
+            connection = RunService.Stepped:Connect(function()
+                setNoClip(true)
+            end)
+        else
+            -- Disable noclip
+            if connection then
+                connection:Disconnect()
+                connection = nil
+            end
+            setNoClip(false)
+        end
+    end
+})
+
+-- Handle respawn
+player.CharacterAdded:Connect(function()
+    task.wait(1)
+    if noclipEnabled then
+        setNoClip(true)
+    end
+end)
 
 -- Fling All (unchanged - perfect!)
 --[[local flingAllBtn = lp:Button({
