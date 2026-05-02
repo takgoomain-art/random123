@@ -980,6 +980,67 @@ RBLXS:Button({
 	end,
 })
 
+local Cam = lp:Section({
+		Title = "Camera",
+		Icon = "camera",
+		Opened = true,
+	})
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local camera = workspace.CurrentCamera
+
+-- default FOV
+local defaultFOV = camera.FieldOfView
+
+-- state
+local fovEnabled = false
+local fovValue = 70
+
+-- 🔘 TOGGLE
+Cam:Toggle({
+    Title = "Custom FOV",
+    Desc = "Enable custom field of view",
+    Value = false,
+    Callback = function(state)
+        fovEnabled = state
+
+        if state then
+            camera.FieldOfView = fovValue
+        else
+            camera.FieldOfView = defaultFOV
+        end
+    end
+})
+
+-- 🎚️ SLIDER
+Cam:Slider({
+    Title = "FOV",
+    Desc = "Adjust field of view",
+    Value = {
+        Min = 50,
+        Max = 120,
+        Default = 70,
+    },
+    Callback = function(value)
+        fovValue = value
+
+        if fovEnabled then
+            camera.FieldOfView = value
+        end
+    end
+})
+
+-- 🔄 Handle respawn / camera reset
+player.CharacterAdded:Connect(function()
+    task.wait(1)
+    if fovEnabled then
+        camera.FieldOfView = fovValue
+    else
+        camera.FieldOfView = defaultFOV
+    end
+end)
+
 local ESPbro = lp:Section({
 		Title = "ESP",
 		Icon = "brush",
@@ -2446,6 +2507,134 @@ local iy = fe:Button({
 			loadstring(game:HttpGet('https://cdn.robloxscripts.gg/public/furky/furky-infinite-yield-roblox-admin-script-source.lua'))()
 		end})
 
+
+----------- TELEPORT TAB
+local tpsection = Teleport:Section({
+		Title = "Teleport",
+		Icon = "locate",
+		Opened = true,
+	})
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local mouse = player:GetMouse()
+
+-- 🧰 Function para gumawa ng tool
+local function giveTeleportTool()
+    -- remove old tool (optional)
+    if player.Backpack:FindFirstChild("Teleport Tool") then
+        player.Backpack["Teleport Tool"]:Destroy()
+    end
+
+    local tool = Instance.new("Tool")
+    tool.Name = "Teleport Tool"
+    tool.RequiresHandle = false
+    tool.CanBeDropped = false
+
+    tool.Activated:Connect(function()
+        local character = player.Character
+        if not character then return end
+
+        local root = character:FindFirstChild("HumanoidRootPart")
+        if not root then return end
+
+        local target = mouse.Hit.Position
+        root.CFrame = CFrame.new(target + Vector3.new(0, 3, 0))
+    end)
+
+    tool.Parent = player.Backpack
+end
+
+-- 🔘 Wind UI Button
+tpsection:Button({
+    Title = "Get Teleport Tool",
+    Desc = "Click to receive teleport tool",
+    Callback = function()
+        giveTeleportTool()
+    end
+})
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+
+local selectedPlayer = nil
+local playerMap = {}
+local tpEnabled = false
+local followConnection
+
+-- 🔁 Get player list (formatted)
+local function getPlayerList()
+    local list = {}
+    playerMap = {}
+
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p ~= player then
+            local display = string.format("%s (@%s)", p.DisplayName, p.Name)
+            table.insert(list, display)
+
+            -- mapping para gumana teleport
+            playerMap[display] = p
+        end
+    end
+
+    return list
+end
+
+-- 📌 DROPDOWN
+local PlayerDropdown = tpsection:Dropdown({
+    Title = "Select Player",
+    Values = getPlayerList(),
+    Callback = function(value)
+        selectedPlayer = playerMap[value]
+    end
+})
+
+-- 🔘 TOGGLE (follow teleport)
+tpsection:Toggle({
+    Title = "Teleport to Player",
+    Desc = "Follow selected player",
+    Value = false,
+    Callback = function(state)
+        tpEnabled = state
+
+        if state then
+            followConnection = RunService.RenderStepped:Connect(function()
+                if selectedPlayer and selectedPlayer.Character and player.Character then
+                    local targetRoot = selectedPlayer.Character:FindFirstChild("HumanoidRootPart")
+                    local myRoot = player.Character:FindFirstChild("HumanoidRootPart")
+
+                    if targetRoot and myRoot then
+                        myRoot.CFrame = targetRoot.CFrame + Vector3.new(0, 3, 0)
+                    end
+                end
+            end)
+        else
+            if followConnection then
+                followConnection:Disconnect()
+                followConnection = nil
+            end
+        end
+    end
+})
+
+-- 🔄 REFRESH BUTTON
+tpsection:Button({
+    Title = "Refresh Player List",
+    Desc = "Update players",
+    Callback = function()
+        local newList = getPlayerList()
+        PlayerDropdown:SetValues(newList)
+    end
+})
+
+-- 🔁 Auto refresh kapag may pumasok/umalis
+Players.PlayerAdded:Connect(function()
+    PlayerDropdown:SetValues(getPlayerList())
+end)
+
+Players.PlayerRemoving:Connect(function()
+    PlayerDropdown:SetValues(getPlayerList())
+end)
 ----------- SETTINGS TAB
 local light = Settings:Section({
 		Title = "Lighting",
