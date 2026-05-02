@@ -927,7 +927,7 @@ local flys = moove:Section({
 		Icon = "navigation",
 		Opened = false,
 	})
-local flygui = fly:Button({
+local flygui = flys:Button({
 		Title = "🔓 Fly GUI 1",
 		Desc = "Loads a universal FLY GUI",
 		Locked = false,
