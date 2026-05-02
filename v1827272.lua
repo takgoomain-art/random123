@@ -884,7 +884,7 @@ local function setNoClip(state)
 end
 
 -- Toggle UI
-local NoClipToggle = InfoGroup2:Toggle({
+local NoClipToggle = lp:Toggle({
     Title = "No Clip",
     Desc = "",
     Value = false,
