@@ -4,6 +4,37 @@ Welcome, Skidders! You've come here, we're glad.
 So it means our obfuscator or security is weak?
 
 ]]
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- 🧾 Roles (by username)
+local Roles = {
+    Owner = {
+		--"eddiejr031"
+    },
+
+    Admin = {
+        ""
+    },
+
+    User = {} -- default
+}
+
+-- 🔍 Check function
+local function hasRole(roleName)
+    local roleList = Roles[roleName]
+    if not roleList then return false end
+
+    for _, name in ipairs(roleList) do
+        if name == player.Name then
+            return true
+        end
+    end
+
+    return false
+end
+
+local canUse = hasRole("Admin") or hasRole("Owner")
 local scriptVersion = "v1.333.0"
 
 print("Starting to Load...")
@@ -189,6 +220,11 @@ local VersionTag = Window:Tag({
 print("Script Version Detected!")
 print("Script Version:" .. scriptVersion)
 ------ TABS
+local Mod = Window:Tab({
+		Title = "Moderator Only",
+		Icon = "hammer",
+		Locked = not canUse,
+	})
 local Section1 = Window:Section({
     Title = "Informations",
     Icon = "",
