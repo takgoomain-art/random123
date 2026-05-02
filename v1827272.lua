@@ -1390,6 +1390,22 @@ local idkhub1 = bf:Button({
 })
 			end
 		})
+
+	local idkhub2 = bf:Button({
+			Title = "❓ RO Hub",
+			Desc = "",
+			Locked = false,
+			Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/RO-HUB-CODEX/RO-HUB/refs/heads/main/bloxfruits.lua"))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end
+		})
+	
 	local relz = bf:Button({
     Title = "🔐 Relz Hub",
     Desc = "",
@@ -1487,7 +1503,11 @@ local idkhub1 = bf:Button({
 			end})
 	
 else
-    local blxfrt = bf:Paragraph({
+	local bfx = Script:Section({
+			Title = "[🍎] Blox Fruits",
+			Opened = false,
+		})
+    local blxfrt = bfx:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Blox Fruits game.",
     --Color = "Red",
@@ -1559,7 +1579,11 @@ if GAG then
 			end})
 
 else
-    local gagg = gage:Paragraph({
+	local gages = Script:Section({
+			Title = "[🥕] Grow a Garden",
+			Opened = false,
+		})
+    local gagg = gages:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Grow a Garden game.",
     --Color = "Red",
@@ -1598,7 +1622,11 @@ if Brookhaven then
 })
 			end})
 else
-	local broook = BH:Paragraph({
+	local BHbro = Script:Section({
+			Title = "[🏡] Brookhaven RP!",
+			Opened = false,
+		})
+	local broook = BHbro:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Brookhaven RP game.",
     --Color = "Red",
@@ -1665,7 +1693,11 @@ if GH then
 })
 			end})
 else
-	local ghn = Gar:Paragraph({
+	local Garden = Script:Section({
+			Title = "[🌱] Garden Horizon",
+			Opened = false,
+		})
+	local ghn = Garden:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Garden Horizon game.",
     --Color = "Red",
@@ -1771,7 +1803,7 @@ local rt2hub1 = rt2:Button({
 else
 	local rtggg = Script:Section({
 		Title = "[👨‍🍳] Restaurant Tycoon",
-		Opened = true,
+		Opened = false,
 })
 	
 local rtg = rtggg:Paragraph({
@@ -1953,7 +1985,11 @@ if SailorPiece then
 	
 
 else
-	local silor = spp:Paragraph({
+	local spph = Script:Section({
+			Title = "[⛵] Sailor Piece",
+			Opened = false, 
+		})
+	local silor = spph:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Sailor Piece game.",
     --Color = "Red",
@@ -1998,7 +2034,11 @@ if los then
 })
 
 else
-	local speedddd = LOSpeed:Paragraph({
+	local Legends = Script:Section({
+			Title = "[🏃‍♂️] Legend of Speed",
+			Opened = false,
+		})
+	local speedddd = Legends:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Legend of Speed game.",
     --Color = "Red",
@@ -2051,7 +2091,11 @@ if Kick then
 									})
 									end})
 else
-	local kickkakak = kickLBb:Paragraph({
+	local kickph = Script:Section({
+			Title = "[🌟] Kick a Lucky Block",
+			Opened = false,
+		})
+	local kickkakak = kickph:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Kick a Lucky Block game.",
     --Color = "Red",
@@ -2090,7 +2134,11 @@ if Rvs then
 })
 			end})
 else
-	local rvbro = rivals:Paragraph({
+	local rivalph = Script:Section({
+			Title = "[🔫] Rivals",
+			Opened = false,
+		})
+	local rvbro = rivalph:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Rivals game.",
     --Color = "Red",
@@ -2174,7 +2222,11 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/ago106/SpaceHub/refs/
 			end})
 
 else
-	local sabpa = SABsection:Paragraph({
+	local StealBr = Script:Section({
+			Title = "[🤖] Steal a Brainrot",
+			Opened = false,
+		})
+	local sabpa = StealBr:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Steal a Brainrot game.",
     --Color = "Red",
@@ -2241,7 +2293,7 @@ elseif PG then
 else
 	local pssection = Script:Section({
 			Title = "[🐕] Pet Simulators",
-			Opened = true,
+			Opened = false,
 		})
 	local pss = pssection:Paragraph({
     Title = "NOTICE:",
@@ -2278,6 +2330,10 @@ if AM then
 			end})
 
 else
+	local adopm = Script:Section({
+			Title = "[🐰] Adopt Me!",
+			Opened = false,
+		})
 	local adme = Adoptt:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Adopt Me game.",
