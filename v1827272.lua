@@ -855,7 +855,7 @@ local antiAFKToggle = moove:Toggle({
 
 -- Add sa Player tab (lp) kasama Walkspeed/AntiAFK
 
-local AntiFlingEnabled = false
+--[[local AntiFlingEnabled = false
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local player = Players.LocalPlayer
@@ -1061,7 +1061,7 @@ local antife = lp:Toggle({
         end
     end
 })
-
+]]
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
