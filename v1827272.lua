@@ -249,7 +249,7 @@ local Section3 = Window:Section({
     Opened = true,
 })
 
-local Teleport = Section3:Section({
+local Teleport = Section3:Tab({
 	Title = "Teleport",
 	Icon = "locate",
 	Locked = false,
