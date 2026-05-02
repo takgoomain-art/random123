@@ -406,7 +406,7 @@ local userParagraph = InfoGroup2:Paragraph({
     Title = displayName, -- 🔥 Display Name sa Title
     Desc = "@" .. username, -- 🔥 Username sa baba
     Image = userImage,
-    ImageSize = 60,
+    ImageSize = 80,
     Locked = false,
 })
 
@@ -437,7 +437,7 @@ local gameParagraph = InfoGroup2:Paragraph({
     Title = gameName, -- 🔥 Game Name sa Title
     Desc = "@" .. creatorName, -- 🔥 Creator username
     Image = gameImage,
-    ImageSize = 60,
+    ImageSize = 80,
     Locked = false,
 })
 
