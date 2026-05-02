@@ -103,8 +103,7 @@ local Window = WindUI:CreateWindow({
     Author = "by Liquid Management", -- optional
     HideSearchBar = false,
 	Size = UDim2.fromOffset(700, 580),
-    MinSize = Vector2.new(560, 350),
-    MaxSize = Vector2.new(850, 560),
+    
 	})
 
 
