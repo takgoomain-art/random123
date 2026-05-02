@@ -10,7 +10,7 @@ local player = Players.LocalPlayer
 -- 🧾 Roles (by username)
 local Roles = {
     Owner = {
-		--"eddiejr031"
+		"eddiejr031"
     },
 
     Admin = {
