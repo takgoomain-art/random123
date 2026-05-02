@@ -2383,6 +2383,7 @@ local idkkk = More:Section({
 
 local musics = More:Section({
 		Title = "Universal Music Player",
+		Icon = "music", --lucide
 		Opened = true,
 	})
 
