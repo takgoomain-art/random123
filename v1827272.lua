@@ -231,6 +231,11 @@ local More = Section2:Tab({
     Locked = false,
 })
 
+local Troll = Section2:Tab({
+	Title = "Troll",
+	Icon = "skull",
+	Locked = false,
+})
 --[[local GameCodes = Window:Tab({
 	Title = "Game Codes",
 	Icon = "pencil",
