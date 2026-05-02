@@ -916,6 +916,152 @@ local antiFlingToggle = moove:Toggle({
     end
 })
 
+--// =========================
+--// SERVICES
+--// =========================
+local Services = setmetatable({}, {
+    __index = function(Self, Index)
+        local NewService = game:GetService(Index)
+        if NewService then
+            Self[Index] = NewService
+        end
+        return NewService
+    end
+})
+
+local Players = Services.Players
+local RunService = Services.RunService
+
+local LocalPlayer = Players.LocalPlayer
+
+--// =========================
+--// STATE
+--// =========================
+local AntiFlingEnabled = false
+local SilentMode = true
+local Connections = {}
+local LastPosition = nil
+
+--// =========================
+--// CLEAN CONNECTIONS
+--// =========================
+local function DisconnectAll()
+    for _,v in pairs(Connections) do
+        pcall(function()
+            v:Disconnect()
+        end)
+    end
+    Connections = {}
+end
+
+--// =========================
+--// MAIN ANTI FLING
+--// =========================
+local function StartAntiFling()
+
+    local function PlayerAdded(Player)
+        local Detected = false
+        local Character
+        local PrimaryPart
+
+        local function CharacterAdded(NewCharacter)
+            Character = NewCharacter
+            repeat task.wait()
+                PrimaryPart = NewCharacter:FindFirstChild("HumanoidRootPart")
+            until PrimaryPart
+            Detected = false
+        end
+
+        CharacterAdded(Player.Character or Player.CharacterAdded:Wait())
+
+        table.insert(Connections, Player.CharacterAdded:Connect(CharacterAdded))
+
+        table.insert(Connections, RunService.Heartbeat:Connect(function()
+            if not AntiFlingEnabled then return end
+            if not Character or not PrimaryPart then return end
+
+            if PrimaryPart.AssemblyAngularVelocity.Magnitude > 50
+            or PrimaryPart.AssemblyLinearVelocity.Magnitude > 100 then
+
+                Detected = true
+
+                for _,v in ipairs(Character:GetDescendants()) do
+                    if v:IsA("BasePart") then
+                        v.CanCollide = false
+                        v.AssemblyAngularVelocity = Vector3.new(0,0,0)
+                        v.AssemblyLinearVelocity = Vector3.new(0,0,0)
+                    end
+                end
+            end
+        end))
+    end
+
+    for _,v in ipairs(Players:GetPlayers()) do
+        if v ~= LocalPlayer then
+            PlayerAdded(v)
+        end
+    end
+
+    table.insert(Connections, Players.PlayerAdded:Connect(PlayerAdded))
+
+    -- LOCAL PROTECTION (silent)
+    table.insert(Connections, RunService.Heartbeat:Connect(function()
+        if not AntiFlingEnabled then return end
+
+        pcall(function()
+            local char = LocalPlayer.Character
+            if not char then return end
+
+            local root = char:FindFirstChild("HumanoidRootPart")
+            if not root then return end
+
+            if root.AssemblyLinearVelocity.Magnitude > 250
+            or root.AssemblyAngularVelocity.Magnitude > 250 then
+
+                root.AssemblyAngularVelocity = Vector3.new(0,0,0)
+                root.AssemblyLinearVelocity = Vector3.new(0,0,0)
+
+                if LastPosition then
+                    root.CFrame = LastPosition
+                end
+            else
+                LastPosition = root.CFrame
+            end
+        end)
+    end))
+end
+
+--// =========================
+--// WIND UI TOGGLE
+--// =========================
+local antife = lp:Toggle({
+    Title = "Anti Fling V2",
+    Desc = "",
+    Value = false,
+    Callback = function(state)
+
+        AntiFlingEnabled = state
+
+        if state then
+            StartAntiFling()
+
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Anti Fling Enabled ✅",
+                Duration = 3
+            })
+        else
+            DisconnectAll()
+
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Anti Fling Disabled ❌",
+                Duration = 3
+            })
+        end
+    end
+})
+
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
