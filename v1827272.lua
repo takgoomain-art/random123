@@ -4,7 +4,7 @@ Welcome, Skidders! You've come here, we're glad.
 So it means our obfuscator or security is weak?
 
 ]]
-local scriptVersion = "v1.222"
+local scriptVersion = "v1.222.5"
 
 print("Starting to Load...")
 
@@ -667,6 +667,10 @@ if player.Character and player.Character:FindFirstChild("Humanoid") then
     updateJumpPower()
 end
 
+local moove = lp:Section({
+		Title = "Other Movement",
+		Opened = true,
+	})
 -- Add mo to sa Player tab (lp) kasama ng Walkspeed/JumpPower mo
 
 local InfiniteJumpEnabled = false
@@ -674,7 +678,7 @@ local UserInputService = game:GetService("UserInputService")
 local player = game.Players.LocalPlayer
 
 -- INFINITE JUMP TOGGLE
-local infJumpToggle = lp:Toggle({
+local infJumpToggle = moove:Toggle({
     Title = "Inf Jump",
     Desc = "",
     Value = false,
@@ -727,7 +731,7 @@ local player = Players.LocalPlayer
 
 local connections = {}
 
-local antiAFKToggle = lp:Toggle({
+local antiAFKToggle = moove:Toggle({
     Title = "Anti AFK",
     Desc = "",
     Value = true,
@@ -808,7 +812,7 @@ local RunService = game:GetService("RunService")
 local player = Players.LocalPlayer
 local antiFlingConnection
 
-local antiFlingToggle = lp:Toggle({
+local antiFlingToggle = moove:Toggle({
     Title = "Anti Fling [BETA]",
     Desc = "",
     Value = false,
@@ -884,7 +888,7 @@ local function setNoClip(state)
 end
 
 -- Toggle UI
-local NoClipToggle = lp:Toggle({
+local NoClipToggle = moove:Toggle({
     Title = "No Clip",
     Desc = "",
     Value = false,
@@ -914,6 +918,14 @@ player.CharacterAdded:Connect(function()
         setNoClip(true)
     end
 end)
+
+local flygui = moove:Button({
+		Title = "Fly GUI",
+		Desc = "Loads a universal FLY GUI",
+		Locked = false,
+		Callback = function()
+			loadstring(game:HttpGet("https://github.com/MiniCapy/scripts/raw/refs/heads/main/fly%20GUI"))()
+		end})
 
 -- Fling All (unchanged - perfect!)
 --[[local flingAllBtn = lp:Button({
