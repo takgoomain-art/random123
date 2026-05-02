@@ -1313,12 +1313,13 @@ local Game = Scr:Paragraph({
 })
 
 --local bfgroup = Script:Group({})
-local bf = Script:Section({ 
+
+if BF1 or BF2 or BF3 then
+	local bf = Script:Section({ 
     Title = "[🍎] Blox Fruits",
 	Opened = true,
 })
-
-if BF1 or BF2 or BF3 then
+	
     local Redz = bf:Button({
     Title = "🔓 Redz Hub",
     Desc = "",
