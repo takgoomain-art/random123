@@ -249,6 +249,11 @@ local Section3 = Window:Section({
     Opened = true,
 })
 
+local Teleport = Section3:Section({
+	Title = "Teleport",
+	Icon = "locate",
+	Locked = false,
+})
 local Settings = Section3:Tab({
     Title = "Settings",
     Icon = "settings", -- optional
