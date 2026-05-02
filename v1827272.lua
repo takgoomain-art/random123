@@ -99,10 +99,10 @@ WindUI:Popup({
 
 local Window = WindUI:CreateWindow({
     Title = "Liquid Hub | Universal",
-    Icon = "door-open", -- lucide icon. optional
+    Icon = "droplet", -- lucide icon. optional
     Author = "by Liquid Management", -- optional
     HideSearchBar = false,
-	Size = UDim2.fromOffset(670, 510),
+	Size = UDim2.fromOffset(700, 580),
     MinSize = Vector2.new(560, 350),
     MaxSize = Vector2.new(850, 560),
 	})
@@ -263,7 +263,7 @@ Info:Space({ Columns = 3 })
 
 Info:Section({
 		Title = "What is Liquid Hub?",
-		TextSize = 20,
+		TextSize = 24,
 		FontWeight = Enum.FontWeight.SemiBold,
 	})
 
@@ -923,14 +923,26 @@ player.CharacterAdded:Connect(function()
     end
 end)
 
-local flygui = moove:Button({
-		Title = "Fly GUI",
+local flys = moove:Section({
+		Title = "Fly",
+		Icon = "navigation",
+		Opened = false,
+	})
+local flygui = fly:Button({
+		Title = "🔓 Fly GUI 1",
 		Desc = "Loads a universal FLY GUI",
 		Locked = false,
 		Callback = function()
 			loadstring(game:HttpGet("https://github.com/MiniCapy/scripts/raw/refs/heads/main/fly%20GUI"))()
 		end})
 
+local flygui2 = flys:Button({
+		Title = "🔓 Fly GUI 2",
+		Desc = "Loads a universal FLY GUI",
+		Locked = false,
+		Callback = function()
+			loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-universal-fly-86513"))()
+		end})
 -- Fling All (unchanged - perfect!)
 --[[local flingAllBtn = lp:Button({
     Title = "Fling Everyone",
