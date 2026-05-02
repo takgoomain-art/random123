@@ -1529,12 +1529,13 @@ else
 end
 
 
-local gage = Script:Section({ 
+
+if GAG then
+	local gage = Script:Section({ 
     Title = "[🥕] Grow a Garden",
 	Opened = true,
 })
-
-if GAG then
+	
     local gagapex = gage:Button({
 	Title = "🔓 Apex OT",
 	Desc = "",
@@ -1604,11 +1605,12 @@ else
 })
 end
 
-local BH = Script:Section({
+
+if Brookhaven then
+	local BH = Script:Section({
 	Title = "[🏡] Brookhaven RP!",
 	Opened = true,
 	})
-if Brookhaven then
 	local apex = BH:Button({
 		Title = "🔓 APEX OT",
 		Desc = "",
@@ -1647,12 +1649,13 @@ else
 })
 end
 	
-local Gar = Script:Section({
+
+if GH then
+	local Gar = Script:Section({
 	Title = "[🌱] Garden Horizon",
 	Opened = true,
 	})
-
-if GH then
+	
 	local winddhub = Gar:Button({
 			Title = "🔓 Wind Hub",
 			Desc = "",
@@ -1918,12 +1921,13 @@ local Button123 = Script:Button({
 })]]
 end -- real else end
 
-local spp = Script:Section({
+
+
+if SailorPiece then
+	local spp = Script:Section({
 		Title = "[⛵] Sailor Piece",
 		Opened = true,
 })
-
-if SailorPiece then
 	local ATG = spp:Button({
 		Title = "🔐 ATG Hub",
 		Desc = "",
@@ -2010,11 +2014,13 @@ else
 })
 end
 
+	
+if los then
 	local LOSpeed = Script:Section({
 			Title = "[🏃‍♂️] Legend of Speed",
 		    Opened = true,
 		})
-if los then
+	
 	local speeeeed = LOSpeed:Paragraph({
     Title = "Tips:",
     Desc = "We do recommend to change your walkspeed in Player tab.",
@@ -2059,12 +2065,14 @@ else
 })
 end
 
-local kickLBb = Script:Section({
+
+
+if Kick then
+	local kickLBb = Script:Section({
 		Title = "[🌟] Kick a Lucky Block",
 		Opened = true,
 })
-
-if Kick then
+	
 	local Kick1 = kickLBb:Button({
 			Title = "🔐 Rey Hub",
 			Desc = "🗝️ KEY: CAT",
@@ -2115,12 +2123,13 @@ else
     ]]
 })
 	end							
-local rivals = Script:Section({
+
+if Rvs then
+	local rivals = Script:Section({
 		Title = "[🔫] Rivals",
 		Opened = true,
 	})
-
-if Rvs then
+	
 	local forgerivals = rivals:Button({
 			Title = "🔐 Forge Hub",
 			Desc = "",
@@ -2159,12 +2168,13 @@ else
 })
 	end	
 
-local SABsection = Script:Section({
+
+
+if SAB then
+	local SABsection = Script:Section({
 		Title = "[🤖] Steal a Brainrot",
 		Opened = true,
 	})
-
-if SAB then
 	local SABhub1 = SABsection:Button({
 		Title = "🔓 Palku Hub",
 		Desc = "",
@@ -2316,12 +2326,13 @@ else
 })
 	end	
 
-local Adoptt = Script:Section({
+
+
+if AM then
+	local Adoptt = Script:Section({
 		Title = "[🐰] Adopt Me!",
 		Opened = true,
 	})
-
-if AM then
 	local AdoptHub1 = Adoptt:Button({
 			Title = "HAHAHAH",
 			Desc = "",
@@ -2335,7 +2346,7 @@ else
 			Title = "[🐰] Adopt Me!",
 			Opened = false,
 		})
-	local adme = Adoptt:Paragraph({
+	local adme = adopm:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Adopt Me game.",
     --Color = "Red",
