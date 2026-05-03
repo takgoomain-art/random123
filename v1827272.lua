@@ -135,16 +135,7 @@ local Window = WindUI:CreateWindow({
     HideSearchBar = false,
 	Size = UDim2.fromOffset(700, 580),
 	Transparent = true,
-	ScrollBarEnabled = true,
-
-		User = {
-        Enabled = true,
-        Anonymous = false,
-        Callback = function()
-            print("clicked")
-        end,
-    }
-		
+	ScrollBarEnabled = true,	
 		
 })
 
@@ -2986,15 +2977,7 @@ local themeDropdown = UI2:Dropdown({
     end
 })
 
---[[local transparency = UI2:Toggle({
-	Title = "Window Transparency",
-	Desc = "Toggle window transparency",
-	Value = false,
-	Callback = function(v)
-		Window:ToggleTransparency(v)
-	end,
-})
-]]
+
 UI:Button({
 		Title = "Destroy Window UI",
 		Color = Color3.fromHex("#ff4830"),
