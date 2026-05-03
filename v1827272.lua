@@ -133,8 +133,17 @@ local Window = WindUI:CreateWindow({
     Icon = "droplet", -- lucide icon. optional
     Author = "by Liquid Management", -- optional
     HideSearchBar = false,
+	Transparent = true,
+	ScrollBarEnabled = true,
 	Size = UDim2.fromOffset(700, 580),
-	
+
+		User = {
+        Enabled = true,
+        Anonymous = false,
+        Callback = function()
+            print("clicked")
+        end,
+    },
 		
 		
 })
@@ -2940,7 +2949,7 @@ local UI = Settings:Section({
 		Opened = true,
 	})
 
-local UI2 = UI:Section{{
+local UI2 = UI:Section({
 		Title = "Theme Manager",
 		Desc = "Customize your UI theme",
 		Icon = "brush",
@@ -2977,6 +2986,14 @@ local themeDropdown = UI2:Dropdown({
     end
 })
 
+local Toggle111 = UI2:Toggle({
+	Title = "Window Transparency",
+	Desc = "Make window transparent.",
+	Value = Window.Transparent,
+	Callback = function(v)
+		Window:ToggleTransparency(v)
+	end,
+})
 
 UI:Button({
 		Title = "Destroy Window UI",
