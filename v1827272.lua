@@ -135,7 +135,7 @@ local Window = WindUI:CreateWindow({
     HideSearchBar = false,
 	Size = UDim2.fromOffset(700, 580),
 	Transparent = true,
-	ScrollBarEnabled = true,	
+		
 		
 })
 
