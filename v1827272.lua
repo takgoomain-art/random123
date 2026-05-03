@@ -134,21 +134,18 @@ local Window = WindUI:CreateWindow({
     Author = "by Liquid Management", -- optional
     HideSearchBar = false,
 	Size = UDim2.fromOffset(700, 580),
+	Transparent = true,
+	Resizable = true,
+	ScrollBarEnabled = true,
 
-		OpenButton = {
-		Title = "Liquid Hub", -- can be changed
-		CornerRadius = UDim.new(1, 0), -- fully rounded
-		StrokeThickness = 3, -- removing outline
-		Enabled = true, -- enable or disable openbutton
-		Draggable = true,
-		OnlyMobile = false,
-		Scale = 0.5,
-
-		Color = ColorSequence.new( -- gradient
-			Color3.fromHex("#30FF6A"),
-			Color3.fromHex("#e7ff2f")
-		),
-	},
+		User = {
+        Enabled = true,
+        Anonymous = false,
+        Callback = function()
+            print("clicked")
+        end,
+    },
+		
 		
 })
 
@@ -2990,7 +2987,7 @@ local themeDropdown = UI2:Dropdown({
     end
 })
 
-local transparency = UI:Toggle({
+local transparency = UI2:Toggle({
 	Title = "Window Transparency",
 	Desc = "Toggle window transparency",
 	Value = Window.Transparent,
