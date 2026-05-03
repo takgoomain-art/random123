@@ -2944,6 +2944,7 @@ end
 -------------------------------------------------
 local PlayerDropdown = tpsection:Dropdown({
     Title = "Select Player",
+	SearchBarEnabled = true,
     Values = getPlayerList(),
     Callback = function(value)
         selectedPlayer = playerMap[value]
@@ -2964,7 +2965,7 @@ tpsection:Toggle({
                 return
             end
 
-            notifySuccess("Teleport Enabled")
+            notifySuccess("Teleported!")
 
             tpConnection = RunService.RenderStepped:Connect(function()
                 if selectedPlayer and selectedPlayer.Character and player.Character then
@@ -2981,7 +2982,7 @@ tpsection:Toggle({
             if tpConnection then
                 tpConnection:Disconnect()
                 tpConnection = nil
-                notifySuccess("Teleport Disabled")
+                
             end
         end
     end
@@ -3001,7 +3002,7 @@ tpsection:Toggle({
                 return
             end
 
-            notifySuccess("Spectate Enabled")
+            notifySuccess("Spectating")
 
             specConnection = RunService.RenderStepped:Connect(function()
                 if selectedPlayer and selectedPlayer.Character then
@@ -3025,7 +3026,7 @@ tpsection:Toggle({
                 end
             end
 
-            notifySuccess("Spectate Disabled")
+            
         end
     end
 })
@@ -3039,7 +3040,7 @@ tpsection:Button({
         local newList = getPlayerList()
 
         if #newList == 0 then
-            notifyError("No players found")
+            notifyError("Error (404)")
             return
         end
 
@@ -3240,7 +3241,7 @@ UI:Button({
 			local Dialogg = Window:Dialog({
     Icon = "rbxassetid://92919014193893",
     Title = "Liquid Hub | Destroy UI",
-    Content = "Are you sure to destroy the ui?",
+    Content = "Are you sure you want to destroy the ui?",
     Buttons = {
         {
             Title = "Confirm",
