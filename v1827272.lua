@@ -134,7 +134,7 @@ local Window = WindUI:CreateWindow({
     Author = "by Liquid Management", -- optional
     HideSearchBar = false,
 	Size = UDim2.fromOffset(700, 580),
-	Transparent = true,
+	
 		
 		
 })
