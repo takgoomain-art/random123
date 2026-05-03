@@ -2936,6 +2936,7 @@ end
 -------------------------------------------------
 local PlayerDropdown = tpsection:Dropdown({
     Title = "Select Player",
+	SearchBarEnabled = true,
     Values = getPlayerList(),
     Callback = function(value)
         selectedPlayer = playerMap[value]
