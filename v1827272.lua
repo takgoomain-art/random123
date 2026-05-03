@@ -142,7 +142,8 @@ WindUI:Popup({
 
 local Window = WindUI:CreateWindow({
     Title = "Liquid Hub | Universal",
-    Icon = "droplet", -- lucide icon. optional
+    Icon = "rbxassetid://85217490213932", -- lucide icon. optional
+	IconSize = "48",
     Author = "by Liquid Management", -- optional
     HideSearchBar = false,
 	Transparent = true,
