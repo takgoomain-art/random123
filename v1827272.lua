@@ -93,6 +93,8 @@ elseif game.PlaceId == 18901165922 then
 	PG = true
 elseif game.PlaceId == 920587237 then
 	AM = true
+elseif game.PlaceId == 79546208627805 then
+	Nights = true
 end
 
 --[[ 
@@ -115,6 +117,7 @@ PSX = Pet Simulator X
 PS99 = Pet Simulator 99
 PG = Pet's Go
 AM. = Adopt Me
+99N = 99 Nights in the Forest
 
 Tab: Script Tab
 
@@ -2669,6 +2672,37 @@ else
 	local adme = adopm:Paragraph({
     Title = "NOTICE:",
     Desc = "You're not in Adopt Me game.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+	end	
+
+if Nights then
+	local NForest = Script:Section({
+			Title = "[🌳] 99 Nights in the Forest",
+			Opened = true,
+		})
+else
+	local NForest2 = Script:Section({
+			Title = "[🌳] 99 Nights in the Forest",
+			Opened = false,
+		})
+
+	local ninetyye = NForest2:Paragraph({
+    Title = "NOTICE:",
+    Desc = "You're not in 99 Nights in the Forest game.",
     --Color = "Red",
     --Image = "",
     --ImageSize = 30,
