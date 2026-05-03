@@ -135,7 +135,6 @@ local Window = WindUI:CreateWindow({
     HideSearchBar = false,
 	Size = UDim2.fromOffset(700, 580),
 	Transparent = true,
-	Resizable = true,
 	ScrollBarEnabled = true,
 
 		User = {
@@ -144,7 +143,7 @@ local Window = WindUI:CreateWindow({
         Callback = function()
             print("clicked")
         end,
-    },
+    }
 		
 		
 })
