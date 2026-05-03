@@ -2989,7 +2989,7 @@ local themeDropdown = UI2:Dropdown({
 local transparency = UI2:Toggle({
 	Title = "Window Transparency",
 	Desc = "Toggle window transparency",
-	Value = Window.Transparent,
+	Value = false,
 	Callback = function(v)
 		Window:ToggleTransparency(v)
 	end,
