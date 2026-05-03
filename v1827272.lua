@@ -2986,7 +2986,7 @@ local themeDropdown = UI2:Dropdown({
     end
 })
 
-local transparency = UI2:Toggle({
+--[[local transparency = UI2:Toggle({
 	Title = "Window Transparency",
 	Desc = "Toggle window transparency",
 	Value = false,
@@ -2994,6 +2994,7 @@ local transparency = UI2:Toggle({
 		Window:ToggleTransparency(v)
 	end,
 })
+]]
 UI:Button({
 		Title = "Destroy Window UI",
 		Color = Color3.fromHex("#ff4830"),
