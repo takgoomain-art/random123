@@ -2903,18 +2903,26 @@ local tpConnection
 local specConnection
 
 -------------------------------------------------
--- 🔔 NOTIFY (Wind UI)
+-- 🔔 NOTIFY (SUCCESS / ERROR ONLY)
 -------------------------------------------------
-local function notify(text)
+local function notifySuccess(text)
     WindUI:Notify({
-        Title = "Liquid Hub | Player System",
+        Title = "Liquid Hub | Success",
+        Content = text,
+        Duration = 3
+    })
+end
+
+local function notifyError(text)
+    WindUI:Notify({
+        Title = "Liquid Hub | Error",
         Content = text,
         Duration = 3
     })
 end
 
 -------------------------------------------------
--- 🔁 PLAYER LIST (DisplayName + @username)
+-- 🔁 PLAYER LIST
 -------------------------------------------------
 local function getPlayerList()
     local list = {}
@@ -2936,7 +2944,6 @@ end
 -------------------------------------------------
 local PlayerDropdown = tpsection:Dropdown({
     Title = "Select Player",
-	SearchBarEnabled = true,
     Values = getPlayerList(),
     Callback = function(value)
         selectedPlayer = playerMap[value]
@@ -2944,16 +2951,20 @@ local PlayerDropdown = tpsection:Dropdown({
 })
 
 -------------------------------------------------
--- 🔘 TELEPORT TO PLAYER (FOLLOW)
+-- 🔘 TELEPORT TO PLAYER
 -------------------------------------------------
 tpsection:Toggle({
     Title = "Teleport to Player",
-    Desc = "",
     Value = false,
     Callback = function(state)
 
         if state then
-            notify("Teleport Enabled")
+            if not selectedPlayer then
+                notifyError("Select a player first")
+                return
+            end
+
+            notifySuccess("Teleport Enabled")
 
             tpConnection = RunService.RenderStepped:Connect(function()
                 if selectedPlayer and selectedPlayer.Character and player.Character then
@@ -2967,11 +2978,10 @@ tpsection:Toggle({
             end)
 
         else
-            notify("Teleport Disabled")
-
             if tpConnection then
                 tpConnection:Disconnect()
                 tpConnection = nil
+                notifySuccess("Teleport Disabled")
             end
         end
     end
@@ -2982,17 +2992,16 @@ tpsection:Toggle({
 -------------------------------------------------
 tpsection:Toggle({
     Title = "Spectate Player",
-    Desc = "View selected player",
     Value = false,
     Callback = function(state)
 
         if state then
             if not selectedPlayer then
-                notify("No player selected")
+                notifyError("Select a player first")
                 return
             end
 
-            notify("Spectate Enabled")
+            notifySuccess("Spectate Enabled")
 
             specConnection = RunService.RenderStepped:Connect(function()
                 if selectedPlayer and selectedPlayer.Character then
@@ -3004,46 +3013,56 @@ tpsection:Toggle({
             end)
 
         else
-            notify("Spectate Disabled")
-
             if specConnection then
                 specConnection:Disconnect()
                 specConnection = nil
             end
 
-            -- reset camera
             if player.Character then
                 local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
                 if humanoid then
                     camera.CameraSubject = humanoid
                 end
             end
+
+            notifySuccess("Spectate Disabled")
         end
     end
 })
 
 -------------------------------------------------
--- 🔄 UPDATE PLAYER LIST
+-- 🔄 UPDATE PLAYER LIST (FIXED)
 -------------------------------------------------
 tpsection:Button({
     Title = "Update Player List",
-    Desc = "Refresh players",
     Callback = function()
-        PlayerDropdown:SetValues(getPlayerList())
-        notify("Player list updated")
+        local newList = getPlayerList()
+
+        if #newList == 0 then
+            notifyError("No players found")
+            return
+        end
+
+        -- 🔥 IMPORTANT FIX
+        PlayerDropdown:SetValues(newList)
+
+        notifySuccess("Player list updated")
     end
 })
 
 -------------------------------------------------
--- 🔁 AUTO UPDATE (join/leave)
+-- 🔁 AUTO UPDATE FIX
 -------------------------------------------------
 Players.PlayerAdded:Connect(function()
+    task.wait(0.5)
     PlayerDropdown:SetValues(getPlayerList())
 end)
 
 Players.PlayerRemoving:Connect(function()
+    task.wait(0.5)
     PlayerDropdown:SetValues(getPlayerList())
 end)
+            
 ----------- SETTINGS TAB
 local light = Settings:Section({
 		Title = "Lighting",
