@@ -14,8 +14,13 @@ local Roles = {
     },
 
     Admin = {
-        ""
+        "JumpyFrog80",
+		"alvicc12"
     },
+
+	Beta = {
+		""
+	},
 
     User = {} -- default
 }
@@ -35,6 +40,10 @@ local function hasRole(roleName)
 end
 
 local canUse = hasRole("Admin") or hasRole("Owner")
+local isOwner = hasRole("Owner")
+local isAdmin = hasRole("Admin")
+local isBeta = hasRole("Beta")
+
 local scriptVersion = "v1.333.0"
 
 print("Starting to Load...")
