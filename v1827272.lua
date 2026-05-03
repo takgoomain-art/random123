@@ -134,8 +134,23 @@ local Window = WindUI:CreateWindow({
     Author = "by Liquid Management", -- optional
     HideSearchBar = false,
 	Size = UDim2.fromOffset(700, 580),
-    
-	})
+
+		OpenButton = {
+		Title = "Liquid Hub", -- can be changed
+		CornerRadius = UDim.new(1, 0), -- fully rounded
+		StrokeThickness = 3, -- removing outline
+		Enabled = true, -- enable or disable openbutton
+		Draggable = true,
+		OnlyMobile = false,
+		Scale = 0.5,
+
+		Color = ColorSequence.new( -- gradient
+			Color3.fromHex("#30FF6A"),
+			Color3.fromHex("#e7ff2f")
+		),
+	},
+		
+})
 
 
 WindUI:Notify({
@@ -2938,6 +2953,12 @@ local UI = Settings:Section({
 		Opened = true,
 	})
 
+local UI2 = UI:Section{{
+		Title = "Theme Manager",
+		Desc = "Customize your UI theme",
+		Icon = "brush",
+		Opened = true,
+	})
 local themes = {}
 for themeName, _ in pairs(WindUI:GetThemes()) do
     table.insert(themes, themeName)
@@ -2949,8 +2970,8 @@ local canchangedropdown = true
 
 
 
-local themeDropdown = UI:Dropdown({
-    Title = "loc:THEME_SELECT",
+local themeDropdown = UI2:Dropdown({
+    Title = "Select Theme",
     Values = themes,
     Flag = "themeDropdown",
     SearchBarEnabled = true,
@@ -2969,6 +2990,14 @@ local themeDropdown = UI:Dropdown({
     end
 })
 
+local transparency = UI:Toggle({
+	Title = "Window Transparency",
+	Desc = "Toggle window transparency",
+	Value = Window.Transparent,
+	Callback = function(v)
+		Window:ToggleTransparency(v)
+	end,
+})
 UI:Button({
 		Title = "Destroy Window UI",
 		Color = Color3.fromHex("#ff4830"),
