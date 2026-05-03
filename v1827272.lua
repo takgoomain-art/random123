@@ -1920,6 +1920,21 @@ if Brookhaven then
                 Icon = "bell",
 })
 			end})
+	local nexusbh = BH:Button({
+			Title = "🔓 Nexus Hub",
+			Desc = "",
+			Locked = false,
+			Callback = function()
+loadstring(game:HttpGet('https://nexus-script.vercel.app/Brookhaven.lua'))()
+				WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+})
+			end})
+
+			
 else
 	local BHbro = Script:Section({
 			Title = "[🏡] Brookhaven RP!",
