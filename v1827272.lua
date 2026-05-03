@@ -2932,11 +2932,44 @@ light:Button({
 
 		end})
 
-Settings:Section({
+local UI = Settings:Section({
 		Title = "UI",
 		Icon = "hammer",
+		Opened = true,
 	})
-Settings:Button({
+
+local themes = {}
+for themeName, _ in pairs(WindUI:GetThemes()) do
+    table.insert(themes, themeName)
+end
+table.sort(themes)
+
+local canchangetheme = true
+local canchangedropdown = true
+
+
+
+local themeDropdown = UI:Dropdown({
+    Title = "loc:THEME_SELECT",
+    Values = themes,
+    Flag = "themeDropdown",
+    SearchBarEnabled = true,
+    MenuWidth = 280,
+    Value = "Dark",
+    Callback = function(theme)
+        canchangedropdown = false
+        WindUI:SetTheme(theme)
+        WindUI:Notify({
+            Title = "Theme Applied",
+            Content = theme,
+            Icon = "palette",
+            Duration = 2
+        })
+        canchangedropdown = true
+    end
+})
+
+UI:Button({
 		Title = "Destroy Window UI",
 		Color = Color3.fromHex("#ff4830"),
 		Justify = "Center",
