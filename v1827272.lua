@@ -2804,7 +2804,8 @@ tpsection:Button({
         giveTeleportTool()
     end
 })
-local Players = game:GetService("Players")
+
+--[[local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
 local player = Players.LocalPlayer
@@ -2880,6 +2881,161 @@ tpsection:Button({
 })
 
 -- 🔁 Auto refresh kapag may pumasok/umalis
+Players.PlayerAdded:Connect(function()
+    PlayerDropdown:SetValues(getPlayerList())
+end)
+
+Players.PlayerRemoving:Connect(function()
+    PlayerDropdown:SetValues(getPlayerList())
+end)
+]]
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local camera = workspace.CurrentCamera
+
+local selectedPlayer = nil
+local playerMap = {}
+
+local tpConnection
+local specConnection
+
+-------------------------------------------------
+-- 🔔 NOTIFY (Wind UI)
+-------------------------------------------------
+local function notify(text)
+    WindUI:Notify({
+        Title = "Liquid Hub | Player System",
+        Content = text,
+        Duration = 3
+    })
+end
+
+-------------------------------------------------
+-- 🔁 PLAYER LIST (DisplayName + @username)
+-------------------------------------------------
+local function getPlayerList()
+    local list = {}
+    playerMap = {}
+
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p ~= player then
+            local name = string.format("%s (@%s)", p.DisplayName, p.Name)
+            table.insert(list, name)
+            playerMap[name] = p
+        end
+    end
+
+    return list
+end
+
+-------------------------------------------------
+-- 📌 DROPDOWN
+-------------------------------------------------
+local PlayerDropdown = tpsection:Dropdown({
+    Title = "Select Player",
+    Values = getPlayerList(),
+    Callback = function(value)
+        selectedPlayer = playerMap[value]
+    end
+})
+
+-------------------------------------------------
+-- 🔘 TELEPORT TO PLAYER (FOLLOW)
+-------------------------------------------------
+tpsection:Toggle({
+    Title = "Teleport to Player",
+    Desc = "",
+    Value = false,
+    Callback = function(state)
+
+        if state then
+            notify("Teleport Enabled")
+
+            tpConnection = RunService.RenderStepped:Connect(function()
+                if selectedPlayer and selectedPlayer.Character and player.Character then
+                    local targetRoot = selectedPlayer.Character:FindFirstChild("HumanoidRootPart")
+                    local myRoot = player.Character:FindFirstChild("HumanoidRootPart")
+
+                    if targetRoot and myRoot then
+                        myRoot.CFrame = targetRoot.CFrame + Vector3.new(0, 3, 0)
+                    end
+                end
+            end)
+
+        else
+            notify("Teleport Disabled")
+
+            if tpConnection then
+                tpConnection:Disconnect()
+                tpConnection = nil
+            end
+        end
+    end
+})
+
+-------------------------------------------------
+-- 👁️ SPECTATE PLAYER
+-------------------------------------------------
+tpsection:Toggle({
+    Title = "Spectate Player",
+    Desc = "View selected player",
+    Value = false,
+    Callback = function(state)
+
+        if state then
+            if not selectedPlayer then
+                notify("No player selected")
+                return
+            end
+
+            notify("Spectate Enabled")
+
+            specConnection = RunService.RenderStepped:Connect(function()
+                if selectedPlayer and selectedPlayer.Character then
+                    local humanoid = selectedPlayer.Character:FindFirstChildOfClass("Humanoid")
+                    if humanoid then
+                        camera.CameraSubject = humanoid
+                    end
+                end
+            end)
+
+        else
+            notify("Spectate Disabled")
+
+            if specConnection then
+                specConnection:Disconnect()
+                specConnection = nil
+            end
+
+            -- reset camera
+            if player.Character then
+                local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+                if humanoid then
+                    camera.CameraSubject = humanoid
+                end
+            end
+        end
+    end
+})
+
+-------------------------------------------------
+-- 🔄 UPDATE PLAYER LIST
+-------------------------------------------------
+tpsection:Button({
+    Title = "Update Player List",
+    Desc = "Refresh players",
+    Callback = function()
+        PlayerDropdown:SetValues(getPlayerList())
+        notify("Player list updated")
+    end
+})
+
+-------------------------------------------------
+-- 🔁 AUTO UPDATE (join/leave)
+-------------------------------------------------
 Players.PlayerAdded:Connect(function()
     PlayerDropdown:SetValues(getPlayerList())
 end)
