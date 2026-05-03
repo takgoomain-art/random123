@@ -44,7 +44,7 @@ local isOwner = hasRole("Owner")
 local isAdmin = hasRole("Admin")
 local isBeta = hasRole("Beta")
 
-local scriptVersion = "v1.333.0"
+local scriptVersion = "v1.444.0"
 
 print("Starting to Load...")
 
