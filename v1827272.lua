@@ -3002,7 +3002,31 @@ UI:Button({
 		Icon = "shredder",
 		IconAlign = "Left",
 		Callback = function()
-			Window:Destroy()														
+			local Dialogg = Window:Dialog({
+    Icon = "rbxassetid://92919014193893",
+    Title = "Liquid Hub | Destroy UI",
+    Content = "Are you sure to destroy the ui?",
+    Buttons = {
+        {
+            Title = "Confirm",
+            Callback = function()
+             Window:Destroy()
+				game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = "Liquid Hub | UI",
+    Text = "UI destroyed",
+	Icon = "rbxassetid://92919014193893",									
+    Duration = 5
+})
+            end,
+        },
+        {
+            Title = "Cancel",
+            Callback = function()
+                print("Cancelled!")
+            end,
+        },
+    },
+})														
 		end,
 	})
 
