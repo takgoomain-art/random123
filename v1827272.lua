@@ -148,6 +148,7 @@ local Window = WindUI:CreateWindow({
     Author = "by Liquid Management", -- optional
     HideSearchBar = false,
 	Transparent = true,
+	Acrylic = true,
 	ScrollBarEnabled = true,
 	Size = UDim2.fromOffset(700, 580),
 
@@ -323,6 +324,8 @@ local Settings = Section3:Tab({
 
 print("Tabs Loaded")
 
+-- TAB SELECTED
+Main:Select()
 --- MAIN INFO
 
 local Info = Main:Section({ 
