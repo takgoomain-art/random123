@@ -3053,7 +3053,7 @@ tpsection:Button({
         end
 
         -- 🔥 IMPORTANT FIX
-        PlayerDropdown:Set(newList)
+        PlayerDropdown:SetValues(newList)
 
         notifySuccess("Player list updated")
     end
@@ -3148,12 +3148,12 @@ tpsection:Toggle({
 -------------------------------------------------
 Players.PlayerAdded:Connect(function()
     task.wait(0.5)
-    PlayerDropdown:Set(getPlayerList())
+    PlayerDropdown:SetValues(getPlayerList())
 end)
 
 Players.PlayerRemoving:Connect(function()
     task.wait(0.5)
-    PlayerDropdown:Set(getPlayerList())
+    PlayerDropdown:SetValues(getPlayerList())
 end)
             
 ----------- SETTINGS TAB
