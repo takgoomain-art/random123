@@ -148,6 +148,7 @@ local Window = WindUI:CreateWindow({
     Author = "by Liquid Management", -- optional
     HideSearchBar = false,
 	Transparent = true,
+	Resizable = true,
 	Acrylic = true,
 	ScrollBarEnabled = true,
 	Size = UDim2.fromOffset(700, 580),
