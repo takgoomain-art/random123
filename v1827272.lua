@@ -2,7 +2,7 @@ local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
 -- 🔗 URLs
-local WINDUI_URL = "PASTE_YOUR_WINDUI_LINK_HERE"
+local WINDUI_URL = "https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"
 local SCRIPT_URL = "https://codeberg.org/tkgoo31/liquid/raw/branch/main/v1827272.lua"
 
 -- 🚫 Blacklisted UserIds
