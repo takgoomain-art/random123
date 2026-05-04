@@ -263,12 +263,15 @@ task.spawn(function()
         -- Determine Color
         local color
 
-        if fps <= 25 or ms >= 180 then
-            color = Color3.fromRGB(255, 0, 0) -- RED
-        elseif fps <= 40 or ms >= 80 then
-            color = Color3.fromRGB(255, 255, 0) -- YELLOW
+        if fps <= 24 or ms >= 225 then
+            --color = Color3.fromRGB(255, 0, 0) -- RED
+			color = Color3.fromHex("#e61212")
+        elseif fps <= 45 or ms >= 120 then
+            --color = Color3.fromRGB(255, 255, 0) -- YELLOW
+			color = Color3.fromHex("#ffa703")
         else
-            color = Color3.fromRGB(0, 255, 0) -- GREEN
+            --color = Color3.fromRGB(0, 255, 0) -- GREEN
+			color = Color3.fromHex("#24ff03")
         end
 
         -- Update Tag
