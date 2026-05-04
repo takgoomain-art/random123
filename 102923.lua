@@ -43,6 +43,7 @@ local canUse = hasRole("Admin") or hasRole("Owner")
 local isOwner = hasRole("Owner")
 local isAdmin = hasRole("Admin")
 local isBeta = hasRole("Beta")
+local isUser = hasRole("User")
 
 -------- TAG CALLLBACK
 local scriptVersion = "v1.444.0"
