@@ -5,6 +5,7 @@ So it means our obfuscator or security is weak?
 
 ]]
 local WindUI = _G.WindUI
+local scriptVersion = "v1.444.5"
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -79,7 +80,7 @@ end
 local roleName = getRole()
 
 -------- TAG CALLLBACK
-local scriptVersion = "v1.444.0"
+
 
 print("Starting to Load...")
 
@@ -375,6 +376,7 @@ Main:Select()
 
 local Info = Main:Section({ 
     Title = "Liquid Hub Intro",
+	Icon = "info",
 })
 
 Info:Space({ Columns = 3 })
@@ -425,7 +427,7 @@ local DiscordServerParagraph = InfoGroup1:Paragraph({
 			--	.. ".png?size=1024",
 		    Thumbnail = "",
 		--Thumbnail = "https://cdn.discordapp.com/banners/1300692552005189632/35981388401406a4b7dffd6f447a64c4.png?size=512",
-			ImageSize = 31,
+			ImageSize = 30,
 			Buttons = {
 				{
 					Title = "Copy link",
@@ -598,6 +600,46 @@ Players.PlayerRemoving:Connect(updateUI)
 InfoGroup3:Space()
 
 local InfoGroup4 = Main:Group({})
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+
+-- 📌 Paragraph
+local StatsParagraph = InfoGroup4:Paragraph({
+    Title = "Character Stats",
+    Desc = "Loading...",
+    Locked = true
+})
+
+-- 🔄 Update loop
+RunService.RenderStepped:Connect(function()
+    local char = player.Character
+    if not char then return end
+
+    local humanoid = char:FindFirstChildOfClass("Humanoid")
+    local root = char:FindFirstChild("HumanoidRootPart")
+
+    if humanoid and root then
+        local speed = humanoid.WalkSpeed
+        local jump = humanoid.JumpPower
+
+        local pos = root.Position
+
+        local text = string.format(
+            "Speed: %d\nJump: %d\nPos: X: %.1f | Y: %.1f | Z: %.1f",
+            speed,
+            jump,
+            pos.X,
+            pos.Y,
+            pos.Z
+        )
+
+        StatsParagraph:SetDesc(text)
+    end
+end)
+
 local function detectExecutor()
     if identifyexecutor then
         return identifyexecutor()
