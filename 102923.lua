@@ -3053,7 +3053,7 @@ tpsection:Button({
         end
 
         -- 🔥 IMPORTANT FIX
-        PlayerDropdown:Refresh(newList)
+        PlayerDropdown:Refresh({newList})
 
         notifySuccess("Player list updated")
     end
@@ -3146,16 +3146,16 @@ tpsection:Toggle({
 -------------------------------------------------
 -- 🔁 AUTO UPDATE FIX
 -------------------------------------------------
---[[Players.PlayerAdded:Connect(function()
+Players.PlayerAdded:Connect(function()
     task.wait(0.5)
-    PlayerDropdown:RefreshgetPlayerList())
+    PlayerDropdown:Refresh({getPlayerList()})
 end)
 
 Players.PlayerRemoving:Connect(function()
     task.wait(0.5)
-    PlayerDropdown:Refresh(getPlayerList())
+    PlayerDropdown:Refresh({getPlayerList()})
 end)
-            ]]
+            
 ----------- SETTINGS TAB
 local light = Settings:Section({
 		Title = "Lighting",
