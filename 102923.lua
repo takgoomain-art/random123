@@ -3042,6 +3042,22 @@ local PlayerDropdown = tpsection:Dropdown({
     end
 })
 
+tpsection:Button({
+    Title = "Update Player List",
+    Callback = function()
+        local newList = getPlayerList()
+
+        if #newList == 0 then
+            notifyError("Error (404)")
+            return
+        end
+
+        -- 🔥 IMPORTANT FIX
+        PlayerDropdown:Set(newList)
+
+        notifySuccess("Player list updated")
+    end
+})
 -------------------------------------------------
 -- 🔘 TELEPORT TO PLAYER
 -------------------------------------------------
@@ -3125,34 +3141,19 @@ tpsection:Toggle({
 -------------------------------------------------
 -- 🔄 UPDATE PLAYER LIST (FIXED)
 -------------------------------------------------
-tpsection:Button({
-    Title = "Update Player List",
-    Callback = function()
-        local newList = getPlayerList()
 
-        if #newList == 0 then
-            notifyError("Error (404)")
-            return
-        end
-
-        -- 🔥 IMPORTANT FIX
-        PlayerDropdown:SetValues(newList)
-
-        notifySuccess("Player list updated")
-    end
-})
 
 -------------------------------------------------
 -- 🔁 AUTO UPDATE FIX
 -------------------------------------------------
 Players.PlayerAdded:Connect(function()
     task.wait(0.5)
-    PlayerDropdown:SetValues(getPlayerList())
+    PlayerDropdown:Set(getPlayerList())
 end)
 
 Players.PlayerRemoving:Connect(function()
     task.wait(0.5)
-    PlayerDropdown:SetValues(getPlayerList())
+    PlayerDropdown:Set(getPlayerList())
 end)
             
 ----------- SETTINGS TAB
