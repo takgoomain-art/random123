@@ -3194,7 +3194,7 @@ local UI2 = UI:Section({
 		Title = "Theme Manager",
 		Desc = "Customize your UI theme",
 		Icon = "brush",
-		Opened = true,
+		Opened = false,
 	})
 local themes = {}
 for themeName, _ in pairs(WindUI:GetThemes()) do
@@ -3236,6 +3236,40 @@ local Toggle111 = UI2:Toggle({
 	end,
 })
 
+local UI3 = UI:Section({
+		Title = "User",
+		Icon = "user",
+		Opened = false,
+	})
+
+local UserToggle = UI3:Toggle({
+		Title = "Roblox User",
+		Desc = "Toggle your Roblox username in the ui.",
+		Value = true,
+		Callback = function(v)
+			if v then
+			Window.Icon:Enable()
+
+			else
+				Window.Icon:Disable()
+			end
+		end
+	})
+
+local useranonymous = UI3:Toggle({
+		Title = "Anonymous User",
+		Desc = "Make your Roblox username anonymous.",
+		Value = false,
+		Callback = function(v)
+			if v then
+				Window.Icon:SetAnonymous(true) -- true or false
+
+			else
+				Window.Icon:SetAnonymous(false) -- true or false
+
+			end
+		end
+	})
 UI:Button({
 		Title = "Destroy Window UI",
 		Color = Color3.fromHex("#ff4830"),
