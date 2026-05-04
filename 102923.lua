@@ -4,6 +4,8 @@ Welcome, Skidders! You've come here, we're glad.
 So it means our obfuscator or security is weak?
 
 ]]
+local WindUI = _G.WindUI
+
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
@@ -44,6 +46,37 @@ local isOwner = hasRole("Owner")
 local isAdmin = hasRole("Admin")
 local isBeta = hasRole("Beta")
 local isUser = hasRole("User")
+
+--  Colors
+local RoleColors = {
+    Owner = Color3.fromHex("#ff2d2d"),
+    Admin = Color3.fromHex("#ffae00"),
+    Beta  = Color3.fromHex("#a855f7"),
+    User  = Color3.fromHex("#30ff6a")
+}
+
+--  Icons
+local RoleIcons = {
+    Owner = "crown",
+    Admin = "shield",
+    Beta  = "flask",
+    User  = "user"
+}
+
+--  Detect Role
+local function getRole()
+    if isOwner then
+        return "Owner"
+    elseif isAdmin then
+        return "Admin"
+    elseif isBeta then
+        return "Beta"
+    else
+        return "User"
+    end
+end
+
+local roleName = getRole()
 
 -------- TAG CALLLBACK
 local scriptVersion = "v1.444.0"
@@ -126,7 +159,7 @@ Tab: Script Tab
 ]]
 
 
-local WindUI = _G.WindUI
+
 
 WindUI:Popup({
     Title = "Welcome to the Liquid Hub!",
@@ -190,7 +223,14 @@ Window:CreateTopbarButton("theme-switcher", "moon", function()
     })
 end, 990)
 
- 
+
+Window:Tag({
+    Title = roleName,
+    Icon = RoleIcons[roleName],
+    Color = RoleColors[roleName],
+    Radius = 6
+})
+
 local RunService = game:GetService("RunService")
 local Stats = game:GetService("Stats")
 
