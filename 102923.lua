@@ -762,6 +762,7 @@ end
 local speed = lp:Slider({
     Title = "Walkspeed",
     Desc = "Set walkspeed value",
+	Icon = "sport-shoe",
     Step = 1,
     Value = {
         Min = 16,
@@ -779,6 +780,7 @@ local speed = lp:Slider({
 local WsV = lp:Toggle({
     Title = "Enable Walkspeed",
     Desc = "",
+	Icon = "sport-shoe",
     Value = false,
     Callback = function(Value)
         WalkSpeedEnabled = Value
@@ -791,6 +793,7 @@ local WsV = lp:Toggle({
 local jumpp = lp:Slider({
     Title = "Jump Height",
     Desc = "Set jump height value",
+	Icon = "arrow-big-up-dash",
     Step = 1,
     Value = {
         Min = 50,
@@ -808,6 +811,7 @@ local jumpp = lp:Slider({
 local jumpH = lp:Toggle({
     Title = "Enable Jump Height",
     Desc = "",
+	Icon = "arrow-big-up-dash",
     Value = false,
     Callback = function(Value)
         JumpHeightEnabled = Value
@@ -845,6 +849,7 @@ local player = game.Players.LocalPlayer
 local infJumpToggle = moove:Toggle({
     Title = "Inf Jump",
     Desc = "",
+	Icon = "arrow-big-up-dash",
     Value = false,
     Callback = function(Value)
         InfiniteJumpEnabled = Value
@@ -1201,6 +1206,7 @@ end
 local NoClipToggle = moove:Toggle({
     Title = "No Clip",
     Desc = "",
+	Icon = "door-open",
     Value = false,
     Callback = function(state)
         noclipEnabled = state
@@ -1298,6 +1304,7 @@ local fovValue = 70
 Cam:Toggle({
     Title = "Custom FOV",
     Desc = "Enable custom field of view",
+	Icon = "eye",
     Value = false,
     Callback = function(state)
         fovEnabled = state
@@ -1314,6 +1321,7 @@ Cam:Toggle({
 Cam:Slider({
     Title = "FOV",
     Desc = "Adjust field of view",
+	Icon = "scan-eye",
     Value = {
         Min = 50,
         Max = 120,
@@ -1357,6 +1365,7 @@ local highlightConnections = {}
 local rainbowToggle = ESPbro:Toggle({
     Title = "ESP [RAINBOW]",
     Desc = "Rainbow name tags + highlights",
+	Icon = "eye",
     Value = false,
     Callback = function(Value)
         RainbowESPEnabled = Value
@@ -3121,6 +3130,7 @@ Dropdown:Refresh(RefreshPlayersTable())
 -------------------------------------------------
 tpsection:Button({
 	Title = "Update Player List",
+	Icon = "refresh-ccw",
 	Callback = function()
 		Dropdown:Refresh(RefreshPlayersTable())
 
@@ -3153,6 +3163,7 @@ local tpConnection
 
 tpsection:Toggle({
 	Title = "Teleport to Player",
+	Icon = "user",
 	Value = false,
 	Callback = function(state)
 		if state then
@@ -3204,6 +3215,7 @@ local specConnection
 
 tpsection:Toggle({
 	Title = "Spectate Player",
+	Icon = "eye",
 	Value = false,
 	Callback = function(state)
 		if state then
@@ -3282,6 +3294,7 @@ end
 -- 🔘 Toggle
 light:Toggle({
 	Title = "Fullbright",
+	Icon = "sun",
 	Value = false,
 	Callback = function(state)
 
@@ -3293,6 +3306,7 @@ light:Toggle({
 			WindUI:Notify({
 				Title = "Success",
 				Content = "Fullbright Enabled",
+				Icon = "sun",
 				Duration = 3
 			})
 
@@ -3311,6 +3325,7 @@ light:Toggle({
 			WindUI:Notify({
 				Title = "Success",
 				Content = "Fullbright Disabled",
+				Icon = "sun-dim",
 				Duration = 3
 			})
 		end
@@ -3325,6 +3340,7 @@ local vignetteGui = nil
 local lightingToggle = light:Toggle({
     Title = "RTX Summer Lighting [BETA]",
     Desc = "Enabling this could cause serious lag on some device.",
+	Icon = "sparkles",
     Value = false,
     Callback = function(Value)
         if Value then
@@ -3469,6 +3485,7 @@ local themeDropdown = UI2:Dropdown({
 local Toggle111 = UI2:Toggle({
 	Title = "Window Transparency",
 	Desc = "Make window transparent.",
+	Icon = "blend",
 	Value = Window.Transparent,
 	Callback = function(v)
 		Window:ToggleTransparency(v)
