@@ -3506,20 +3506,10 @@ UI3:Toggle({
 
         if state then
             Window.User:Enable()
-				WindUI:Notify({
-            Title = "Liquid Hub | User System",
-            Content = "User system enabled!,
-            Icon = "user-check",
-            Duration = 2
-        })
+				
         else
             Window.User:Disable()
-				WindUI:Notify({
-            Title = "Liquid Hub | User System",
-            Content = "User system disabled!,
-            Icon = "user-minus",
-            Duration = 2
-        })
+				
         end
     end
 })
