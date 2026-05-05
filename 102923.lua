@@ -1270,11 +1270,7 @@ local RBLXS = lp:Section({
 		Opened = true,
 	})
 
-local vsual = RBLXS:Section({
-		Title = "Visual",
-		Icon = "eye",
-		Opened = false,
-	})
+
 
 
 
