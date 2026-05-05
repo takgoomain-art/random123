@@ -1276,74 +1276,64 @@ local vsual = RBLXS:Section({
 		Opened = false,
 	})
 
+
+
+
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
--------------------------------------------------
--- 🧠 STATES (important)
--------------------------------------------------
-local headlessEnabled = false
-local korbloxEnabled = false
+local headless = false
+local korblox = false
 
 -------------------------------------------------
--- 🧠 FUNCTIONS
+-- 🧠 APPLY FUNCTION
 -------------------------------------------------
-local function applyHeadless(char)
-	local head = char:FindFirstChild("Head")
-	if not head then return end
+local function applyEffects(char)
+	if not char then return end
 
-	head.Transparency = 1
+	-- 🧠 HEADLESS
+	if headless then
+		local head = char:FindFirstChild("Head")
+		if head then
+			head.Transparency = 1
 
-	for _, v in pairs(head:GetChildren()) do
-		if v:IsA("Decal") then
-			v.Transparency = 1
+			for _, v in pairs(head:GetChildren()) do
+				if v:IsA("Decal") then
+					v.Transparency = 1
+				end
+			end
+		end
+	end
+
+	-- 🦿 KORBLOX
+	if korblox then
+		local lower = char:FindFirstChild("RightLowerLeg")
+		local upper = char:FindFirstChild("RightUpperLeg")
+		local foot = char:FindFirstChild("RightFoot")
+
+		if lower then
+			lower.Transparency = 1
+			lower.MeshId = "902942093"
+		end
+
+		if upper then
+			upper.MeshId = "902942096"
+			upper.TextureID = "902843398"
+		end
+
+		if foot then
+			foot.Transparency = 1
+			foot.MeshId = "902942089"
 		end
 	end
 end
 
-local function removeHeadless(char)
-	local head = char:FindFirstChild("Head")
-	if not head then return end
-
-	head.Transparency = 0
-
-	for _, v in pairs(head:GetChildren()) do
-		if v:IsA("Decal") then
-			v.Transparency = 0
-		end
-	end
-end
-
-local function applyKorblox(char)
-	local lower = char:FindFirstChild("RightLowerLeg")
-	local upper = char:FindFirstChild("RightUpperLeg")
-	local foot = char:FindFirstChild("RightFoot")
-
-	if not (lower and upper and foot) then return end
-
-	lower.MeshId = "902942093"
-	lower.Transparency = 1
-
-	upper.MeshId = "http://www.roblox.com/asset/?id=902942096"
-	upper.TextureID = "http://roblox.com/asset/?id=902843398"
-
-	foot.MeshId = "902942089"
-	foot.Transparency = 1
-end
-
 -------------------------------------------------
--- 🔄 AUTO APPLY ON RESPAWN
+-- 🔄 AUTO APPLY (RESPAWN FIX)
 -------------------------------------------------
 player.CharacterAdded:Connect(function(char)
-	task.wait(0.5) -- wait for parts to load
-
-	if headlessEnabled then
-		applyHeadless(char)
-	end
-
-	if korbloxEnabled then
-		applyKorblox(char)
-	end
+	task.wait(1)
+	applyEffects(char)
 end)
 
 -------------------------------------------------
@@ -1351,19 +1341,16 @@ end)
 -------------------------------------------------
 vsual:Toggle({
 	Title = "Headless",
-	Desc = "This is a visual only, you can only see this!",
 	Value = false,
 	Callback = function(state)
-		headlessEnabled = state
+		headless = state
+		applyEffects(player.Character)
 
-		local char = player.Character
-		if not char then return end
-
-		if state then
-			applyHeadless(char)
-		else
-			removeHeadless(char)
-		end
+		WindUI:Notify({
+			Title = "Headless",
+			Content = state and "Enabled" or "Disabled",
+			Duration = 3
+		})
 	end
 })
 
@@ -1372,22 +1359,19 @@ vsual:Toggle({
 -------------------------------------------------
 vsual:Toggle({
 	Title = "Korblox",
-	Desc = "This is a visual only, you can only see this!",
 	Value = false,
 	Callback = function(state)
-		korbloxEnabled = state
+		korblox = state
+		applyEffects(player.Character)
 
-		local char = player.Character
-		if not char then return end
-
-		if state then
-			applyKorblox(char)
-		else
-			-- optional restore (simple reset via respawn)
-			player:LoadCharacter()
-		end
+		WindUI:Notify({
+			Title = "Korblox",
+			Content = state and "Enabled" or "Disabled",
+			Duration = 3
+		})
 	end
 })
+
 local menub = RBLXS:Section({
 		Title = "Action Menu",
 		Icon = "menu",
