@@ -2987,175 +2987,187 @@ local RunService = game:GetService("RunService")
 local player = Players.LocalPlayer
 local camera = workspace.CurrentCamera
 
-local selectedPlayer = nil
-local playerMap = {}
-
-local tpConnection
-local specConnection
+local SelectedPlayer = nil
+local PlayersTable = {}
 
 -------------------------------------------------
--- 🔔 NOTIFY (SUCCESS / ERROR ONLY)
+-- 🔁 PLAYER TABLE
 -------------------------------------------------
-local function notifySuccess(text)
-    WindUI:Notify({
-        Title = "Liquid Hub | Success",
-        Content = text,
-        Duration = 3
-    })
-end
+local function RefreshPlayersTable()
+	PlayersTable = {}
 
-local function notifyError(text)
-    WindUI:Notify({
-        Title = "Liquid Hub | Error",
-        Content = text,
-        Duration = 3
-    })
-end
+	for _, p in ipairs(Players:GetPlayers()) do
+		if p ~= player then
+			table.insert(PlayersTable, {
+				Title = p.DisplayName,
+				Desc = "@" .. p.Name,
+				_User = p,
+				_UserId = p.UserId,
+				Icon = Players:GetUserThumbnailAsync(
+					p.UserId,
+					Enum.ThumbnailType.HeadShot,
+					Enum.ThumbnailSize.Size420x420
+				),
+			})
+		end
+	end
 
--------------------------------------------------
--- 🔁 PLAYER LIST
--------------------------------------------------
-local function getPlayerList()
-    local list = {}
-    playerMap = {}
-
-    for _, p in ipairs(Players:GetPlayers()) do
-        if p ~= player then
-            local name = string.format("%s (@%s)", p.DisplayName, p.Name)
-            table.insert(list, name)
-            playerMap[name] = p
-        end
-    end
-
-    return list
+	return PlayersTable
 end
 
 -------------------------------------------------
 -- 📌 DROPDOWN
 -------------------------------------------------
-local PlayerDropdown = tpsection:Dropdown({
-    Title = "Select Player",
+local Dropdown = tpsection:Dropdown({
+	Title = "Select Player",
 	SearchBarEnabled = true,
-    Values = getPlayerList(),
-    Callback = function(value)
-        selectedPlayer = playerMap[value]
-    end
+	Values = {},
+	Callback = function(selected)
+		if not selected then return end
+
+		SelectedPlayer = selected._User
+	end
 })
 
+-- initial load
+Dropdown:Refresh(RefreshPlayersTable())
+
+-------------------------------------------------
+-- 🔄 UPDATE BUTTON (FIXED)
+-------------------------------------------------
 tpsection:Button({
-    Title = "Update Player List",
-    Callback = function()
-        local newList = getPlayerList()
+	Title = "Update Player List",
+	Callback = function()
+		Dropdown:Refresh(RefreshPlayersTable())
 
-        if #newList == 0 then
-            notifyError("Error (404)")
-            return
-        end
-
-        -- 🔥 IMPORTANT FIX
-        PlayerDropdown:SetValue(newList)
-
-        notifySuccess("Player list updated")
-    end
+		WindUI:Notify({
+			Title = "Liquid Hub | Success",
+			Content = "Player list updated",
+			Icon = "circle-check-big",
+			Duration = 3
+		})
+	end
 })
+
+-------------------------------------------------
+-- 🔁 AUTO UPDATE (FIXED)
+-------------------------------------------------
+Players.PlayerAdded:Connect(function()
+	task.wait(0.5)
+	Dropdown:Refresh(RefreshPlayersTable())
+end)
+
+Players.PlayerRemoving:Connect(function()
+	task.wait(0.5)
+	Dropdown:Refresh(RefreshPlayersTable())
+end)
+
 -------------------------------------------------
 -- 🔘 TELEPORT TO PLAYER
 -------------------------------------------------
+local tpConnection
+
 tpsection:Toggle({
-    Title = "Teleport to Player",
-    Value = false,
-    Callback = function(state)
+	Title = "Teleport to Player",
+	Value = false,
+	Callback = function(state)
+		if state then
+			if not SelectedPlayer then
+				WindUI:Notify({
+					Title = "Error",
+					Content = "Select a player first",
+					Duration = 3
+				})
+				return
+			end
 
-        if state then
-            if not selectedPlayer then
-                notifyError("Select a player first")
-                return
-            end
+			tpConnection = RunService.RenderStepped:Connect(function()
+				if SelectedPlayer and SelectedPlayer.Character and player.Character then
+					local target = SelectedPlayer.Character:FindFirstChild("HumanoidRootPart")
+					local myRoot = player.Character:FindFirstChild("HumanoidRootPart")
 
-            notifySuccess("Teleported!")
+					if target and myRoot then
+						myRoot.CFrame = target.CFrame + Vector3.new(0, 3, 0)
+					end
+				end
+			end)
 
-            tpConnection = RunService.RenderStepped:Connect(function()
-                if selectedPlayer and selectedPlayer.Character and player.Character then
-                    local targetRoot = selectedPlayer.Character:FindFirstChild("HumanoidRootPart")
-                    local myRoot = player.Character:FindFirstChild("HumanoidRootPart")
+			--[[WindUI:Notify({
+				Title = "Success",
+				Content = "Teleport Enabled",
+				Duration = 3
+			})]]
 
-                    if targetRoot and myRoot then
-                        myRoot.CFrame = targetRoot.CFrame + Vector3.new(0, 3, 0)
-                    end
-                end
-            end)
+		else
+			if tpConnection then
+				tpConnection:Disconnect()
+				tpConnection = nil
+			end
 
-        else
-            if tpConnection then
-                tpConnection:Disconnect()
-                tpConnection = nil
-                
-            end
-        end
-    end
+			--[[:Notify({
+				Title = "Success",
+				Content = "Teleport Disabled",
+				Duration = 3
+			})]]
+		end
+	end
 })
 
 -------------------------------------------------
 -- 👁️ SPECTATE PLAYER
 -------------------------------------------------
+local specConnection
+
 tpsection:Toggle({
-    Title = "Spectate Player",
-    Value = false,
-    Callback = function(state)
+	Title = "Spectate Player",
+	Value = false,
+	Callback = function(state)
+		if state then
+			if not SelectedPlayer then
+				WindUI:Notify({
+					Title = "Error",
+					Content = "Select a player first",
+					Duration = 3
+				})
+				return
+			end
 
-        if state then
-            if not selectedPlayer then
-                notifyError("Select a player first")
-                return
-            end
+			specConnection = RunService.RenderStepped:Connect(function()
+				if SelectedPlayer and SelectedPlayer.Character then
+					local humanoid = SelectedPlayer.Character:FindFirstChildOfClass("Humanoid")
+					if humanoid then
+						camera.CameraSubject = humanoid
+					end
+				end
+			end)
 
-            notifySuccess("Spectating")
+			--[[WindUI:Notify({
+				Title = "Success",
+				Content = "Spectate Enabled",
+				Duration = 3
+			})]]
 
-            specConnection = RunService.RenderStepped:Connect(function()
-                if selectedPlayer and selectedPlayer.Character then
-                    local humanoid = selectedPlayer.Character:FindFirstChildOfClass("Humanoid")
-                    if humanoid then
-                        camera.CameraSubject = humanoid
-                    end
-                end
-            end)
+		else
+			if specConnection then
+				specConnection:Disconnect()
+				specConnection = nil
+			end
 
-        else
-            if specConnection then
-                specConnection:Disconnect()
-                specConnection = nil
-            end
+			if player.Character then
+				local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+				if humanoid then
+					camera.CameraSubject = humanoid
+				end
+			end
 
-            if player.Character then
-                local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
-                if humanoid then
-                    camera.CameraSubject = humanoid
-                end
-            end
-
-            
-        end
-    end
+			--[[WindUI:Notify({
+				Title = "Success",
+				Content = "Spectate Disabled",
+				Duration = 3
+			})]]
+		end
+	end
 })
-
--------------------------------------------------
--- 🔄 UPDATE PLAYER LIST (FIXED)
--------------------------------------------------
-
-
--------------------------------------------------
--- 🔁 AUTO UPDATE FIX
--------------------------------------------------
-Players.PlayerAdded:Connect(function()
-    task.wait(0.5)
-    PlayerDropdown:SetValue(getPlayerList())
-end)
-
-Players.PlayerRemoving:Connect(function()
-    task.wait(0.5)
-    PlayerDropdown:SetValue(getPlayerList())
-end)
-            
 ----------- SETTINGS TAB
 local light = Settings:Section({
 		Title = "Lighting",
