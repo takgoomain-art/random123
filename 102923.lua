@@ -2865,7 +2865,76 @@ local iy = fe:Button({
 			loadstring(game:HttpGet('https://cdn.robloxscripts.gg/public/furky/furky-infinite-yield-roblox-admin-script-source.lua'))()
 		end})
 
+local exe = More:Section({
+		Title = "Execute Script",
+		Icon = "monitor-cog",
+		Opened = true,
+	})
 
+local scriptInput = ""
+
+-------------------------------------------------
+-- 📝 INPUT
+-------------------------------------------------
+local Input = exe:Input({
+    Title = "Script Executor",
+    Desc = "Paste loadstring script",
+    Value = "",
+    Type = "Textarea",
+    Placeholder = 'loadstring(game:HttpGet("URL"))()',
+    Callback = function(input)
+        scriptInput = input
+    end
+})
+
+-------------------------------------------------
+-- ▶️ BUTTON (RUN SCRIPT)
+-------------------------------------------------
+local Button = exe:Button({
+    Title = "Execute Script",
+    Desc = "Run the input script",
+    Callback = function()
+
+        if not scriptInput or scriptInput == "" then
+            WindUI:Notify({
+                Title = "Error",
+                Content = "No script entered",
+                Duration = 3
+            })
+            return
+        end
+
+        -- 🔒 basic check (optional pero recommended)
+        if not string.find(scriptInput, "loadstring") then
+            WindUI:Notify({
+                Title = "Error",
+                Content = "Invalid script (must use loadstring)",
+                Duration = 3
+            })
+            return
+        end
+
+        -- 🚀 execute safely
+        local success, err = pcall(function()
+            loadstring(scriptInput)()
+        end)
+
+        if success then
+            WindUI:Notify({
+                Title = "Success",
+                Content = "Script executed",
+                Duration = 3
+            })
+        else
+            WindUI:Notify({
+                Title = "Error",
+                Content = "Execution failed",
+                Duration = 3
+            })
+            warn(err)
+        end
+    end
+})
 ----------- TELEPORT TAB
 local tpsection = Teleport:Section({
 		Title = "Teleport",
