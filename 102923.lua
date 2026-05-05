@@ -5,7 +5,7 @@ So it means our obfuscator or security is weak?
 
 ]]
 local WindUI = _G.WindUI
-local scriptVersion = "v1.444.5"
+local scriptVersion = "v1.444.10"
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -3497,27 +3497,40 @@ end
 -------------------------------------------------
 -- 👤 ROBLOX USER TOGGLE
 -------------------------------------------------
---[[UI3:Toggle({
+UI3:Toggle({
     Title = "Roblox User System",
-	Desc = "Enable the user system in the UI",
+	Desc = "Enables the user system in the UI",
+	Icon = "user",
     Value = true,
     Callback = function(state)
-        if not Window.Icon then return end
 
         if state then
-            Window.Icon:Enable()
+            Window.User:Enable()
+				WindUI:Notify({
+            Title = "Liquid Hub | User System",
+            Content = "User system enabled!,
+            Icon = "user-check",
+            Duration = 2
+        })
         else
-            Window.Icon:Disable()
+            Window.User:Disable()
+				WindUI:Notify({
+            Title = "Liquid Hub | User System",
+            Content = "User system disabled!,
+            Icon = "user-minus",
+            Duration = 2
+        })
         end
     end
 })
-]]
+
 -------------------------------------------------
 -- 🕶️ ANONYMOUS TOGGLE
 -------------------------------------------------
 UI3:Toggle({
     Title = "Anonymous User",
 	Desc = "Hide user identity",
+	Icon = "hat-glasses",
     Value = false,
     Callback = function(state)
         Window.User:SetAnonymous(state)
