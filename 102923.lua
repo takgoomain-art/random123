@@ -3489,10 +3489,8 @@ local UI3 = UI:Section({
 	})
 
 
-if not Window or not Window.Icon then
-    warn("Window.Icon not found")
-    return
-end
+
+
 
 -------------------------------------------------
 -- 👤 ROBLOX USER TOGGLE
