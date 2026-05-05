@@ -3520,11 +3520,7 @@ UI3:Toggle({
 	Desc = "Hide user identity",
     Value = false,
     Callback = function(state)
-        if state then
-        Window.Icon:SetAnonymous(true)
-			else
-				Window.Icon:SetAnonymous(false)
-			end
+        Window.User:SetAnonymous(state)
     end
 })
 UI:Button({
