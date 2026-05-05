@@ -3413,7 +3413,7 @@ end
 -------------------------------------------------
 -- 👤 ROBLOX USER TOGGLE
 -------------------------------------------------
-UI3:Toggle({
+--[[UI3:Toggle({
     Title = "Roblox User System",
 	Desc = "Enable the user system in the UI",
     Value = true,
@@ -3427,7 +3427,7 @@ UI3:Toggle({
         end
     end
 })
-
+]]
 -------------------------------------------------
 -- 🕶️ ANONYMOUS TOGGLE
 -------------------------------------------------
