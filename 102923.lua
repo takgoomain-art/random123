@@ -1279,7 +1279,7 @@ local vsual = RBLXS:Section({
 
 
 
-local Players = game:GetService("Players")
+--[[local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
 local headless = false
@@ -1371,7 +1371,7 @@ vsual:Toggle({
 		})
 	end
 })
-
+]]
 local menub = RBLXS:Section({
 		Title = "Action Menu",
 		Icon = "menu",
