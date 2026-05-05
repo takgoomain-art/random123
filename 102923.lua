@@ -188,13 +188,13 @@ local Window = WindUI:CreateWindow({
 	ScrollBarEnabled = true,
 	Size = UDim2.fromOffset(620, 490),
 
-		User = {
+		--[[User = {
         Enabled = true,
         Anonymous = false,
         Callback = function()
             print("clicked")
         end,
-    },
+    },]]
 		
 		
 })
