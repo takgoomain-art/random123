@@ -390,8 +390,8 @@ Info:Section({
 	Info:Space()
 
 	Info:Section({
-		Title = "Liquid Hub is a universal hub where you can find different scripts in different games! Use it and power-up your multi-tasking script.\nHappy Scripting!",
-		TextSize = 14,
+		Title = "Liquid Hub is a universal hub where you can find different scripts in different games! Use it and power-up your multi-tasking script. We assure your safety here and we will provide a good scripts for you! \nHappy Scripting!",
+		TextSize = 17,
 		TextTransparency = 0.35,
 		FontWeight = Enum.FontWeight.Medium,
 	})
@@ -433,7 +433,8 @@ local DiscordServerParagraph = InfoGroup1:Paragraph({
 					Title = "Copy link",
 					Icon = "link",
 					Callback = function()
-						setclipboard("https://discord.gg/")
+						setclipboard("NEW: https://discord.gg/jYkbeWtYsf")
+					    setclipboard("OLD: https://discord.gg/wDMPK3QAmY")
 					end,
 				},
 			},
