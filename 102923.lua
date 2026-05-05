@@ -3178,6 +3178,62 @@ local light = Settings:Section({
 -- Simple one-toggle lighting (Player/Settings tab)
 
 local Lighting = game:GetService("Lighting")
+
+-- 💾 Save original values
+local original = {
+	Ambient = Lighting.Ambient,
+	ColorShift_Bottom = Lighting.ColorShift_Bottom,
+	ColorShift_Top = Lighting.ColorShift_Top
+}
+
+local connection
+
+-- ☀️ Apply fullbright
+local function applyFullbright()
+	Lighting.Ambient = Color3.new(1, 1, 1)
+	Lighting.ColorShift_Bottom = Color3.new(1, 1, 1)
+	Lighting.ColorShift_Top = Color3.new(1, 1, 1)
+end
+
+-- 🔘 Toggle
+light:Toggle({
+	Title = "Fullbright",
+	Value = false,
+	Callback = function(state)
+
+		if state then
+			applyFullbright()
+
+			connection = Lighting.LightingChanged:Connect(applyFullbright)
+
+			WindUI:Notify({
+				Title = "Success",
+				Content = "Fullbright Enabled",
+				Duration = 3
+			})
+
+		else
+			-- 🔌 disconnect loop
+			if connection then
+				connection:Disconnect()
+				connection = nil
+			end
+
+			-- 🔄 restore original
+			Lighting.Ambient = original.Ambient
+			Lighting.ColorShift_Bottom = original.ColorShift_Bottom
+			Lighting.ColorShift_Top = original.ColorShift_Top
+
+			WindUI:Notify({
+				Title = "Success",
+				Content = "Fullbright Disabled",
+				Duration = 3
+			})
+		end
+	end
+})
+
+local Lighting = game:GetService("Lighting")
 local StarterGui = game:GetService("StarterGui")
 local effects = {}
 local vignetteGui = nil
