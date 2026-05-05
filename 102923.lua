@@ -189,7 +189,7 @@ local Window = WindUI:CreateWindow({
 	Size = UDim2.fromOffset(620, 490),
 
 		User = {
-        Enabled = true,
+        
         
         Callback = function()
             print("clicked")
