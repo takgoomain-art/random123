@@ -190,7 +190,7 @@ local Window = WindUI:CreateWindow({
 
 		User = {
         Enabled = true,
-        Anonymous = false,
+        
         Callback = function()
             print("clicked")
         end,
