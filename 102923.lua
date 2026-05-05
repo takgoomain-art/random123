@@ -3320,6 +3320,13 @@ local Toggle111 = UI2:Toggle({
 	Value = Window.Transparent,
 	Callback = function(v)
 		Window:ToggleTransparency(v)
+
+			WindUI:Notify({
+				Title = "Liquid Hub | UI",
+				Content = v and "Window Transparency Enabled" or "Window Transparency Disabled"
+				Icon = "app-window",
+				Duration = 2
+				})
 	end,
 })
 
@@ -3329,34 +3336,49 @@ local UI3 = UI:Section({
 		Opened = false,
 	})
 
-local UserToggle = UI3:Toggle({
-		Title = "Roblox User",
-		Desc = "Toggle your Roblox username in the ui.",
-		Value = true,
-		Callback = function(v)
-			if v then
-			Window.Icon:Enable()
 
-			else
-				Window.Icon:Disable()
-			end
-		end
-	})
+UI3:Toggle({
+    Title = "Roblox User",
+    Desc = "Enable or disable user icon",
+    Value = true,
+    Callback = function(state)
+        if state then
+            Window.Icon:Enable()
+            WindUI:Notify({
+                Title = "User",
+                Content = "User Enabled",
+				Icon = "user",
+                Duration = 3
+            })
+        else
+            Window.Icon:Disable()
+            WindUI:Notify({
+                Title = "Liquid Hub | User",
+                Content = "User Disabled",
+				Icon = "user-lock",
+                Duration = 3
+            })
+        end
+    end
+})
 
-local useranonymous = UI3:Toggle({
-		Title = "Anonymous User",
-		Desc = "Make your Roblox username anonymous.",
-		Value = false,
-		Callback = function(v)
-			if v then
-				Window.Icon:SetAnonymous(true) -- true or false
+-------------------------------------------------
 
-			else
-				Window.Icon:SetAnonymous(false) -- true or false
+UI3:Toggle({
+    Title = "Anonymous User",
+    Desc = "Hide user identity",
+    Value = true,
+    Callback = function(state)
+        Window.Icon:SetAnonymous(state)
 
-			end
-		end
-	})
+        WindUI:Notify({
+            Title = "Liquid Hub | User",
+            Content = state and "Anonymous Enabled" or "Anonymous Disabled",
+			Icon = "hat-glasses",
+            Duration = 3
+        })
+    end
+})
 UI:Button({
 		Title = "Destroy Window UI",
 		Color = Color3.fromHex("#ff4830"),
@@ -3365,7 +3387,8 @@ UI:Button({
 		IconAlign = "Left",
 		Callback = function()
 			local Dialogg = Window:Dialog({
-    Icon = "rbxassetid://92919014193893",
+    --Icon = "rbxassetid://92919014193893",
+	Icon = "unplug",
     Title = "Liquid Hub | Destroy UI",
     Content = "Are you sure you want to destroy the ui?",
     Buttons = {
