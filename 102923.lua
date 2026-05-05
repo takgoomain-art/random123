@@ -1270,14 +1270,137 @@ local RBLXS = lp:Section({
 		Opened = true,
 	})
 
-RBLXS:Button({
+local vsual = RBLXS:Section({
+		Title = "Visual"
+		Icon = "eye",
+		Opened = false,
+	})
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-------------------------------------------------
+-- 🧠 STATES (important)
+-------------------------------------------------
+local headlessEnabled = false
+local korbloxEnabled = false
+
+-------------------------------------------------
+-- 🧠 FUNCTIONS
+-------------------------------------------------
+local function applyHeadless(char)
+	local head = char:FindFirstChild("Head")
+	if not head then return end
+
+	head.Transparency = 1
+
+	for _, v in pairs(head:GetChildren()) do
+		if v:IsA("Decal") then
+			v.Transparency = 1
+		end
+	end
+end
+
+local function removeHeadless(char)
+	local head = char:FindFirstChild("Head")
+	if not head then return end
+
+	head.Transparency = 0
+
+	for _, v in pairs(head:GetChildren()) do
+		if v:IsA("Decal") then
+			v.Transparency = 0
+		end
+	end
+end
+
+local function applyKorblox(char)
+	local lower = char:FindFirstChild("RightLowerLeg")
+	local upper = char:FindFirstChild("RightUpperLeg")
+	local foot = char:FindFirstChild("RightFoot")
+
+	if not (lower and upper and foot) then return end
+
+	lower.MeshId = "902942093"
+	lower.Transparency = 1
+
+	upper.MeshId = "http://www.roblox.com/asset/?id=902942096"
+	upper.TextureID = "http://roblox.com/asset/?id=902843398"
+
+	foot.MeshId = "902942089"
+	foot.Transparency = 1
+end
+
+-------------------------------------------------
+-- 🔄 AUTO APPLY ON RESPAWN
+-------------------------------------------------
+player.CharacterAdded:Connect(function(char)
+	task.wait(0.5) -- wait for parts to load
+
+	if headlessEnabled then
+		applyHeadless(char)
+	end
+
+	if korbloxEnabled then
+		applyKorblox(char)
+	end
+end)
+
+-------------------------------------------------
+-- 🧠 HEADLESS TOGGLE
+-------------------------------------------------
+vsual:Toggle({
+	Title = "Headless",
+	Desc = "This is a visual only, you can only see this!",
+	Value = false,
+	Callback = function(state)
+		headlessEnabled = state
+
+		local char = player.Character
+		if not char then return end
+
+		if state then
+			applyHeadless(char)
+		else
+			removeHeadless(char)
+		end
+	end
+})
+
+-------------------------------------------------
+-- 🧠 KORBLOX TOGGLE
+-------------------------------------------------
+vsual:Toggle({
+	Title = "Korblox",
+	Desc = "This is a visual only, you can only see this!",
+	Value = false,
+	Callback = function(state)
+		korbloxEnabled = state
+
+		local char = player.Character
+		if not char then return end
+
+		if state then
+			applyKorblox(char)
+		else
+			-- optional restore (simple reset via respawn)
+			player:LoadCharacter()
+		end
+	end
+})
+local menub = RBLXS:Section({
+		Title = "Action Menu",
+		Icon = "menu",
+		Opened = false,
+	})
+menub:Button({
 	Title = "Reset Character",
 	Callback = function()
 		Players.LocalPlayer.Character:BreakJoints()
 	end,
 })
 
-RBLXS:Button({
+menub:Button({
 	Title = "Leave Game",
 	Callback = function()
 		Players.LocalPlayer:Kick("You left the game.")
