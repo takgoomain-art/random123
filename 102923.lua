@@ -3321,12 +3321,12 @@ local Toggle111 = UI2:Toggle({
 	Callback = function(v)
 		Window:ToggleTransparency(v)
 
-			WindUI:Notify({
+			--[[WindUI:Notify({
 				Title = "Liquid Hub | UI",
 				Content = v and "Window Transparency Enabled" or "Window Transparency Disabled"
 				Icon = "app-window",
 				Duration = 2
-				})
+				})]]
 	end,
 })
 
