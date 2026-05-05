@@ -188,13 +188,13 @@ local Window = WindUI:CreateWindow({
 	ScrollBarEnabled = true,
 	Size = UDim2.fromOffset(620, 490),
 
-		--[[User = {
+		User = {
         Enabled = true,
         Anonymous = false,
         Callback = function()
             print("clicked")
         end,
-    },]]
+    }
 		
 		
 })
@@ -3337,46 +3337,40 @@ local UI3 = UI:Section({
 	})
 
 
+if not Window or not Window.Icon then
+    warn("Window.Icon not found")
+    return
+end
+
+-------------------------------------------------
+-- 👤 ROBLOX USER TOGGLE
+-------------------------------------------------
 UI3:Toggle({
-    Title = "Roblox User",
-    Desc = "Enable or disable user icon",
+    Title = "Roblox User System",
+	Desc = "Enable the user system in the UI",
     Value = true,
     Callback = function(state)
+        if not Window.Icon then return end
+
         if state then
             Window.Icon:Enable()
-            WindUI:Notify({
-                Title = "User",
-                Content = "User Enabled",
-				Icon = "user",
-                Duration = 3
-            })
         else
             Window.Icon:Disable()
-            WindUI:Notify({
-                Title = "Liquid Hub | User",
-                Content = "User Disabled",
-				Icon = "user-lock",
-                Duration = 3
-            })
         end
     end
 })
 
 -------------------------------------------------
-
+-- 🕶️ ANONYMOUS TOGGLE
+-------------------------------------------------
 UI3:Toggle({
     Title = "Anonymous User",
-    Desc = "Hide user identity",
+	Desc = "Hide user identity",
     Value = false,
     Callback = function(state)
-        Window.Icon:SetAnonymous(state)
+        if not Window.Icon then return end
 
-        WindUI:Notify({
-            Title = "Liquid Hub | User",
-            Content = state and "Anonymous Enabled" or "Anonymous Disabled",
-			Icon = "hat-glasses",
-            Duration = 3
-        })
+        Window.Icon:SetAnonymous(state)
     end
 })
 UI:Button({
