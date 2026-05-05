@@ -186,7 +186,7 @@ local Window = WindUI:CreateWindow({
 	Resizable = true,
 	Acrylic = true,
 	ScrollBarEnabled = true,
-	Size = UDim2.fromOffset(590, 470),
+	Size = UDim2.fromOffset(620, 490),
 
 		User = {
         Enabled = true,
