@@ -3050,7 +3050,7 @@ local Button = exe:Button({
 })
 
 ------------ TROLL TAB
-local Troll1 = Troll:Section({
+local Trolls = Troll:Section({
 		Title = "Back Shot",
 		Icon = "arrow-right-left",
 		Opened = true,
@@ -3059,7 +3059,7 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
 local LocalPlayer = Players.LocalPlayer
-local SelectedPlayer = nil
+local SelectedPlayer2 = nil
 
 local distance = 5
 local speed = 0.2
@@ -3069,7 +3069,7 @@ local conn
 -------------------------------------------------
 -- 📌 PLAYER PARAGRAPH
 -------------------------------------------------
-local PlayerParagraph = Troll1:Paragraph({
+local PlayerParagraph = Trolls:Paragraph({
 	Title = "No Player Selected",
 	Desc = "@none",
 	Image = Players:GetUserThumbnailAsync(1, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420),
@@ -3078,14 +3078,14 @@ local PlayerParagraph = Troll1:Paragraph({
 -------------------------------------------------
 -- 🔁 PLAYER TABLE
 -------------------------------------------------
-local PlayersTable = {}
+local PlayersTable2 = {}
 
-function RefreshPlayersTable()
-	PlayersTable = {}
+function RefreshPlayersTable2()
+	PlayersTable2 = {}
 
 	for _, Player in next, Players:GetChildren() do
 		if Player ~= LocalPlayer then
-			table.insert(PlayersTable, {
+			table.insert(PlayersTable2, {
 				Title = Player.DisplayName,
 				_Name = Player.Name,
 				_User = Player,
@@ -3099,28 +3099,28 @@ function RefreshPlayersTable()
 		end
 	end
 
-	return PlayersTable
+	return PlayersTable2
 end
 
 -------------------------------------------------
 -- 🎯 DROPDOWN
 -------------------------------------------------
-local DropdownTroll = Troll1:Dropdown({
+local DropdownTroll = Trolls:Dropdown({
 	Title = "Select Player",
 	Values = {},
 	Value = nil,
-	Callback = function(selectedplayer)
-		if not selectedplayer then return end
+	Callback = function(selectedplayer2)
+		if not selectedplayer2 then return end
 
-		SelectedPlayer = selectedplayer._User
+		SelectedPlayer2 = selectedplayer2._User
 
-		PlayerParagraph:SetTitle(selectedplayer.Title)
-		PlayerParagraph:SetDesc("@" .. selectedplayer._Name)
-		PlayerParagraph:SetImage(selectedplayer.Icon)
+		PlayerParagraph:SetTitle(selectedplayer2.Title)
+		PlayerParagraph:SetDesc("@" .. selectedplayer2._Name)
+		PlayerParagraph:SetImage(selectedplayer2.Icon)
 	end,
 })
 
-DropdownTroll:Refresh(RefreshPlayersTable())
+DropdownTroll:Refresh(RefreshPlayersTable2())
 
 -------------------------------------------------
 -- 🔄 REFRESH BUTTON
@@ -3128,7 +3128,7 @@ DropdownTroll:Refresh(RefreshPlayersTable())
 Troll1:Button({
 	Title = "Refresh Player List",
 	Callback = function()
-		DropdownTroll:Refresh(RefreshPlayersTable())
+		DropdownTroll:Refresh(RefreshPlayersTable2())
 
 		WindUI:Notify({
 			Title = "Updated",
@@ -3142,11 +3142,11 @@ Troll1:Button({
 -- 🔁 AUTO UPDATE
 -------------------------------------------------
 Players.ChildAdded:Connect(function()
-	DropdownTroll:Refresh(RefreshPlayersTable())
+	DropdownTroll:Refresh(RefreshPlayersTable2())
 end)
 
 Players.ChildRemoved:Connect(function()
-	DropdownTroll:Refresh(RefreshPlayersTable())
+	DropdownTroll:Refresh(RefreshPlayersTable2())
 end)
 
 -------------------------------------------------
@@ -3189,7 +3189,7 @@ Troll1:Toggle({
 		running = state
 
 		if state then
-			if not SelectedPlayer then
+			if not SelectedPlayer2 then
 				WindUI:Notify({
 					Title = "Error",
 					Content = "Select a player first",
@@ -3204,7 +3204,7 @@ Troll1:Toggle({
 				if not running then return end
 
 				local char = LocalPlayer.Character
-				local targetChar = SelectedPlayer and SelectedPlayer.Character
+				local targetChar = SelectedPlayer2 and SelectedPlayer2.Character
 
 				if not (char and targetChar) then return end
 
