@@ -3057,7 +3057,7 @@ local Trolls = Troll:Section({
 	})
 
 
-local Players = game:GetService("Players")
+--[[local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
 local LocalPlayer = Players.LocalPlayer
@@ -3234,6 +3234,7 @@ Trolls:Toggle({
 		end
 	end
 })
+]]
 ----------- TELEPORT TAB
 local tpsection = Teleport:Section({
 		Title = "Teleport",
