@@ -4,7 +4,7 @@ Welcome, Skidders! You've come here, we're glad.
 So it means our obfuscator or security is weak?
 
 ]]
-local WindUI = _G.WindUI
+local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 local scriptVersion = "v1.444.50"
 
 local Players = game:GetService("Players")
@@ -3045,6 +3045,131 @@ local Button = exe:Button({
                 Duration = 3
             })
             warn(err)
+        end
+    end
+})
+
+local currentCode = ""
+local isLooping = false
+local loopThread = nil
+
+-- Code Preview
+local CodePreview = exe:Code({
+    Title = "Code Preview",
+    Code = [[-- Your code will appear here...]]
+})
+
+-- Code Input
+local CodeInput = exe:Input({
+    Title = "Code Input",
+    Desc = "Enter the code you want to execute",
+    Placeholder = 'print("Hello World!")',
+    Value = "",
+    Callback = function(value)
+        currentCode = value
+        if value ~= "" then
+            CodePreview:SetCode(value)
+        else
+            CodePreview:SetCode([[-- Your code will appear here...]])
+        end
+    end
+})
+
+-- Fire Count Input
+local FireCount = exe:Input({
+    Title = "Fire Count",
+    Desc = "How many times to execute -- Current value: 1",
+    Placeholder = "1",
+    Value = "1",
+    Callback = function(value)
+        local num = tonumber(value)
+        if num then
+            FireCount.Desc = "How many times to execute -- Current value: " .. num
+        end
+    end
+})
+
+-- Fire Delay Input
+local FireDelay = exe:Input({
+    Title = "Fire Delay",
+    Desc = "Delay between executions (seconds) -- Current value: 0.1",
+    Placeholder = "0.1",
+    Value = "0.1",
+    Callback = function(value)
+        local num = tonumber(value)
+        if num then
+            FireDelay.Desc = "Delay between executions (seconds) -- Current value: " .. num
+        end
+    end
+})
+
+-- Run Code (once)
+local RunButton = exe:Button({
+    Title = "Run Code",
+    Desc = "Execute the code once",
+    Callback = function()
+        if currentCode == "" then return end
+        local fn, err = load(currentCode)
+        if fn then
+            fn()
+        else
+            print("[Executor] Error: " .. tostring(err))
+        end
+    end
+})
+
+-- Run Multiple
+local RunMultipleButton = exe:Button({
+    Title = "Run Multiple Code",
+    Desc = "Execute the code based on Fire Count and Fire Delay",
+    Callback = function()
+        if currentCode == "" then return end
+        local count = tonumber(FireCount.Value) or 1
+        local delay = tonumber(FireDelay.Value) or 0.1
+
+        CreateThread(function()
+            for i = 1, count do
+                local fn, err = load(currentCode)
+                if fn then
+                    fn()
+                else
+                    print("[Executor] Error: " .. tostring(err))
+                    break
+                end
+                if i < count then
+                    Wait(delay * 1000)
+                end
+            end
+        end)
+    end
+})
+
+-- Loop Run/Execute
+local LoopToggle = exe:Toggle({
+    Title = "Loop Run/Execute",
+    Desc = "Continuously execute the code with Fire Delay interval",
+    Value = false,
+    Callback = function(value)
+        isLooping = value
+
+        if isLooping then
+            loopThread = CreateThread(function()
+                while isLooping do
+                    if currentCode ~= "" then
+                        local fn, err = load(currentCode)
+                        if fn then
+                            fn()
+                        else
+                            print("[Executor] Error: " .. tostring(err))
+                            isLooping = false
+                            LoopToggle:SetValue(false)
+                            break
+                        end
+                    end
+                    local delay = tonumber(FireDelay.Value) or 0.1
+                    Wait(delay * 1000)
+                end
+            end)
         end
     end
 })
