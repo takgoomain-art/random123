@@ -2981,7 +2981,7 @@ local iy = fe:Button({
 local exe = More:Section({
 		Title = "Execute Script",
 		Icon = "monitor-cog",
-		Opened = true,
+		Opened = false,
 	})
 
 local scriptInput = ""
@@ -3049,6 +3049,148 @@ local Button = exe:Button({
     end
 })
 
+local rf = More:Section({
+		Title = "Remote Executor",
+		Icon = "chevrons-left-right-ellipsis",
+		Opened = false,
+	})
+
+
+
+-- 1. Code Preview
+local CodePreview = rf:Code({
+    Title = "Code Preview",
+    Code = [[print("Waiting for input...")]]
+})
+
+-- 2. Variables
+local CodeToExecute = "" 
+local FireCount = 1
+local FireDelay = 0.1
+local IsLooping = false
+
+-- Code Input
+rf:Input({
+    Title = "Code Input",
+	Desc = "Enter your code function",
+    Placeholder = "print('Hello World!')",
+    Callback = function(text)
+        CodeToExecute = text
+        CodePreview:SetCode(text) 
+    end
+})
+
+-- Fire Count Input
+rf:Input({
+    Title = "Run Count",
+	Desc = "",
+    Placeholder = "Default: 1",
+    Callback = function(text)
+        FireCount = tonumber(text) or 1
+    end
+})
+
+-- Fire Delay Input
+rf:Input({
+    Title = "Run Delay",
+	Desc = "Delay between running the code (seconds)",
+    Placeholder = "Default: 0.1",
+    Callback = function(text)
+        FireDelay = tonumber(text) or 0.1
+    end
+})
+
+--- Execution Logic with Notifications ---
+local function FireTheCode()
+    if CodeToExecute == "" or CodeToExecute == nil then
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Code input is empty!",
+            Duration = 2
+        })
+        return
+    end
+
+    local func, err = loadstring(CodeToExecute)
+    if func then
+        func()
+    else
+        WindUI:Notify({
+            Title = "Syntax Error",
+            Content = "Check your code for mistakes.",
+            Duration = 3
+        })
+        warn("Error: " .. err)
+    end
+end
+
+-- 4. Action Buttons
+
+-- Run Code
+local rf2 = rf:Group({})
+rf2:Button({
+    Title = "Run Code",
+	Desc = "Run the code ONCE",
+	Icon = "play",
+    Callback = function()
+        FireTheCode()
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Code executed successfully.",
+            Duration = 2
+        })
+    end
+})
+
+-- Run Multiple Code
+rf2:Button({
+    Title = "Run Multiple Code",
+	Icon = "play",
+	Desc = "Run the code based on Run Count Input",
+    Callback = function()
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Executing code " .. FireCount .. " times...",
+            Duration = 2
+        })
+        
+        for i = 1, FireCount do
+            FireTheCode()
+            task.wait(FireDelay)
+        end
+    end
+})
+
+-- Loop Run/Execute
+rf:Toggle({
+    Title = "Loop Run",
+	Desc = "Continuously run the code with Run Delay interval",
+	Icon = "repeat-2",
+    Callback = function(state)
+        IsLooping = state
+        
+        if state then
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Loop Execution: ENABLED",
+                Duration = 2
+            })
+            
+            task.spawn(function()
+                while IsLooping do
+                    FireTheCode()
+                    task.wait(FireDelay)
+                end
+            end)
+        else
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Loop Execution: DISABLED",
+                Duration = 2
+            })
+        end
+    end
+})
 ------------ TROLL TAB
 local Trolls = Troll:Section({
 		Title = "Back Shot",
