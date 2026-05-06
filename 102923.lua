@@ -2981,9 +2981,8 @@ local iy = fe:Button({
 local exe = More:Section({
 		Title = "Execute Script",
 		Icon = "monitor-cog",
-		Opened = true,
+		Opened = false,
 	})
-
 local scriptInput = ""
 
 -------------------------------------------------
@@ -3049,6 +3048,159 @@ local Button = exe:Button({
     end
 })
 
+local rf = More:Section({
+		Title = "Remote Executor",
+		Icon = "chevrons-left-right-ellipsis",
+		Opened = false,
+	})
+
+local RunService = game:GetService("RunService")
+
+-------------------------------------------------
+-- 🧠 STATE
+-------------------------------------------------
+local currentCode = "print('Hello World!')"
+local fireCount = 1
+local fireDelay = 0.1
+local loopRunning = false
+
+-------------------------------------------------
+-- 📄 CODE PREVIEW
+-------------------------------------------------
+local CodePreview = rf:Code({
+    Title = "Code Preview",
+    Code = currentCode
+})
+
+-------------------------------------------------
+-- 📝 CODE INPUT
+-------------------------------------------------
+rf:Input({
+    Title = "Code Input",
+    Desc = "Type your function/code here",
+    Type = "Textarea",
+    Placeholder = "print('Hello World!')",
+    Callback = function(input)
+        currentCode = input
+        CodePreview:SetCode(input) -- 🔥 live preview
+    end
+})
+
+-------------------------------------------------
+-- 🔢 FIRE COUNT
+-------------------------------------------------
+rf:Input({
+    Title = "Fire Count",
+    Desc = "How many times to run",
+    Value = "1",
+    Callback = function(val)
+        fireCount = tonumber(val) or 1
+    end
+})
+
+-------------------------------------------------
+-- ⏱️ FIRE DELAY
+-------------------------------------------------
+rf:Input({
+    Title = "Fire Delay",
+    Desc = "Delay per run (seconds)",
+    Value = "0.1",
+    Callback = function(val)
+        fireDelay = tonumber(val) or 0.1
+    end
+})
+
+-------------------------------------------------
+-- ▶️ RUN ONCE
+-------------------------------------------------
+local rf2 = rf:Group({})
+rf2:Button({
+    Title = "Run Code",
+	Icon = "play",
+    Callback = function()
+        local success, err = pcall(function()
+            loadstring(currentCode)()
+        end)
+
+        WindUI:Notify({
+            Title = success and "Success" or "Error",
+            Content = success and "Code executed" or "Execution failed",
+            Duration = 3
+        })
+
+        if not success then warn(err) end
+    end
+})
+
+-------------------------------------------------
+-- 🔁 RUN MULTIPLE
+-------------------------------------------------
+rf2:Button({
+    Title = "Run Multiple Code",
+	Icon = "play",
+    Callback = function()
+        task.spawn(function()
+            for i = 1, fireCount do
+                local success, err = pcall(function()
+                    loadstring(currentCode)()
+                end)
+
+                if not success then
+                    warn(err)
+                end
+
+                task.wait(fireDelay)
+            end
+
+            WindUI:Notify({
+                Title = "Done",
+                Content = "Executed " .. fireCount .. " times",
+                Duration = 3
+            })
+        end)
+    end
+})
+
+-------------------------------------------------
+-- 🔄 LOOP TOGGLE
+-------------------------------------------------
+rf:Toggle({
+    Title = "Loop Execute",
+	Icon = "repeat-2",
+    Value = false,
+    Callback = function(state)
+        loopRunning = state
+
+        if state then
+            task.spawn(function()
+                while loopRunning do
+                    local success, err = pcall(function()
+                        loadstring(currentCode)()
+                    end)
+
+                    if not success then
+                        warn(err)
+                    end
+
+                    task.wait(fireDelay)
+                end
+            end)
+
+            WindUI:Notify({
+                Title = "Loop",
+                Content = "Started",
+                Duration = 2
+            })
+
+        else
+            WindUI:Notify({
+                Title = "Loop",
+                Content = "Stopped",
+                Duration = 2
+            })
+        end
+    end
+})
 ------------ TROLL TAB
 local Trolls = Troll:Section({
 		Title = "Back Shot",
