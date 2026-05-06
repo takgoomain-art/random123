@@ -3067,7 +3067,7 @@ local loopRunning = false
 -------------------------------------------------
 -- 📄 CODE PREVIEW
 -------------------------------------------------
-local CodePreview = rf:Code({
+local Code = rf:Code({
     Title = "Code Preview",
     Code = currentCode
 })
