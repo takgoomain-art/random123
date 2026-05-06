@@ -3090,8 +3090,8 @@ local FireCount = rf:Input({
     Callback = function(value)
         local num = tonumber(value)
         if num then
-            FireCount.Desc = "How many times to execute -- Current value: " .. num
-        end
+             print("1")
+			end
     end
 })
 
@@ -3104,8 +3104,8 @@ local FireDelay = rf:Input({
     Callback = function(value)
         local num = tonumber(value)
         if num then
-            FireDelay.Desc = "Delay between executions (seconds) -- Current value: " .. num
-        end
+            print("0.1")
+			end
     end
 })
 
