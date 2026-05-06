@@ -3048,12 +3048,12 @@ local Button = exe:Button({
     end
 })
 
-local rf = More:Section({
+--[[local rf = More:Section({
 		Title = "Remote Executor",
 		Icon = "chevrons-left-right-ellipsis",
 		Opened = false,
 	})
-
+]]
     
 --[[local currentCode = ""
 local isLooping = false
