@@ -3054,7 +3054,157 @@ local rf = More:Section({
 		Opened = false,
 	})
 
-local RunService = game:GetService("RunService")
+local currentCode = "print('Hello World!')"
+local fireCount = 1
+local fireDelay = 0.1
+local loopRunning = false
+
+-------------------------------------------------
+-- 🔧 SAFE EXECUTE FUNCTION
+-------------------------------------------------
+local function executeCode(code)
+    if not code or code == "" then
+        return false, "Empty code"
+    end
+
+    -- try loadstring
+    local func, err
+
+    if loadstring then
+        func, err = loadstring(code)
+    elseif getgenv and getgenv().loadstring then
+        func, err = getgenv().loadstring(code)
+    else
+        return false, "loadstring not supported in this executor"
+    end
+
+    if not func then
+        return false, err
+    end
+
+    local success, runtimeErr = pcall(func)
+    if not success then
+        return false, runtimeErr
+    end
+
+    return true
+end
+
+-------------------------------------------------
+-- 📄 PREVIEW
+-------------------------------------------------
+local CodePreview = rf:Code({
+    Title = "Code Preview",
+    Code = currentCode
+})
+
+-------------------------------------------------
+-- 📝 INPUT
+-------------------------------------------------
+rf:Input({
+    Title = "Code Input",
+    Type = "Textarea",
+    Placeholder = "print('Hello')",
+    Callback = function(input)
+        currentCode = input
+        CodePreview:SetCode(input)
+    end
+})
+
+-------------------------------------------------
+-- 🔢 COUNT
+-------------------------------------------------
+rf:Input({
+    Title = "Fire Count",
+    Value = "1",
+    Callback = function(val)
+        fireCount = tonumber(val) or 1
+    end
+})
+
+-------------------------------------------------
+-- ⏱️ DELAY
+-------------------------------------------------
+rf:Input({
+    Title = "Fire Delay",
+    Value = "0.1",
+    Callback = function(val)
+        fireDelay = tonumber(val) or 0.1
+    end
+})
+
+-------------------------------------------------
+-- ▶️ RUN ONCE
+-------------------------------------------------
+local rf2 = rf:Group({})
+rf2:Button({
+    Title = "Run Code",
+    Callback = function()
+        local success, err = executeCode(currentCode)
+
+        WindUI:Notify({
+            Title = success and "Success" or "Error",
+            Content = success and "Executed" or tostring(err),
+            Duration = 3
+        })
+    end
+})
+
+-------------------------------------------------
+-- 🔁 MULTIPLE
+-------------------------------------------------
+rf2:Button({
+    Title = "Run Multiple",
+    Callback = function()
+        task.spawn(function()
+            for i = 1, fireCount do
+                local success, err = executeCode(currentCode)
+                if not success then warn(err) end
+                task.wait(fireDelay)
+            end
+
+            WindUI:Notify({
+                Title = "Done",
+                Content = "Executed " .. fireCount .. " times",
+                Duration = 3
+            })
+        end)
+    end
+})
+
+-------------------------------------------------
+-- 🔄 LOOP
+-------------------------------------------------
+rf:Toggle({
+    Title = "Loop Execute",
+    Value = false,
+    Callback = function(state)
+        loopRunning = state
+
+        if state then
+            task.spawn(function()
+                while loopRunning do
+                    local success, err = executeCode(currentCode)
+                    if not success then warn(err) end
+                    task.wait(fireDelay)
+                end
+            end)
+
+            WindUI:Notify({
+                Title = "Loop",
+                Content = "Started",
+                Duration = 2
+            })
+        else
+            WindUI:Notify({
+                Title = "Loop",
+                Content = "Stopped",
+                Duration = 2
+            })
+        end
+    end
+})
+--[[local RunService = game:GetService("RunService")
 
 -------------------------------------------------
 -- 🧠 STATE
@@ -3201,6 +3351,7 @@ rf:Toggle({
         end
     end
 })
+]]
 ------------ TROLL TAB
 local Trolls = Troll:Section({
 		Title = "Back Shot",
