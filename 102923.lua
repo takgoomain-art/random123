@@ -3054,153 +3054,129 @@ local rf = More:Section({
 		Opened = false,
 	})
 
-local currentCode = "print('Hello World!')"
-local fireCount = 1
-local fireDelay = 0.1
-local loopRunning = false
+    
+local currentCode = ""
+local isLooping = false
+local loopThread = nil
 
--------------------------------------------------
--- 🔧 SAFE EXECUTE FUNCTION
--------------------------------------------------
-local function executeCode(code)
-    if not code or code == "" then
-        return false, "Empty code"
-    end
-
-    -- try loadstring
-    local func, err
-
-    if loadstring then
-        func, err = loadstring(code)
-    elseif getgenv and getgenv().loadstring then
-        func, err = getgenv().loadstring(code)
-    else
-        return false, "loadstring not supported in this executor"
-    end
-
-    if not func then
-        return false, err
-    end
-
-    local success, runtimeErr = pcall(func)
-    if not success then
-        return false, runtimeErr
-    end
-
-    return true
-end
-
--------------------------------------------------
--- 📄 PREVIEW
--------------------------------------------------
+-- Code Preview
 local CodePreview = rf:Code({
     Title = "Code Preview",
-    Code = currentCode
+    Code = [[-- Your code will appear here...]]
 })
 
--------------------------------------------------
--- 📝 INPUT
--------------------------------------------------
-rf:Input({
+-- Code Input
+local CodeInput = rf:Input({
     Title = "Code Input",
-    Type = "Textarea",
-    Placeholder = "print('Hello')",
-    Callback = function(input)
-        currentCode = input
-        CodePreview:SetCode(input)
+    Desc = "Enter the code you want to execute",
+    Placeholder = 'print("Hello World!")',
+    Value = "",
+    Callback = function(value)
+        currentCode = value
+        if value ~= "" then
+            CodePreview:SetCode(value)
+        else
+            CodePreview:SetCode([[-- Your code will appear here...]])
+        end
     end
 })
 
--------------------------------------------------
--- 🔢 COUNT
--------------------------------------------------
-rf:Input({
+-- Fire Count Input
+local FireCount = rf:Input({
     Title = "Fire Count",
+    Desc = "How many times to execute -- Current value: 1",
+    Placeholder = "1",
     Value = "1",
-    Callback = function(val)
-        fireCount = tonumber(val) or 1
+    Callback = function(value)
+        local num = tonumber(value)
+        if num then
+            FireCount.Desc = "How many times to execute -- Current value: " .. num
+        end
     end
 })
 
--------------------------------------------------
--- ⏱️ DELAY
--------------------------------------------------
-rf:Input({
+-- Fire Delay Input
+local FireDelay = rf:Input({
     Title = "Fire Delay",
+    Desc = "Delay between executions (seconds) -- Current value: 0.1",
+    Placeholder = "0.1",
     Value = "0.1",
-    Callback = function(val)
-        fireDelay = tonumber(val) or 0.1
+    Callback = function(value)
+        local num = tonumber(value)
+        if num then
+            FireDelay.Desc = "Delay between executions (seconds) -- Current value: " .. num
+        end
     end
 })
 
--------------------------------------------------
--- ▶️ RUN ONCE
--------------------------------------------------
+-- Run Code (once)
 local rf2 = rf:Group({})
-rf2:Button({
+local RunButton = rf2:Button({
     Title = "Run Code",
+    Desc = "Execute the code once",
     Callback = function()
-        local success, err = executeCode(currentCode)
-
-        WindUI:Notify({
-            Title = success and "Success" or "Error",
-            Content = success and "Executed" or tostring(err),
-            Duration = 3
-        })
+        if currentCode == "" then return end
+        local fn, err = load(currentCode)
+        if fn then
+            fn()
+        else
+            print("[Executor] Error: " .. tostring(err))
+        end
     end
 })
 
--------------------------------------------------
--- 🔁 MULTIPLE
--------------------------------------------------
-rf2:Button({
-    Title = "Run Multiple",
+-- Run Multiple
+local RunMultipleButton = rf2:Button({
+    Title = "Run Multiple Code",
+    Desc = "Execute the code based on Fire Count and Fire Delay",
     Callback = function()
-        task.spawn(function()
-            for i = 1, fireCount do
-                local success, err = executeCode(currentCode)
-                if not success then warn(err) end
-                task.wait(fireDelay)
-            end
+        if currentCode == "" then return end
+        local count = tonumber(FireCount.Value) or 1
+        local delay = tonumber(FireDelay.Value) or 0.1
 
-            WindUI:Notify({
-                Title = "Done",
-                Content = "Executed " .. fireCount .. " times",
-                Duration = 3
-            })
+        CreateThread(function()
+            for i = 1, count do
+                local fn, err = load(currentCode)
+                if fn then
+                    fn()
+                else
+                    print("[Executor] Error: " .. tostring(err))
+                    break
+                end
+                if i < count then
+                    Wait(delay * 1000)
+                end
+            end
         end)
     end
 })
 
--------------------------------------------------
--- 🔄 LOOP
--------------------------------------------------
-rf:Toggle({
-    Title = "Loop Execute",
+-- Loop Run/Execute
+local LoopToggle = rf:Toggle({
+    Title = "Loop Run/Execute",
+    Desc = "Continuously execute the code with Fire Delay interval",
     Value = false,
-    Callback = function(state)
-        loopRunning = state
+    Callback = function(value)
+        isLooping = value
 
-        if state then
-            task.spawn(function()
-                while loopRunning do
-                    local success, err = executeCode(currentCode)
-                    if not success then warn(err) end
-                    task.wait(fireDelay)
+        if isLooping then
+            loopThread = CreateThread(function()
+                while isLooping do
+                    if currentCode ~= "" then
+                        local fn, err = load(currentCode)
+                        if fn then
+                            fn()
+                        else
+                            print("[Executor] Error: " .. tostring(err))
+                            isLooping = false
+                            LoopToggle:SetValue(false)
+                            break
+                        end
+                    end
+                    local delay = tonumber(FireDelay.Value) or 0.1
+                    Wait(delay * 1000)
                 end
             end)
-
-            WindUI:Notify({
-                Title = "Loop",
-                Content = "Started",
-                Duration = 2
-            })
-        else
-            WindUI:Notify({
-                Title = "Loop",
-                Content = "Stopped",
-                Duration = 2
-            })
         end
     end
 })
