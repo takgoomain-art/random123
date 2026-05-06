@@ -3055,7 +3055,7 @@ local rf = More:Section({
 	})
 
     
-local currentCode = ""
+--[[local currentCode = ""
 local isLooping = false
 local loopThread = nil
 
@@ -3063,9 +3063,9 @@ local loopThread = nil
 local CodePreview = rf:Code({
     Title = "Code Preview",
     Code = [[-- Your code will appear here...]]
-})
+--})
 
--- Code Input
+--[[ Code Input
 local CodeInput = rf:Input({
     Title = "Code Input",
     Desc = "Enter the code you want to execute",
@@ -3077,7 +3077,7 @@ local CodeInput = rf:Input({
             CodePreview:SetCode(value)
         else
             CodePreview:SetCode([[-- Your code will appear here...]])
-        end
+ --[[       end
     end
 })
 
@@ -3180,6 +3180,7 @@ local LoopToggle = rf:Toggle({
         end
     end
 })
+]]
 --[[local RunService = game:GetService("RunService")
 
 -------------------------------------------------
