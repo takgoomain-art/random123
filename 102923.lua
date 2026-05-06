@@ -3772,6 +3772,104 @@ WindUI:Notify({
 sendLog()
 ]]
 
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- 🔗 YOUR WEBHOOK
+local WEBHOOK_URL = ""
+
+-------------------------------------------------
+-- 🧠 EXECUTOR DETECT (basic)
+-------------------------------------------------
+local executor =
+    identifyexecutor and identifyexecutor() or
+    getexecutorname and getexecutorname() or
+    "Unknown"
+
+-------------------------------------------------
+-- 🎮 GAME INFO
+-------------------------------------------------
+local gameName = "Unknown Game"
+pcall(function()
+    gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+end)
+
+-------------------------------------------------
+-- 👤 PLAYER INFO
+-------------------------------------------------
+local username = player.Name
+local displayName = player.DisplayName
+local userId = player.UserId
+
+-------------------------------------------------
+-- 🖼️ AVATAR
+-------------------------------------------------
+local avatar = "https://www.roblox.com/headshot-thumbnail/image?userId="..userId.."&width=420&height=420&format=png"
+
+-------------------------------------------------
+-- 📦 EMBED DATA
+-------------------------------------------------
+local data = {
+    ["embeds"] = {{
+        ["title"] = "Script Executed",
+        ["color"] = 65280,
+
+        ["thumbnail"] = {
+            ["url"] = avatar
+        },
+
+        ["fields"] = {
+            {
+                ["name"] = "User",
+                ["value"] = displayName .. " (@" .. username .. ")",
+                ["inline"] = false
+            },
+            {
+                ["name"] = "UserId",
+                ["value"] = tostring(userId),
+                ["inline"] = true
+            },
+            {
+                ["name"] = "Game",
+                ["value"] = gameName,
+                ["inline"] = false
+            },
+			{
+				["name"] = "Game Job Id,
+				["value"] = "`" tostring(game.JobId) "`",
+				["inline"] = false
+			},
+            {
+                ["name"] = "Executor",
+                ["value"] = executor,
+                ["inline"] = true
+            }
+        },
+
+        ["footer"] = {
+            ["text"] = "Liquid Hub Logger"
+        }
+    }}
+}
+
+-------------------------------------------------
+-- 📡 SEND WEBHOOK
+-------------------------------------------------
+local success, err = pcall(function()
+    request({
+        Url = WEBHOOK_URL,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = game:GetService("HttpService"):JSONEncode(data)
+    })
+end)
+
+if not success then
+    warn("Webhook failed:", err)
+end
+--[[
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
@@ -3810,7 +3908,7 @@ elseif placeId == 4924922222 then
     gameIcon = "🏡"
     themeColor = 0x3498DB -- blue
 end
-]]
+
 
 table.insert(embedFields, {
     name = "[🎮] Game",
