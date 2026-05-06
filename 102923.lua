@@ -3073,7 +3073,7 @@ local IsLooping = false
 rf:Input({
     Title = "Code Input",
 	Desc = "Enter your code function",
-    Placeholder = "print('Hello World!')",
+    Placeholder = "...",
     Callback = function(text)
         CodeToExecute = text
         CodePreview:SetCode(text) 
@@ -3127,8 +3127,8 @@ end
 -- 4. Action Buttons
 
 -- Run Code
-local rf2 = rf:Group({})
-rf2:Button({
+
+rf:Button({
     Title = "Run Code",
 	Desc = "Run the code ONCE",
 	Icon = "play",
@@ -3143,10 +3143,10 @@ rf2:Button({
 })
 
 -- Run Multiple Code
-rf2:Button({
+rf:Button({
     Title = "Run Multiple Code",
-	Icon = "play",
 	Desc = "Run the code based on Run Count Input",
+		Icon = "play",
     Callback = function()
         WindUI:Notify({
             Title = "Liquid Hub",
