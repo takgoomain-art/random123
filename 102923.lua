@@ -3330,12 +3330,12 @@ rf:Toggle({
 })
 ]]
 ------------ TROLL TAB
-local Trolls = Troll:Section({
+--[[local Trolls = Troll:Section({
 		Title = "Back Shot",
 		Icon = "arrow-right-left",
 		Opened = true,
 	})
-
+]]
 
 --[[local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
