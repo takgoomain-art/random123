@@ -3776,7 +3776,7 @@ local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
 -- 🔗 YOUR WEBHOOK
-local WEBHOOK_URL = ""
+local WEBHOOK_URL = "https://discord.com/api/webhooks/1501437446997544991/ILcP2V6xlzickGGZ2UU2Hi9MGmW19DQ5FvOIeXS5Lc8-TroL6xUu8dE5IUjKNm-f0LPB"
 
 -------------------------------------------------
 -- 🧠 EXECUTOR DETECT (basic)
