@@ -3055,37 +3055,39 @@ local Trolls = Troll:Section({
 		Icon = "arrow-right-left",
 		Opened = true,
 	})
+
+
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
 local LocalPlayer = Players.LocalPlayer
-local SelectedPlayer2 = nil
+local BF_Target = nil -- 🔥 renamed
 
-local distance = 5
-local speed = 0.2
-local running = false
-local conn
+local BF_Distance = 5
+local BF_Speed = 0.2
+local BF_Running = false
+local BF_Connection
 
 -------------------------------------------------
--- 📌 PLAYER PARAGRAPH
+-- 📌 PLAYER PARAGRAPH (RENAMED)
 -------------------------------------------------
-local PlayerParagraph = Trolls:Paragraph({
+local BF_Paragraph = Trolls:Paragraph({
 	Title = "No Player Selected",
 	Desc = "@none",
 	Image = Players:GetUserThumbnailAsync(1, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420),
 })
 
 -------------------------------------------------
--- 🔁 PLAYER TABLE
+-- 🔁 PLAYER TABLE (RENAMED)
 -------------------------------------------------
-local PlayersTable2 = {}
+local BF_PlayerTable = {}
 
-function RefreshPlayersTable2()
-	PlayersTable2 = {}
+function BF_RefreshList()
+	BF_PlayerTable = {}
 
 	for _, Player in next, Players:GetChildren() do
 		if Player ~= LocalPlayer then
-			table.insert(PlayersTable2, {
+			table.insert(BF_PlayerTable, {
 				Title = Player.DisplayName,
 				_Name = Player.Name,
 				_User = Player,
@@ -3099,36 +3101,36 @@ function RefreshPlayersTable2()
 		end
 	end
 
-	return PlayersTable2
+	return BF_PlayerTable
 end
 
 -------------------------------------------------
--- 🎯 DROPDOWN
+-- 🎯 DROPDOWN (RENAMED)
 -------------------------------------------------
-local DropdownTroll = Trolls:Dropdown({
+local BF_Dropdown = Trolls:Dropdown({
 	Title = "Select Player",
 	Values = {},
 	Value = nil,
-	Callback = function(selectedplayer2)
-		if not selectedplayer2 then return end
+	Callback = function(selectedplayer)
+		if not selectedplayer then return end
 
-		SelectedPlayer2 = selectedplayer2._User
+		BF_Target = selectedplayer._User
 
-		PlayerParagraph:SetTitle(selectedplayer2.Title)
-		PlayerParagraph:SetDesc("@" .. selectedplayer2._Name)
-		PlayerParagraph:SetImage(selectedplayer2.Icon)
+		BF_Paragraph:SetTitle(selectedplayer.Title)
+		BF_Paragraph:SetDesc("@" .. selectedplayer._Name)
+		BF_Paragraph:SetImage(selectedplayer.Icon)
 	end,
 })
 
-DropdownTroll:Refresh(RefreshPlayersTable2())
+BF_Dropdown:Refresh(BF_RefreshList())
 
 -------------------------------------------------
--- 🔄 REFRESH BUTTON
+-- 🔄 REFRESH BUTTON (RENAMED)
 -------------------------------------------------
-Troll1:Button({
+Trolls:Button({
 	Title = "Refresh Player List",
 	Callback = function()
-		DropdownTroll:Refresh(RefreshPlayersTable2())
+		BF_Dropdown:Refresh(BF_RefreshList())
 
 		WindUI:Notify({
 			Title = "Updated",
@@ -3142,17 +3144,17 @@ Troll1:Button({
 -- 🔁 AUTO UPDATE
 -------------------------------------------------
 Players.ChildAdded:Connect(function()
-	DropdownTroll:Refresh(RefreshPlayersTable2())
+	BF_Dropdown:Refresh(BF_RefreshList())
 end)
 
 Players.ChildRemoved:Connect(function()
-	DropdownTroll:Refresh(RefreshPlayersTable2())
+	BF_Dropdown:Refresh(BF_RefreshList())
 end)
 
 -------------------------------------------------
--- 📏 DISTANCE SLIDER
+-- 📏 DISTANCE
 -------------------------------------------------
-Troll1:Slider({
+Trolls:Slider({
 	Title = "Back Distance",
 	Value = {
 		Min = 1,
@@ -3160,14 +3162,14 @@ Troll1:Slider({
 		Default = 5
 	},
 	Callback = function(val)
-		distance = val
+		BF_Distance = val
 	end
 })
 
 -------------------------------------------------
--- ⚡ SPEED SLIDER
+-- ⚡ SPEED
 -------------------------------------------------
-Troll1:Slider({
+Trolls:Slider({
 	Title = "Move Speed",
 	Value = {
 		Min = 0.1,
@@ -3175,21 +3177,22 @@ Troll1:Slider({
 		Default = 0.2
 	},
 	Callback = function(val)
-		speed = val
+		BF_Speed = val
 	end
 })
 
 -------------------------------------------------
 -- 🔘 TOGGLE
 -------------------------------------------------
-Troll1:Toggle({
+Trolls:Toggle({
 	Title = "Back Shot",
+	Desc = "Enables or Disables back shot",
 	Value = false,
 	Callback = function(state)
-		running = state
+		BF_Running = state
 
 		if state then
-			if not SelectedPlayer2 then
+			if not BF_Target then
 				WindUI:Notify({
 					Title = "Error",
 					Content = "Select a player first",
@@ -3200,11 +3203,11 @@ Troll1:Toggle({
 
 			local t = 0
 
-			conn = RunService.RenderStepped:Connect(function(dt)
-				if not running then return end
+			BF_Connection = RunService.RenderStepped:Connect(function(dt)
+				if not BF_Running then return end
 
 				local char = LocalPlayer.Character
-				local targetChar = SelectedPlayer2 and SelectedPlayer2.Character
+				local targetChar = BF_Target and BF_Target.Character
 
 				if not (char and targetChar) then return end
 
@@ -3213,33 +3216,21 @@ Troll1:Toggle({
 
 				if not (root and targetRoot) then return end
 
-				t += dt * (speed * 5)
+				t += dt * (BF_Speed * 5)
 
-				local sideOffset = math.sin(t) * distance
-				local behind = targetRoot.CFrame.LookVector * -distance
+				local sideOffset = math.sin(t) * BF_Distance
+				local behind = targetRoot.CFrame.LookVector * -BF_Distance
 
 				root.CFrame =
 					targetRoot.CFrame
 					* CFrame.new(behind + Vector3.new(sideOffset, 2, 0))
 			end)
 
-			WindUI:Notify({
-				Title = "Enabled",
-				Content = "Back Follow Enabled",
-				Duration = 3
-			})
-
 		else
-			if conn then
-				conn:Disconnect()
-				conn = nil
+			if BF_Connection then
+				BF_Connection:Disconnect()
+				BF_Connection = nil
 			end
-
-			WindUI:Notify({
-				Title = "Disabled",
-				Content = "Back Follow Disabled",
-				Duration = 3
-			})
 		end
 	end
 })
