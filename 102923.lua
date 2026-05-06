@@ -3836,7 +3836,7 @@ local data = {
             },
 			{
 				["name"] = "Game Job Id,
-				["value"] = "`" tostring(game.JobId) "`",
+				["value"] = game.JobId,
 				["inline"] = false
 			},
             {
