@@ -3048,6 +3048,201 @@ local Button = exe:Button({
         end
     end
 })
+
+------------ TROLL TAB
+local Troll1 = Troll:Section({
+		Title = "Back Shot",
+		Icon = "arrow-right-left",
+		Opened = true,
+	})
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local LocalPlayer = Players.LocalPlayer
+local SelectedPlayer = nil
+
+local distance = 5
+local speed = 0.2
+local running = false
+local conn
+
+-------------------------------------------------
+-- 📌 PLAYER PARAGRAPH
+-------------------------------------------------
+local PlayerParagraph = Troll1:Paragraph({
+	Title = "No Player Selected",
+	Desc = "@none",
+	Image = Players:GetUserThumbnailAsync(1, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420),
+})
+
+-------------------------------------------------
+-- 🔁 PLAYER TABLE
+-------------------------------------------------
+local PlayersTable = {}
+
+function RefreshPlayersTable()
+	PlayersTable = {}
+
+	for _, Player in next, Players:GetChildren() do
+		if Player ~= LocalPlayer then
+			table.insert(PlayersTable, {
+				Title = Player.DisplayName,
+				_Name = Player.Name,
+				_User = Player,
+				_UserId = Player.UserId,
+				Icon = Players:GetUserThumbnailAsync(
+					Player.UserId,
+					Enum.ThumbnailType.HeadShot,
+					Enum.ThumbnailSize.Size420x420
+				),
+			})
+		end
+	end
+
+	return PlayersTable
+end
+
+-------------------------------------------------
+-- 🎯 DROPDOWN
+-------------------------------------------------
+local DropdownTroll = Troll1:Dropdown({
+	Title = "Select Player",
+	Values = {},
+	Value = nil,
+	Callback = function(selectedplayer)
+		if not selectedplayer then return end
+
+		SelectedPlayer = selectedplayer._User
+
+		PlayerParagraph:SetTitle(selectedplayer.Title)
+		PlayerParagraph:SetDesc("@" .. selectedplayer._Name)
+		PlayerParagraph:SetImage(selectedplayer.Icon)
+	end,
+})
+
+DropdownTroll:Refresh(RefreshPlayersTable())
+
+-------------------------------------------------
+-- 🔄 REFRESH BUTTON
+-------------------------------------------------
+Troll1:Button({
+	Title = "Refresh Player List",
+	Callback = function()
+		DropdownTroll:Refresh(RefreshPlayersTable())
+
+		WindUI:Notify({
+			Title = "Updated",
+			Content = "Player list refreshed",
+			Duration = 3
+		})
+	end
+})
+
+-------------------------------------------------
+-- 🔁 AUTO UPDATE
+-------------------------------------------------
+Players.ChildAdded:Connect(function()
+	DropdownTroll:Refresh(RefreshPlayersTable())
+end)
+
+Players.ChildRemoved:Connect(function()
+	DropdownTroll:Refresh(RefreshPlayersTable())
+end)
+
+-------------------------------------------------
+-- 📏 DISTANCE SLIDER
+-------------------------------------------------
+Troll1:Slider({
+	Title = "Back Distance",
+	Value = {
+		Min = 1,
+		Max = 25,
+		Default = 5
+	},
+	Callback = function(val)
+		distance = val
+	end
+})
+
+-------------------------------------------------
+-- ⚡ SPEED SLIDER
+-------------------------------------------------
+Troll1:Slider({
+	Title = "Move Speed",
+	Value = {
+		Min = 0.1,
+		Max = 1,
+		Default = 0.2
+	},
+	Callback = function(val)
+		speed = val
+	end
+})
+
+-------------------------------------------------
+-- 🔘 TOGGLE
+-------------------------------------------------
+Troll1:Toggle({
+	Title = "Back Shot",
+	Value = false,
+	Callback = function(state)
+		running = state
+
+		if state then
+			if not SelectedPlayer then
+				WindUI:Notify({
+					Title = "Error",
+					Content = "Select a player first",
+					Duration = 3
+				})
+				return
+			end
+
+			local t = 0
+
+			conn = RunService.RenderStepped:Connect(function(dt)
+				if not running then return end
+
+				local char = LocalPlayer.Character
+				local targetChar = SelectedPlayer and SelectedPlayer.Character
+
+				if not (char and targetChar) then return end
+
+				local root = char:FindFirstChild("HumanoidRootPart")
+				local targetRoot = targetChar:FindFirstChild("HumanoidRootPart")
+
+				if not (root and targetRoot) then return end
+
+				t += dt * (speed * 5)
+
+				local sideOffset = math.sin(t) * distance
+				local behind = targetRoot.CFrame.LookVector * -distance
+
+				root.CFrame =
+					targetRoot.CFrame
+					* CFrame.new(behind + Vector3.new(sideOffset, 2, 0))
+			end)
+
+			WindUI:Notify({
+				Title = "Enabled",
+				Content = "Back Follow Enabled",
+				Duration = 3
+			})
+
+		else
+			if conn then
+				conn:Disconnect()
+				conn = nil
+			end
+
+			WindUI:Notify({
+				Title = "Disabled",
+				Content = "Back Follow Disabled",
+				Duration = 3
+			})
+		end
+	end
+})
 ----------- TELEPORT TAB
 local tpsection = Teleport:Section({
 		Title = "Teleport",
