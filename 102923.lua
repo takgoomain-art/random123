@@ -3110,8 +3110,8 @@ local FireDelay = rf:Input({
 })
 
 -- Run Code (once)
-local rf2 = rf:Group({})
-local RunButton = rf2:Button({
+
+local RunButton = rf:Button({
     Title = "Run Code",
     Desc = "Execute the code once",
     Callback = function()
@@ -3126,7 +3126,7 @@ local RunButton = rf2:Button({
 })
 
 -- Run Multiple
-local RunMultipleButton = rf2:Button({
+local RunMultipleButton = rf:Button({
     Title = "Run Multiple Code",
     Desc = "Execute the code based on Fire Count and Fire Delay",
     Callback = function()
