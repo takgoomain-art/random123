@@ -5,7 +5,7 @@ So it means our obfuscator or security is weak?
 
 ]]
 local WindUI = _G.WindUI
-local scriptVersion = "v1.444.10"
+local scriptVersion = "v1.444.50"
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
