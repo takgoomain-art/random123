@@ -912,7 +912,7 @@ local function updateJumpPower()
 end
 
 local function updateGravity()
-	game.Workspace.Gravity = GravityEnabled and GravityValue or 196
+	Workspace.Gravity = GravityEnabled and GravityValue or 196
 end
 
 -- WALKSPED SLIDER
