@@ -730,12 +730,12 @@ local exe = InfoGroup4:Paragraph({
 })
 
 ------- PLAYER TAB
---[[local lpS = lp:Section({
+local lpS = lp:Section({
 	Title = "Player Movement",
 	Icon = "user-pen",
 	Opened = true,
-})]]
-local MoveSection = lp:Section({ Title = "Movement Settings", Icon = "user-pen", Opened = true})
+})
+--[[local MoveSection = lp:Section({ Title = "Movement Settings", Icon = "user-pen", Opened = true})
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -884,13 +884,17 @@ if player.Character and player.Character:FindFirstChild("Humanoid") then
     updateWalkSpeed()
     updateJumpPower()
 end
---[[local Players = game:GetService("Players")
+]]
+
+local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
 local WalkSpeedEnabled = false
 local WalkSpeedValue = 16
 local JumpHeightEnabled = false
 local JumpHeightValue = 50
+local GravityEnabled = false
+local GravityValue = 196.2
 
 -- FUNCTION TO UPDATE VALUES SAFELY
 local function updateWalkSpeed()
@@ -905,6 +909,10 @@ local function updateJumpPower()
     if character and character:FindFirstChild("Humanoid") then
         character.Humanoid.JumpPower = JumpHeightEnabled and JumpHeightValue or 50
     end
+end
+
+local function updateGravity()
+	game.Workspace.Gravity = GravityEnabled and GravityValue or 196.2
 end
 
 -- WALKSPED SLIDER
@@ -969,6 +977,34 @@ local jumpH = lp:Toggle({
     end
 })
 
+local grabiti = lp:Slider({
+	Title = "Gravity",
+	Desc = "Set gravity value",
+	Icon = "earth",
+	Step = 1,
+	Value = {
+		Min = 196.2,
+		Max = 1000,
+		Default = 196.2,
+		},
+	Callback = function(Value)
+			GravityValue = Value
+			updateGravity()
+			print("Gravity set to: " .. Value)
+		end
+	})
+
+local graviti = lp:Toggle({
+	Title = "Enable Gravity",
+	Desc = "",
+	Icon = "earth",
+	Value = false,
+	Callback = function(Value)
+			GravityEnabled = Value
+			updateGravity()
+			print("Gravity: " .. (Value and "ON" or "OFF"))
+		end 
+	})
 
 player.CharacterAdded:Connect(function(character)
     character:WaitForChild("Humanoid")
@@ -982,7 +1018,7 @@ if player.Character and player.Character:FindFirstChild("Humanoid") then
     updateWalkSpeed()
     updateJumpPower()
 end
-]]
+
 local moove = lp:Section({
 		Title = "Other Movement",
 		Icon = "user-search",
