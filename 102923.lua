@@ -3100,7 +3100,6 @@ rf:Input({
     end
 })
 
-local rungroup = rf:Group()
 
 --- Execution Logic with Notifications ---
 local function FireTheCode()
@@ -3130,7 +3129,7 @@ end
 
 -- Run Code
 
-rungroup:Button({
+rf:Button({
     Title = "Run Code",
 	Desc = "Run the code ONCE",
 	Icon = "play",
@@ -3145,7 +3144,7 @@ rungroup:Button({
 })
 
 -- Run Multiple Code
-rungroup:Button({
+rf:Button({
     Title = "Run Multiple Code",
 	Desc = "Run the code based on Run Count Input",
 		Icon = "play",
