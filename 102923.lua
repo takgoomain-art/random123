@@ -3100,6 +3100,8 @@ rf:Input({
     end
 })
 
+local rungroup = rf:Group({})
+
 --- Execution Logic with Notifications ---
 local function FireTheCode()
     if CodeToExecute == "" or CodeToExecute == nil then
@@ -3128,7 +3130,6 @@ end
 
 -- Run Code
 
-local rungroup = rf:Group()
 rungroup:Button({
     Title = "Run Code",
 	Desc = "Run the code ONCE",
