@@ -872,7 +872,7 @@ local GravityValue = DEFAULT_GRAVITY
 -- Function para i-apply ang gravity
 local function updateGravity()
     -- Kapag ENABLED, gagamitin ang value mula sa slider. Kapag DISABLED, babalik sa 196.2.
-    workspace.Gravity = GravityEnabled and GravityValue or DEFAULT_GRAVITY
+    game.Workspace.Gravity = GravityEnabled and GravityValue or DEFAULT_GRAVITY
 end
 
 -- 1. GRAVITY SLIDER
