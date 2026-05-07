@@ -743,8 +743,8 @@ local WalkSpeedEnabled = false
 local WalkSpeedValue = 16
 local JumpHeightEnabled = false
 local JumpHeightValue = 50
-local GravityEnabled = false
-local GravityValue = 196.2
+--local GravityEnabled = false
+--local GravityValue = 196.2
 
 -- FUNCTION TO UPDATE VALUES SAFELY
 local function updateWalkSpeed()
@@ -761,10 +761,10 @@ local function updateJumpPower()
     end
 end
 
-local function updateGravity()
+--[[local function updateGravity()
 	game.Workspace.Gravity = GravityEnabled and GravityValue or 196.2
 end
-
+]]
 -- WALKSPED SLIDER
 local speed = lp:Slider({
     Title = "Walkspeed",
@@ -827,7 +827,7 @@ local jumpH = lp:Toggle({
     end
 })
 
-local vtyyyhro = lp:Slider({
+--[[local vtyyyhro = lp:Slider({
 		Title = "Gravity",
 		Desc = "Set gravity value",
 		Step = 1.2,
@@ -851,6 +851,7 @@ local vyttoggle = lp:Toggle({
 			updateGravity()
 		end
 	})
+]]
 player.CharacterAdded:Connect(function(character)
     character:WaitForChild("Humanoid")
     wait(0.1)
