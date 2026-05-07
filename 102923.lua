@@ -865,51 +865,8 @@ if player.Character and player.Character:FindFirstChild("Humanoid") then
     updateJumpPower()
 end
 
-local DEFAULT_GRAVITY = 196.2
-local GravityEnabled = false
-local GravityValue = DEFAULT_GRAVITY
 
--- Function para i-apply ang gravity
-local function updateGravity()
-    -- Kapag ENABLED, gagamitin ang value mula sa slider. Kapag DISABLED, babalik sa 196.2.
-    game.Workspace.Gravity = GravityEnabled and GravityValue or DEFAULT_GRAVITY
-end
 
--- 1. GRAVITY SLIDER
-local gravSlider = lp:Slider({
-    Title = "Gravity",
-    --Desc = "Slide to change gravity strength",
-    Icon = "earth",
-    Step = 1,
-    Value = {
-        Min = 0,
-        Max = 1000,
-        Default = 196,
-    },
-    Callback = function(Value)
-        GravityValue = Value
-        updateGravity() -- I-update agad ang gravity habang hinihila ang slider (kung naka-ON ang toggle)
-    end
-})
-
--- 2. GRAVITY TOGGLE
-lp:Toggle({
-    Title = "Enable Custom Gravity",
-    --Desc = "Toggle to apply the slider value",
-    Icon = "earth",
-    Value = false,
-    Callback = function(state)
-        GravityEnabled = state
-        updateGravity() -- I-apply o i-disable ang gravity settings
-        
-        -- Notification para malaman kung anong nangyari
-        WindUI:Notify({
-            Title = "Liquid Hub",
-            Content = state and "Gravity: CUSTOM" or "Gravity: DEFAULT",
-            Duration = 2
-        })
-    end
-})
 local moove = lp:Section({
 		Title = "Other Movement",
 		Icon = "user-search",
