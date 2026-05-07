@@ -894,7 +894,7 @@ local WalkSpeedValue = 16
 local JumpHeightEnabled = false
 local JumpHeightValue = 50
 local GravityEnabled = false
-local GravityValue = 196.2
+local GravityValue = 196
 
 -- FUNCTION TO UPDATE VALUES SAFELY
 local function updateWalkSpeed()
@@ -912,7 +912,7 @@ local function updateJumpPower()
 end
 
 local function updateGravity()
-	game.Workspace.Gravity = GravityEnabled and GravityValue or 196.2
+	game.Workspace.Gravity = GravityEnabled and GravityValue or 196
 end
 
 -- WALKSPED SLIDER
@@ -977,15 +977,30 @@ local jumpH = lp:Toggle({
     end
 })
 
+
+
+player.CharacterAdded:Connect(function(character)
+    character:WaitForChild("Humanoid")
+    wait(0.1)
+    updateWalkSpeed()
+    updateJumpPower()
+end)
+
+
+if player.Character and player.Character:FindFirstChild("Humanoid") then
+    updateWalkSpeed()
+    updateJumpPower()
+end
+
 local grabiti = lp:Slider({
 	Title = "Gravity",
 	Desc = "Set gravity value",
 	Icon = "earth",
 	Step = 1,
 	Value = {
-		Min = 196.2,
+		Min = 196,
 		Max = 1000,
-		Default = 196.2,
+		Default = 196,
 		},
 	Callback = function(Value)
 			GravityValue = Value
@@ -1005,19 +1020,6 @@ local graviti = lp:Toggle({
 			print("Gravity: " .. (Value and "ON" or "OFF"))
 		end 
 	})
-
-player.CharacterAdded:Connect(function(character)
-    character:WaitForChild("Humanoid")
-    wait(0.1)
-    updateWalkSpeed()
-    updateJumpPower()
-end)
-
-
-if player.Character and player.Character:FindFirstChild("Humanoid") then
-    updateWalkSpeed()
-    updateJumpPower()
-end
 
 local moove = lp:Section({
 		Title = "Other Movement",
