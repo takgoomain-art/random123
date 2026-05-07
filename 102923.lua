@@ -735,6 +735,7 @@ local exe = InfoGroup4:Paragraph({
 	Icon = "user-pen",
 	Opened = true,
 })]]
+local MoveSection = lp:Section({ Title = "Movement Settings", Icon = "user-pen", Opened = true})
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -773,7 +774,6 @@ local function updateGravity()
 end
 
 -- // UI SECTION // --
-local MoveSection = lp:Section({ Title = "Movement Settings", Icon = "user-pen", Opened = true})
 
 -- 1. WALKSPEED
 local speedSlider = MoveSection:Slider({
@@ -841,7 +841,7 @@ MoveSection:Toggle({
     end
 })
 
-MoveSection:Space(10)
+
 
 -- 4. RESET BUTTON
 MoveSection:Button({
