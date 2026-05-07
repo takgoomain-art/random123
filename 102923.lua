@@ -3128,8 +3128,8 @@ end
 
 -- Run Code
 
-local rungroup = rf:Group({
-rf:Button({
+local rungroup = rf:Group()
+rungroup:Button({
     Title = "Run Code",
 	Desc = "Run the code ONCE",
 	Icon = "play",
@@ -3144,7 +3144,7 @@ rf:Button({
 })
 
 -- Run Multiple Code
-rf:Button({
+rungroup:Button({
     Title = "Run Multiple Code",
 	Desc = "Run the code based on Run Count Input",
 		Icon = "play",
@@ -3162,7 +3162,7 @@ rf:Button({
     end
 })
 
-})
+
 -- Loop Run/Execute
 rf:Toggle({
     Title = "Loop Run",
