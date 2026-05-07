@@ -730,13 +730,161 @@ local exe = InfoGroup4:Paragraph({
 })
 
 ------- PLAYER TAB
-local lpS = lp:Section({
+--[[local lpS = lp:Section({
 	Title = "Player Movement",
 	Icon = "user-pen",
 	Opened = true,
-})
+})]]
 
 local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- // DEFAULT CONSTANTS // --
+local DEFAULT_WS = 16
+local DEFAULT_JP = 50
+local DEFAULT_GRAVITY = 196.2
+
+-- // STATES // --
+local WalkSpeedEnabled = false
+local WalkSpeedValue = DEFAULT_WS
+local JumpHeightEnabled = false
+local JumpHeightValue = DEFAULT_JP
+local GravityEnabled = false
+local GravityValue = DEFAULT_GRAVITY
+
+-- // UPDATE FUNCTIONS // --
+local function updateWalkSpeed()
+    local character = player.Character
+    if character and character:FindFirstChild("Humanoid") then
+        character.Humanoid.WalkSpeed = WalkSpeedEnabled and WalkSpeedValue or DEFAULT_WS
+    end
+end
+
+local function updateJumpPower()
+    local character = player.Character
+    if character and character:FindFirstChild("Humanoid") then
+        character.Humanoid.UseJumpPower = true 
+        character.Humanoid.JumpPower = JumpHeightEnabled and JumpHeightValue or DEFAULT_JP
+    end
+end
+
+local function updateGravity()
+    workspace.Gravity = GravityEnabled and GravityValue or DEFAULT_GRAVITY
+end
+
+-- // UI SECTION // --
+local MoveSection = lp:Section({ Title = "Movement Settings", Icon = "user-pen", Opened = true})
+
+-- 1. WALKSPEED
+local speedSlider = MoveSection:Slider({
+    Title = "Walkspeed",
+    Icon = "sport-shoe",
+    Step = 1,
+    Value = { Min = 16, Max = 950, Default = DEFAULT_WS },
+    Callback = function(Value)
+        WalkSpeedValue = Value
+        updateWalkSpeed()
+    end
+})
+
+MoveSection:Toggle({
+    Title = "Enable Walkspeed",
+    Icon = "sport-shoe",
+    Value = false,
+    Callback = function(v)
+        WalkSpeedEnabled = v
+        updateWalkSpeed()
+    end
+})
+
+-- 2. JUMP POWER
+local jumpSlider = MoveSection:Slider({
+    Title = "Jump Power",
+    Icon = "arrow-big-up-dash",
+    Step = 1,
+    Value = { Min = 0, Max = 1000, Default = DEFAULT_JP },
+    Callback = function(Value)
+        JumpHeightValue = Value
+        updateJumpPower()
+    end
+})
+
+MoveSection:Toggle({
+    Title = "Enable Jump Power",
+    Icon = "arrow-big-up-dash",
+    Value = false,
+    Callback = function(v)
+        JumpHeightEnabled = v
+        updateJumpPower()
+    end
+})
+
+-- 3. GRAVITY
+local gravitySlider = MoveSection:Slider({
+    Title = "Gravity",
+    Icon = "earth",
+    Step = 1,
+    Value = { Min = 0, Max = 1000, Default = DEFAULT_GRAVITY },
+    Callback = function(Value)
+        GravityValue = Value
+        updateGravity()
+    end
+})
+
+MoveSection:Toggle({
+    Title = "Enable Gravity",
+    Icon = "earth",
+    Value = false,
+    Callback = function(v)
+        GravityEnabled = v
+        updateGravity()
+    end
+})
+
+MoveSection:Space(10)
+
+-- 4. RESET BUTTON
+MoveSection:Button({
+    Title = "Reset Movement Settings",
+    Icon = "refresh-cw",
+    Callback = function()
+        -- Reset internal variables
+        WalkSpeedValue = DEFAULT_WS
+        JumpHeightValue = DEFAULT_JP
+        GravityValue = DEFAULT_GRAVITY
+        
+        -- Reset UI Sliders visually gamit ang :Set()
+        speedSlider:Set(DEFAULT_WS)
+        jumpSlider:Set(DEFAULT_JP)
+        gravitySlider:Set(DEFAULT_GRAVITY)
+        
+        -- Apply changes sa game
+        updateWalkSpeed()
+        updateJumpPower()
+        updateGravity()
+
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Movement settings restored to default.",
+            Duration = 2
+        })
+    end
+})
+
+-- // CHARACTER REPAWN HANDLER // --
+player.CharacterAdded:Connect(function(character)
+    character:WaitForChild("Humanoid")
+    task.wait(0.1)
+    updateWalkSpeed()
+    updateJumpPower()
+end)
+
+-- Initial apply
+if player.Character and player.Character:FindFirstChild("Humanoid") then
+    updateWalkSpeed()
+    updateJumpPower()
+end
+--[[local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
 local WalkSpeedEnabled = false
@@ -834,7 +982,7 @@ if player.Character and player.Character:FindFirstChild("Humanoid") then
     updateWalkSpeed()
     updateJumpPower()
 end
-
+]]
 local moove = lp:Section({
 		Title = "Other Movement",
 		Icon = "user-search",
