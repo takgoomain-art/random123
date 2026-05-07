@@ -3100,7 +3100,7 @@ rf:Input({
     end
 })
 
-local rungroup = rf:Group({})
+local rungroup = rf:Group()
 
 --- Execution Logic with Notifications ---
 local function FireTheCode()
