@@ -743,6 +743,8 @@ local WalkSpeedEnabled = false
 local WalkSpeedValue = 16
 local JumpHeightEnabled = false
 local JumpHeightValue = 50
+local GravityEnabled = false
+local GravityValue = 196.2
 
 -- FUNCTION TO UPDATE VALUES SAFELY
 local function updateWalkSpeed()
@@ -757,6 +759,10 @@ local function updateJumpPower()
     if character and character:FindFirstChild("Humanoid") then
         character.Humanoid.JumpPower = JumpHeightEnabled and JumpHeightValue or 50
     end
+end
+
+local function updateGravity()
+	game.Workspace.Gravity = GravityEnabled and GravityValue or 196.2
 end
 
 -- WALKSPED SLIDER
@@ -821,7 +827,30 @@ local jumpH = lp:Toggle({
     end
 })
 
+local vtyyyhro = lp:Slider({
+		Title = "Gravity",
+		Desc = "Set gravity value",
+		Step = 1.2,
+		Value = {
+			Min = 0,
+			Max = 1500,
+			Default = 196.2,
+		},
+		Callback = function(Value)
+			GravityValue = Value
+			updateGravity()
+		end
+	})
 
+local vyttoggle = lp:Toggle({
+		Title = "Enable Gravity",
+		Icon = "earth",
+		Value = false,
+		Callback = function(Value)
+			GravityEnabled = Value
+			updateGravity()
+		end
+	})
 player.CharacterAdded:Connect(function(character)
     character:WaitForChild("Humanoid")
     wait(0.1)
@@ -3049,6 +3078,148 @@ local Button = exe:Button({
     end
 })
 
+local rf = More:Section({
+		Title = "Remote Executor",
+		Icon = "chevrons-left-right-ellipsis",
+		Opened = false,
+	})
+
+
+
+-- 1. Code Preview
+local CodePreview = rf:Code({
+    Title = "Code Preview",
+    Code = [[print("Waiting for input...")]]
+})
+
+-- 2. Variables
+local CodeToExecute = "" 
+local FireCount = 1
+local FireDelay = 0.1
+local IsLooping = false
+
+-- Code Input
+rf:Input({
+    Title = "Code Input",
+	Desc = "Enter your code function",
+    Placeholder = "...",
+    Callback = function(text)
+        CodeToExecute = text
+        CodePreview:SetCode(text) 
+    end
+})
+
+-- Fire Count Input
+rf:Input({
+    Title = "Run Count",
+	Desc = "",
+    Placeholder = "Default: 1",
+    Callback = function(text)
+        FireCount = tonumber(text) or 1
+    end
+})
+
+-- Fire Delay Input
+rf:Input({
+    Title = "Run Delay",
+	Desc = "Delay between running the code (seconds)",
+    Placeholder = "Default: 0.1",
+    Callback = function(text)
+        FireDelay = tonumber(text) or 0.1
+    end
+})
+
+
+--- Execution Logic with Notifications ---
+local function FireTheCode()
+    if CodeToExecute == "" or CodeToExecute == nil then
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Code input is empty!",
+            Duration = 2
+        })
+        return
+    end
+
+    local func, err = loadstring(CodeToExecute)
+    if func then
+        func()
+    else
+        WindUI:Notify({
+            Title = "Syntax Error",
+            Content = "Check your code for mistakes.",
+            Duration = 3
+        })
+        warn("Error: " .. err)
+    end
+end
+
+-- 4. Action Buttons
+
+-- Run Code
+
+rf:Button({
+    Title = "Run Code",
+	Desc = "Run the code ONCE",
+	Icon = "play",
+    Callback = function()
+        FireTheCode()
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Code runned...",
+            Duration = 2
+        })
+    end
+})
+
+-- Run Multiple Code
+rf:Button({
+    Title = "Run Multiple Code",
+	Desc = "Run the code based on Run Count Input",
+		Icon = "play",
+    Callback = function()
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Executing code " .. FireCount .. " times...",
+            Duration = 2
+        })
+        
+        for i = 1, FireCount do
+            FireTheCode()
+            task.wait(FireDelay)
+        end
+    end
+})
+-- Loop Run/Execute
+rf:Toggle({
+    Title = "Loop Run",
+	Desc = "Continuously run the code with Run Delay interval",
+	Icon = "repeat-2",
+    Callback = function(state)
+        IsLooping = state
+        
+        if state then
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Loop Execution: ENABLED",
+                Duration = 2
+            })
+            
+            task.spawn(function()
+                while IsLooping do
+                    FireTheCode()
+                    task.wait(FireDelay)
+                end
+            end)
+        else
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Loop Execution: DISABLED",
+                Duration = 2
+            })
+        end
+    end
+})
 ------------ TROLL TAB
 local Trolls = Troll:Section({
 		Title = "Back Shot",
