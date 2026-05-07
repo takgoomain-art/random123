@@ -735,156 +735,6 @@ local lpS = lp:Section({
 	Icon = "user-pen",
 	Opened = true,
 })
---[[local MoveSection = lp:Section({ Title = "Movement Settings", Icon = "user-pen", Opened = true})
-
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-
--- // DEFAULT CONSTANTS // --
-local DEFAULT_WS = 16
-local DEFAULT_JP = 50
-local DEFAULT_GRAVITY = 196.2
-
--- // STATES // --
-local WalkSpeedEnabled = false
-local WalkSpeedValue = DEFAULT_WS
-local JumpHeightEnabled = false
-local JumpHeightValue = DEFAULT_JP
-local GravityEnabled = false
-local GravityValue = DEFAULT_GRAVITY
-
--- // UPDATE FUNCTIONS // --
-local function updateWalkSpeed()
-    local character = player.Character
-    if character and character:FindFirstChild("Humanoid") then
-        character.Humanoid.WalkSpeed = WalkSpeedEnabled and WalkSpeedValue or DEFAULT_WS
-    end
-end
-
-local function updateJumpPower()
-    local character = player.Character
-    if character and character:FindFirstChild("Humanoid") then
-        character.Humanoid.UseJumpPower = true 
-        character.Humanoid.JumpPower = JumpHeightEnabled and JumpHeightValue or DEFAULT_JP
-    end
-end
-
-local function updateGravity()
-    workspace.Gravity = GravityEnabled and GravityValue or DEFAULT_GRAVITY
-end
-
--- // UI SECTION // --
-
--- 1. WALKSPEED
-local speedSlider = MoveSection:Slider({
-    Title = "Walkspeed",
-    Icon = "sport-shoe",
-    Step = 1,
-    Value = { Min = 16, Max = 950, Default = DEFAULT_WS },
-    Callback = function(Value)
-        WalkSpeedValue = Value
-        updateWalkSpeed()
-    end
-})
-
-MoveSection:Toggle({
-    Title = "Enable Walkspeed",
-    Icon = "sport-shoe",
-    Value = false,
-    Callback = function(v)
-        WalkSpeedEnabled = v
-        updateWalkSpeed()
-    end
-})
-
--- 2. JUMP POWER
-local jumpSlider = MoveSection:Slider({
-    Title = "Jump Power",
-    Icon = "arrow-big-up-dash",
-    Step = 1,
-    Value = { Min = 0, Max = 1000, Default = DEFAULT_JP },
-    Callback = function(Value)
-        JumpHeightValue = Value
-        updateJumpPower()
-    end
-})
-
-MoveSection:Toggle({
-    Title = "Enable Jump Power",
-    Icon = "arrow-big-up-dash",
-    Value = false,
-    Callback = function(v)
-        JumpHeightEnabled = v
-        updateJumpPower()
-    end
-})
-
--- 3. GRAVITY
-local gravitySlider = MoveSection:Slider({
-    Title = "Gravity",
-    Icon = "earth",
-    Step = 1,
-    Value = { Min = 0, Max = 1000, Default = DEFAULT_GRAVITY },
-    Callback = function(Value)
-        GravityValue = Value
-        updateGravity()
-    end
-})
-
-MoveSection:Toggle({
-    Title = "Enable Gravity",
-    Icon = "earth",
-    Value = false,
-    Callback = function(v)
-        GravityEnabled = v
-        updateGravity()
-    end
-})
-
-
-
--- 4. RESET BUTTON
-MoveSection:Button({
-    Title = "Reset Movement Settings",
-    Icon = "refresh-cw",
-    Callback = function()
-        -- Reset internal variables
-        WalkSpeedValue = DEFAULT_WS
-        JumpHeightValue = DEFAULT_JP
-        GravityValue = DEFAULT_GRAVITY
-        
-        -- Reset UI Sliders visually gamit ang :Set()
-        speedSlider:Set(DEFAULT_WS)
-        jumpSlider:Set(DEFAULT_JP)
-        gravitySlider:Set(DEFAULT_GRAVITY)
-        
-        -- Apply changes sa game
-        updateWalkSpeed()
-        updateJumpPower()
-        updateGravity()
-
-        WindUI:Notify({
-            Title = "Liquid Hub",
-            Content = "Movement settings restored to default.",
-            Duration = 2
-        })
-    end
-})
-
--- // CHARACTER REPAWN HANDLER // --
-player.CharacterAdded:Connect(function(character)
-    character:WaitForChild("Humanoid")
-    task.wait(0.1)
-    updateWalkSpeed()
-    updateJumpPower()
-end)
-
--- Initial apply
-if player.Character and player.Character:FindFirstChild("Humanoid") then
-    updateWalkSpeed()
-    updateJumpPower()
-end
-]]
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -893,8 +743,6 @@ local WalkSpeedEnabled = false
 local WalkSpeedValue = 16
 local JumpHeightEnabled = false
 local JumpHeightValue = 50
-local GravityEnabled = false
-local GravityValue = 196
 
 -- FUNCTION TO UPDATE VALUES SAFELY
 local function updateWalkSpeed()
@@ -909,10 +757,6 @@ local function updateJumpPower()
     if character and character:FindFirstChild("Humanoid") then
         character.Humanoid.JumpPower = JumpHeightEnabled and JumpHeightValue or 50
     end
-end
-
-local function updateGravity()
-	workspace.Gravity = GravityEnabled and GravityValue or 196
 end
 
 -- WALKSPED SLIDER
@@ -977,38 +821,10 @@ local jumpH = lp:Toggle({
     end
 })
 
-local grabiti = lp:Slider({
-	Title = "Gravity",
-	Desc = "Set gravity value",
-	Icon = "earth",
-	Step = 1,
-	Value = {
-		Min = 196,
-		Max = 1000,
-		Default = 196,
-		},
-	Callback = function(Value)
-			GravityValue = Value
-			updateGravity()
-			print("Gravity set to: " .. Value)
-		end
-	})
-
-local graviti = lp:Toggle({
-	Title = "Enable Gravity",
-	Desc = "",
-	Icon = "earth",
-	Value = false,
-	Callback = function(Value)
-			GravityEnabled = Value
-			updateGravity()
-			print("Gravity: " .. (Value and "ON" or "OFF"))
-		end 
-	})
 
 player.CharacterAdded:Connect(function(character)
     character:WaitForChild("Humanoid")
-    task.wait(0.1)
+    wait(0.1)
     updateWalkSpeed()
     updateJumpPower()
 end)
@@ -1018,8 +834,6 @@ if player.Character and player.Character:FindFirstChild("Humanoid") then
     updateWalkSpeed()
     updateJumpPower()
 end
-
-
 
 local moove = lp:Section({
 		Title = "Other Movement",
@@ -2804,7 +2618,7 @@ if Kick then
 	
 	local Kick1 = kickLBb:Button({
 			Title = "🔐 Rey Hub",
-			Desc = "",
+			Desc = "🗝️ KEY: CAT",
 			Locked = false,
 			Callback = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/zbKAtUEn"))()
@@ -3167,7 +2981,7 @@ local iy = fe:Button({
 local exe = More:Section({
 		Title = "Execute Script",
 		Icon = "monitor-cog",
-		Opened = false,
+		Opened = true,
 	})
 
 local scriptInput = ""
@@ -3235,150 +3049,6 @@ local Button = exe:Button({
     end
 })
 
-local rf = More:Section({
-		Title = "Remote Executor",
-		Icon = "chevrons-left-right-ellipsis",
-		Opened = false,
-	})
-
-
-
--- 1. Code Preview
-local CodePreview = rf:Code({
-    Title = "Code Preview",
-    Code = [[print("Waiting for input...")]]
-})
-
--- 2. Variables
-local CodeToExecute = "" 
-local FireCount = 1
-local FireDelay = 0.1
-local IsLooping = false
-
--- Code Input
-rf:Input({
-    Title = "Code Input",
-	Desc = "Enter your code function",
-    Placeholder = "...",
-    Callback = function(text)
-        CodeToExecute = text
-        CodePreview:SetCode(text) 
-    end
-})
-
--- Fire Count Input
-rf:Input({
-    Title = "Run Count",
-	Desc = "",
-    Placeholder = "Default: 1",
-    Callback = function(text)
-        FireCount = tonumber(text) or 1
-    end
-})
-
--- Fire Delay Input
-rf:Input({
-    Title = "Run Delay",
-	Desc = "Delay between running the code (seconds)",
-    Placeholder = "Default: 0.1",
-    Callback = function(text)
-        FireDelay = tonumber(text) or 0.1
-    end
-})
-
-
---- Execution Logic with Notifications ---
-local function FireTheCode()
-    if CodeToExecute == "" or CodeToExecute == nil then
-        WindUI:Notify({
-            Title = "Liquid Hub",
-            Content = "Code input is empty!",
-            Duration = 2
-        })
-        return
-    end
-
-    local func, err = loadstring(CodeToExecute)
-    if func then
-        func()
-    else
-        WindUI:Notify({
-            Title = "Syntax Error",
-            Content = "Check your code for mistakes.",
-            Duration = 3
-        })
-        warn("Error: " .. err)
-    end
-end
-
--- 4. Action Buttons
-
--- Run Code
-
-rf:Button({
-    Title = "Run Code",
-	Desc = "Run the code ONCE",
-	Icon = "play",
-    Callback = function()
-        FireTheCode()
-        WindUI:Notify({
-            Title = "Liquid Hub",
-            Content = "Code runned...",
-            Duration = 2
-        })
-    end
-})
-
--- Run Multiple Code
-rf:Button({
-    Title = "Run Multiple Code",
-	Desc = "Run the code based on Run Count Input",
-		Icon = "play",
-    Callback = function()
-        WindUI:Notify({
-            Title = "Liquid Hub",
-            Content = "Executing code " .. FireCount .. " times...",
-            Duration = 2
-        })
-        
-        for i = 1, FireCount do
-            FireTheCode()
-            task.wait(FireDelay)
-        end
-    end
-})
-
-
--- Loop Run/Execute
-rf:Toggle({
-    Title = "Loop Run",
-	Desc = "Continuously run the code with Run Delay interval",
-	Icon = "repeat-2",
-    Callback = function(state)
-        IsLooping = state
-        
-        if state then
-            WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Loop Execution: ENABLED",
-                Duration = 2
-            })
-            
-            task.spawn(function()
-                while IsLooping do
-                    FireTheCode()
-                    task.wait(FireDelay)
-                end
-            end)
-        else
-            WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Loop Execution: DISABLED",
-                Duration = 2
-            })
-        end
-    end
-})
 ------------ TROLL TAB
 local Trolls = Troll:Section({
 		Title = "Back Shot",
