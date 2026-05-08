@@ -739,14 +739,14 @@ local lpS = lp:Section({
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
-local Workspace = game:GetService("Workspace")
+--local Workspace = game:GetService("Workspace")
 
 local WalkSpeedEnabled = false
 local WalkSpeedValue = 16
 local JumpHeightEnabled = false
 local JumpHeightValue = 50
-local GravityEnabled = false
-local GravityValue = 196.2
+--local GravityEnabled = false
+--local GravityValue = 196.2
 
 -- FUNCTION TO UPDATE VALUES SAFELY
 local function updateWalkSpeed()
@@ -763,9 +763,9 @@ local function updateJumpPower()
     end
 end
 
-local function updateGravity()
+--[[local function updateGravity()
 	game.Workspace.Gravity = GravityEnabled and GravityValue or 196.2
-end
+end]]
 
 -- WALKSPED SLIDER
 local speed = lp:Slider({
@@ -829,7 +829,7 @@ local jumpH = lp:Toggle({
     end
 })
 
-local vtyyyhro = lp:Slider({
+--[[local vtyyyhro = lp:Slider({
 		Title = "Gravity",
 		Desc = "Set gravity value",
 		Step = 1.2,
@@ -853,6 +853,65 @@ local vyttoggle = lp:Toggle({
 			updateGravity()
 		end
 	})
+]]
+
+local Workspace = game:GetService("Workspace")
+
+-------------------------------------------------
+-- 🧠 DEFAULTS
+-------------------------------------------------
+local DefaultGravity = Workspace.Gravity
+local GravityEnabled = false
+local GravityValue = DefaultGravity
+
+-------------------------------------------------
+-- 📏 GRAVITY SLIDER
+-------------------------------------------------
+lp:Slider({
+    Title = "Gravity",
+    Value = {
+        Min = 0,
+        Max = 500,
+        Default = DefaultGravity
+    },
+    Callback = function(value)
+        GravityValue = value
+
+        if GravityEnabled then
+            Workspace.Gravity = value
+        end
+    end
+})
+
+-------------------------------------------------
+-- 🔘 ENABLE GRAVITY
+-------------------------------------------------
+lp:Toggle({
+    Title = "Enable Gravity",
+    Desc = "",
+    Value = false,
+    Callback = function(state)
+        GravityEnabled = state
+
+        if state then
+            Workspace.Gravity = GravityValue
+
+            WindUI:Notify({
+                Title = "Gravity",
+                Content = "Custom gravity enabled",
+                Duration = 3
+            })
+        else
+            Workspace.Gravity = DefaultGravity
+
+            WindUI:Notify({
+                Title = "Gravity",
+                Content = "Gravity restored",
+                Duration = 3
+            })
+        end
+    end
+})
 
 player.CharacterAdded:Connect(function(character)
     character:WaitForChild("Humanoid")
