@@ -179,7 +179,7 @@ WindUI:Popup({
 local Window = WindUI:CreateWindow({
     Title = "Liquid Hub | Universal",
     Icon = "rbxassetid://85217490213932", -- lucide icon. optional
-	IconSize = "44",
+	IconSize = "43",
     Author = "by Liquid Management", -- optional
     HideSearchBar = false,
 	Transparent = true,
@@ -434,8 +434,37 @@ local DiscordServerParagraph = InfoGroup1:Paragraph({
 					Title = "Copy link",
 					Icon = "link",
 					Callback = function()
-						setclipboard("NEW: https://discord.gg/jYkbeWtYsf")
-					    setclipboard("OLD: https://discord.gg/wDMPK3QAmY")
+						local Dialog = Window:Dialog({
+    Icon = "external-link",
+    Title = "Liquid Hub | Discord Community",
+    Content = "Join to our discord servers.",
+    Buttons = {
+        {
+            Title = "NEW",
+            Callback = function()
+                setclipboard("https://discord.gg/jYkbeWtYsf")
+				WindUI:Notify({
+				Title = "Liquid Hub",
+				Content = "New discord server copied to clipboard",
+				Icon = "link",
+				Duration = 2
+											})
+            end,
+        },
+        {
+            Title = "OLD",
+            Callback = function()
+                setclipboard("https://discord.gg/wDMPK3QAmY")
+				WindUI:Notify({
+				Title = "Liquid Hub",
+				Content = "Old discord server copied to clipboard",
+				Icon = "link",
+				Duration = 2
+											})						
+            end,
+        },
+    },
+})	    
 					end,
 				},
 			},
@@ -518,7 +547,7 @@ local gameParagraph = InfoGroup2:Paragraph({
     Locked = false,
 })
 
-InfoGroup2:Space()
+--InfoGroup2:Space()
 
 local InfoGroup3 = Main:Group({})
 
@@ -599,7 +628,7 @@ updateUI()
 Players.PlayerAdded:Connect(updateUI)
 Players.PlayerRemoving:Connect(updateUI)
 
-InfoGroup3:Space()
+--InfoGroup3:Space()
 
 local InfoGroup4 = Main:Group({})
 
@@ -768,7 +797,7 @@ end
 end]]
 
 -- WALKSPED SLIDER
-local speed = lp:Slider({
+local speed = lpS:Slider({
     Title = "Walkspeed",
     Desc = "Set walkspeed value",
 	Icon = "sport-shoe",
@@ -786,7 +815,7 @@ local speed = lp:Slider({
 })
 
 -- WALKSPED TOGGLE
-local WsV = lp:Toggle({
+local WsV = lpS:Toggle({
     Title = "Enable Walkspeed",
     Desc = "",
 	Icon = "sport-shoe",
@@ -799,7 +828,7 @@ local WsV = lp:Toggle({
 })
 
 -- JUMP POWER SLIDER
-local jumpp = lp:Slider({
+local jumpp = lpS:Slider({
     Title = "Jump Height",
     Desc = "Set jump height value",
 	Icon = "arrow-big-up-dash",
@@ -817,7 +846,7 @@ local jumpp = lp:Slider({
 })
 
 -- JUMP POWER TOGGLE
-local jumpH = lp:Toggle({
+local jumpH = lpS:Toggle({
     Title = "Enable Jump Height",
     Desc = "",
 	Icon = "arrow-big-up-dash",
@@ -941,7 +970,7 @@ local player = game.Players.LocalPlayer
 -- INFINITE JUMP TOGGLE
 local infJumpToggle = moove:Toggle({
     Title = "Inf Jump",
-    Desc = "",
+    Desc = "Jump limitless",
 	Icon = "arrow-big-up-dash",
     Value = false,
     Callback = function(Value)
