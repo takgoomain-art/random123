@@ -3820,7 +3820,7 @@ tpsection:Toggle({
 	end
 })
 
-local tp1 = tpsection({
+local tp1 = tpsection:Section({
 		Title = "TP Misc",
 		Icon = "locate-fixed",
 		Opened = false,
