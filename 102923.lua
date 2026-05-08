@@ -179,7 +179,7 @@ WindUI:Popup({
 local Window = WindUI:CreateWindow({
     Title = "Liquid Hub | Universal",
     Icon = "rbxassetid://85217490213932", -- lucide icon. optional
-	IconSize = "48",
+	IconSize = "44",
     Author = "by Liquid Management", -- optional
     HideSearchBar = false,
 	Transparent = true,
@@ -189,6 +189,7 @@ local Window = WindUI:CreateWindow({
 	Size = UDim2.fromOffset(620, 490),
 
 		User = {
+			Enabled = true,
         
         
         Callback = function()
@@ -738,13 +739,14 @@ local lpS = lp:Section({
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
+local Workspace = game:GetService("Workspace")
 
 local WalkSpeedEnabled = false
 local WalkSpeedValue = 16
 local JumpHeightEnabled = false
 local JumpHeightValue = 50
---local GravityEnabled = false
---local GravityValue = 196.2
+local GravityEnabled = false
+local GravityValue = 196.2
 
 -- FUNCTION TO UPDATE VALUES SAFELY
 local function updateWalkSpeed()
@@ -761,10 +763,10 @@ local function updateJumpPower()
     end
 end
 
---[[local function updateGravity()
+local function updateGravity()
 	game.Workspace.Gravity = GravityEnabled and GravityValue or 196.2
 end
-]]
+
 -- WALKSPED SLIDER
 local speed = lp:Slider({
     Title = "Walkspeed",
@@ -827,7 +829,7 @@ local jumpH = lp:Toggle({
     end
 })
 
---[[local vtyyyhro = lp:Slider({
+local vtyyyhro = lp:Slider({
 		Title = "Gravity",
 		Desc = "Set gravity value",
 		Step = 1.2,
