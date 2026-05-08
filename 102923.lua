@@ -3826,76 +3826,8 @@ local tp1 = tpsection:Section({
 		Opened = false,
 	})
 
-local lastDeathCoords = nil
 
--- Death tracker
-AddEventHandler("baseEventReact:onPlayerDied", function()
-    local ped = PlayerPedId()
-    local coords = GetEntityCoords(ped)
-    lastDeathCoords = {
-        x = coords.x,
-        y = coords.y,
-        z = coords.z
-    }
-end)
 
--- Fallback tracker (native death detection)
-CreateThread(function()
-    while true do
-        Wait(500)
-        local ped = PlayerPedId()
-        if IsEntityDead(ped) then
-            local coords = GetEntityCoords(ped)
-            lastDeathCoords = {
-                x = coords.x,
-                y = coords.y,
-                z = coords.z
-            }
-            Wait(2000) -- wait para hindi mag spam
-        end
-    end
-end)
-
--- Teleport to Last Death Button
-local TeleportDeathButton = tp1:Button({
-    Title = "Teleport to Last Death",
-    Desc = "Teleport to your last death location",
-    Callback = function()
-        if lastDeathCoords == nil then
-            WindUI:Notify({
-                Title = "Teleport to Last Death",
-                Content = "No death record found.",
-                Duration = 5,
-                Type = "error"
-            })
-            return
-        end
-
-        local ped = PlayerPedId()
-
-        -- Freeze muna habang naglo-load
-        FreezeEntityPosition(ped, true)
-
-        RequestCollisionAtCoord(lastDeathCoords.x, lastDeathCoords.y, lastDeathCoords.z)
-        while not HasCollisionLoadedAroundEntity(ped) do
-            Wait(100)
-        end
-
-        SetEntityCoords(ped, lastDeathCoords.x, lastDeathCoords.y, lastDeathCoords.z, false, false, false, false)
-        FreezeEntityPosition(ped, false)
-
-        WindUI:Notify({
-            Title = "Teleport to Last Death",
-            Content = string.format("Teleported to your last death location.\nX: %.2f | Y: %.2f | Z: %.2f",
-                lastDeathCoords.x,
-                lastDeathCoords.y,
-                lastDeathCoords.z
-            ),
-            Duration = 5,
-            Type = "success"
-        })
-    end
-})
 ----------- SETTINGS TAB
 local light = Settings:Section({
 		Title = "Lighting",
