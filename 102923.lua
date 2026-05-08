@@ -855,6 +855,20 @@ local vyttoggle = lp:Toggle({
 	})
 ]]
 
+
+player.CharacterAdded:Connect(function(character)
+    character:WaitForChild("Humanoid")
+    wait(0.1)
+    updateWalkSpeed()
+    updateJumpPower()
+end)
+
+
+if player.Character and player.Character:FindFirstChild("Humanoid") then
+    updateWalkSpeed()
+    updateJumpPower()
+end
+
 local Workspace = game:GetService("Workspace")
 
 -------------------------------------------------
@@ -899,7 +913,7 @@ lp:Toggle({
             WindUI:Notify({
                 Title = "Gravity",
                 Content = "Custom gravity enabled",
-                Duration = 3
+                Duration = 2
             })
         else
             Workspace.Gravity = DefaultGravity
@@ -907,26 +921,11 @@ lp:Toggle({
             WindUI:Notify({
                 Title = "Gravity",
                 Content = "Gravity restored",
-                Duration = 3
+                Duration = 2
             })
         end
     end
 })
-
-player.CharacterAdded:Connect(function(character)
-    character:WaitForChild("Humanoid")
-    wait(0.1)
-    updateWalkSpeed()
-    updateJumpPower()
-end)
-
-
-if player.Character and player.Character:FindFirstChild("Humanoid") then
-    updateWalkSpeed()
-    updateJumpPower()
-end
-
-
 
 local moove = lp:Section({
 		Title = "Other Movement",
