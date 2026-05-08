@@ -68,7 +68,7 @@ end
 
 -- ❌ Double check blacklist (with UI)
 if isBlacklisted() then
-    notify("Access Denied", "You are blacklisted.", "user-lock")
+    notify("Access Denied", "You are blacklisted.", "user-lock", 5)
     return
 end
 
