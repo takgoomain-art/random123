@@ -189,7 +189,7 @@ local Window = WindUI:CreateWindow({
 	Size = UDim2.fromOffset(620, 490),
 
 		User = {
-			--Enabled = true,
+			Enabled = true,
         
         
         Callback = function()
@@ -869,7 +869,7 @@ if player.Character and player.Character:FindFirstChild("Humanoid") then
     updateJumpPower()
 end
 
-local Workspace = game:GetService("Workspace")
+--[[local Workspace = game:GetService("Workspace")
 
 -------------------------------------------------
 -- 🧠 DEFAULTS
@@ -926,7 +926,7 @@ lp:Toggle({
         end
     end
 })
-
+]]
 local moove = lp:Section({
 		Title = "Other Movement",
 		Icon = "user-search",
