@@ -3,7 +3,7 @@ local player = Players.LocalPlayer
 
 -- 🔗 URLs
 local WINDUI_URL = "https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"
-local SCRIPT_URL = "https://raw.githubusercontent.com/takgoomain-art/random123/refs/heads/main/102923.lua"
+local SCRIPT_URL = "https://raw.githubusercontent.com/takgoomain-art/random123/refs/heads/main/omgg.lua"
 
 -- 🚫 Blacklisted UserIds
 local Blacklist = {
@@ -55,13 +55,13 @@ end
 -------------------------------------------------
 -- 🔔 NOTIFY 
 -------------------------------------------------
-local function notify(title, text, icon)
+local function notify(title, text, icon, duration)
     pcall(function()
         _G.WindUI:Notify({
             Title = title,
             Content = text,
             Icon = icon,
-            Duration = 4
+            Duration = duration
         })
     end)
 end
@@ -80,18 +80,18 @@ local success, script = pcall(function()
 end)
 
 if success and script then
-    notify("Loader", "Loading script...", "loader")
+    notify("Loader", "Loading script...", "loader", 2)
 
     local runSuccess, err = pcall(function()
         loadstring(script)()
     end)
 
     if runSuccess then
-        notify("Success", "Script loaded successfully", "circle-check-big")
+        notify("Success", "Script loaded successfully", "circle-check-big", 4)
     else
-        notify("Error", "Execution failed", "triangle-alert")
+        notify("Error", "Execution failed", "triangle-alert", 4)
         warn(err)
     end
 else
-    notify("Error", "Failed to fetch script", "triangle-alert")
+    notify("Error", "Failed to fetch script", "triangle-alert", 4)
 end
