@@ -55,11 +55,12 @@ end
 -------------------------------------------------
 -- 🔔 NOTIFY 
 -------------------------------------------------
-local function notify(title, text)
+local function notify(title, text, icon)
     pcall(function()
         _G.WindUI:Notify({
             Title = title,
             Content = text,
+            Icon = icon,
             Duration = 4
         })
     end)
@@ -67,7 +68,7 @@ end
 
 -- ❌ Double check blacklist (with UI)
 if isBlacklisted() then
-    notify("Access Denied", "You are blacklisted.")
+    notify("Access Denied", "You are blacklisted.", "user-lock")
     return
 end
 
@@ -79,18 +80,18 @@ local success, script = pcall(function()
 end)
 
 if success and script then
-    notify("Loader", "Loading script...")
+    notify("Loader", "Loading script...", "loader")
 
     local runSuccess, err = pcall(function()
         loadstring(script)()
     end)
 
     if runSuccess then
-        notify("Success", "Script loaded successfully")
+        notify("Success", "Script loaded successfully", "circle-check-big")
     else
-        notify("Error", "Execution failed")
+        notify("Error", "Execution failed", "triangle-alert")
         warn(err)
     end
 else
-    notify("Error", "Failed to fetch script")
+    notify("Error", "Failed to fetch script", "triangle-alert")
 end
