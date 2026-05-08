@@ -853,7 +853,7 @@ local vyttoggle = lp:Toggle({
 			updateGravity()
 		end
 	})
-]]
+
 player.CharacterAdded:Connect(function(character)
     character:WaitForChild("Humanoid")
     wait(0.1)
