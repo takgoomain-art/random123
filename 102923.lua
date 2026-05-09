@@ -131,6 +131,10 @@ elseif game.PlaceId == 920587237 then
 	AM = true
 elseif game.PlaceId == 79546208627805 then
 	Nights = true
+elseif game.PlaceId == 10260193230 then
+	MS = true
+elseif game.PlaceId == 142823291 then
+	MM2 = true,
 end
 
 --[[ 
@@ -154,6 +158,8 @@ PS99 = Pet Simulator 99
 PG = Pet's Go
 AM. = Adopt Me
 99N = 99 Nights in the Forest
+MS. = Meme Sea
+MM2 = Murder Mystery 2
 
 Tab: Script Tab
 
@@ -3061,6 +3067,71 @@ else
     ]]
 })
 	end	
+
+if MS then
+local Meme = Script:Section({
+		Title = "[😂] Meme Sea]",
+		Opened = true,
+		})
+
+else
+local Meme1 = Script:Section({
+		Title = "[😂] Meme Sea",
+		Opened = false,
+		})
+	
+local memee = Meme1:Paragraph({
+    Title = "NOTICE:",
+    Desc = "You're not in Meme Sea game.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+	end	
+
+if MM2 then
+	local MyM2 = Script:Section({
+			Title = "[🗡️] Murder Mystery 2",
+			Opened = true,
+		})
+
+else
+	local Mur2 = Script:Section({
+			Title = "[🗡️] Murder Mystery 2",
+			Opened = false,
+		})
+
+	local mmmm = Mur2:Paragraph({
+    Title = "NOTICE:",
+    Desc = "You're not in Murder Mystery 2 game.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+	end	
+	
 local idkkk = More:Section({
 		Title = "More Scripts",
 		Icon = "search",
