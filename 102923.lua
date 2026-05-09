@@ -3260,6 +3260,7 @@ rf:Button({
         WindUI:Notify({
             Title = "Liquid Hub",
             Content = "Code runned...",
+			Icon = "file-code",
             Duration = 2
         })
     end
@@ -3826,7 +3827,81 @@ local tpbro = Teleport:Section({
 		Opened = false,
 	})
 
+local Players = game:GetService("Players")
 
+local LocalPlayer = Players.LocalPlayer
+local LastDeathPosition = nil
+
+-------------------------------------------------
+-- 💀 SAVE DEATH POSITION
+-------------------------------------------------
+local function setupCharacter(char)
+	local humanoid = char:WaitForChild("Humanoid")
+	local root = char:WaitForChild("HumanoidRootPart")
+
+	humanoid.Died:Connect(function()
+		LastDeathPosition = root.Position
+
+		WindUI:Notify({
+			Title = "Death Saved",
+			Content = string.format(
+				"X: %.1f | Y: %.1f | Z: %.1f",
+				LastDeathPosition.X,
+				LastDeathPosition.Y,
+				LastDeathPosition.Z
+			),
+			Duration = 2
+		})
+	end)
+end
+
+-------------------------------------------------
+-- 🔄 CHARACTER LOAD
+-------------------------------------------------
+if LocalPlayer.Character then
+	setupCharacter(LocalPlayer.Character)
+end
+
+LocalPlayer.CharacterAdded:Connect(setupCharacter)
+
+-------------------------------------------------
+-- 📍 TELEPORT BUTTON
+-------------------------------------------------
+tpbro:Button({
+	Title = "Teleport to Last Death",
+	Desc = "Teleport to your last death position",
+	Callback = function()
+
+		if not LastDeathPosition then
+			WindUI:Notify({
+				Title = "Teleport Failed",
+				Content = "No death record found",
+				Icon = "map-pin-off",
+				Duration = 3
+			})
+			return
+		end
+
+		local char = LocalPlayer.Character
+		if not char then return end
+
+		local root = char:FindFirstChild("HumanoidRootPart")
+		if not root then return end
+
+		root.CFrame = CFrame.new(LastDeathPosition + Vector3.new(0, 3, 0))
+
+		WindUI:Notify({
+			Title = "Teleport Success",
+			Content = string.format(
+				"X: %.1f | Y: %.1f | Z: %.1f",
+				LastDeathPosition.X,
+				LastDeathPosition.Y,
+				LastDeathPosition.Z
+			),
+			Duration = 5
+		})
+	end
+})
 
 
 ----------- SETTINGS TAB
