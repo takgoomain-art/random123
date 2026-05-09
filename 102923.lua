@@ -3821,7 +3821,7 @@ tpsection:Toggle({
 	end
 })
 
-local tpbro = Teleport:Section({
+--[[local tpbro = Teleport:Section({
 		Title = "TP Misc",
 		Icon = "archive",
 		Opened = false,
@@ -3902,7 +3902,7 @@ tpbro:Button({
 		})
 	end
 })
-
+]]
 
 ----------- SETTINGS TAB
 local light = Settings:Section({
