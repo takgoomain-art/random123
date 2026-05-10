@@ -134,7 +134,7 @@ elseif game.PlaceId == 79546208627805 then
 elseif game.PlaceId == 10260193230 then
 	MS = true
 elseif game.PlaceId == 142823291 then
-	MM2 = true,
+	MM2 = true
 end
 
 --[[ 
