@@ -350,6 +350,11 @@ local More = Section2:Tab({
     Locked = false,
 })
 
+local Exec = Section2:Tab({
+	Title = "Executor",
+	Icon = "code",
+	Locked = false,
+})
 local Troll = Section2:Tab({
 	Title = "Troll",
 	Icon = "skull",
@@ -3333,7 +3338,7 @@ local iy = fe:Button({
 			loadstring(game:HttpGet('https://cdn.robloxscripts.gg/public/furky/furky-infinite-yield-roblox-admin-script-source.lua'))()
 		end})
 
-local exe = More:Section({
+local exe = Exec:Section({
 		Title = "Execute Script",
 		Desc = "Execute a loadstring script inside our script",
 		Icon = "monitor-cog",
@@ -3405,7 +3410,7 @@ local Button = exe:Button({
     end
 })
 
-local rf = More:Section({
+local rf = Exec:Section({
 		Title = "Remote Executor",
 		Desc = "Run codes inside our script.",
 		Icon = "chevrons-left-right-ellipsis",
