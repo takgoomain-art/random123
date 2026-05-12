@@ -3411,10 +3411,6 @@ local rf = More:Section({
 		Icon = "chevrons-left-right-ellipsis",
 		Opened = true,
 	})
-
-local rfGroup = rf:Group()
-
-
 -- 1. Code Preview
 local CodePreview = rf:Code({
     Title = "Code Preview",
@@ -3486,7 +3482,7 @@ end
 -- 4. Action Buttons
 
 -- Run Code
-
+local rfGroup = rf:Group()
 rfGroup:Button({
     Title = "Run Code",
 	Desc = "Run the code ONCE",
