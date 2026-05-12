@@ -193,7 +193,10 @@ local Window = WindUI:CreateWindow({
 	NewElements = true,
 	Acrylic = true,
 	ScrollBarEnabled = true,
-	Size = UDim2.new(0, 800, 0, 545),
+	Size = UDim2.new(0, 850, 0, 545),
+	MinSize = Vector2.new(815, 400),
+	MaxSize = Vector2.new(1000, 700),
+		
 
 		User = {
 			Enabled = true,
@@ -433,8 +436,8 @@ local VStack3 = HStack:VStack() -- third
 local DiscordServerParagraph = VStack1:Paragraph({
 			Title = "Liquid Hub | Community",
 			Desc = "Join to our Discord Community!!",
-			Image = "https://cdn.discordapp.com/attachments/1370249607405244416/1497554322072797284/75100e24-bbd5-4052-8404-32c4c31ecc1a.jpg?ex=69edf1a5&is=69eca025&hm=dfaf406b4df410cf62a3c1c6c3bcef8e49cc768079dfbe23ce6c00f9997a0633&",
-			--	.. Response.guild.id
+			Image = "rbxassetid://85217490213932",
+		--	.. Response.guild.id
 			--	.. "/"
 			--	.. Response.guild.icon
 			--	.. ".png?size=1024",
