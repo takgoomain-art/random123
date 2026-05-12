@@ -423,9 +423,12 @@ Info:Section({
 })
 ]]
 
-local InfoGroup1 = Main:Group({})
+local HStack = Main:HStack({ AutoSpace = true })
 
-local DiscordServerParagraph = InfoGroup1:Paragraph({
+local VStack1 = HStack:VStack() -- left
+local VStack2 = HStack:VStack() -- right
+local VStack3 = HStack:VStack() -- third
+local DiscordServerParagraph = VStack1:Paragraph({
 			Title = "Liquid Hub | Community",
 			Desc = "Join to our Discord Community!!",
 			Image = "https://cdn.discordapp.com/attachments/1370249607405244416/1497554322072797284/75100e24-bbd5-4052-8404-32c4c31ecc1a.jpg?ex=69edf1a5&is=69eca025&hm=dfaf406b4df410cf62a3c1c6c3bcef8e49cc768079dfbe23ce6c00f9997a0633&",
@@ -476,7 +479,7 @@ local DiscordServerParagraph = InfoGroup1:Paragraph({
 				},
 			},
 		})
-local Credits = InfoGroup1:Paragraph({
+local Credits = VStack2:Paragraph({
     Title = "Credentials",
     Desc = "Liquid Hub is giving credits to the owner of the script that is listed here.",
     --Color = "Red",
@@ -495,7 +498,7 @@ local Credits = InfoGroup1:Paragraph({
     ]]
 })
 
-InfoGroup1:Space()
+--InfoGroup1:Space()
 --[[
 local InfoGroup2 = Mod:HStack({ AutoSpace = true })
 
@@ -504,7 +507,7 @@ local InfoGroup2 = Mod:HStack({ AutoSpace = true })
 local VStack1 = InfoGroup2:VStack() -- left
 local VStack2 = InfoGroup2:VStack() -- right
 local VStack3 = InfoGroup2:VStack() -- third
-
+]]
 local Players = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
 
@@ -713,7 +716,7 @@ local UIS = game:GetService("UserInputService")
     or "Unknown Executor"
 ]]
 
---[[ 📱 Platform (Mobile / PC / Console)
+-- 📱 Platform (Mobile / PC / Console)
 local platform = "Unknown"
 
 if UIS.TouchEnabled and not UIS.KeyboardEnabled then
@@ -749,13 +752,13 @@ local descText = string.format(
 )
 
 -- 📌 UI Output
---[[local exe = InfoGroup2:Paragraph({
+--local exe = InfoGroup2:Paragraph({
     Title = "Client Information",
     Desc = descText,
     Locked = false,
 })
 ]]
---[[
+
 local exe = VStack3:Paragraph({
     Title = "Client Details",
     Desc = descText,
@@ -773,7 +776,7 @@ local exe = VStack3:Paragraph({
         }
     }
     ]]
---})
+})
 
 ------- PLAYER TAB
 local lpS = lp:Section({
