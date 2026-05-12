@@ -382,7 +382,13 @@ print("Tabs Loaded")
 Main:Select()
 --- MAIN INFO
 
-local Info = Main:Section({ 
+local HStack = Main:HStack({ AutoSpace = true })
+
+local VStack1 = HStack:VStack() -- left
+local VStack2 = HStack:VStack() -- right
+local VStack3 = HStack:VStack() -- third
+
+--[[local Info = Main:Section({ 
     Title = "Liquid Hub Intro",
 	Icon = "info",
 })
@@ -423,11 +429,6 @@ Info:Section({
 })
 ]]
 
-local HStack = Main:HStack({ AutoSpace = true })
-
-local VStack1 = HStack:VStack() -- left
-local VStack2 = HStack:VStack() -- right
-local VStack3 = HStack:VStack() -- third
 local DiscordServerParagraph = VStack1:Paragraph({
 			Title = "Liquid Hub | Community",
 			Desc = "Join to our Discord Community!!",
