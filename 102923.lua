@@ -788,10 +788,10 @@ local exe = VStack2:Paragraph({
 local gs2 = VStack3:Section({
 		Title = "User Info",
 		Icon = "user",
-		Opened = true,
+		
 	})
 
-gs2:Button({
+--[[gs2:Button({
 		Title = "Copy Username",
 		Icon = "copy",
 		Callback = function()
@@ -844,7 +844,7 @@ gs2:Button{{
 			end
 		end,
 	})
-
+]]
 
 local groupsect = VStack3:Section({
 		Title = "Place Info",
