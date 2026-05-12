@@ -13,7 +13,7 @@ local player = Players.LocalPlayer
 -- 🧾 Roles (by username)
 local Roles = {
     Owner = {
-		--"eddiejr031"
+		"eddiejr031"
     },
 
     Admin = {
@@ -497,7 +497,7 @@ local Credits = InfoGroup1:Paragraph({
 
 InfoGroup1:Space()
 
-local InfoGroup2 = Main:HStack({ AutoSpace = true })
+local InfoGroup2 = Mod:HStack({ AutoSpace = true })
 
 --local HStack = Tab3:HStack({ AutoSpace = true })
 
