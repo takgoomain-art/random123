@@ -317,25 +317,34 @@ local Section1 = Window:Section({
 local Main = Section1:Tab({
     Title = "Info",
     Icon = "info", -- optional
-	IconShape = "Square",
-	ShowTabTitle = true,
-    Locked = false,
+	IconColor = Color3.fromRGB(255, 100, 100), -- custom icon color. optional
+    IconShape = "Square", -- "Square" or "Circle". optional
+    IconThemed = true, -- use theme colors. optional
+    Locked = false, -- disable tab interaction. optional
+    ShowTabTitle = true, -- show title inside tab. optional
+    Border = true, -- add border around tab. optional
 })
 
 local lp = Section1:Tab({
 	Title = "Player",
 	Icon = "user", -- optional
-	IconShape = "Square",
-	ShowTabTitle = true,
-	Locked = false,
+	IconColor = Color3.fromRGB(255, 100, 100), -- custom icon color. optional
+    IconShape = "Square", -- "Square" or "Circle". optional
+    IconThemed = true, -- use theme colors. optional
+    Locked = false, -- disable tab interaction. optional
+    ShowTabTitle = true, -- show title inside tab. optional
+    Border = true, -- add border around tab. optional
 })
 
 local Server = Section1:Tab({
 	Title = "Server",
 	Icon = "globe",
-	IconShape = "Square",
-	ShowTabTitle = true,
-	Locked = false,
+	IconColor = Color3.fromRGB(255, 100, 100), -- custom icon color. optional
+    IconShape = "Square", -- "Square" or "Circle". optional
+    IconThemed = true, -- use theme colors. optional
+    Locked = false, -- disable tab interaction. optional
+    ShowTabTitle = true, -- show title inside tab. optional
+    Border = true, -- add border around tab. optional
 })
 
 local Section2 = Window:Section({
@@ -347,32 +356,41 @@ local Section2 = Window:Section({
 local Script = Section2:Tab({
     Title = "Scripts",
     Icon = "bird", -- optional
-	IconShape = "Square",
-	ShowTabTitle = true,
-    Locked = false,
+	IconColor = Color3.fromRGB(255, 100, 100), -- custom icon color. optional
+    IconShape = "Square", -- "Square" or "Circle". optional
+    IconThemed = true, -- use theme colors. optional
+    Locked = false, -- disable tab interaction. optional
+    ShowTabTitle = true, -- show title inside tab. optional
+    Border = true, -- add border around tab. optional
 })
 
 local More = Section2:Tab({
     Title = "More Scripts",
     Icon = "bird", -- optional
-	IconShape = "Square",
-	ShowTabTitle = true,
-    Locked = false,
+	IconColor = Color3.fromRGB(255, 100, 100), -- custom icon color. optional
+    IconShape = "Square", -- "Square" or "Circle". optional
+    IconThemed = true, -- use theme colors. optional
+    Locked = false, -- disable tab interaction. optional
+    ShowTabTitle = true, -- show title inside tab. optional
+    Border = true, -- add border around tab. optional
 })
 
-local Exec = Section2:Tab({
+--[[local Exec = Section2:Tab({
 	Title = "Executor",
 	Icon = "code",
 	IconShape = "Square",
 	ShowTabTitle = true,
 	Locked = false,
-})
+})]]
 local Troll = Section2:Tab({
 	Title = "Troll",
 	Icon = "skull",
-	IconShape = "Square",
-	ShowTabTitle = true,
-	Locked = false,
+	IconColor = Color3.fromRGB(255, 100, 100), -- custom icon color. optional
+    IconShape = "Square", -- "Square" or "Circle". optional
+    IconThemed = true, -- use theme colors. optional
+    Locked = false, -- disable tab interaction. optional
+    ShowTabTitle = true, -- show title inside tab. optional
+    Border = true, -- add border around tab. optional
 })
 --[[local GameCodes = Window:Tab({
 	Title = "Game Codes",
@@ -390,16 +408,22 @@ local Section3 = Window:Section({
 local Teleport = Section3:Tab({
 	Title = "Teleport",
 	Icon = "locate",
-	IconShape = "Square",
-	ShowTabTitle = true,
-	Locked = false,
+	IconColor = Color3.fromRGB(255, 100, 100), -- custom icon color. optional
+    IconShape = "Square", -- "Square" or "Circle". optional
+    IconThemed = true, -- use theme colors. optional
+    Locked = false, -- disable tab interaction. optional
+    ShowTabTitle = true, -- show title inside tab. optional
+    Border = true, -- add border around tab. optional
 })
 local Settings = Section3:Tab({
     Title = "Settings",
     Icon = "settings", -- optional
-	IconShape = "Square",
-	ShowTabTitle = true,
-    Locked = false,
+	IconColor = Color3.fromRGB(255, 100, 100), -- custom icon color. optional
+    IconShape = "Square", -- "Square" or "Circle". optional
+    IconThemed = true, -- use theme colors. optional
+    Locked = false, -- disable tab interaction. optional
+    ShowTabTitle = true, -- show title inside tab. optional
+    Border = true, -- add border around tab. optional
 })
 
 print("Tabs Loaded")
