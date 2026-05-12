@@ -496,7 +496,7 @@ local Credits = InfoGroup1:Paragraph({
 })
 
 InfoGroup1:Space()
-
+--[[
 local InfoGroup2 = Mod:HStack({ AutoSpace = true })
 
 --local HStack = Tab3:HStack({ AutoSpace = true })
@@ -712,7 +712,8 @@ local UIS = game:GetService("UserInputService")
     or (getexecutorname and getexecutorname())
     or "Unknown Executor"
 ]]
--- 📱 Platform (Mobile / PC / Console)
+
+--[[ 📱 Platform (Mobile / PC / Console)
 local platform = "Unknown"
 
 if UIS.TouchEnabled and not UIS.KeyboardEnabled then
@@ -754,6 +755,7 @@ local descText = string.format(
     Locked = false,
 })
 ]]
+--[[
 local exe = VStack3:Paragraph({
     Title = "Client Details",
     Desc = descText,
@@ -771,7 +773,7 @@ local exe = VStack3:Paragraph({
         }
     }
     ]]
-})
+--})
 
 ------- PLAYER TAB
 local lpS = lp:Section({
