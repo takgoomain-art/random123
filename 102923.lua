@@ -783,9 +783,55 @@ local exe = VStack2:Paragraph({
 })
 
 local groupsect = VStack3:Section({
-		Title = "Test Section",
+		Title = "Place Info",
 		Icon = "user",
+		Opened = true,
 	})
+
+groupsect:Button({
+	Title = "Copy Place ID",
+	Callback = function()
+		if setclipboard then
+			setclipboard(game.PlaceId)
+		else
+			print("Place ID:", game.PlaceId)
+		end
+	end,
+})
+
+groupsect:Button({
+	Title = "Copy Game ID",
+	Callback = function()
+		if setclipboard then
+			setclipboard(game.GameId)
+		else
+			print("Game ID:", game.GameId)
+		end
+	end,
+})
+
+groupsect:Button({
+	Title = "Copy Creator ID",
+	Callback = function()
+		if setclipboard then
+			setclipboard(PlaceInfo.Creator.Id)
+		else
+			print("Creator ID:", PlaceInfo.Creator.Id)
+		end
+	end,
+})
+
+groupsect:Button({
+	Title = "Copy Creator Name",
+	Callback = function()
+		if setclipboard then
+			setclipboard(PlaceInfo.Creator.Name)
+		else
+			print("Creator Name:", PlaceInfo.Creator.Name)
+		end
+	end,
+})
+
 ------- PLAYER TAB
 local lpS = lp:Section({
 	Title = "Player Movement",
