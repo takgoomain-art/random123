@@ -924,17 +924,13 @@ groupsect:Button({
 	end,
 })
 
-local groups2 = VStack3:Section({
-		Title = "Copy Buttons",
-		Icon = "user",
-		Opened = true,
-	})
+
 local Players = game:GetService("Players")
 local lp_player = Players.LocalPlayer
 
 
 -- 1. Copy Username
-groups2:Button({
+groupsect:Button({
     Title = "Copy Username",
     Icon = "copy",
     Callback = function()
@@ -949,7 +945,7 @@ groups2:Button({
 })
 
 -- 2. Copy Display Name
-groups2:Button({
+groupsect:Button({
     Title = "Copy Display Name",
     Icon = "copy",
     Callback = function()
@@ -964,7 +960,7 @@ groups2:Button({
 })
 
 -- 3. Copy User ID
-groups2:Button({
+groupsect:Button({
     Title = "Copy User ID",
     Icon = "copy",
     Callback = function()
