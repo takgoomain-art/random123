@@ -791,7 +791,7 @@ local gs2 = VStack3:Section({
 		
 	})
 
---[[gs2:Button({
+gs2:Button({
 		Title = "Copy Username",
 		Icon = "copy",
 		Callback = function()
@@ -844,9 +844,9 @@ gs2:Button{{
 			end
 		end,
 	})
-]]
 
-local groupsect = VStack3:Section({
+
+local groupsect = gs2:Section({
 		Title = "Place Info",
 		Icon = "land-plot",
 		Opened = true,
