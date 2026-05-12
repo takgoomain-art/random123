@@ -318,7 +318,7 @@ local Main = Section1:Tab({
     Title = "Info",
     Icon = "info", -- optional
 	IconShape = "square",
-	ShowTabTitle = "true",
+	ShowTabTitle = true,
     Locked = false,
 })
 
@@ -326,7 +326,7 @@ local lp = Section1:Tab({
 	Title = "Player",
 	Icon = "user", -- optional
 	IconShape = "square",
-	ShowTabTitle = "true",
+	ShowTabTitle = true,
 	Locked = false,
 })
 
@@ -334,7 +334,7 @@ local Server = Section1:Tab({
 	Title = "Server",
 	Icon = "globe",
 	IconShape = "square",
-	ShowTabTitle = "true",
+	ShowTabTitle = true,
 	Locked = false,
 })
 
@@ -348,7 +348,7 @@ local Script = Section2:Tab({
     Title = "Scripts",
     Icon = "bird", -- optional
 	IconShape = "square",
-	ShowTabTitle = "true",
+	ShowTabTitle = true,
     Locked = false,
 })
 
@@ -356,7 +356,7 @@ local More = Section2:Tab({
     Title = "More Scripts",
     Icon = "bird", -- optional
 	IconShape = "square",
-	ShowTabTitle = "true",
+	ShowTabTitle = true,
     Locked = false,
 })
 
@@ -364,14 +364,14 @@ local Exec = Section2:Tab({
 	Title = "Executor",
 	Icon = "code",
 	IconShape = "square",
-	ShowTabTitle = "true",
+	ShowTabTitle = true,
 	Locked = false,
 })
 local Troll = Section2:Tab({
 	Title = "Troll",
 	Icon = "skull",
 	IconShape = "square",
-	ShowTabTitle = "true",
+	ShowTabTitle = true,
 	Locked = false,
 })
 --[[local GameCodes = Window:Tab({
@@ -391,14 +391,14 @@ local Teleport = Section3:Tab({
 	Title = "Teleport",
 	Icon = "locate",
 	IconShape = "square",
-	ShowTabTitle = "true",
+	ShowTabTitle = true,
 	Locked = false,
 })
 local Settings = Section3:Tab({
     Title = "Settings",
     Icon = "settings", -- optional
 	IconShape = "square",
-	ShowTabTitle = "true",
+	ShowTabTitle = true,
     Locked = false,
 })
 
