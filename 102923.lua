@@ -382,13 +382,7 @@ print("Tabs Loaded")
 Main:Select()
 --- MAIN INFO
 
-local HStack = Main:HStack({ AutoSpace = true })
-
-local VStack1 = HStack:VStack() -- left
-local VStack2 = HStack:VStack() -- right
-local VStack3 = HStack:VStack() -- third
-
---[[local Info = Main:Section({ 
+local Info = Main:Section({ 
     Title = "Liquid Hub Intro",
 	Icon = "info",
 })
@@ -425,9 +419,16 @@ Info:Section({
             Callback = function() print("1 Button") end,
         }
     }
-    
+    ]]
 })
-]]
+
+local HStack = Main:HStack({ AutoSpace = true })
+
+local VStack1 = HStack:VStack() -- left
+local VStack2 = HStack:VStack() -- right
+--local VStack3 = HStack:VStack() -- third
+
+
 
 local DiscordServerParagraph = VStack1:Paragraph({
 			Title = "Liquid Hub | Community",
@@ -582,8 +583,8 @@ end)
 
 local Credits = VStack2:Paragraph({
     Title = "Credentials",
-    Desc = "Liquid Hub is giving credits to the owner of the script that is listed here.",
-    --Color = "Red",
+    Desc = "Wind UI\nLucide Icons\nLiquidians (Community)",
+   --Color = "Red",
     --Image = "",
     --ImageSize = 30,
     --Thumbnail = "",
@@ -762,7 +763,7 @@ local descText = string.format(
 })
 ]]
 
-local exe = VStack3:Paragraph({
+local exe = VStack2:Paragraph({
     Title = "Client Details",
     Desc = descText,
     --Color = "Red",
