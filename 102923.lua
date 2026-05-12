@@ -782,6 +782,10 @@ local exe = VStack2:Paragraph({
     ]]
 })
 
+local groupsect = VStack3:Section({
+		Title = "Test Section",
+		Icon = "user",
+	})
 ------- PLAYER TAB
 local lpS = lp:Section({
 	Title = "Player Movement",
