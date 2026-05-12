@@ -426,7 +426,7 @@ local HStack = Main:HStack({ AutoSpace = true })
 
 local VStack1 = HStack:VStack() -- left
 local VStack2 = HStack:VStack() -- right
---local VStack3 = HStack:VStack() -- third
+local VStack3 = HStack:VStack() -- third
 
 
 
