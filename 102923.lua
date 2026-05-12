@@ -832,7 +832,7 @@ gs2:Button{{
 		Icon = "copy",
 		Callback = function()
 			if setclipboard then
-				setclipboard(player.UserId)
+				setclipboard(tostring(player.UserId))
 				WindUI:Notify({
 						Title = "Liquid Hub",
 						Content = "Copied to clipboard",
