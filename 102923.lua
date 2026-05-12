@@ -797,7 +797,7 @@ local groupsect = VStack3:Section({
 		Icon = "clipboard",
 		Opened = true,
 	})
-
+--[[
 groupsect:Button({
 		Title = "Copy Username",
 		Icon = "copy",
@@ -869,7 +869,7 @@ groupsect:Button({
 		end
 	end,
 })
-
+]]
 groupsect:Button({
 	Title = "Copy Game ID",
 	Icon = "copy",
