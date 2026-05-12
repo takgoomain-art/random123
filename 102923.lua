@@ -3412,6 +3412,7 @@ local rf = More:Section({
 		Opened = true,
 	})
 
+local rfGroup = rf:Group()
 
 
 -- 1. Code Preview
@@ -3457,7 +3458,6 @@ rf:Input({
     end
 })
 
-local rfGroup = rf:Group()
 
 --- Execution Logic with Notifications ---
 local function FireTheCode()
