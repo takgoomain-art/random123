@@ -791,7 +791,14 @@ local exe = VStack2:Paragraph({
 		
 	})
 ]]
-VStack3:Button({
+
+local groupsect = VStack3:Section({
+		Title = "Copy Buttons",
+		Icon = "clipboard",
+		Opened = true,
+	})
+
+groupsect:Button({
 		Title = "Copy Username",
 		Icon = "copy",
 		Callback = function()
@@ -809,7 +816,7 @@ VStack3:Button({
 		end,
 	})
 
-VStack3:Button({
+groupsect:Button({
 		Title = "Copy Display Name",
 		Icon = "copy",
 		Callback = function()
@@ -827,7 +834,7 @@ VStack3:Button({
 		end,
 	})
 
-VStack3:Button{{
+groupsect:Button{{
 		Title = "Copy User Id",
 		Icon = "copy",
 		Callback = function()
@@ -843,13 +850,6 @@ VStack3:Button{{
 				print("Account Id/User Id:")
 			end
 		end,
-	})
-
-
-local groupsect = VStack3:Section({
-		Title = "Place Info",
-		Icon = "land-plot",
-		Opened = true,
 	})
 
 groupsect:Button({
