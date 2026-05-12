@@ -497,7 +497,13 @@ local Credits = InfoGroup1:Paragraph({
 
 InfoGroup1:Space()
 
-local InfoGroup2 = Main:Group({})
+local InfoGroup2 = Main:HStack({ AutoSpace = true })
+
+--local HStack = Tab3:HStack({ AutoSpace = true })
+
+local VStack1 = InfoGroup2:VStack() -- left
+local VStack2 = InfoGroup2:VStack() -- right
+local VStack3 = InfoGroup2:VStack() -- third
 
 local Players = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
@@ -515,48 +521,13 @@ local userImage = string.format(
     userId
 )
 
-local userParagraph = InfoGroup2:Paragraph({
+local userParagraph = VStack1:Paragraph({
     Title = displayName, -- 🔥 Display Name sa Title
     Desc = "@" .. username, -- 🔥 Username sa baba
     Image = userImage,
     ImageSize = 80,
     Locked = false,
 })
-
----
-
--- 🎮 GAME INFO
-local placeId = game.PlaceId
-local gameName = "Unknown Game"
-local creatorName = "Unknown"
-
-pcall(function()
-    local info = MarketplaceService:GetProductInfo(placeId)
-    gameName = info.Name
-
-    -- Creator info
-    if info.Creator and info.Creator.Name then
-        creatorName = info.Creator.Name
-    end
-end)
-
--- Game Thumbnail
-local gameImage = string.format(
-    "https://www.roblox.com/asset-thumbnail/image?assetId=%d&width=420&height=420&format=png",
-    placeId
-)
-
-local gameParagraph = InfoGroup2:Paragraph({
-    Title = gameName, -- 🔥 Game Name sa Title
-    Desc = "@" .. creatorName, -- 🔥 Creator username
-    Image = gameImage,
-    ImageSize = 80,
-    Locked = false,
-})
-
---InfoGroup2:Space()
-
-local InfoGroup3 = Main:Group({})
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -578,74 +549,19 @@ local descText = string.format(
 )
 
 -- 📌 UI
-local accountParagraph = InfoGroup3:Paragraph({
+local accountParagraph = VStack1:Paragraph({
     Title = "Account Details",
     Desc = descText,
     Locked = false,
 })
-
-local Players = game:GetService("Players")
-local MarketplaceService = game:GetService("MarketplaceService")
-
-local placeId = game.PlaceId
-local gameId = game.GameId
-
-local creatorId = "Unknown"
-local creatorName = "Unknown"
-
-pcall(function()
-    local info = MarketplaceService:GetProductInfo(placeId)
-
-    if info.Creator then
-        creatorId = info.Creator.Id or "Unknown"
-        creatorName = info.Creator.Name or "Unknown"
-    end
-end)
-
-local maxPlayers = Players.MaxPlayers
-
--- 📌 Create Paragraph FIRST
-local gameDetailsParagraph = InfoGroup3:Paragraph({
-    Title = "Game Details",
-    Desc = "Loading...",
-    Locked = false,
-})
-
--- 🔄 Update function
-local function updateUI()
-    local currentPlayers = #Players:GetPlayers()
-    local playerText = string.format("%d/%d", currentPlayers, maxPlayers)
-
-    local descText = string.format(
-        "Place Id: %s\nGame Id: %s\nCreator Name: %s\nCreator Id: %s\nPlayers: %s",
-        tostring(placeId),
-        tostring(gameId),
-        tostring(creatorName),
-        tostring(creatorId),
-        playerText
-    )
-
-    gameDetailsParagraph:SetDesc(descText)
-end
-
--- 🚀 Initial update
-updateUI()
-
--- 🔁 Live updates
-Players.PlayerAdded:Connect(updateUI)
-Players.PlayerRemoving:Connect(updateUI)
-
---InfoGroup3:Space()
-
-local InfoGroup4 = Main:Group({})
-
+---
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
 local player = Players.LocalPlayer
 
 -- 📌 Paragraph
-local StatsParagraph = InfoGroup4:Paragraph({
+local StatsParagraph = VStack1:Paragraph({
     Title = "Character Stats",
     Desc = "Loading...",
     Locked = true
@@ -677,6 +593,97 @@ RunService.RenderStepped:Connect(function()
         StatsParagraph:SetDesc(text)
     end
 end)
+-- 🎮 GAME INFO
+local placeId = game.PlaceId
+local gameName = "Unknown Game"
+local creatorName = "Unknown"
+
+pcall(function()
+    local info = MarketplaceService:GetProductInfo(placeId)
+    gameName = info.Name
+
+    -- Creator info
+    if info.Creator and info.Creator.Name then
+        creatorName = info.Creator.Name
+    end
+end)
+
+-- Game Thumbnail
+local gameImage = string.format(
+    "https://www.roblox.com/asset-thumbnail/image?assetId=%d&width=420&height=420&format=png",
+    placeId
+)
+
+local gameParagraph = VStack2:Paragraph({
+    Title = gameName, -- 🔥 Game Name sa Title
+    Desc = "@" .. creatorName, -- 🔥 Creator username
+    Image = gameImage,
+    ImageSize = 80,
+    Locked = false,
+})
+
+--InfoGroup2:Space()
+
+--local InfoGroup3 = Main:Group({})
+
+
+
+local Players = game:GetService("Players")
+local MarketplaceService = game:GetService("MarketplaceService")
+
+local placeId = game.PlaceId
+local gameId = game.GameId
+
+local creatorId = "Unknown"
+local creatorName = "Unknown"
+
+pcall(function()
+    local info = MarketplaceService:GetProductInfo(placeId)
+
+    if info.Creator then
+        creatorId = info.Creator.Id or "Unknown"
+        creatorName = info.Creator.Name or "Unknown"
+    end
+end)
+
+local maxPlayers = Players.MaxPlayers
+
+-- 📌 Create Paragraph FIRST
+local gameDetailsParagraph = VStack2:Paragraph({
+    Title = "Game Details",
+    Desc = "Loading...",
+    Locked = false,
+})
+
+-- 🔄 Update function
+local function updateUI()
+    local currentPlayers = #Players:GetPlayers()
+    local playerText = string.format("%d/%d", currentPlayers, maxPlayers)
+
+    local descText = string.format(
+        "Place Id: %s\nGame Id: %s\nCreator Name: %s\nCreator Id: %s\nPlayers: %s",
+        tostring(placeId),
+        tostring(gameId),
+        tostring(creatorName),
+        tostring(creatorId),
+        playerText
+    )
+
+    gameDetailsParagraph:SetDesc(descText)
+end
+
+-- 🚀 Initial update
+updateUI()
+
+-- 🔁 Live updates
+Players.PlayerAdded:Connect(updateUI)
+Players.PlayerRemoving:Connect(updateUI)
+
+--InfoGroup3:Space()
+
+--local InfoGroup4 = Main:Group({})
+
+
 
 local function detectExecutor()
     if identifyexecutor then
@@ -747,7 +754,7 @@ local descText = string.format(
     Locked = false,
 })
 ]]
-local exe = InfoGroup4:Paragraph({
+local exe = VStack3:Paragraph({
     Title = "Client Details",
     Desc = descText,
     --Color = "Red",
