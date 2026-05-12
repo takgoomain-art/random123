@@ -3335,6 +3335,7 @@ local iy = fe:Button({
 
 local exe = More:Section({
 		Title = "Execute Script",
+		Desc = "Execute a loadstring script inside our script",
 		Icon = "monitor-cog",
 		Opened = true,
 	})
@@ -3406,8 +3407,9 @@ local Button = exe:Button({
 
 local rf = More:Section({
 		Title = "Remote Executor",
+		Desc = "Run codes inside our script.",
 		Icon = "chevrons-left-right-ellipsis",
-		Opened = false,
+		Opened = true,
 	})
 
 
@@ -3455,6 +3457,7 @@ rf:Input({
     end
 })
 
+local rfGroup = rf:Group()
 
 --- Execution Logic with Notifications ---
 local function FireTheCode()
@@ -3484,7 +3487,7 @@ end
 
 -- Run Code
 
-rf:Button({
+rfGroup:Button({
     Title = "Run Code",
 	Desc = "Run the code ONCE",
 	Icon = "play",
@@ -3500,7 +3503,7 @@ rf:Button({
 })
 
 -- Run Multiple Code
-rf:Button({
+rfGroup:Button({
     Title = "Run Multiple Code",
 	Desc = "Run the code based on Run Count Input",
 		Icon = "play",
