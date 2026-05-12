@@ -3356,7 +3356,7 @@ local iy = fe:Button({
 			loadstring(game:HttpGet('https://cdn.robloxscripts.gg/public/furky/furky-infinite-yield-roblox-admin-script-source.lua'))()
 		end})
 
-local exe = Exec:Section({
+local exe = More:Section({
 		Title = "Execute Script",
 		Desc = "Execute a loadstring script inside our script",
 		Icon = "monitor-cog",
@@ -3428,7 +3428,7 @@ local Button = exe:Button({
     end
 })
 
-local rf = Exec:Section({
+local rf = More:Section({
 		Title = "Remote Executor",
 		Desc = "Run codes inside our script.",
 		Icon = "chevrons-left-right-ellipsis",
