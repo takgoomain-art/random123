@@ -851,7 +851,7 @@ groupsect:Button{{
 			end
 		end,
 	})
-
+]]
 groupsect:Button({
 	Title = "Copy Place ID",
 	Icon = "copy",
@@ -869,7 +869,7 @@ groupsect:Button({
 		end
 	end,
 })
-]]
+
 groupsect:Button({
 	Title = "Copy Game ID",
 	Icon = "copy",
