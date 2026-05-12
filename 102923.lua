@@ -193,7 +193,7 @@ local Window = WindUI:CreateWindow({
 	NewElements = true,
 	Acrylic = true,
 	ScrollBarEnabled = true,
-	Size = UDim2.new(0, 780, 0, 501),
+	Size = UDim2.new(0, 800, 0, 545),
 
 		User = {
 			Enabled = true,
