@@ -790,9 +790,16 @@ local groupsect = VStack3:Section({
 
 groupsect:Button({
 	Title = "Copy Place ID",
+	Icon = "copy",
 	Callback = function()
 		if setclipboard then
 			setclipboard(game.PlaceId)
+				WindUI:Notify({
+						Title = "Liquid Hub",
+						Content = "Copied to clipboard",
+						Icon = "clipboard-copy",
+						Duration = 2
+					})
 		else
 			print("Place ID:", game.PlaceId)
 		end
@@ -801,9 +808,16 @@ groupsect:Button({
 
 groupsect:Button({
 	Title = "Copy Game ID",
+	Icon = "copy",
 	Callback = function()
 		if setclipboard then
 			setclipboard(game.GameId)
+				WindUI:Notify({
+						Title = "Liquid Hub",
+						Content = "Copied to clipboard",
+						Icon = "clipboard-copy",
+						Duration = 2
+					})
 		else
 			print("Game ID:", game.GameId)
 		end
@@ -812,9 +826,16 @@ groupsect:Button({
 
 groupsect:Button({
 	Title = "Copy Creator ID",
+	Icon = "copy",
 	Callback = function()
 		if setclipboard then
-			setclipboard(PlaceInfo.Creator.Id)
+			setclipboard(tostring(creatorId))
+				WindUI:Notify({
+						Title = "Liquid Hub",
+						Content = "Copied to clipboard",
+						Icon = "clipboard-copy",
+						Duration = 2
+					})
 		else
 			print("Creator ID:", PlaceInfo.Creator.Id)
 		end
@@ -823,9 +844,16 @@ groupsect:Button({
 
 groupsect:Button({
 	Title = "Copy Creator Name",
+	Icon = "copy",
 	Callback = function()
 		if setclipboard then
-			setclipboard(PlaceInfo.Creator.Name)
+			setclipboard(tostring(creatorName))
+				WindUI:Notify({
+						Title = "Liquid Hub",
+						Content = "Copied to clipboard",
+						Icon = "clipboard-copy",
+						Duration = 2
+					})
 		else
 			print("Creator Name:", PlaceInfo.Creator.Name)
 		end
