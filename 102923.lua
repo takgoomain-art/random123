@@ -925,55 +925,22 @@ groupsect:Button({
 })
 
 
-local Players = game:GetService("Players")
-local lp_player = Players.LocalPlayer
-
-
--- 1. Copy Username
-groupsect:Button({
-    Title = "Copy Username",
-    Icon = "copy",
-    Callback = function()
-        setclipboard(lp_player.Name)
-        WindUI:Notify({
-            Title = "Liquid Hub",
-            Content = "Copied to clipboard",
-			Icon = "clipboard-copy",
-            Duration = 2
-        })
-    end
-})
-
--- 2. Copy Display Name
-groupsect:Button({
-    Title = "Copy Display Name",
-    Icon = "copy",
-    Callback = function()
-        setclipboard(lp_player.DisplayName)
-        WindUI:Notify({
-            Title = "Liquid Hub",
-            Content = "Copied to clipboard",
-			Icon = "clipboard-copy",
-            Duration = 2
-        })
-    end
-})
-
--- 3. Copy User ID
-groupsect:Button({
-    Title = "Copy User ID",
-    Icon = "copy",
-    Callback = function()
-        setclipboard(tostring(lp_player.UserId))
-        WindUI:Notify({
-            Title = "Liquid Hub",
-            Content = "Copied to clipboard",
-			Icon = "clipboard-copy",
-            Duration = 2
-        })
-    end
-})
-
+local groupsect2 = VStack3:Section({
+		Title = "Place Info",
+		Icon = "land-plot",
+		Opened = true,
+	})
+groupsect2:Button({
+		Title = "test button notification",
+		Callback = function()
+			WindUI:Notify({
+					Title = "This is a Test",
+					Content = "This is a test, oowwowoow",
+					Icon = "user",
+					Duration = 2
+				})
+		end
+	})
 ------- PLAYER TAB
 local lpS = lp:Section({
 	Title = "Player Movement",
