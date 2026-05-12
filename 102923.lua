@@ -785,9 +785,70 @@ local exe = VStack2:Paragraph({
     ]]
 })
 
+local gs2 = VStack3:Section({
+		Title = "User Info",
+		Icon = "user",
+		Opened = true,
+	})
+
+gs2:Button({
+		Title = "Copy Username",
+		Icon = "copy",
+		Callback = function()
+			if setclipboard then
+			setclipboard(username)
+				WindUI:Notify({
+						Title = "Liquid Hub",
+						Content = "Copied to clipboard",
+						Icon = "clipboard-copy",
+						Duration = 2
+					})
+			else
+				print("User:", username)
+			end
+		end,
+	})
+
+gs2:Button({
+		Title = "Copy Display Name",
+		Icon = "copy",
+		Callback = function()
+			if setclipboard then
+				setclipboard(displayName)
+				WindUI:Notify({
+						Title = "Liquid Hub",
+						Content = "Copied to clipboard",
+						Icon = "clipboard-copy",
+						Duration = 2
+					})
+			else
+				print("Display Name:", displayName)
+			end
+		end,
+	})
+
+gs2:Button{{
+		Title = "Copy User Id",
+		Icon = "copy",
+		Callback = function()
+			if setclipboard then
+				setclipboard(accountId)
+				WindUI:Notify({
+						Title = "Liquid Hub",
+						Content = "Copied to clipboard",
+						Icon = "clipboard-copy",
+						Duration = 2
+					})
+			else
+				print("Account Id/User Id:", accountId)
+			end
+		end,
+	})
+
+
 local groupsect = VStack3:Section({
 		Title = "Place Info",
-		Icon = "user",
+		Icon = "land-plot",
 		Opened = true,
 	})
 
