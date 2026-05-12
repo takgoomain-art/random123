@@ -169,7 +169,7 @@ Tab: Script Tab
 
 
 WindUI:Popup({
-    Title = "Welcome to the Liquid Hub!",
+    Title = "Liquid Hub | Universal",
     Icon = "info",
     Content = "Hello! Click the Get Started button to access the script completely.",
     Buttons = {
@@ -185,7 +185,7 @@ WindUI:Popup({
 local Window = WindUI:CreateWindow({
     Title = "Liquid Hub | Universal",
     Icon = "rbxassetid://85217490213932", -- lucide icon. optional
-	IconSize = "43",
+	IconSize = "42",
     Author = "by Liquid Management", -- optional
     HideSearchBar = false,
 	Transparent = true,
