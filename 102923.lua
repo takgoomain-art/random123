@@ -796,7 +796,7 @@ gs2:Button({
 		Icon = "copy",
 		Callback = function()
 			if setclipboard then
-			setclipboard(username)
+			setclipboard(player.Name)
 				WindUI:Notify({
 						Title = "Liquid Hub",
 						Content = "Copied to clipboard",
@@ -804,7 +804,7 @@ gs2:Button({
 						Duration = 2
 					})
 			else
-				print("User:", username)
+				print("User:")
 			end
 		end,
 	})
@@ -814,7 +814,7 @@ gs2:Button({
 		Icon = "copy",
 		Callback = function()
 			if setclipboard then
-				setclipboard(displayName)
+				setclipboard(player.DisplayName)
 				WindUI:Notify({
 						Title = "Liquid Hub",
 						Content = "Copied to clipboard",
@@ -822,7 +822,7 @@ gs2:Button({
 						Duration = 2
 					})
 			else
-				print("Display Name:", displayName)
+				print("Display Name:")
 			end
 		end,
 	})
@@ -832,7 +832,7 @@ gs2:Button{{
 		Icon = "copy",
 		Callback = function()
 			if setclipboard then
-				setclipboard(accountId)
+				setclipboard(player.UserId)
 				WindUI:Notify({
 						Title = "Liquid Hub",
 						Content = "Copied to clipboard",
@@ -840,7 +840,7 @@ gs2:Button{{
 						Duration = 2
 					})
 			else
-				print("Account Id/User Id:", accountId)
+				print("Account Id/User Id:")
 			end
 		end,
 	})
