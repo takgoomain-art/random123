@@ -382,7 +382,7 @@ print("Tabs Loaded")
 Main:Select()
 --- MAIN INFO
 
-local Info = Main:Section({ 
+--[[local Info = Main:Section({ 
     Title = "Liquid Hub Intro",
 	Icon = "info",
 })
@@ -420,7 +420,7 @@ Info:Section({
         }
     }
     ]]
-})
+--})
 
 local HStack = Main:HStack({ AutoSpace = true })
 
