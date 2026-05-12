@@ -925,22 +925,7 @@ groupsect:Button({
 })
 
 
-local groupsect2 = VStack3:Section({
-		Title = "Place Info",
-		Icon = "land-plot",
-		Opened = true,
-	})
-groupsect2:Button({
-		Title = "test button notification",
-		Callback = function()
-			WindUI:Notify({
-					Title = "This is a Test",
-					Content = "This is a test, oowwowoow",
-					Icon = "user",
-					Duration = 2
-				})
-		end
-	})
+
 ------- PLAYER TAB
 local lpS = lp:Section({
 	Title = "Player Movement",
