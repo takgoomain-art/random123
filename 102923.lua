@@ -480,24 +480,6 @@ local DiscordServerParagraph = VStack1:Paragraph({
 				},
 			},
 		})
-local Credits = VStack2:Paragraph({
-    Title = "Credentials",
-    Desc = "Liquid Hub is giving credits to the owner of the script that is listed here.",
-    --Color = "Red",
-    --Image = "",
-    --ImageSize = 30,
-    --Thumbnail = "",
-    --ThumbnailSize you 80,
-    Locked = false,
-    --[[Buttons = {
-        {
-            Icon = "bird",
-            Title = "Button",
-            Callback = function() print("1 Button") end,
-        }
-    }
-    ]]
-})
 
 --InfoGroup1:Space()
 --[[
@@ -597,6 +579,26 @@ RunService.RenderStepped:Connect(function()
         StatsParagraph:SetDesc(text)
     end
 end)
+
+local Credits = VStack2:Paragraph({
+    Title = "Credentials",
+    Desc = "Liquid Hub is giving credits to the owner of the script that is listed here.",
+    --Color = "Red",
+    --Image = "",
+    --ImageSize = 30,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
+
 -- 🎮 GAME INFO
 local placeId = game.PlaceId
 local gameName = "Unknown Game"
@@ -753,7 +755,7 @@ local descText = string.format(
 )
 
 -- 📌 UI Output
---local exe = InfoGroup2:Paragraph({
+--[[local exe = InfoGroup2:Paragraph({
     Title = "Client Information",
     Desc = descText,
     Locked = false,
