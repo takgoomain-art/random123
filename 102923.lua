@@ -840,8 +840,8 @@ local exe = VStack2:Paragraph({
 ]]
 
 local groupsect = VStack3:Section({
-		Title = "Copy Buttons",
-		Icon = "clipboard",
+		Title = "Action Buttons",
+		Icon = "wand",
 		Opened = true,
 	})
 --[[
@@ -976,7 +976,7 @@ groupsect:Button({
 ------- PLAYER TAB
 local lpS = lp:Section({
 	Title = "Player Movement",
-	Icon = "user-pen",
+	Icon = "move",
 	Opened = true,
 })
 
