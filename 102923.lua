@@ -785,13 +785,13 @@ local exe = VStack2:Paragraph({
     ]]
 })
 
-local gs2 = VStack3:Section({
+--[[local gs2 = VStack3:Section({
 		Title = "User Info",
 		Icon = "user",
 		
 	})
-
-gs2:Button({
+]]
+VStack3:Button({
 		Title = "Copy Username",
 		Icon = "copy",
 		Callback = function()
@@ -809,7 +809,7 @@ gs2:Button({
 		end,
 	})
 
-gs2:Button({
+VStack3:Button({
 		Title = "Copy Display Name",
 		Icon = "copy",
 		Callback = function()
@@ -827,7 +827,7 @@ gs2:Button({
 		end,
 	})
 
-gs2:Button{{
+VStack3:Button{{
 		Title = "Copy User Id",
 		Icon = "copy",
 		Callback = function()
@@ -846,7 +846,7 @@ gs2:Button{{
 	})
 
 
-local groupsect = gs2:Section({
+local groupsect = VStack3:Section({
 		Title = "Place Info",
 		Icon = "land-plot",
 		Opened = true,
