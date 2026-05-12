@@ -924,6 +924,60 @@ groupsect:Button({
 	end,
 })
 
+local groups2 = VStack3:Section({
+		Title = "Copy Buttons",
+		Icon = "user",
+		Opened = true,
+	})
+local Players = game:GetService("Players")
+local lp_player = Players.LocalPlayer
+
+
+-- 1. Copy Username
+groups2:Button({
+    Title = "Copy Username",
+    Icon = "copy",
+    Callback = function()
+        setclipboard(lp_player.Name)
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Copied to clipboard",
+			Icon = "clipboard-copy",
+            Duration = 2
+        })
+    end
+})
+
+-- 2. Copy Display Name
+groups2:Button({
+    Title = "Copy Display Name",
+    Icon = "copy",
+    Callback = function()
+        setclipboard(lp_player.DisplayName)
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Copied to clipboard",
+			Icon = "clipboard-copy",
+            Duration = 2
+        })
+    end
+})
+
+-- 3. Copy User ID
+groups2:Button({
+    Title = "Copy User ID",
+    Icon = "copy",
+    Callback = function()
+        setclipboard(tostring(lp_player.UserId))
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Copied to clipboard",
+			Icon = "clipboard-copy",
+            Duration = 2
+        })
+    end
+})
+
 ------- PLAYER TAB
 local lpS = lp:Section({
 	Title = "Player Movement",
