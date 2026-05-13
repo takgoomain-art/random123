@@ -4081,9 +4081,9 @@ local Dropdown = RightTP:Dropdown({
 		if not selected then return end
 
 		selectedplayer = selected._User
-		PlayerParagraph:SetTitle(selectedplayer.Title)
-		PlayerParagraph:SetDesc(selectedplayer._Name)
-		PlayerParagraph:SetImage(selectedplayer.Icon)
+		--PlayerParagraph:SetTitle(selectedplayer.Title)
+		--PlayerParagraph:SetDesc(selectedplayer._Name)
+		--PlayerParagraph:SetImage(selectedplayer.Icon)
 	end
 })
 
