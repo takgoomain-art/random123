@@ -2060,17 +2060,34 @@ local joinn = svv:Button({
     end
 })
 
-local lastTeleportTime = 0
-local teleportCooldown = 4
-local rjoin = svv:Button({
+svv:Button({
     Title = "Rejoin Server",
-    Desc = "",
-    Locked = false,
+    Desc = "Reconnect to current server",
     Callback = function()
-        if tick() - lastTeleportTime >= teleportCooldown then
-            lastTeleportTime = tick()
-            game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)        
-		end
+        local Success, Error = pcall(function()
+            local TeleportService = game:GetService("TeleportService")
+            local Players = game:GetService("Players")
+
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Rejoining server...",
+                Duration = 2
+            })
+
+            TeleportService:TeleportToPlaceInstance(
+                game.PlaceId,
+                game.JobId,
+                Players.LocalPlayer
+            )
+        end)
+
+        if not Success then
+            WindUI:Notify({
+                Title = "Error",
+                Content = tostring(Error),
+                Duration = 2
+            })
+        end
     end
 })
 
@@ -2102,7 +2119,83 @@ local Hop = svv:Button({
     end
 })
 
+svv:Button({
+    Title = "Join Low Player Server",
+    Desc = "Teleport to the smallest public server",
+    Callback = function()
+        local HttpService = game:GetService("HttpService")
+        local TeleportService = game:GetService("TeleportService")
+        local Players = game:GetService("Players")
 
+        local PlaceId = game.PlaceId
+        local CurrentJobId = game.JobId
+
+        local Servers = {}
+        local Cursor = ""
+
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Searching for server...",
+            Duration = 3
+        })
+
+        local Success, Error = pcall(function()
+            repeat
+                local URL = string.format(
+                    "https://games.roblox.com/v1/games/%s/servers/Public?sortOrder=Asc&limit=100%s",
+                    PlaceId,
+                    Cursor ~= "" and "&cursor=" .. Cursor or ""
+                )
+
+                local Response = game:HttpGet(URL)
+                local Data = HttpService:JSONDecode(Response)
+
+                for _, Server in ipairs(Data.data) do
+                    if Server.playing < Server.maxPlayers
+                    and Server.id ~= CurrentJobId then
+                        table.insert(Servers, Server)
+                    end
+                end
+
+                Cursor = Data.nextPageCursor or ""
+            until Cursor == ""
+
+            table.sort(Servers, function(a, b)
+                return a.playing < b.playing
+            end)
+
+            if #Servers > 0 then
+                local TargetServer = Servers[1]
+
+                WindUI:Notify({
+                    Title = "Liquid Hub",
+                    Content = "Joining lowest player server...",
+                    Duration = 3
+                })
+
+                TeleportService:TeleportToPlaceInstance(
+                    PlaceId,
+                    TargetServer.id,
+                    Players.LocalPlayer
+                )
+            else
+                WindUI:Notify({
+                    Title = "Liquid Hub",
+                    Content = "No server found.",
+                    Duration = 3
+                })
+            end
+        end)
+
+        if not Success then
+            WindUI:Notify({
+                Title = "Error",
+                Content = tostring(Error),
+                Duration = 3
+            })
+        end
+    end
+})
 	
 ------ Scripts Tab
 local Scr = Script:Section({ 
