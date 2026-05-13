@@ -4428,12 +4428,12 @@ local UI3 = UI:Section({
 
 
 
-local usergroup = UI3:HStack()
+--local usergroup = UI3:HStack()
 
 -------------------------------------------------
 -- 👤 ROBLOX USER TOGGLE
 -------------------------------------------------
-usergroup:Toggle({
+UI3:Toggle({
     Title = "Roblox User System",
 	Desc = "Enables the user system in the UI",
 	Icon = "user",
@@ -4453,7 +4453,7 @@ usergroup:Toggle({
 -------------------------------------------------
 -- 🕶️ ANONYMOUS TOGGLE
 -------------------------------------------------
-usergroup:Toggle({
+UI3:Toggle({
     Title = "Anonymous User",
 	Desc = "Hide user identity",
 	Icon = "hat-glasses",
