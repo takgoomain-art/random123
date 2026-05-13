@@ -2054,7 +2054,7 @@ local id2 = RightS:Input({
 })
 local lastTeleportTime = 0
 local teleportCooldown = 5
-local joinn = svv:Button({
+local joinn = RightS:Button({
     Title = "Join Server",
     Desc = "Join to the server id input.",
     Locked = false,
