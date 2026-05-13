@@ -1961,13 +1961,18 @@ local rainbowToggle = ESPbro:Toggle({
     end
 })
 ------- SERVER TAB
-local statuss = Server:Section({ 
+local serverr = Server:HStack()
+
+local LeftS = serverr:VStack()
+local RightS = serverr:VStack()
+
+--[[local statuss = Server:Section({ 
     Title = "Game Status",
 	Icon = "scroll-text",
 	Opened = true,
 })
-
-local T = statuss:Paragraph({
+]]
+local T = LeftS:Paragraph({
     Title = "⏳ Game Time",
     Desc = "",
     --Color = "Red",
@@ -1999,15 +2004,16 @@ spawn(function()
     end
 end)
 
-local svv = Server:Section({ 
+--[[local svv = Server:Section({ 
     Title = "Server Status",
 	Icon = "scroll-text",
 	Opened = true,
 })
-
+]]
+Server:Space()
 local lastCopyTime = 0
 local copyCooldown = 2
-local id = svv:Paragraph({
+local id = LeftS:Paragraph({
     Title = "Server ID",
     Desc = game.JobId ~= "" and game.JobId or "Server ID not available.",
     --Color = "Red",
@@ -2034,7 +2040,7 @@ local id = svv:Paragraph({
 print("Server Id Collected")
 print("Server Id: " .. game.JobId)
 
-local id2 = svv:Input({
+local id2 = RightS:Input({
     Title = "Server Id",
     Desc = "Enter Server Id",
     Value = "",
@@ -2060,7 +2066,7 @@ local joinn = svv:Button({
     end
 })
 
-svv:Button({
+RightS:Button({
     Title = "Rejoin Server",
     Desc = "Reconnect to current server",
     Callback = function()
@@ -2110,7 +2116,7 @@ function Hop()
     game:GetService("TeleportService"):Teleport(game.PlaceId)
 end
 
-local Hop = svv:Button({
+local Hop = RightS:Button({
     Title = "Server Hop",
     Desc = "",
     Locked = false,
@@ -2119,7 +2125,7 @@ local Hop = svv:Button({
     end
 })
 
-svv:Button({
+RightS:Button({
     Title = "Join Low Player Server",
     Desc = "Teleport to the smallest public server",
     Callback = function()
