@@ -308,6 +308,8 @@ local Mod = Window:Tab({
 		Icon = "hammer",
 		Locked = not canUse,
 	})
+
+Window:Divider()
 local Section1 = Window:Section({
     Title = "Informations",
     Icon = "",
