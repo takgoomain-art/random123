@@ -4077,8 +4077,8 @@ local Dropdown = RightTP:Dropdown({
 	Title = "Select Player",
 	SearchBarEnabled = true,
 	Values = {},
-	Callback = function(selectedplayer)
-		--if not selected then return end
+	Callback = function(selected)
+		if not selected then return end
 
 		selectedplayer = selected._User
 		PlayerParagraph:SetTitle(selectedplayer.Title)
