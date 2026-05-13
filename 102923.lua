@@ -970,7 +970,7 @@ groupsect:Button({
 		Title = "Copy Username",
 		Icon = "copy",
 		Callback = function()
-			setclipboard("gg")
+			setclipboard("" .. player.Name)
 			WindUI:Notify({
 						Title = "Liquid Hub",
 						Content = "Copied to clipboard",
