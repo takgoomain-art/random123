@@ -503,6 +503,7 @@ local DiscordServerParagraph = VStack1:Paragraph({
     Buttons = {
         {
             Title = "NEW",
+			Icon = "link",
             Callback = function()
                 setclipboard("https://discord.gg/jYkbeWtYsf")
 				WindUI:Notify({
@@ -515,6 +516,7 @@ local DiscordServerParagraph = VStack1:Paragraph({
         },
         {
             Title = "OLD",
+			Icon = "link",
             Callback = function()
                 setclipboard("https://discord.gg/wDMPK3QAmY")
 				WindUI:Notify({
@@ -4368,7 +4370,7 @@ local UI2 = UI:Section({
 		Title = "Theme Manager",
 		Desc = "Customize your UI theme",
 		Icon = "brush",
-		Opened = false,
+		Opened = true,
 	})
 local themes = {}
 for themeName, _ in pairs(WindUI:GetThemes()) do
@@ -4421,17 +4423,17 @@ local Toggle111 = UI2:Toggle({
 local UI3 = UI:Section({
 		Title = "User",
 		Icon = "user",
-		Opened = false,
+		Opened = true,
 	})
 
 
 
-
+local usergroup = UI3:HStack()
 
 -------------------------------------------------
 -- 👤 ROBLOX USER TOGGLE
 -------------------------------------------------
-UI3:Toggle({
+usergroup:Toggle({
     Title = "Roblox User System",
 	Desc = "Enables the user system in the UI",
 	Icon = "user",
@@ -4451,7 +4453,7 @@ UI3:Toggle({
 -------------------------------------------------
 -- 🕶️ ANONYMOUS TOGGLE
 -------------------------------------------------
-UI3:Toggle({
+usergroup:Toggle({
     Title = "Anonymous User",
 	Desc = "Hide user identity",
 	Icon = "hat-glasses",
