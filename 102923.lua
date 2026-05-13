@@ -4211,6 +4211,155 @@ tpsection:Toggle({
 	end
 })
 
+local Players = game:GetService("Players")
+local PathfindingService = game:GetService("PathfindingService")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+local Mouse = LocalPlayer:GetMouse()
+
+local Following = false
+local TargetPlayer = nil
+local FollowConnection = nil
+local Highlight = nil
+
+local function RemoveTarget()
+    if FollowConnection then
+        FollowConnection:Disconnect()
+        FollowConnection = nil
+    end
+
+    if Highlight then
+        Highlight:Destroy()
+        Highlight = nil
+    end
+
+    TargetPlayer = nil
+
+    local Character = LocalPlayer.Character
+    if Character and Character:FindFirstChild("Humanoid") then
+        Character.Humanoid:MoveTo(Character.HumanoidRootPart.Position)
+    end
+end
+
+local function CreateHighlight(Character)
+    if Highlight then
+        Highlight:Destroy()
+    end
+
+    Highlight = Instance.new("Highlight")
+    Highlight.FillTransparency = 0.5
+    Highlight.OutlineTransparency = 0
+    Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+    Highlight.Parent = Character
+end
+
+local function FollowTarget()
+    if FollowConnection then
+        FollowConnection:Disconnect()
+    end
+
+    FollowConnection = RunService.Heartbeat:Connect(function()
+        if not Following then
+            return
+        end
+
+        if not TargetPlayer
+        or not TargetPlayer.Character
+        or not TargetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            return
+        end
+
+        local Character = LocalPlayer.Character
+        if not Character
+        or not Character:FindFirstChild("Humanoid")
+        or not Character:FindFirstChild("HumanoidRootPart") then
+            return
+        end
+
+        local Humanoid = Character:FindFirstChild("Humanoid")
+        local Root = Character:FindFirstChild("HumanoidRootPart")
+
+        local TargetRoot = TargetPlayer.Character:FindFirstChild("HumanoidRootPart")
+
+        local Distance = (Root.Position - TargetRoot.Position).Magnitude
+
+        if Distance > 5 then
+            Humanoid:MoveTo(TargetRoot.Position)
+        end
+    end)
+end
+
+tpsection:Toggle({
+    Title = "Click To Follow Player",
+    Desc = "Click a player to follow/unfollow",
+	Icon = "move-right",
+    Value = false,
+    Callback = function(Value)
+        Following = Value
+
+        if not Value then
+            RemoveTarget()
+
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Follow disabled.",
+                Duration = 2
+            })
+
+            return
+        end
+
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Click a player to follow.",
+            Duration = 3
+        })
+
+        Mouse.Button1Down:Connect(function()
+            if not Following then
+                return
+            end
+
+            local Target = Mouse.Target
+            if not Target then
+                return
+            end
+
+            local Character = Target:FindFirstAncestorOfClass("Model")
+            if not Character then
+                return
+            end
+
+            local Player = Players:GetPlayerFromCharacter(Character)
+            if not Player or Player == LocalPlayer then
+                return
+            end
+
+            if TargetPlayer == Player then
+                RemoveTarget()
+
+                WindUI:Notify({
+                    Title = "Liquid Hub",
+                    Content = "Unfollowed target.",
+                    Duration = 2
+                })
+
+                return
+            end
+
+            TargetPlayer = Player
+
+            CreateHighlight(Character)
+            FollowTarget()
+
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Now following: " .. Player.Name,
+                Duration = 2
+            })
+        end)
+    end
+})
 --[[local tpbro = Teleport:Section({
 		Title = "TP Misc",
 		Icon = "archive",
