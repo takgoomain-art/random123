@@ -181,7 +181,7 @@ WindUI:Popup({
         }
     }
 })
-
+task.wait()
 local Window = WindUI:CreateWindow({
     Title = "Liquid Hub | Universal",
     Icon = "rbxassetid://85217490213932", -- lucide icon. optional
