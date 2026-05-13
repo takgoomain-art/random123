@@ -3529,8 +3529,9 @@ end
 -- 4. Action Buttons
 
 -- Run Code
+local rfhv = rf:HStack()
 
-rf:Button({
+rfhv:Button({
     Title = "Run Code",
 	Desc = "Run the code ONCE",
 	Icon = "play",
@@ -3546,7 +3547,7 @@ rf:Button({
 })
 
 -- Run Multiple Code
-rf:Button({
+rfhv:Button({
     Title = "Run Multiple Code",
 	Desc = "Run the code based on Run Count Input",
 		Icon = "play",
