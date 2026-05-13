@@ -181,7 +181,7 @@ WindUI:Popup({
         }
     }
 })
-task.wait()
+
 local Window = WindUI:CreateWindow({
     Title = "Liquid Hub | Universal",
     Icon = "rbxassetid://85217490213932", -- lucide icon. optional
@@ -907,7 +907,6 @@ groupsect:Button({
 	Title = "Copy Place ID",
 	Icon = "copy",
 	Callback = function()
-		if setclipboard then
 			setclipboard(game.PlaceId)
 				WindUI:Notify({
 						Title = "Liquid Hub",
@@ -915,17 +914,13 @@ groupsect:Button({
 						Icon = "clipboard-copy",
 						Duration = 2
 					})
-		else
-			print("Place ID:", game.PlaceId)
-		end
-	end,
+			end,
 })
 
 groupsect:Button({
 	Title = "Copy Game ID",
 	Icon = "copy",
 	Callback = function()
-		if setclipboard then
 			setclipboard(game.GameId)
 				WindUI:Notify({
 						Title = "Liquid Hub",
@@ -933,9 +928,6 @@ groupsect:Button({
 						Icon = "clipboard-copy",
 						Duration = 2
 					})
-		else
-			print("Game ID:", game.GameId)
-		end
 	end,
 })
 
@@ -961,7 +953,6 @@ groupsect:Button({
 	Title = "Copy Creator Name",
 	Icon = "copy",
 	Callback = function()
-		if setclipboard then
 			setclipboard(tostring(creatorName))
 				WindUI:Notify({
 						Title = "Liquid Hub",
@@ -969,10 +960,7 @@ groupsect:Button({
 						Icon = "clipboard-copy",
 						Duration = 2
 					})
-		else
-			print("Creator Name:", PlaceInfo.Creator.Name)
-		end
-	end,
+			end,
 })
 
 groupsect:Divider()
@@ -983,7 +971,7 @@ groupsect:Button({
 		Title = "Copy Username",
 		Icon = "copy",
 		Callback = function()
-			setclipboard("" .. player.Name)
+			setclipboard("gg")
 			WindUI:Notify({
 						Title = "Liquid Hub",
 						Content = "Copied to clipboard",
