@@ -3891,17 +3891,14 @@ Trolls:Toggle({
 })
 ]]
 ----------- TELEPORT TAB
---[[local tpsection = Teleport:Section({
+local tpsection = Teleport:Section({
 		Title = "Teleport",
 		Icon = "locate",
 		Opened = true,
 	})
-]]
 
-local tpbro = Teleport:HStack()
 
-local LeftTP = tpbro:VStack()
-local RightTP = tpbro:VStack()
+
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -3934,7 +3931,7 @@ local function giveTeleportTool()
 end
 
 -- 🔘 Wind UI Button
-LeftTP:Button({
+tpsection:Button({
     Title = "Get Teleport Tool",
     Desc = "Click to receive teleport tool",
 	Icon = "wand",
@@ -4028,7 +4025,7 @@ Players.PlayerRemoving:Connect(function()
     PlayerDropdown:SetValues(getPlayerList())
 end)
 ]]
-local PlayerParagraph = LeftTP:Paragraph({
+local PlayerParagraph = tpsection:Paragraph({
 	Title = "...",
 	Desc = "...",
 	Image = Players:GetUserThumbnailAsync(1, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420),
@@ -4073,14 +4070,14 @@ end
 -------------------------------------------------
 -- 📌 DROPDOWN
 -------------------------------------------------
-local Dropdown = RightTP:Dropdown({
+local Dropdown = tpsection:Dropdown({
 	Title = "Select Player",
 	SearchBarEnabled = true,
 	Values = {},
 	Callback = function(selected)
 		if not selected then return end
 
-		selectedplayer = selected._User
+		SelectedPlayer = selected._User
 		--PlayerParagraph:SetTitle(selectedplayer.Title)
 		--PlayerParagraph:SetDesc(selectedplayer._Name)
 		--PlayerParagraph:SetImage(selectedplayer.Icon)
@@ -4093,7 +4090,7 @@ Dropdown:Refresh(RefreshPlayersTable())
 -------------------------------------------------
 -- 🔄 UPDATE BUTTON (FIXED)
 -------------------------------------------------
-RightTP:Button({
+tpsection:Button({
 	Title = "Update Player List",
 	Icon = "refresh-ccw",
 	Callback = function()
@@ -4126,7 +4123,7 @@ end)
 -------------------------------------------------
 local tpConnection
 
-RightTP:Toggle({
+tpsection:Toggle({
 	Title = "Teleport to Player",
 	Icon = "user",
 	Value = false,
@@ -4178,7 +4175,7 @@ RightTP:Toggle({
 -------------------------------------------------
 local specConnection
 
-RightTP:Toggle({
+tpsection:Toggle({
 	Title = "Spectate Player",
 	Icon = "eye",
 	Value = false,
@@ -4308,7 +4305,7 @@ local function FollowTarget()
     end)
 end
 
-RightTP:Toggle({
+tpsection:Toggle({
     Title = "Click To Follow Player",
     Desc = "Click a player to follow/unfollow",
 	Icon = "move-right",
