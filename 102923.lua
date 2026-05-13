@@ -193,7 +193,7 @@ local Window = WindUI:CreateWindow({
 	NewElements = true,
 	Acrylic = true,
 	ScrollBarEnabled = true,
-	Size = UDim2.new(0, 850, 0, 545),
+	Size = UDim2.new(0, 850, 0, 585),
 	MinSize = Vector2.new(815, 400),
 	MaxSize = Vector2.new(1000, 700),
 		
@@ -975,7 +975,23 @@ groupsect:Button({
 	end,
 })
 
+groupsect:Divider()
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
 
+groupsect:Button({
+		Title = "Copy Username",
+		Icon = "copy",
+		Callback = function()
+			setclipboard("" .. player.Name)
+			WindUI:Notify({
+						Title = "Liquid Hub",
+						Content = "Copied to clipboard",
+						Icon = "clipboard-copy",
+						Duration = 2
+					})
+		end
+	})
 
 ------- PLAYER TAB
 local lpS = lp:Section({
