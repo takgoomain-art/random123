@@ -964,8 +964,7 @@ groupsect:Button({
 })
 
 groupsect:Divider()
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+
 
 groupsect:Button({
 		Title = "Copy Username",
@@ -978,7 +977,7 @@ groupsect:Button({
 						Icon = "clipboard-copy",
 						Duration = 2
 					})
-		end
+		end,
 	})
 
 ------- PLAYER TAB
