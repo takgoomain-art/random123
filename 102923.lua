@@ -2167,7 +2167,7 @@ local Game = Scr:Paragraph({
 })
 
 --local bfgroup = Script:Group({})
-
+Script:Divider()
 if BF1 or BF2 or BF3 then
 	local bf = Script:Section({ 
     Title = "[🍎] Blox Fruits",
