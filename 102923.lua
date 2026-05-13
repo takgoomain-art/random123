@@ -1972,7 +1972,7 @@ local RightS = serverr:VStack()
 	Opened = true,
 })
 ]]
-local LeftSect1 = LeftS:Section({
+local LeftSect1 = Server:Section({
 		Title = "Game Status",
 		Icon = "scroll",
 		TextXAlignment = "Center",
@@ -2015,9 +2015,9 @@ end)
 	Opened = true,
 })
 ]]
-Server:Space()
+Server:Divider()
 
-local LeftSect2 = LeftS:Section({
+local LeftSect2 = Server:Section({
 		Title = "Server Status",
 		Icon = "scroll",
 		TextXAlignment = "Center",
@@ -2052,7 +2052,7 @@ local id = LeftS:Paragraph({
 print("Server Id Collected")
 print("Server Id: " .. game.JobId)
 
-local RightSect1 = RightS:Section({
+local RightSect1 = Server:Section({
 		Title = "Server Action",
 		Icon = "wand",
 		TextXAlignment = "Center",
