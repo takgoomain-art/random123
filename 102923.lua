@@ -1972,6 +1972,11 @@ local RightS = serverr:VStack()
 	Opened = true,
 })
 ]]
+local LeftSect1 = LeftS:Section({
+		Title = "Game Status",
+		Icon = "scroll",
+		TextXAlignment = "Center",
+	})
 local T = LeftS:Paragraph({
     Title = "⏳ Game Time",
     Desc = "",
@@ -2011,6 +2016,13 @@ end)
 })
 ]]
 Server:Space()
+
+local LeftSect2 = LeftS:Section({
+		Title = "Server Status",
+		Icon = "scroll",
+		TextXAlignment = "Center",
+	})
+
 local lastCopyTime = 0
 local copyCooldown = 2
 local id = LeftS:Paragraph({
@@ -2040,6 +2052,11 @@ local id = LeftS:Paragraph({
 print("Server Id Collected")
 print("Server Id: " .. game.JobId)
 
+local RightSect1 = RightS:Section({
+		Title = "Server Action",
+		Icon = "wand",
+		TextXAlignment = "Center",
+	})
 local id2 = RightS:Input({
     Title = "Server Id",
     Desc = "Enter Server Id",
