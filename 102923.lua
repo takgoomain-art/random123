@@ -4226,7 +4226,7 @@ tpsection:Toggle({
 		end
 	end
 })
-
+--[[
 local Players = game:GetService("Players")
 local PathfindingService = game:GetService("PathfindingService")
 local RunService = game:GetService("RunService")
@@ -4376,6 +4376,7 @@ tpsection:Toggle({
         end)
     end
 })
+]]
 --[[local tpbro = Teleport:Section({
 		Title = "TP Misc",
 		Icon = "archive",
