@@ -634,7 +634,27 @@ RunService.RenderStepped:Connect(function()
         StatsParagraph:SetDesc(text)
     end
 end)
+local Camera = workspace.CurrentCamera
 
+local CameraInfo = VStack1:Paragraph({
+    Title = "Camera Info",
+    Desc = "Loading..."
+})
+
+task.spawn(function()
+    while task.wait(1) do
+        pcall(function()
+            local Zoom = (Camera.CFrame.Position - Camera.Focus.Position).Magnitude
+
+            CameraInfo:SetDesc(
+                "FOV: " .. math.floor(Camera.FieldOfView) ..
+				"\nZoom: " .. math.floor(Zoom)
+                "\nCamera Type: " .. tostring(Camera.CameraType) ..
+                
+            )
+        end)
+    end
+end)
 local Credits = VStack2:Paragraph({
     Title = "Credentials",
     Desc = "Wind UI\nLucide Icons\nLiquidians (Community)",
