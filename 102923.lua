@@ -567,7 +567,7 @@ local userParagraph = VStack1:Paragraph({
     Desc = "@" .. username, -- 🔥 Username sa baba
     Image = userImage,
     ImageSize = 80,
-    Locked = false,
+    
 })
 
 local Players = game:GetService("Players")
@@ -593,7 +593,7 @@ local descText = string.format(
 local accountParagraph = VStack1:Paragraph({
     Title = "Account Details",
     Desc = descText,
-    Locked = false,
+    
 })
 ---
 local Players = game:GetService("Players")
@@ -605,7 +605,7 @@ local player = Players.LocalPlayer
 local StatsParagraph = VStack1:Paragraph({
     Title = "Character Stats",
     Desc = "Loading...",
-    Locked = true
+    
 })
 
 -- 🔄 Update loop
@@ -634,54 +634,50 @@ RunService.RenderStepped:Connect(function()
         StatsParagraph:SetDesc(text)
     end
 end)
+
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
 
-local LocalPlayer = Players.LocalPlayer
+local player = Players.LocalPlayer
 local Camera = Workspace.CurrentCamera
 
--------------------------------------------------
--- 📷 CAMERA INFO PARAGRAPH
--------------------------------------------------
+-- 📌 Paragraph
 local CameraParagraph = VStack1:Paragraph({
-	Title = "Camera Information",
-	Desc = "Loading..."
+    Title = "Camera Stats",
+    Desc = "Loading...",
+    
 })
 
--------------------------------------------------
--- 🔄 UPDATE LOOP
--------------------------------------------------
+-- 🔄 Update loop
 RunService.RenderStepped:Connect(function()
 
-	local FOV = math.floor(Camera.FieldOfView)
+    local fov = math.floor(Camera.FieldOfView)
 
-	-- 🔍 zoom distance
-	local Zoom = 0
+    local zoom = 0
 
-	pcall(function()
-		if LocalPlayer.Character
-			and LocalPlayer.Character:FindFirstChild("Head") then
+    pcall(function()
+        local char = player.Character
+        local head = char and char:FindFirstChild("Head")
 
-			Zoom = math.floor(
-				(Camera.CFrame.Position
-				- LocalPlayer.Character.Head.Position).Magnitude
-			)
-		end
-	end)
+        if head then
+            zoom = math.floor(
+                (Camera.CFrame.Position - head.Position).Magnitude
+            )
+        end
+    end)
 
-	-- 📷 camera type
-	local CameraType = tostring(Camera.CameraType)
-	CameraType = CameraType:gsub("Enum.CameraType.", "")
+    local cameraType = tostring(Camera.CameraType)
+    cameraType = cameraType:gsub("Enum.CameraType.", "")
 
-	-------------------------------------------------
-	-- 📝 UPDATE PARAGRAPH
-	-------------------------------------------------
-	CameraParagraph:SetDesc(
-		"FOV: " .. FOV ..
-		"\nZoom: " .. Zoom ..
-		"\nCamera Type: " .. CameraType
-	)
+    local text = string.format(
+        "FOV: %d\nZoom: %d\nCamera Type: %s",
+        fov,
+        zoom,
+        cameraType
+    )
+
+    CameraParagraph:SetDesc(text)
 
 end)
 local Credits = VStack2:Paragraph({
