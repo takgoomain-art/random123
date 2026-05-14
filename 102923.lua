@@ -634,26 +634,55 @@ RunService.RenderStepped:Connect(function()
         StatsParagraph:SetDesc(text)
     end
 end)
-local Camera = workspace.CurrentCamera
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
 
-local CameraInfo = VStack1:Paragraph({
-    Title = "Camera Info",
-    Desc = "Loading..."
+local LocalPlayer = Players.LocalPlayer
+local Camera = Workspace.CurrentCamera
+
+-------------------------------------------------
+-- 📷 CAMERA INFO PARAGRAPH
+-------------------------------------------------
+local CameraParagraph = VStack1:Paragraph({
+	Title = "Camera Information",
+	Desc = "Loading..."
 })
 
-task.spawn(function()
-    while task.wait(1) do
-        pcall(function()
-            local Zoom = (Camera.CFrame.Position - Camera.Focus.Position).Magnitude
+-------------------------------------------------
+-- 🔄 UPDATE LOOP
+-------------------------------------------------
+RunService.RenderStepped:Connect(function()
 
-            CameraInfo:SetDesc(
-                "FOV: " .. math.floor(Camera.FieldOfView) ..
-				"\nZoom: " .. math.floor(Zoom)
-                "\nCamera Type: " .. tostring(Camera.CameraType) ..
-                
-            )
-        end)
-    end
+	local FOV = math.floor(Camera.FieldOfView)
+
+	-- 🔍 zoom distance
+	local Zoom = 0
+
+	pcall(function()
+		if LocalPlayer.Character
+			and LocalPlayer.Character:FindFirstChild("Head") then
+
+			Zoom = math.floor(
+				(Camera.CFrame.Position
+				- LocalPlayer.Character.Head.Position).Magnitude
+			)
+		end
+	end)
+
+	-- 📷 camera type
+	local CameraType = tostring(Camera.CameraType)
+	CameraType = CameraType:gsub("Enum.CameraType.", "")
+
+	-------------------------------------------------
+	-- 📝 UPDATE PARAGRAPH
+	-------------------------------------------------
+	CameraParagraph:SetDesc(
+		"FOV: " .. FOV ..
+		"\nZoom: " .. Zoom ..
+		"\nCamera Type: " .. CameraType
+	)
+
 end)
 local Credits = VStack2:Paragraph({
     Title = "Credentials",
