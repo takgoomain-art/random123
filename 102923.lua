@@ -1026,6 +1026,23 @@ groupsect:Button({
 		end,
 	})
 
+local rblxgroup = VStack3:Section({
+		Title = "Roblox Buttons",
+		Icon = "roblox",
+		Opened = true,
+	})
+
+local consolerblx = rblxgroup:Button({
+    Title = "Open Roblox Console",
+    Desc = "Opens the developer console",
+    Locked = false,
+    Callback = function()
+        pcall(function()
+            StarterGui:SetCore("DevConsoleVisible", true)
+        end)
+    end
+})
+
 ------- PLAYER TAB
 local lpS = lp:Section({
 	Title = "Player Movement",
