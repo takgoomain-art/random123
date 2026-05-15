@@ -1026,13 +1026,9 @@ groupsect:Button({
 		end,
 	})
 
-local rblxgroup = VStack3:Section({
-		Title = "Roblox Buttons",
-		Icon = "roblox",
-		Opened = true,
-	})
+VStack3:Divider()
 
-local consolerblx = rblxgroup:Button({
+local consolerblx = groupsect:Button({
     Title = "Open Roblox Console",
     Desc = "Opens the developer console",
     Locked = false,
