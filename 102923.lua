@@ -635,7 +635,7 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
-local Players = game:GetService("Players")
+--[[local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
 
@@ -680,9 +680,10 @@ RunService.RenderStepped:Connect(function()
     CameraParagraph:SetDesc(text)
 
 end)
+]]
 local Credits = VStack2:Paragraph({
     Title = "Credentials",
-    Desc = "Wind UI\nLucide Icons\nLiquidians (Community)",
+    Desc = "Takgoo - Dev/Owner\nWind UI\nLucide Icons\nLiquidians (Community)",
    --Color = "Red",
     --Image = "",
     --ImageSize = 30,
