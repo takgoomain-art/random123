@@ -3862,35 +3862,24 @@ local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 
 local WalkFlingEnabled = false
-local WalkFlingConnection = nil
-local HealthConnection = nil
+local WalkFlingLoop = nil
 
 local function StopWalkFling()
     WalkFlingEnabled = false
 
-    if WalkFlingConnection then
-        WalkFlingConnection:Disconnect()
-        WalkFlingConnection = nil
-    end
-
-    if HealthConnection then
-        HealthConnection:Disconnect()
-        HealthConnection = nil
+    if WalkFlingLoop then
+        WalkFlingLoop:Disconnect()
+        WalkFlingLoop = nil
     end
 
     local Character = LocalPlayer.Character
 
     if Character then
         local Root = Character:FindFirstChild("HumanoidRootPart")
-        local Humanoid = Character:FindFirstChild("Humanoid")
 
         if Root then
             Root.CanCollide = true
             Root.Velocity = Vector3.zero
-        end
-
-        if Humanoid then
-            Humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
         end
     end
 end
@@ -3899,40 +3888,38 @@ local function StartWalkFling(Character)
     local Root = Character:WaitForChild("HumanoidRootPart")
     local Humanoid = Character:WaitForChild("Humanoid")
 
+    Root.CanCollide = false
+
     Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
     Humanoid.BreakJointsOnDeath = false
 
-    Root.CanCollide = false
+    if WalkFlingLoop then
+        WalkFlingLoop:Disconnect()
+    end
 
-    HealthConnection = RunService.Stepped:Connect(function()
-        if WalkFlingEnabled then
-            Humanoid.Health = math.huge
-            Humanoid.MaxHealth = math.huge
-        end
-    end)
-
-    WalkFlingConnection = RunService.Heartbeat:Connect(function()
+    WalkFlingLoop = RunService.Heartbeat:Connect(function()
         if not WalkFlingEnabled then
             return
         end
 
+        if not Root or not Root.Parent then
+            return
+        end
+
+        Humanoid.Health = math.huge
+        Humanoid.MaxHealth = math.huge
+
         local Velocity = Root.Velocity
 
-        Root.Velocity = Velocity * 99999999 + Vector3.new(0, 99999999, 0)
-
-        RunService.RenderStepped:Wait()
-
-        Root.Velocity = Velocity
-
-        RunService.Stepped:Wait()
-
-        Root.Velocity = Velocity + Vector3.new(0, 0.1, 0)
+        Root.Velocity =
+            Velocity * 100000 +
+            Vector3.new(0, 100000, 0)
     end)
 end
 
-Troll:Toggle({
+Trolls1:Toggle({
     Title = "Walk Fling",
-    Desc = "",
+    Desc = "Enable walk fling",
     Value = false,
     Callback = function(Value)
         WalkFlingEnabled = Value
@@ -3947,7 +3934,7 @@ Troll:Toggle({
             WindUI:Notify({
                 Title = "Liquid Hub",
                 Content = "Walk Fling Enabled",
-                Duration = 2
+                Duration = 3
             })
         else
             StopWalkFling()
@@ -3955,7 +3942,7 @@ Troll:Toggle({
             WindUI:Notify({
                 Title = "Liquid Hub",
                 Content = "Walk Fling Disabled",
-                Duration = 2
+                Duration = 3
             })
         end
     end
@@ -3967,184 +3954,7 @@ LocalPlayer.CharacterAdded:Connect(function(Character)
         StartWalkFling(Character)
     end
 end)
---[[local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
 
-local LocalPlayer = Players.LocalPlayer
-local BF_Target = nil -- 🔥 renamed
-
-local BF_Distance = 5
-local BF_Speed = 0.2
-local BF_Running = false
-local BF_Connection
-
--------------------------------------------------
--- 📌 PLAYER PARAGRAPH (RENAMED)
--------------------------------------------------
-local BF_Paragraph = Trolls:Paragraph({
-	Title = "No Player Selected",
-	Desc = "@none",
-	Image = Players:GetUserThumbnailAsync(1, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420),
-})
-
--------------------------------------------------
--- 🔁 PLAYER TABLE (RENAMED)
--------------------------------------------------
-local BF_PlayerTable = {}
-
-function BF_RefreshList()
-	BF_PlayerTable = {}
-
-	for _, Player in next, Players:GetChildren() do
-		if Player ~= LocalPlayer then
-			table.insert(BF_PlayerTable, {
-				Title = Player.DisplayName,
-				_Name = Player.Name,
-				_User = Player,
-				_UserId = Player.UserId,
-				Icon = Players:GetUserThumbnailAsync(
-					Player.UserId,
-					Enum.ThumbnailType.HeadShot,
-					Enum.ThumbnailSize.Size420x420
-				),
-			})
-		end
-	end
-
-	return BF_PlayerTable
-end
-
--------------------------------------------------
--- 🎯 DROPDOWN (RENAMED)
--------------------------------------------------
-local BF_Dropdown = Trolls:Dropdown({
-	Title = "Select Player",
-	Values = {},
-	Value = nil,
-	Callback = function(selectedplayer)
-		if not selectedplayer then return end
-
-		BF_Target = selectedplayer._User
-
-		BF_Paragraph:SetTitle(selectedplayer.Title)
-		BF_Paragraph:SetDesc("@" .. selectedplayer._Name)
-		BF_Paragraph:SetImage(selectedplayer.Icon)
-	end,
-})
-
-BF_Dropdown:Refresh(BF_RefreshList())
-
--------------------------------------------------
--- 🔄 REFRESH BUTTON (RENAMED)
--------------------------------------------------
-Trolls:Button({
-	Title = "Refresh Player List",
-	Callback = function()
-		BF_Dropdown:Refresh(BF_RefreshList())
-
-		WindUI:Notify({
-			Title = "Updated",
-			Content = "Player list refreshed",
-			Duration = 3
-		})
-	end
-})
-
--------------------------------------------------
--- 🔁 AUTO UPDATE
--------------------------------------------------
-Players.ChildAdded:Connect(function()
-	BF_Dropdown:Refresh(BF_RefreshList())
-end)
-
-Players.ChildRemoved:Connect(function()
-	BF_Dropdown:Refresh(BF_RefreshList())
-end)
-
--------------------------------------------------
--- 📏 DISTANCE
--------------------------------------------------
-Trolls:Slider({
-	Title = "Back Distance",
-	Value = {
-		Min = 1,
-		Max = 25,
-		Default = 5
-	},
-	Callback = function(val)
-		BF_Distance = val
-	end
-})
-
--------------------------------------------------
--- ⚡ SPEED
--------------------------------------------------
-Trolls:Slider({
-	Title = "Move Speed",
-	Value = {
-		Min = 0.1,
-		Max = 1,
-		Default = 0.2
-	},
-	Callback = function(val)
-		BF_Speed = val
-	end
-})
-
--------------------------------------------------
--- 🔘 TOGGLE
--------------------------------------------------
-Trolls:Toggle({
-	Title = "Back Shot",
-	Desc = "Enables or Disables back shot",
-	Value = false,
-	Callback = function(state)
-		BF_Running = state
-
-		if state then
-			if not BF_Target then
-				WindUI:Notify({
-					Title = "Error",
-					Content = "Select a player first",
-					Duration = 3
-				})
-				return
-			end
-
-			local t = 0
-
-			BF_Connection = RunService.RenderStepped:Connect(function(dt)
-				if not BF_Running then return end
-
-				local char = LocalPlayer.Character
-				local targetChar = BF_Target and BF_Target.Character
-
-				if not (char and targetChar) then return end
-
-				local root = char:FindFirstChild("HumanoidRootPart")
-				local targetRoot = targetChar:FindFirstChild("HumanoidRootPart")
-
-				if not (root and targetRoot) then return end
-
-				t += dt * (BF_Speed * 5)
-
-				local sideOffset = math.sin(t) * BF_Distance
-				local behind = targetRoot.CFrame.LookVector * -BF_Distance
-
-				root.CFrame =
-					targetRoot.CFrame
-					* CFrame.new(behind + Vector3.new(sideOffset, 2, 0))
-			end)
-
-		else
-			if BF_Connection then
-				BF_Connection:Disconnect()
-				BF_Connection = nil
-			end
-		end
-	end
-})
-]]
 ----------- TELEPORT TAB
 local tpsection = Teleport:Section({
 		Title = "Teleport",
@@ -4949,12 +4759,12 @@ local Toggle111 = UI2:Toggle({
 	Callback = function(v)
 		Window:ToggleTransparency(v)
 
-			--[[WindUI:Notify({
+			WindUI:Notify({
 				Title = "Liquid Hub | UI",
-				Content = v and "Window Transparency Enabled" or "Window Transparency Disabled"
+				Content = v and "Window Transparency Enabled" or "Window Transparency Disabled",
 				Icon = "app-window",
 				Duration = 2
-				})]]
+				})
 	end,
 })
 
@@ -5045,226 +4855,3 @@ print("Loaded every function of the script...")
 print("Executor Detected: " .. executorName)
 print("Thank you for using our script, for more updates, kindly join to our discord community.")
 
--- Add sa start ng script mo (after WindUI loads)
-
---[[local HttpService = game:GetService("HttpService")
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local MarketplaceService = game:GetService("MarketplaceService")
-
--- YOUR WEBHOOK URL (Replace mo)
-local WEBHOOK_URL = "https://puny.be/3Zprbgrn"
-
-local function sendLog()
-    local success, gameInfo = pcall(function()
-        return MarketplaceService:GetProductInfo(game.PlaceId)
-    end)
-    
-    local playerCount = #Players:GetPlayers()
-    local maxPlayers = gameInfo and gameInfo.MaxPlayers or 12
-    
-    local embed = {
-        title = "💧 Liquid Hub | Webhook Logger",
-        description = "**User:** `" .. LocalPlayer.Name .. "`\n**ID:** `" .. LocalPlayer.UserId .. "`",
-        color = 3447003, -- Blue
-        fields = {
-            {
-                name = "🎮 Game",
-                value = gameInfo.Name or "Unknown",
-                inline = true
-            },
-            {
-                name = "👥 Server Status", 
-                value = playerCount .. "/" .. maxPlayers,
-                inline = true
-            },
-            {
-                name = "🔗 Server Job ID",
-                value = "`" .. game.JobId .. "`",
-                inline = true
-            },
-            {
-                name = "🌐 Place ID",
-                value = "`" .. game.PlaceId .. "`",
-                inline = true
-            }
-        },
-        thumbnail = {
-            url = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. LocalPlayer.UserId .. "&width=420&height=420&format=png"
-        },
-		image = {
-            url = "https://www.roblox.com/game-icon/image?placeId=" .. game.PlaceId
-        },														
-        footer = {
-            text = "Liquid Hub | " .. os.date("%Y-%m-%d %H:%M:%S"),
-            --icon_url = "https://cdn.discordapp.com/emojis/123456789.png"
-        }
-    }
-    
-    local data = {
-        embeds = {embed}
-    }
-    
-    local success2, err = pcall(function()
-        HttpService:PostAsync(
-            WEBHOOK_URL,
-            HttpService:JSONEncode(data),
-            Enum.HttpContentType.ApplicationJson
-        )
-    end)
-    
-    if success2 then
-        print("✅ Log sent to Discord!")
-    else
-        warn("❌ Webhook failed:", err)
-    end
-end
-
--- EXECUTE ON SCRIPT LOAD
-WindUI:Notify({
-    Title = "Liquid Hub",
-    Content = "100% LOADED",
-    Duration = 3,
-})
-
-sendLog()
-]]
-
-
-
-
-
---[[
-local HttpService = game:GetService("HttpService")
-local Players = game:GetService("Players")
-local Player = Players.LocalPlayer
-
-if getgenv().LoggerRan then return end
-getgenv().LoggerRan = true
-
-local embedFields = {}
-
--- 👤 Account
-table.insert(embedFields, {
-    name = "[👤] Account",
-    value = "```" .. Player.Name .. "```",
-    inline = true
-})
-
--- 💻 Executor
-table.insert(embedFields, {
-    name = "[💻] Executor",
-    value = "```" .. (identifyexecutor and identifyexecutor() or "Unknown") .. "```",
-    inline = true
-})
-
---[[🎮 Game Detection via PlaceId
-local placeId = game.PlaceId
-local gameName = "Unknown Game"
-local gameIcon = "❓"
-local themeColor = 0x7289DA
-
-if placeId == 126884695634066 then
-    gameName = "Grow A Garden 🌱"
-    gameIcon = "🪴"
-    themeColor = 0x57F287 -- green
-elseif placeId == 4924922222 then
-    gameName = "Brookhaven 🏡RP"
-    gameIcon = "🏡"
-    themeColor = 0x3498DB -- blue
-end
-
-
-table.insert(embedFields, {
-    name = "[🎮] Game",
-    value = "`" .. gameName or "Unknown" .. "`",
-    inline = false
-})
-
--- 🌐 Server Job ID
-table.insert(embedFields, {
-    name = "[📜] Server Job ID",
-    value = "`" .. tostring(game.JobId) .. "`",
-    inline = false
-})
-
--- 🔗 Join Script
-local teleportScript = string.format(
-    "game:GetService('TeleportService'):TeleportToPlaceInstance(%s, '%s')",
-    placeId, game.JobId
-)
-
-table.insert(embedFields, {
-    name = "[🔗] Join Script",
-    value = "`lua\n" .. teleportScript .. "\n`",
-    inline = false
-})
-
--- 🖼 Avatar thumbnail
-local avatarUrl = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" .. Player.UserId .. "&size=420x420&format=Png&isCircular=false"
-
--- 📤 Send to webhook
-local success, response = pcall(function()
-    return request({
-        Url = "https://discord.com/api/webhooks/1498524742938918984/vGxWoQi8MqzOuALuTVfdCm55E89o9QtOqvrpl6jvh6x07xEHpR1jVwiEBYwMifhQLNe_",
-		Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json"
-        },
-        Body = HttpService:JSONEncode({
-            embeds = {{
-                title = gameIcon .. " Execution Logger",
-                description = "Execution details of a user:",
-                color = themeColor,
-                fields = embedFields,
-                thumbnail = {
-                    url = avatarUrl
-                },
-                footer = {
-                    text = "Made by: Takgoo"
-                },
-                timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
-            }}
-        })
-    })
-end)
-
-if success then
-    print("Sent successfully.")
-else
-    print("Error sending message: " .. tostring(response))
-end
-
---[[local pingTag = Window:Tag({
-    Title = "",
-    Icon = "activity",
-    Color = Color3.fromHex("#30ff6a"),
-    Radius = 8,
-})
-
-local function updateStats()
-    local pingValue = Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
-    local fps = math.floor(1 / RunService.Heartbeat:Wait())
-    
-    local pingStr = pingValue .. "ms"
-    local displayText = pingStr .. " | " .. fps .. " FPS"
-    
-    pingTag:SetTitle(displayText)
-    
-    -- Dynamic colors
-    if pingValue > 200 or fps < 30 then
-        pingTag:SetColor(Color3.fromHex("#ff4444")) -- Red
-    elseif pingValue > 100 or fps < 60 then
-        pingTag:SetColor(Color3.fromHex("#ffaa00")) -- Orange
-    else
-        pingTag:SetColor(Color3.fromHex("#30ff6a")) -- Green
-    end
-end
-
--- Update every 0.5s
-RunService.Heartbeat:Connect(function()
-    if tick() % 0.5 < 0.016 then
-        pcall(updateStats)
-    end
-end)
-]]
