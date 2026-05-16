@@ -1044,16 +1044,22 @@ VStack3:Button({
 	})
 VStack3:Divider()
 
- VStack3:Button({
-    Title = "Open Roblox Console",
-    Icon = "laptop",
-    Locked = false,
-    Callback = function()
-        pcall(function()
-            StarterGui:SetCore("DevConsoleVisible", true)
-        end)
-    end
+VStack3:Button({
+	Title = "Reset Character",
+	Icon = "rotate-ccw",
+	Callback = function()
+		Players.LocalPlayer.Character:BreakJoints()
+	end,
 })
+
+VStack3:Button({
+	Title = "Leave Game",
+	Icon = "door-open",
+	Callback = function()
+		Players.LocalPlayer:Kick("You left the game.")
+	end,
+})
+
 
 ------- PLAYER TAB
 local lpS = lp:Section({
@@ -1258,6 +1264,8 @@ local moove = lp:Section({
 		Title = "Other Movement",
 		Icon = "user-search",
 		Opened = true,
+		Box = true,
+		BoxBorder = true,
 	})
 -- Add mo to sa Player tab (lp) kasama ng Walkspeed/JumpPower mo
 
@@ -1660,7 +1668,9 @@ end)
 local flys = moove:Section({
 		Title = "Fly",
 		Icon = "navigation",
-		Opened = false,
+		Opened = true,
+		Box = true,
+		BoxBorder = true,
 	})
 local flygui = flys:Button({
 		Title = "🔓 Fly GUI 1",
@@ -1685,11 +1695,7 @@ local flygui2 = flys:Button({
     end
 })]]
 
-local RBLXS = lp:Section({
-		Title = "Roblox Character",
-		Icon = "folder-cog",
-		Opened = true,
-	})
+
 
 
 
@@ -1789,24 +1795,6 @@ vsual:Toggle({
 	end
 })
 ]]
-local menub = RBLXS:Section({
-		Title = "Action Menu",
-		Icon = "menu",
-		Opened = false,
-	})
-menub:Button({
-	Title = "Reset Character",
-	Callback = function()
-		Players.LocalPlayer.Character:BreakJoints()
-	end,
-})
-
-menub:Button({
-	Title = "Leave Game",
-	Callback = function()
-		Players.LocalPlayer:Kick("You left the game.")
-	end,
-})
 
 local Cam = lp:Section({
 		Title = "Camera",
@@ -4542,6 +4530,8 @@ local light = Settings:Section({
 		Title = "Lighting",
 		Icon = "lightbulb",
 		Opened = true,
+		Box = true,
+		BoxBorder = true,
 	})
 -- Simple one-toggle lighting (Player/Settings tab)
 -- Simple one-toggle lighting (Player/Settings tab)
@@ -4716,6 +4706,8 @@ local UI = Settings:Section({
 		Title = "UI",
 		Icon = "hammer",
 		Opened = true,
+		Box = true,
+		BoxBorder = true,
 	})
 
 local UI2 = UI:Section({
@@ -4723,6 +4715,8 @@ local UI2 = UI:Section({
 		Desc = "Customize your UI theme",
 		Icon = "brush",
 		Opened = true,
+		Box = true, 
+		BoxBorder = true,
 	})
 local themes = {}
 for themeName, _ in pairs(WindUI:GetThemes()) do
@@ -4776,6 +4770,8 @@ local UI3 = UI:Section({
 		Title = "User",
 		Icon = "user",
 		Opened = true,
+		Box = true,
+		BoxBorder = true,
 	})
 
 
@@ -4829,6 +4825,7 @@ UI:Button({
     Buttons = {
         {
             Title = "Confirm",
+			Icon = "check",
             Callback = function()
              Window:Destroy()
 				game:GetService("StarterGui"):SetCore("SendNotification", {
@@ -4841,8 +4838,9 @@ UI:Button({
         },
         {
             Title = "Cancel",
+			Icon = "x",
             Callback = function()
-                print("Cancelled!")
+                print("Window Destroy Cancelled!")
             end,
         },
     },
@@ -4853,8 +4851,7 @@ UI:Button({
 print("Loaded every function of the script...")
 
 print("Executor Detected: " .. executorName)
-print("Refreshing the system....")
-
+print("Thank you for using our script, for more updates, kindly join to our discord community.")
 
 -- Add sa start ng script mo (after WindUI loads)
 
