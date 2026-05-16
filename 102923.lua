@@ -3930,7 +3930,7 @@ local function StartWalkFling(Character)
     end)
 end
 
-Trolls1:Toggle({
+Troll:Toggle({
     Title = "Walk Fling",
     Desc = "",
     Value = false,
