@@ -3848,13 +3848,125 @@ rf:Toggle({
     end
 })
 ------------ TROLL TAB
-local Trolls = Troll:Section({
-		Title = "Back Shot",
-		Icon = "arrow-right-left",
+local Trolls1 = Troll:Section({
+		Title = "Fling",
+		Icon = "",
 		Opened = true,
+		Box = true,
+		BoxOrder = true,
 	})
 
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 
+local LocalPlayer = Players.LocalPlayer
+
+local WalkFlingEnabled = false
+local WalkFlingConnection = nil
+local HealthConnection = nil
+
+local function StopWalkFling()
+    WalkFlingEnabled = false
+
+    if WalkFlingConnection then
+        WalkFlingConnection:Disconnect()
+        WalkFlingConnection = nil
+    end
+
+    if HealthConnection then
+        HealthConnection:Disconnect()
+        HealthConnection = nil
+    end
+
+    local Character = LocalPlayer.Character
+
+    if Character then
+        local Root = Character:FindFirstChild("HumanoidRootPart")
+        local Humanoid = Character:FindFirstChild("Humanoid")
+
+        if Root then
+            Root.CanCollide = true
+            Root.Velocity = Vector3.zero
+        end
+
+        if Humanoid then
+            Humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
+        end
+    end
+end
+
+local function StartWalkFling(Character)
+    local Root = Character:WaitForChild("HumanoidRootPart")
+    local Humanoid = Character:WaitForChild("Humanoid")
+
+    Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
+    Humanoid.BreakJointsOnDeath = false
+
+    Root.CanCollide = false
+
+    HealthConnection = RunService.Stepped:Connect(function()
+        if WalkFlingEnabled then
+            Humanoid.Health = math.huge
+            Humanoid.MaxHealth = math.huge
+        end
+    end)
+
+    WalkFlingConnection = RunService.Heartbeat:Connect(function()
+        if not WalkFlingEnabled then
+            return
+        end
+
+        local Velocity = Root.Velocity
+
+        Root.Velocity = Velocity * 99999999 + Vector3.new(0, 99999999, 0)
+
+        RunService.RenderStepped:Wait()
+
+        Root.Velocity = Velocity
+
+        RunService.Stepped:Wait()
+
+        Root.Velocity = Velocity + Vector3.new(0, 0.1, 0)
+    end)
+end
+
+Trolls1:Toggle({
+    Title = "Walk Fling",
+    Desc = "",
+    Value = false,
+    Callback = function(Value)
+        WalkFlingEnabled = Value
+
+        if Value then
+            local Character = LocalPlayer.Character
+
+            if Character then
+                StartWalkFling(Character)
+            end
+
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Walk Fling Enabled",
+                Duration = 2
+            })
+        else
+            StopWalkFling()
+
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Walk Fling Disabled",
+                Duration = 2
+            })
+        end
+    end
+})
+
+LocalPlayer.CharacterAdded:Connect(function(Character)
+    if WalkFlingEnabled then
+        task.wait(1)
+        StartWalkFling(Character)
+    end
+end)
 --[[local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
