@@ -1800,6 +1800,8 @@ local Cam = lp:Section({
 		Title = "Camera",
 		Icon = "camera",
 		Opened = true,
+		Box = true,
+		BoxBorder = true,
 	})
 
 local Players = game:GetService("Players")
@@ -1863,6 +1865,8 @@ local ESPbro = lp:Section({
 		Title = "ESP",
 		Icon = "brush",
 		Opened = true,
+		Box = true,
+		BoxBorder = true,
 	})
 
 -- Add sa Player tab (lp)
@@ -2344,6 +2348,8 @@ if BF1 or BF2 or BF3 then
 	local bf = Script:Section({ 
     Title = "[🍎] Blox Fruits",
 	Opened = true,
+	Box = true,
+	BoxBorder = true,
 })
 	
     local Redz = bf:Button({
@@ -2533,6 +2539,8 @@ else
 	local bfx = Script:Section({
 			Title = "[🍎] Blox Fruits",
 			Opened = false,
+			Box = true,
+	        BoxBorder = true,
 		})
     local blxfrt = bfx:Paragraph({
     Title = "NOTICE:",
@@ -2560,6 +2568,8 @@ if GAG then
 	local gage = Script:Section({ 
     Title = "[🥕] Grow a Garden",
 	Opened = true,
+	Box = true,
+	BoxBorder = true,
 })
 	
     local gagapex = gage:Button({
@@ -2610,6 +2620,8 @@ else
 	local gages = Script:Section({
 			Title = "[🥕] Grow a Garden",
 			Opened = false,
+			Box = true,
+	        BoxBorder = true,
 		})
     local gagg = gages:Paragraph({
     Title = "NOTICE:",
@@ -2636,6 +2648,8 @@ if Brookhaven then
 	local BH = Script:Section({
 	Title = "[🏡] Brookhaven RP!",
 	Opened = true,
+	Box = true,
+	BoxBorder = true,
 	})
 	local apex = BH:Button({
 		Title = "🔓 APEX OT",
@@ -2684,6 +2698,8 @@ else
 	local BHbro = Script:Section({
 			Title = "[🏡] Brookhaven RP!",
 			Opened = false,
+			Box = true,
+	        BoxBorder = true,
 		})
 	local broook = BHbro:Paragraph({
     Title = "NOTICE:",
@@ -2710,6 +2726,8 @@ if GH then
 	local Gar = Script:Section({
 	Title = "[🌱] Garden Horizon",
 	Opened = true,
+	Box = true,
+	BoxBorder = true,
 	})
 	
 	local winddhub = Gar:Button({
@@ -2756,6 +2774,8 @@ else
 	local Garden = Script:Section({
 			Title = "[🌱] Garden Horizon",
 			Opened = false,
+			Box = true,
+	        BoxBorder = true,
 		})
 	local ghn = Garden:Paragraph({
     Title = "NOTICE:",
@@ -2782,6 +2802,8 @@ if RT3 then
 local rt3 = Script:Section({ 
     Title = "[👨‍🍳] Restaurant Tycoon 3",
 	Opened = true,
+	Box = true,
+	BoxBorder = true,
 })
 
 local rt3hub1 = rt3:Button({
@@ -2846,6 +2868,8 @@ elseif RT2 then
 	local rt2 = Script:Section({
 		Title = "[👨‍🍳] Restaurant Tycoon 2",
 		Opened = true,
+		Box = true,
+	    BoxBorder = true,
 })
 local rt2hub1 = rt2:Button({
 		Title = "❓ Miwazen",
@@ -2864,6 +2888,8 @@ else
 	local rtggg = Script:Section({
 		Title = "[👨‍🍳] Restaurant Tycoon",
 		Opened = false,
+		Box = true,
+		BoxBorder = true,
 })
 	
 local rtg = rtggg:Paragraph({
@@ -2983,6 +3009,8 @@ if SailorPiece then
 	local spp = Script:Section({
 		Title = "[⛵] Sailor Piece",
 		Opened = true,
+		Box = true,
+	    BoxBorder = true,
 })
 	local ATG = spp:Button({
 		Title = "🔐 ATG Hub",
@@ -3049,6 +3077,8 @@ else
 	local spph = Script:Section({
 			Title = "[⛵] Sailor Piece",
 			Opened = false, 
+			Box = true,
+	        BoxBorder = true,
 		})
 	local silor = spph:Paragraph({
     Title = "NOTICE:",
@@ -3075,6 +3105,8 @@ if los then
 	local LOSpeed = Script:Section({
 			Title = "[🏃‍♂️] Legend of Speed",
 		    Opened = true,
+			Box = true,
+	        BoxBorder = true,
 		})
 	
 	local speeeeed = LOSpeed:Paragraph({
@@ -3100,6 +3132,8 @@ else
 	local Legends = Script:Section({
 			Title = "[🏃‍♂️] Legend of Speed",
 			Opened = false,
+			Box = true,
+	        BoxBorder = true,
 		})
 	local speedddd = Legends:Paragraph({
     Title = "NOTICE:",
@@ -3127,11 +3161,13 @@ if Kick then
 	local kickLBb = Script:Section({
 		Title = "[🌟] Kick a Lucky Block",
 		Opened = true,
+		Box = true,
+	    BoxBorder = true,
 })
 	
 	local Kick1 = kickLBb:Button({
 			Title = "🔐 Rey Hub",
-			Desc = "🗝️ KEY: CAT",
+			Desc = "",
 			Locked = false,
 			Callback = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/zbKAtUEn"))()
@@ -3159,6 +3195,8 @@ else
 	local kickph = Script:Section({
 			Title = "[🌟] Kick a Lucky Block",
 			Opened = false,
+			Box = true,
+	        BoxBorder = true,
 		})
 	local kickkakak = kickph:Paragraph({
     Title = "NOTICE:",
@@ -3184,6 +3222,8 @@ if Rvs then
 	local rivals = Script:Section({
 		Title = "[🔫] Rivals",
 		Opened = true,
+		Box = true,
+	    BoxBorder = true,
 	})
 	
 	local forgerivals = rivals:Button({
@@ -3203,6 +3243,8 @@ else
 	local rivalph = Script:Section({
 			Title = "[🔫] Rivals",
 			Opened = false,
+			Box = true,
+	        BoxBorder = true,
 		})
 	local rvbro = rivalph:Paragraph({
     Title = "NOTICE:",
@@ -3230,6 +3272,8 @@ if SAB then
 	local SABsection = Script:Section({
 		Title = "[🤖] Steal a Brainrot",
 		Opened = true,
+		Box = true,
+	    BoxBorder = true,
 	})
 	local SABhub1 = SABsection:Button({
 		Title = "🔓 Palku Hub",
@@ -3292,6 +3336,8 @@ else
 	local StealBr = Script:Section({
 			Title = "[🤖] Steal a Brainrot",
 			Opened = false,
+			Box = true,
+	BoxBorder = true,
 		})
 	local sabpa = StealBr:Paragraph({
     Title = "NOTICE:",
@@ -3316,6 +3362,8 @@ if PSX then
 	local psxsection = Script:Section({
 			Title = "[🐾] Pet Simulator X!",
 			Opened = true,
+			Box = true,
+	BoxBorder = true,
 		})
 	local psxhub1 = psxsection:Button({
 			Title = "🔐 Extreme",
@@ -3335,6 +3383,8 @@ elseif PS99 then
 	local ps99section = Script:Section({
 			Title = "[🐱] Pet Simulator 99!",
 			Opened = true,
+			Box = true,
+	BoxBorder = true,
 		})
 	local ps99hub = ps99section:Button({
 			Title = "🔐 Zap Hub",
@@ -3355,12 +3405,16 @@ elseif PG then
 	local pgsection = Script:Section({
 			Title = "[👾] Pet's Go!",
 			Opened = true,
+			Box = true,
+	BoxBorder = true,
 		})
 
 else
 	local pssection = Script:Section({
 			Title = "[🐕] Pet Simulators",
 			Opened = false,
+			Box = true,
+	BoxBorder = true,
 		})
 	local pss = pssection:Paragraph({
     Title = "NOTICE:",
@@ -3388,6 +3442,8 @@ if AM then
 	local Adoptt = Script:Section({
 		Title = "[🐰] Adopt Me!",
 		Opened = true,
+		Box = true,
+	BoxBorder = true,
 	})
 	local AdoptHub1 = Adoptt:Button({
 			Title = "HAHAHAH",
@@ -3401,6 +3457,8 @@ else
 	local adopm = Script:Section({
 			Title = "[🐰] Adopt Me!",
 			Opened = false,
+			Box = true,
+	BoxBorder = true,
 		})
 	local adme = adopm:Paragraph({
     Title = "NOTICE:",
@@ -3426,11 +3484,15 @@ if Nights then
 	local NForest = Script:Section({
 			Title = "[🌳] 99 Nights in the Forest",
 			Opened = true,
+			Box = true,
+	BoxBorder = true,
 		})
 else
 	local NForest2 = Script:Section({
 			Title = "[🌳] 99 Nights in the Forest",
 			Opened = false,
+			Box = true,
+	BoxBorder = true,
 		})
 
 	local ninetyye = NForest2:Paragraph({
@@ -3457,12 +3519,16 @@ if MS then
 local Meme = Script:Section({
 		Title = "[😂] Meme Sea]",
 		Opened = true,
+		Box = true,
+	BoxBorder = true,
 		})
 
 else
 local Meme1 = Script:Section({
 		Title = "[😂] Meme Sea",
 		Opened = false,
+			Box = true,
+	BoxBorder = true,
 		})
 	
 local memee = Meme1:Paragraph({
@@ -3489,12 +3555,16 @@ if MM2 then
 	local MyM2 = Script:Section({
 			Title = "[🗡️] Murder Mystery 2",
 			Opened = true,
+			Box = true,
+	BoxBorder = true,
 		})
 
 else
 	local Mur2 = Script:Section({
 			Title = "[🗡️] Murder Mystery 2",
 			Opened = false,
+			Box = true,
+	BoxBorder = true,
 		})
 
 	local mmmm = Mur2:Paragraph({
@@ -3517,15 +3587,14 @@ else
 })
 	end	
 	
-local idkkk = More:Section({
-		Title = "More Scripts",
-		Icon = "search",
-})
+
 
 local musics = More:Section({
 		Title = "Universal Music Player",
 		Icon = "music", --lucide
 		Opened = true,
+		Box = true,
+	    BoxBorder = true,
 	})
 
 local spotifymp = musics:Button({
@@ -3540,12 +3609,15 @@ local YTMusicMp = musics:Button({
 		Desc = "Loads a universal music script.",
 		Locked = false,
 		Callback = function()
-			loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-YouTube-Music-Player-72222"))()
+			loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-YouTube-Music-Player-V7-212527"))()
 		end})
+
 local fe = More:Section({
 		Title = "FE SCRIPTS",
 		Icon = "person-standing",
 		Opened = true,
+		Box = true,
+	    BoxBorder = true,
 })
 
 local iy = fe:Button({
@@ -3561,6 +3633,8 @@ local exe = More:Section({
 		Desc = "Execute a loadstring script inside our script",
 		Icon = "monitor-cog",
 		Opened = true,
+		Box = true,
+	BoxBorder = true,
 	})
 
 local scriptInput = ""
@@ -3633,6 +3707,8 @@ local rf = More:Section({
 		Desc = "Run codes inside our script.",
 		Icon = "chevrons-left-right-ellipsis",
 		Opened = true,
+		Box = true,
+	BoxBorder = true,
 	})
 -- 1. Code Preview
 local CodePreview = rf:Code({
