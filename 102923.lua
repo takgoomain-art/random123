@@ -177,19 +177,7 @@ WindUI:Popup({
             Title = "Get Started",
             Icon = "arrow-right",
             Callback = function() 
-					WindUI:Notify({
-                Title = "Liquid Hub • Loaded!",
-                Content = "Universal Hub Loaded..",
-                Duration = 12, -- 3 seconds
-                Icon = "bell",
-})
-
-WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Explore the features of the script, enjoy!",
-                Duration = 10, -- 3 seconds
-                Icon = "bell",
-})
+					
 					
 				end,
             Variant = "Primary",
@@ -225,7 +213,19 @@ local Window = WindUI:CreateWindow({
 		
 })
 
+WindUI:Notify({
+                Title = "Liquid Hub • Loaded!",
+                Content = "Universal Hub Loaded..",
+                Duration = 12, -- 3 seconds
+                Icon = "bell",
+})
 
+WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Explore the features of the script, enjoy!",
+                Duration = 10, -- 3 seconds
+                Icon = "bell",
+})
 
 WindUI:SetTheme("Dark")
 Window:CreateTopbarButton("theme-switcher", "moon", function()
