@@ -176,7 +176,8 @@ WindUI:Popup({
         {
             Title = "Get Started",
             Icon = "arrow-right",
-            Callback = function() end,
+            Callback = function() 
+				end,
             Variant = "Primary",
         }
     }
@@ -892,7 +893,9 @@ local exe = VStack2:Paragraph({
 local groupsect = VStack3:Section({
 		Title = "Action Buttons",
 		Icon = "wand",
-		Opened = true,
+		TextXAlignment = "Center",
+		Box = true,
+		BoxBorder = true,
 	})
 --[[
 groupsect:Button({
@@ -949,7 +952,7 @@ groupsect:Button{{
 		end,
 	})
 ]]
-groupsect:Button({
+VStack3:Button({
 	Title = "Copy Place ID",
 	Icon = "copy",
 	Callback = function()
@@ -963,7 +966,7 @@ groupsect:Button({
 			end,
 })
 
-groupsect:Button({
+VStack3:Button({
 	Title = "Copy Game ID",
 	Icon = "copy",
 	Callback = function()
@@ -977,7 +980,7 @@ groupsect:Button({
 	end,
 })
 
-groupsect:Button({
+VStack3:Button({
 	Title = "Copy Creator ID",
 	Icon = "copy",
 	Callback = function()
@@ -995,7 +998,7 @@ groupsect:Button({
 	end,
 })
 
-groupsect:Button({
+VStack3:Button({
 	Title = "Copy Creator Name",
 	Icon = "copy",
 	Callback = function()
@@ -1012,7 +1015,7 @@ groupsect:Button({
 
 
 
-groupsect:Button({
+VStack3:Button({
 		Title = "Copy Username",
 		Icon = "copy",
 		Callback = function()
@@ -1028,7 +1031,7 @@ groupsect:Button({
 
 
 
-local consolerblx = groupsect:Button({
+ VStack3:Button({
     Title = "Open Roblox Console",
     Desc = "Opens the developer console",
     Locked = false,
