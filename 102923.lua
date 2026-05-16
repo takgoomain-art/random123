@@ -5,7 +5,7 @@ So it means our obfuscator or security is weak?
 
 ]]
 local WindUI = _G.WindUI
-local scriptVersion = "v1.555.00-fix"
+local scriptVersion = "v1.555.11"
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -267,7 +267,7 @@ end)
 -- Main Loop (update UI)
 task.spawn(function()
     while true do
-        task.wait(0.5)
+        task.wait(1)
 
         -- Get Ping (MS)
         local pingStat = Stats.Network.ServerStatsItem["Data Ping"]
@@ -298,7 +298,7 @@ end)
 local VersionTag = Window:Tag({
     Title = scriptVersion,
     Icon = "github",
-    Color = Color3.fromHex("#3aa3ff"),
+    Color = Color3.fromHex("#1c1c1c"),
     Radius = 10,
 })
 print("Script Version Detected!")
