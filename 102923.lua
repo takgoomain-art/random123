@@ -1026,7 +1026,7 @@ groupsect:Button({
 		end,
 	})
 
-Main:Divider()
+
 
 local consolerblx = groupsect:Button({
     Title = "Open Roblox Console",
