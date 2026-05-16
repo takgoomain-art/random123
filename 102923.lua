@@ -1029,11 +1029,24 @@ VStack3:Button({
 		end,
 	})
 
-
+VStack3:Button({
+		Title = "Copy User ID",
+		Icon = "copy",
+		Callback = function()
+			setclipboard("" .. player.UserId)
+			WindUI:Notify({
+						Title = "Liquid Hub",
+						Content = "Copied to clipboard",
+						Icon = "clipboard-copy",
+						Duration = 2
+					})
+		end,
+	})
+VStack3:Divider()
 
  VStack3:Button({
     Title = "Open Roblox Console",
-    Desc = "Opens the developer console",
+    Icon = "laptop",
     Locked = false,
     Callback = function()
         pcall(function()
@@ -1047,6 +1060,8 @@ local lpS = lp:Section({
 	Title = "Player Movement",
 	Icon = "move",
 	Opened = true,
+	Box = true,
+	BoxBorder = true,
 })
 
 local Players = game:GetService("Players")
