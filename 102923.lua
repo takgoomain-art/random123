@@ -3753,6 +3753,8 @@ rf:Input({
     end
 })
 
+local rfgroup = rf:HStack()
+
 
 --- Execution Logic with Notifications ---
 local function FireTheCode()
@@ -3782,7 +3784,7 @@ end
 
 -- Run Code
 
-rf:Button({
+rfgroup:Button({
     Title = "Run Code",
 	Desc = "Run the code ONCE",
 	Icon = "play",
@@ -3798,7 +3800,7 @@ rf:Button({
 })
 
 -- Run Multiple Code
-rf:Button({
+rfgroup:Button({
     Title = "Run Multiple Code",
 	Desc = "Run the code based on Run Count Input",
 		Icon = "play",
@@ -4036,6 +4038,8 @@ local tpsection = Teleport:Section({
 		Title = "Teleport",
 		Icon = "locate",
 		Opened = true,
+		Box = true,
+		BoxBorder = true,
 	})
 
 
