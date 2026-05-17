@@ -330,8 +330,8 @@ local Main = Section1:Tab({
     Border = true, -- add border around tab. optional
 })
 
-local Msg = Section1:Tab({
-    Title = "Messages",
+local Upd = Section1:Tab({
+    Title = "Updates",
     Icon = "message-square", -- optional
 	IconColor = Color3.fromRGB(5, 5, 5), -- custom icon color. optional
     IconShape = "Square", -- "Square" or "Circle". optional
@@ -1075,14 +1075,18 @@ VStack3:Button({
 
 
 
-local feedb = Msg:Section({
-		Title = "Feedback Messages",
-		Icon = "message-circle",
-		TextXAlignment = "Center",
+local updlog = Upd:Section({
+		Title = "Update Logs",
+		Desc = "See the update logs",
+		Icon = "scroll",
 		Box = true,
 		BoxBorder = true,
 	})
 
+updlog:Paragraph({
+		Title = "📜 Updates Logs #1 | v1.000.00",
+		Desc = "+ Added Tab (Info, Player, Server, Scripts, More Scripts, Teleport, Settings)\n+ Added Account Details\n+ Added Server Details\n+Added Character Stats\n+Added Game Details\n+Added Action Buttons\n+ Added Client Details\n+ Added Player Movement (Walkspeed, Jump Power)\n+ Added Universal Fly GUI\n+ Added ESP\n+ Added Custom FOV\n+ Added Game Scripts\n+ Added New Game Script\n+ Added Teleport to Player\n+ Added Spectate Player\n+ Added Fullbright\n+ Added Customize Theme UI",
+	})
 --[[local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 
