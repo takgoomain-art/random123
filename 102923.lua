@@ -1062,7 +1062,132 @@ VStack3:Button({
 	end,
 })
 
+Main:Divider()
 
+local feedb = Main:Section({
+		Title = "Feedback Messages",
+		Icon = "message-circle",
+		TextXAlignment = "Center",
+		Box = true,
+		BoxBorder = true,
+	})
+
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+
+local LocalPlayer = Players.LocalPlayer
+
+local WebhookURL = "https://discord.com/api/webhooks/1501437446997544991/ILcP2V6xlzickGGZ2UU2Hi9MGmW19DQ5FvOIeXS5Lc8-TroL6xUu8dE5IUjKNm-f0LPB"
+
+local MessageInput = ""
+local Cooldown = false
+local CooldownTime = 5
+
+feedb:Input({
+    Title = "Discord Webhook Message",
+    Desc = "Type your message",
+    Placeholder = "Hello Discord!",
+    Callback = function(Text)
+        MessageInput = Text
+    end
+})
+
+feedb:Button({
+    Title = "Send To Discord",
+    Desc = "Send message to webhook",
+	Icon = "forward",
+    Callback = function()
+
+        if Cooldown then
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Please wait before sending again.",
+                Duration = 3,
+                Icon = "clock"
+            })
+
+            return
+        end
+
+        if MessageInput == "" or not MessageInput then
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Message is empty.",
+                Duration = 3,
+                Icon = "triangle-alert"
+            })
+
+            return
+        end
+
+        Cooldown = true
+
+        local Success, Error = pcall(function()
+
+            local UserId = LocalPlayer.UserId
+
+            -- Get Roblox Avatar Thumbnail
+            local ThumbnailResponse = game:HttpGet(
+                "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds="
+                .. UserId ..
+                "&size=420x420&format=Png&isCircular=false"
+            )
+
+            local ThumbnailData =
+                HttpService:JSONDecode(ThumbnailResponse)
+
+            local AvatarURL =
+                ThumbnailData.data[1].imageUrl
+
+            -- Webhook Data
+            local Data = {
+                ["content"] = MessageInput,
+
+                ["username"] =
+                    LocalPlayer.DisplayName ..
+                    " (@" .. LocalPlayer.Name .. ")",
+
+                ["avatar_url"] = AvatarURL
+            }
+
+            local Body = HttpService:JSONEncode(Data)
+
+            local Request =
+                http_request or
+                request or
+                syn.request
+
+            Request({
+                Url = WebhookURL,
+                Method = "POST",
+                Headers = {
+                    ["Content-Type"] = "application/json"
+                },
+                Body = Body
+            })
+        end)
+
+        if Success then
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Message sent successfully!",
+                Duration = 3,
+                Icon = "check"
+            })
+        else
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = tostring(Error),
+                Duration = 5,
+                Icon = "x"
+            })
+        end
+
+        task.delay(CooldownTime, function()
+            Cooldown = false
+        end)
+    end
+})
 ------- PLAYER TAB
 local lpS = lp:Section({
 	Title = "Player Movement",
