@@ -330,6 +330,17 @@ local Main = Section1:Tab({
     Border = true, -- add border around tab. optional
 })
 
+local Msg = Section1:Tab({
+    Title = "Messages",
+    Icon = "message-square", -- optional
+	IconColor = Color3.fromRGB(5, 5, 5), -- custom icon color. optional
+    IconShape = "Square", -- "Square" or "Circle". optional
+    IconThemed = true, -- use theme colors. optional
+    Locked = false, -- disable tab interaction. optional
+    ShowTabTitle = true, -- show title inside tab. optional
+    Border = true, -- add border around tab. optional
+})
+
 local lp = Section1:Tab({
 	Title = "Player",
 	Icon = "user", -- optional
@@ -1062,9 +1073,9 @@ VStack3:Button({
 	end,
 })
 
-Main:Divider()
 
-local feedb = Main:Section({
+
+local feedb = Msg:Section({
 		Title = "Feedback Messages",
 		Icon = "message-circle",
 		TextXAlignment = "Center",
