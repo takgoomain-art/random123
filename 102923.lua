@@ -1083,7 +1083,7 @@ local feedb = Msg:Section({
 		BoxBorder = true,
 	})
 
-local HttpService = game:GetService("HttpService")
+--[[local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 
 local LocalPlayer = Players.LocalPlayer
@@ -1199,6 +1199,7 @@ feedb:Button({
         end)
     end
 })
+]]
 ------- PLAYER TAB
 local lpS = lp:Section({
 	Title = "Player Movement",
