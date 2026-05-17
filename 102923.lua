@@ -1087,6 +1087,14 @@ updlog:Paragraph({
 		Title = "📜 Updates Logs #1 | v1.000.00",
 		Desc = "+ Added Tab (Info, Player, Server, Scripts, More Scripts, Teleport, Settings)\n+ Added Account Details\n+ Added Server Details\n+Added Character Stats\n+Added Game Details\n+Added Action Buttons\n+ Added Client Details\n+ Added Player Movement (Walkspeed, Jump Power)\n+ Added Universal Fly GUI\n+ Added ESP\n+ Added Custom FOV\n+ Added Game Scripts\n+ Added New Game Script\n+ Added Teleport to Player\n+ Added Spectate Player\n+ Added Fullbright\n+ Added Customize Theme UI",
 	})
+updlog:Paragraph({
+		Title = "📜 Updates Logs #2 | v1.111.00",
+		Desc = "+ Added Ping and FPS tag\n+ Added Executor Detector\n+ Added Infinite Jump\n+ Added Anti AFK\n+ Added Server Id\n+ Added Server Id Input\n+ Added Join Server\n+ Added Rejoin Server\n+ Added Server Hop\n+ Added Roblox User System (UI)\n+ Added Universal Infinite Yield Script\n+ Added Universal Music Player Scripts\n+ Added Icons to Section\n+ Fixed Theme\n+ Fixed Fly GUI\n+ Fixed ESP\n+ Fixed ui loading\n+ Fixed Wind UI Notifications",
+	})
+updlog:Paragraph({
+		Title = "📜 Updates Logs #3 | v1.222.00",
+		Desc = "+ Added RTX Summer Lighting\n+ Added PShade Script\n+ Added No Clip\n+ Added Executor Script\n+ Added Version Tag\n+ Script Key System Checker\n+ Organized Info Tab\n+ Fixed Discord Invite\n+ Fixed ESP\n+ Fixed Character Stats\n+ Fixed Player Movement Value\n+ Fixed Destroy GUI Button\n+ Fixed Fullbright\n+ Fixed Wind UI Notification\n+ Fixed Section Icons\n+ Fixed some bugs",
+	})
 --[[local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 
