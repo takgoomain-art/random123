@@ -1,14 +1,23 @@
 --[[
-
-Welcome, Skidders! You've come here, we're glad.
-So it means our obfuscator or security is weak?
-
+LIQUID HUB TEMP FILE 
 ]]
 local WindUI = _G.WindUI
 local scriptVersion = "v1.555.11"
 
+---- services
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
+local RunService = game:GetService("RunService")
+local Stats = game:GetService("Stats")
+local MarketplaceService = game:GetService("MarketplaceService")
+local UserInputService = game:GetService("UserInputService")
+local VirtualUser = game:GetService("VirtualUser")
+local HttpService = game:GetService("HttpService")
+        local TeleportService = game:GetService("TeleportService")
+
+local Lighting = game:GetService("Lighting")
+local StarterGui = game:GetService("StarterGui")
+
 
 -- 🧾 Roles (by username)
 local Roles = {
@@ -247,7 +256,7 @@ Window:Tag({
 })
 
  -- Days and Months tables (3 letters only)
-local Days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}
+--[[local Days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}
 local Months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
 
 local ClockTag = Window:Tag({
@@ -272,8 +281,7 @@ task.spawn(function()
     end
 end)
 
-local RunService = game:GetService("RunService")
-local Stats = game:GetService("Stats")
+]]
 
 local Tag1 = Window:Tag({
     Title = "Loading...",
@@ -586,12 +594,9 @@ local VStack1 = InfoGroup2:VStack() -- left
 local VStack2 = InfoGroup2:VStack() -- right
 local VStack3 = InfoGroup2:VStack() -- third
 ]]
-local Players = game:GetService("Players")
-local MarketplaceService = game:GetService("MarketplaceService")
 
-local player = Players.LocalPlayer
 
--- 👤 USER INFO
+--  USER INFO
 local username = player.Name
 local displayName = player.DisplayName
 local userId = player.UserId
@@ -610,8 +615,7 @@ local userParagraph = VStack1:Paragraph({
     
 })
 
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+
 
 -- 🔁 Execution Counter (global para di ma-reset agad)
 getgenv().ExecutionCount = (getgenv().ExecutionCount or 0) + 1
@@ -636,10 +640,8 @@ local accountParagraph = VStack1:Paragraph({
     
 })
 ---
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
 
-local player = Players.LocalPlayer
+
 
 -- 📌 Paragraph
 local StatsParagraph = VStack1:Paragraph({
@@ -775,8 +777,6 @@ local gameParagraph = VStack2:Paragraph({
 
 
 
-local Players = game:GetService("Players")
-local MarketplaceService = game:GetService("MarketplaceService")
 
 local placeId = game.PlaceId
 local gameId = game.GameId
@@ -795,7 +795,7 @@ end)
 
 local maxPlayers = Players.MaxPlayers
 
--- 📌 Create Paragraph FIRST
+--  Create Paragraph FIRST
 local gameDetailsParagraph = VStack2:Paragraph({
     Title = "Game Details",
     Desc = "Loading...",
@@ -819,10 +819,10 @@ local function updateUI()
     gameDetailsParagraph:SetDesc(descText)
 end
 
--- 🚀 Initial update
+--  Initial update
 updateUI()
 
--- 🔁 Live updates
+--  Live updates
 Players.PlayerAdded:Connect(updateUI)
 Players.PlayerRemoving:Connect(updateUI)
 
@@ -887,7 +887,7 @@ else
     device = "Unsupported"
 end
 
--- 🧾 Final Description
+
 local descText = string.format(
     "Executor: %s\nPlatform: %s\nDevice: %s",
     executorName,
@@ -1247,8 +1247,7 @@ local lpS = lp:Section({
 	BoxBorder = true,
 })
 
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+
 --local Workspace = game:GetService("Workspace")
 
 local WalkSpeedEnabled = false
@@ -1258,7 +1257,6 @@ local JumpHeightValue = 50
 --local GravityEnabled = false
 --local GravityValue = 196.2
 
--- FUNCTION TO UPDATE VALUES SAFELY
 local function updateWalkSpeed()
     local character = player.Character
     if character and character:FindFirstChild("Humanoid") then
@@ -1447,8 +1445,6 @@ local moove = lp:Section({
 -- Add mo to sa Player tab (lp) kasama ng Walkspeed/JumpPower mo
 
 local InfiniteJumpEnabled = false
-local UserInputService = game:GetService("UserInputService")
-local player = game.Players.LocalPlayer
 
 -- INFINITE JUMP TOGGLE
 local infJumpToggle = moove:Toggle({
@@ -1498,10 +1494,7 @@ end)
 
 -- 🔥 UNIVERSAL ANTI AFK - Works sa ALL GAMES/EXECUTORS
 local AntiAFKEnabled = false
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local VirtualUser = game:GetService("VirtualUser")
-local player = Players.LocalPlayer
+
 
 local connections = {}
 
@@ -1789,10 +1782,6 @@ local antife = lp:Toggle({
     end
 })
 ]]
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-
-local player = Players.LocalPlayer
 
 local noclipEnabled = false
 local connection
@@ -1981,8 +1970,7 @@ local Cam = lp:Section({
 		BoxBorder = true,
 	})
 
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+
 local camera = workspace.CurrentCamera
 
 -- default FOV
@@ -2048,8 +2036,7 @@ local ESPbro = lp:Section({
 
 -- Add sa Player tab (lp)
 
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
+
 local LocalPlayer = Players.LocalPlayer
 
 local RainbowESPEnabled = false
@@ -2380,10 +2367,7 @@ RightS:Button({
     Title = "Join Low Player Server",
     Desc = "Teleport to the smallest public server",
     Callback = function()
-        local HttpService = game:GetService("HttpService")
-        local TeleportService = game:GetService("TeleportService")
-        local Players = game:GetService("Players")
-
+        
         local PlaceId = game.PlaceId
         local CurrentJobId = game.JobId
 
@@ -2481,7 +2465,6 @@ local Game = Scr:Paragraph({
 })
 
 
-local MarketplaceService = game:GetService("MarketplaceService")
 
 -- Assume Server is your Fluent UI server object managing the UI
 --[[ local Server =  your Fluent UI Server object here ]]
@@ -3816,9 +3799,6 @@ local exe = More:Section({
 
 local scriptInput = ""
 
--------------------------------------------------
--- 📝 INPUT
--------------------------------------------------
 local Input = exe:Input({
     Title = "Script Executor",
     Desc = "Paste loadstring script",
@@ -3830,9 +3810,6 @@ local Input = exe:Input({
     end
 })
 
--------------------------------------------------
--- ▶️ BUTTON (RUN SCRIPT)
--------------------------------------------------
 local Button = exe:Button({
     Title = "Execute Script",
     Desc = "Run the input script",
@@ -3847,7 +3824,7 @@ local Button = exe:Button({
             return
         end
 
-        -- 🔒 basic check (optional pero recommended)
+        -- basic check (optional pero recommended)
         if not string.find(scriptInput, "loadstring") then
             WindUI:Notify({
                 Title = "Error",
@@ -3857,7 +3834,7 @@ local Button = exe:Button({
             return
         end
 
-        -- 🚀 execute safely
+        --  execute nwnnwnw
         local success, err = pcall(function()
             loadstring(scriptInput)()
         end)
@@ -3887,13 +3864,13 @@ local rf = More:Section({
 		Box = true,
 	BoxBorder = true,
 	})
--- 1. Code Preview
+--  Code Preview
 local CodePreview = rf:Code({
     Title = "Code Preview",
     Code = [[print("Waiting for input...")]]
 })
 
--- 2. Variables
+
 local CodeToExecute = "" 
 local FireCount = 1
 local FireDelay = 0.1
@@ -3910,7 +3887,7 @@ rf:Input({
     end
 })
 
--- Fire Count Input
+-- Fire Count Input or just run count, whatever it is
 rf:Input({
     Title = "Run Count",
 	Desc = "",
@@ -3920,7 +3897,7 @@ rf:Input({
     end
 })
 
--- Fire Delay Input
+-- Fire Delay Input 
 rf:Input({
     Title = "Run Delay",
 	Desc = "Delay between running the code (seconds)",
@@ -4039,8 +4016,7 @@ local tpsection = Teleport:Section({
 
 
 
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+
 local mouse = player:GetMouse()
 
 -- 🧰 Function para gumawa ng tool
@@ -4172,18 +4148,12 @@ local PlayerParagraph = tpsection:Paragraph({
 	--Color = Color3.fromHex("#30ff6a"),
 })
 
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-
-local player = Players.LocalPlayer
 local camera = workspace.CurrentCamera
 
 local SelectedPlayer = nil
 local PlayersTable = {}
 
--------------------------------------------------
--- 🔁 PLAYER TABLE
--------------------------------------------------
+
 local function RefreshPlayersTable()
 	PlayersTable = {}
 
@@ -4206,9 +4176,6 @@ local function RefreshPlayersTable()
 	return PlayersTable
 end
 
--------------------------------------------------
--- 📌 DROPDOWN
--------------------------------------------------
 local Dropdown = tpsection:Dropdown({
 	Title = "Select Player",
 	SearchBarEnabled = true,
@@ -4226,9 +4193,6 @@ local Dropdown = tpsection:Dropdown({
 -- initial load
 Dropdown:Refresh(RefreshPlayersTable())
 
--------------------------------------------------
--- 🔄 UPDATE BUTTON (FIXED)
--------------------------------------------------
 tpsection:Button({
 	Title = "Update Player List",
 	Icon = "refresh-ccw",
@@ -4244,9 +4208,6 @@ tpsection:Button({
 	end
 })
 
--------------------------------------------------
--- 🔁 AUTO UPDATE (FIXED)
--------------------------------------------------
 Players.PlayerAdded:Connect(function()
 	task.wait(0.5)
 	Dropdown:Refresh(RefreshPlayersTable())
@@ -4309,9 +4270,6 @@ tpsection:Toggle({
 	end
 })
 
--------------------------------------------------
--- 👁️ SPECTATE PLAYER
--------------------------------------------------
 local specConnection
 
 tpsection:Toggle({
@@ -4607,12 +4565,9 @@ local light = Settings:Section({
 		Box = true,
 		BoxBorder = true,
 	})
--- Simple one-toggle lighting (Player/Settings tab)
--- Simple one-toggle lighting (Player/Settings tab)
 
-local Lighting = game:GetService("Lighting")
 
--- 💾 Save original values
+
 local original = {
 	Ambient = Lighting.Ambient,
 	ColorShift_Bottom = Lighting.ColorShift_Bottom,
@@ -4621,14 +4576,14 @@ local original = {
 
 local connection
 
--- ☀️ Apply fullbright
+
 local function applyFullbright()
 	Lighting.Ambient = Color3.new(1, 1, 1)
 	Lighting.ColorShift_Bottom = Color3.new(1, 1, 1)
 	Lighting.ColorShift_Top = Color3.new(1, 1, 1)
 end
 
--- 🔘 Toggle
+
 light:Toggle({
 	Title = "Fullbright",
 	Icon = "sun",
@@ -4648,13 +4603,13 @@ light:Toggle({
 			})
 
 		else
-			-- 🔌 disconnect loop
+			--  disconnect loop
 			if connection then
 				connection:Disconnect()
 				connection = nil
 			end
 
-			-- 🔄 restore original
+			--  restore original
 			Lighting.Ambient = original.Ambient
 			Lighting.ColorShift_Bottom = original.ColorShift_Bottom
 			Lighting.ColorShift_Top = original.ColorShift_Top
@@ -4669,8 +4624,6 @@ light:Toggle({
 	end
 })
 
-local Lighting = game:GetService("Lighting")
-local StarterGui = game:GetService("StarterGui")
 local effects = {}
 local vignetteGui = nil
 
@@ -4769,7 +4722,7 @@ local lightingToggle = light:Toggle({
 })
 
 light:Button({
-		Title = "PShader Custom Lighting",
+		Title = "PShade Custom Lighting",
 		Desc = "Loads PShader Lighting script",
 		Callback = function()
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/takgoomain-art/random123/refs/heads/main/shader.lua"))()
@@ -4799,7 +4752,7 @@ UI67:Paragraph({
     Title = "TAG IDENTIFIER",
     Desc = "⏰ - Time/Date Tag\n📶 - Ping/FPS Tag\n📜 - Script Version Tag",
 })
--- Toggle for 24-hour format
+
 
 local UI2 = UI:Section({
 		Title = "Theme Manager",
@@ -4871,9 +4824,6 @@ local UI3 = UI:Section({
 
 --local usergroup = UI3:HStack()
 
--------------------------------------------------
--- 👤 ROBLOX USER TOGGLE
--------------------------------------------------
 UI3:Toggle({
     Title = "Roblox User System",
 	Desc = "Enables the user system in the UI",
@@ -4891,9 +4841,6 @@ UI3:Toggle({
     end
 })
 
--------------------------------------------------
--- 🕶️ ANONYMOUS TOGGLE
--------------------------------------------------
 UI3:Toggle({
     Title = "Anonymous User",
 	Desc = "Hide user identity",
