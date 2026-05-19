@@ -4813,21 +4813,14 @@ local UI67 = UI:Section({
         BoxBorder = true,
 })
 
-local tagss = UI67:Section({
-        Title = "Tag",
-        Desc = "Manage UI's tags",
-        Icon = "tag",
-        Opened = false,
-        Box = true,
-        BoxBorder = true,
-})
 
-tagss:Paragraph({
+
+UI67:Paragraph({
     Title = "TAG IDENTIFIER",
     Desc = "⏰ - Time/Date Tag\n📶 - Ping/FPS Tag\n📜 - Script Version Tag",
 })
 -- Toggle for 24-hour format
-tagss:Toggle({
+UI67:Toggle({
     Title = "⏰ | 24-Hour Format",
     Value = true, -- default ON
     Callback = function(state)
@@ -4842,6 +4835,7 @@ local UI2 = UI:Section({
 		Box = true, 
 		BoxBorder = true,
 	})
+
 local themes = {}
 for themeName, _ in pairs(WindUI:GetThemes()) do
     table.insert(themes, themeName)
