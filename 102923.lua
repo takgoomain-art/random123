@@ -250,29 +250,25 @@ Window:Tag({
 local Days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}
 local Months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
 
--- Function to build the formatted string
-local function getDateTime()
-    local t = os.date("*t") -- uses the user's LOCAL timezone
-    local hour = string.format("%02d", t.hour)
-    local min  = string.format("%02d", t.min)
-    local day  = Days[t.wday]
-    local month = Months[t.month]
-    return string.format("%s:%s | %s, %s %d", hour, min, day, month, t.day)
-end
-
--- Create the Tag
 local ClockTag = Window:Tag({
-    Title = getDateTime(),
+    Title = "Loading...",
     Icon = "clock",
     Color = Color3.fromHex("#1c1c1c"),
-    Border = true,
-	Radius = 8
+    Radius = 8,
 })
 
--- Update every second
 task.spawn(function()
-    while task.wait(1) do
-        ClockTag:SetTitle(getDateTime())
+    while true do
+        task.wait(1)
+
+        local t = os.date("*t")
+        local day = Days[t.wday]
+        local month = Months[t.month]
+        local min = string.format("%02d", t.min)
+        local hour = string.format("%02d", t.hour)
+        local timeStr = string.format("%s:%s", hour, min)
+
+        ClockTag:SetTitle(string.format("%s | %s, %s %d", timeStr, day, month, t.day))
     end
 end)
 
