@@ -253,7 +253,7 @@ local Months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "
 local is24Hour = true
 
 -- Function to build the formatted string
-local function getDateTime()
+--[[local function getDateTime()
     local t = os.date("*t")
     local day = Days[t.wday]
     local month = Months[t.month]
@@ -291,7 +291,7 @@ task.spawn(function()
         ClockTag:SetTitle(getDateTime())
     end
 end)
-
+]]
 local RunService = game:GetService("RunService")
 local Stats = game:GetService("Stats")
 
