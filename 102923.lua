@@ -19,7 +19,7 @@ local Lighting = game:GetService("Lighting")
 local StarterGui = game:GetService("StarterGui")
 
 
--- 🧾 Roles (by username)
+
 local Roles = {
     Owner = {
 		"eddiejr031"
@@ -34,10 +34,11 @@ local Roles = {
 		""
 	},
 
-    User = {} -- default
+    User = {}
 }
 
--- 🔍 Check function
+
+
 local function hasRole(roleName)
     local roleList = Roles[roleName]
     if not roleList then return false end
@@ -51,6 +52,7 @@ local function hasRole(roleName)
     return false
 end
 
+-- idk what i should call these, but yea
 local canUse = hasRole("Admin") or hasRole("Owner")
 local isOwner = hasRole("Owner")
 local isAdmin = hasRole("Admin")
@@ -255,8 +257,9 @@ Window:Tag({
     Radius = 6
 })
 
- -- Days and Months tables (3 letters only)
---[[local Days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}
+--[[
+
+local Days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}
 local Months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
 
 local ClockTag = Window:Tag({
