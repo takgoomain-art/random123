@@ -686,44 +686,7 @@ end)
 
 
 -- 📌 Paragraph
-local CameraParagraph = VStack1:Paragraph({
-    Title = "Camera Stats",
-    Desc = "Loading...",
-    
-})
 
-local Camera = Workspace.CurrentCamera
--- 🔄 Update loop
-RunService.RenderStepped:Connect(function()
-
-    local fov = math.floor(Camera.FieldOfView)
-
-    local zoom = 0
-
-    pcall(function()
-        local char = player.Character
-        local head = char and char:FindFirstChild("Head")
-
-        if head then
-            zoom = math.floor(
-                (Camera.CFrame.Position - head.Position).Magnitude
-            )
-        end
-    end)
-
-    local cameraType = tostring(Camera.CameraType)
-    cameraType = cameraType:gsub("Enum.CameraType.", "")
-
-    local text = string.format(
-        "FOV: %d\nZoom: %d\nCamera Type: %s",
-        fov,
-        zoom,
-        cameraType
-    )
-
-    CameraParagraph:SetDesc(text)
-
-end)
 
 local Credits = VStack2:Paragraph({
     Title = "Credentials",
