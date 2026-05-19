@@ -724,7 +724,7 @@ RunService.RenderStepped:Connect(function()
     CameraParagraph:SetDesc(text)
 
 end)
-]]
+
 local Credits = VStack2:Paragraph({
     Title = "Credentials",
     Desc = "Takgoo - Dev/Owner\nWind UI\nLucide Icons\nLiquidians (Community)",
