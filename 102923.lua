@@ -202,7 +202,7 @@ local Window = WindUI:CreateWindow({
     Title = "Liquid Hub | Universal",
     Icon = "rbxassetid://85217490213932", -- lucide icon. optional
 	IconSize = "42",
-    Author = "by Liquid Management", -- optional
+    Author = "by Takgoo", -- optional
     HideSearchBar = false,
 	Transparent = true,
 	Resizable = true,
@@ -246,6 +246,52 @@ Window:Tag({
     Radius = 6
 })
 
+local Days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}
+local Months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
+
+-- Toggle state (default: 24-hour)
+local is24Hour = true
+
+-- Function to build the formatted string
+local function getDateTime()
+    local t = os.date("*t")
+    local day = Days[t.wday]
+    local month = Months[t.month]
+    local min = string.format("%02d", t.min)
+    local timeStr
+
+    if is24Hour then
+        local hour = string.format("%02d", t.hour)
+        timeStr = string.format("%s:%s", hour, min)
+    else
+        local hour = t.hour
+        local suffix = hour >= 12 and "PM" or "AM"
+        hour = hour % 12
+        if hour == 0 then hour = 12 end
+        timeStr = string.format("%02d:%s %s", hour, min, suffix)
+    end
+
+    return string.format("%s | %s, %s %d", timeStr, day, month, t.day)
+end
+
+-- Create the Tag
+local ClockTag = Window:Tag({
+    Title = getDateTime(),
+    Icon = "clock",
+    Color = Color3.fromHex("#1c1c1c"),
+    Border = true,
+	Radius = 8,
+})
+
+
+
+-- Update every second
+task.spawn(function()
+    while task.wait(1) do
+        ClockTag:SetTitle(getDateTime())
+    end
+end)
+
 local RunService = game:GetService("RunService")
 local Stats = game:GetService("Stats")
 
@@ -253,7 +299,7 @@ local Tag1 = Window:Tag({
     Title = "Loading...",
     Icon = "wifi",
     Color = Color3.fromHex("#30ff6a"),
-    Radius = 8,
+    Radius = 10,
 })
 
 local fps = 0
@@ -301,7 +347,7 @@ local VersionTag = Window:Tag({
     Title = scriptVersion,
     Icon = "github",
     Color = Color3.fromHex("#1c1c1c"),
-    Radius = 10,
+    Radius = 12,
 })
 print("Script Version Detected!")
 print("Script Version:" .. scriptVersion)
@@ -4758,11 +4804,41 @@ local UI = Settings:Section({
 		BoxBorder = true,
 	})
 
+local UI67 = UI:Section({
+        Title = "Elements",
+        Desc = "Manage UI's elements",
+        Icon = "component",
+        Opened = false,
+        Box = true,
+        BoxBorder = true,
+})
+
+local tagss = UI67:Section({
+        Title = "Tag",
+        Desc = "Manage UI's tags",
+        Icon = "tag",
+        Opened = false,
+        Box = true,
+        BoxBorder = true,
+})
+
+tagss:Paragraph({
+    Title = "TAG IDENTIFIER",
+    Desc = "⏰ - Time/Date Tag\n📶 - Ping/FPS Tag\n📜 - Script Version Tag",
+})
+-- Toggle for 24-hour format
+tagss:Toggle({
+    Title = "⏰ | 24-Hour Format",
+    Value = true, -- default ON
+    Callback = function(state)
+        is24Hour = state
+    end,
+})
 local UI2 = UI:Section({
 		Title = "Theme Manager",
 		Desc = "Customize your UI theme",
 		Icon = "brush",
-		Opened = true,
+		Opened = false,
 		Box = true, 
 		BoxBorder = true,
 	})
@@ -4816,8 +4892,9 @@ local Toggle111 = UI2:Toggle({
 
 local UI3 = UI:Section({
 		Title = "User",
+        Desc = "Manage your Roblox User in the UI",
 		Icon = "user",
-		Opened = true,
+		Opened = false,
 		Box = true,
 		BoxBorder = true,
 	})
