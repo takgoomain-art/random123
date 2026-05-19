@@ -1,7 +1,7 @@
 --[[
 LIQUID HUB TEMP FILE 
 ]]
-local WindUI = _G.WindUI
+--local WindUI = _G.WindUI
 local scriptVersion = "v1.555.11"
 
 ---- services
@@ -177,7 +177,7 @@ Tab: Script Tab
 ]]
 
 
-
+local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
 WindUI:Popup({
     Title = "Liquid Hub | Universal",
@@ -220,7 +220,7 @@ local Window = WindUI:CreateWindow({
 	NewElements = true,
 	Acrylic = true,
 	ScrollBarEnabled = true,
-	Size = UDim2.fromOffset(700, 700),
+	Size = UDim2.fromOffset(700, 590),
 	--MinSize = Vector2.new(815, 400),
 	--MaxSize = Vector2.new(1000, 700),
 		
@@ -257,10 +257,8 @@ Window:Tag({
     Radius = 6
 })
 
---[[
 
-local Days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}
-local Months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
+
 
 local ClockTag = Window:Tag({
     Title = "Loading...",
@@ -272,6 +270,9 @@ local ClockTag = Window:Tag({
 task.spawn(function()
     while true do
         task.wait(1)
+			local Days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}
+            local Months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
+			
 
         local t = os.date("*t")
         local day = Days[t.wday]
@@ -284,7 +285,7 @@ task.spawn(function()
     end
 end)
 
-]]
+
 
 local Tag1 = Window:Tag({
     Title = "Loading...",
