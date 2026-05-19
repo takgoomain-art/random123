@@ -246,32 +246,18 @@ Window:Tag({
     Radius = 6
 })
 
+ -- Days and Months tables (3 letters only)
 local Days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}
 local Months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
 
--- Toggle state (default: 24-hour)
-local is24Hour = true
-
 -- Function to build the formatted string
---[[local function getDateTime()
-    local t = os.date("*t")
-    local day = Days[t.wday]
+local function getDateTime()
+    local t = os.date("*t") -- uses the user's LOCAL timezone
+    local hour = string.format("%02d", t.hour)
+    local min  = string.format("%02d", t.min)
+    local day  = Days[t.wday]
     local month = Months[t.month]
-    local min = string.format("%02d", t.min)
-    local timeStr
-
-    if is24Hour then
-        local hour = string.format("%02d", t.hour)
-        timeStr = string.format("%s:%s", hour, min)
-    else
-        local hour = t.hour
-        local suffix = hour >= 12 and "PM" or "AM"
-        hour = hour % 12
-        if hour == 0 then hour = 12 end
-        timeStr = string.format("%02d:%s %s", hour, min, suffix)
-    end
-
-    return string.format("%s | %s, %s %d", timeStr, day, month, t.day)
+    return string.format("%s:%s | %s, %s %d", hour, min, day, month, t.day)
 end
 
 -- Create the Tag
@@ -280,10 +266,8 @@ local ClockTag = Window:Tag({
     Icon = "clock",
     Color = Color3.fromHex("#1c1c1c"),
     Border = true,
-	Radius = 8,
+	Radius = 8
 })
-
-
 
 -- Update every second
 task.spawn(function()
@@ -291,7 +275,7 @@ task.spawn(function()
         ClockTag:SetTitle(getDateTime())
     end
 end)
-]]
+
 local RunService = game:GetService("RunService")
 local Stats = game:GetService("Stats")
 
@@ -4820,13 +4804,7 @@ UI67:Paragraph({
     Desc = "⏰ - Time/Date Tag\n📶 - Ping/FPS Tag\n📜 - Script Version Tag",
 })
 -- Toggle for 24-hour format
-UI67:Toggle({
-    Title = "⏰ | 24-Hour Format",
-    Value = true, -- default ON
-    Callback = function(state)
-        is24Hour = state
-    end,
-})
+
 local UI2 = UI:Section({
 		Title = "Theme Manager",
 		Desc = "Customize your UI theme",
