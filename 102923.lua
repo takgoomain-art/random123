@@ -17,6 +17,7 @@ local HttpService = game:GetService("HttpService")
 
 local Lighting = game:GetService("Lighting")
 local StarterGui = game:GetService("StarterGui")
+local Workspace = game:GetService("Workspace")
 
 
 
@@ -681,12 +682,8 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
---[[local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local Workspace = game:GetService("Workspace")
 
-local player = Players.LocalPlayer
-local Camera = Workspace.CurrentCamera
+
 
 -- 📌 Paragraph
 local CameraParagraph = VStack1:Paragraph({
@@ -695,6 +692,7 @@ local CameraParagraph = VStack1:Paragraph({
     
 })
 
+local Camera = Workspace.CurrentCamera
 -- 🔄 Update loop
 RunService.RenderStepped:Connect(function()
 
