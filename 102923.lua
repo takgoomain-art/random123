@@ -3796,7 +3796,10 @@ LeftGS:Toggle({
 LeftGS:Slider({
     Title = "Volume",
     Desc = "Adjust music volume",
-    Icon = "volume-2",
+    Icons = { 
+			From = "volume-1",
+			To = "volume-2",
+		},
     Value = {
         Min = 0,
         Max = 100,
@@ -3813,8 +3816,7 @@ LeftGS:Dropdown({
     Title = "Playback Speed",
     Desc = "Adjust music playback speed",
     Icon = "activity",
-    Value = "1x (Default)",
-    Options = {
+	Values = {
         "0.5x",
         "0.75x",
         "1x (Default)",
@@ -3828,6 +3830,8 @@ LeftGS:Dropdown({
         "9x",
         "10x",
     },
+    Value = "1x (Default)",
+    
     Callback = function(value)
         local speeds = {
             ["0.5x"] = 0.50,
