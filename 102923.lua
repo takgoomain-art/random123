@@ -1098,6 +1098,64 @@ local Credits = GRStack1:Paragraph({
     ]]
 })
 
+local dscfeedb = Stack11:Section({
+		Title = "Feedback",
+		Icon = "pencil",
+		TextXAlignment = "Center",
+		Opened = true,
+	})
+
+local messageValue = ""
+
+dscfeedb:Input({
+    Title = "Message",
+    Desc = "Enter message to send to Discord",
+    Icon = "message-circle",
+    Placeholder = "Type your message here...",
+    Callback = function(value)
+        messageValue = value
+    end,
+})
+
+dscfeedb:Button({
+    Title = "Send Message",
+    Desc = "Send message to Discord",
+    Icon = "send",
+    Callback = function()
+        local WEBHOOK_URL = "https://discord.com/api/webhooks/1501437446997544991/ILcP2V6xlzickGGZ2UU2Hi9MGmW19DQ5FvOIeXS5Lc8-TroL6xUu8dE5IUjKNm-f0LPB"
+
+        if cooldown then
+            WindUI:Notify({ Title = "Cooldown!", Content = "Please wait before sending.", Icon = "clock", Duration = 3 })
+            return
+        end
+
+        if messageValue == "" or messageValue == nil then
+            WindUI:Notify({ Title = "Error!", Content = "Message cannot be empty!", Icon = "alert-circle", Duration = 3 })
+            return
+        end
+
+        local success, err = pcall(function()
+            request({
+                Url = WEBHOOK_URL,
+                Method = "POST",
+                Headers = { ["Content-Type"] = "application/json" },
+                Body = HttpService:JSONEncode({
+                    content = messageValue,
+                    username = player.DisplayName .. " (@" .. player.Name .. ")",
+                    avatar_url = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. player.UserId .. "&width=420&height=420&format=png",
+                })
+            })
+        end)
+
+        if success then
+            WindUI:Notify({ Title = "Message Sent!", Content = "Your message was sent to Discord!", Icon = "check-circle", Duration = 3 })
+            cooldown = true
+            task.delay(5, function() cooldown = false end)
+        else
+            WindUI:Notify({ Title = "Failed!", Content = "Something went wrong, try again.", Icon = "x-circle", Duration = 3 })
+        end
+    end,
+})
 local updlog = Upd:Section({
 		Title = "Update Logs",
 		Desc = "See the update logs",
