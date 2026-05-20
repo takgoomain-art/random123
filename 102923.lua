@@ -216,6 +216,7 @@ local Window = WindUI:CreateWindow({
     Icon = "rbxassetid://85217490213932", -- lucide icon. optional
 	IconSize = "42",
     Author = "by Takgoo", -- optional
+	Theme = "Crimson",
     HideSearchBar = false,
 	Transparent = true,
 	Resizable = true,
@@ -223,8 +224,8 @@ local Window = WindUI:CreateWindow({
 	Acrylic = true,
 	ScrollBarEnabled = true,
 	Size = UDim2.new(0, 700, 0, 590),
-	--MinSize = Vector2.new(815, 400),
-	--MaxSize = Vector2.new(1000, 700),
+	MinSize = Vector2.new(815, 400),
+	MaxSize = Vector2.new(1000, 700),
 		
 
 		User = {
@@ -241,7 +242,7 @@ local Window = WindUI:CreateWindow({
 
 
 
-WindUI:SetTheme("Dark")
+
 Window:CreateTopbarButton("theme-switcher", "moon", function()
     WindUI:SetTheme(WindUI:GetCurrentTheme() == "Dark" and "Light" or "Dark")
     WindUI:Notify({
@@ -540,8 +541,12 @@ Info:Section({
     }
     ]]
 --})
-
-local HStack = Main:HStack({ AutoSpace = true })
+local Stack11 = Main:Section({
+		Title = "Info",
+		Icon = "info",
+		TextXAlignment = "Center",
+	})
+local HStack = Stack11:HStack({ AutoSpace = true })
 
 local VStack1 = HStack:VStack() -- left
 local VStack2 = HStack:VStack() -- right
@@ -702,24 +707,7 @@ end)
 -- 📌 Paragraph
 
 
-local Credits = VStack2:Paragraph({
-    Title = "Credentials",
-    Desc = "Takgoo - Dev/Owner\nWind UI\nLucide Icons\nLiquidians (Community)",
-   --Color = "Red",
-    --Image = "",
-    --ImageSize = 30,
-    --Thumbnail = "",
-    --ThumbnailSize you 80,
-    Locked = false,
-    --[[Buttons = {
-        {
-            Icon = "bird",
-            Title = "Button",
-            Callback = function() print("1 Button") end,
-        }
-    }
-    ]]
-})
+
 
 -- 🎮 GAME INFO
 local placeId = game.PlaceId
@@ -1078,7 +1066,36 @@ VStack3:Button({
 	end,
 })
 
+local Stack22 = Stack11:Section({
+		Title = "Credits",
+		Icon = "heart",
+		TextXAlignment = "Center",
+	})
 
+local Stackk1 = Stack22:HStack()
+
+local GRStack1 = Stackk1:VStack()
+local GRStack2 = Stackk1:VStack()
+
+
+local Credits = GRStack1:Paragraph({
+    Title = "Credentials",
+    Desc = "Takgoo - Dev/Owner\nWind UI\nLucide Icons\nLiquidians (Community)",
+   --Color = "Red",
+    Image = "https://i.pinimg.com/474x/0f/04/ac/0f04ac135a8d6db96514bd97261c1c97.jpg",
+    ImageSize = 31,
+    --Thumbnail = "",
+    --ThumbnailSize you 80,
+    Locked = false,
+    --[[Buttons = {
+        {
+            Icon = "bird",
+            Title = "Button",
+            Callback = function() print("1 Button") end,
+        }
+    }
+    ]]
+})
 
 local updlog = Upd:Section({
 		Title = "Update Logs",
