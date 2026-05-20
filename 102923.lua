@@ -1071,7 +1071,7 @@ GRStack1:Button({
 				Desc = "Copies Wind UI's Github site",
 				Icon = "copy",
 				Callback = function()
-					setclipboard(("https://github.com/Footagesus/WindUI")
+					setclipboard("https://github.com/Footagesus/WindUI")
 						WindUI:Notify({
 								Title = "Liquid Hub",
 								Content = "Wind UI's Github Repository copied to clipboard",
@@ -1197,7 +1197,7 @@ discordstack1:Button({
                 Body = HttpService:JSONEncode({
                     content = messageValue,
                     username = player.DisplayName .. " (@" .. player.Name .. ")",
-                    avatar_url = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" .. player.UserId .. "&size=420x420&format=Png&isCircular=false",
+                    avatar_url = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" .. UserId .. "&size=420x420&format=Png&isCircular=false",
 								})
             })
         end)
@@ -1211,6 +1211,7 @@ discordstack1:Button({
         end
     end,
 })
+	
 local updlog = Upd:Section({
 		Title = "Update Logs",
 		Desc = "See the update logs",
