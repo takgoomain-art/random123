@@ -2,7 +2,7 @@
 LIQUID HUB TEMP FILE 
 ]]
 --local WindUI = _G.WindUI
-local scriptVersion = "v1.555.11"
+local scriptVersion = "v1.555.50"
 
 ---- services
 local Players = game:GetService("Players")
@@ -1070,6 +1070,7 @@ local Stack22 = Stack11:Section({
 		Title = "Credits",
 		Icon = "heart",
 		TextXAlignment = "Center",
+		Opened = true
 	})
 
 local Stackk1 = Stack22:HStack()
@@ -1116,6 +1117,34 @@ updlog:Paragraph({
 updlog:Paragraph({
 		Title = "📜 Updates Logs #3 | v1.222.00",
 		Desc = "+ Added RTX Summer Lighting\n+ Added PShade Script\n+ Added No Clip\n+ Added Executor Script\n+ Added Version Tag\n+ Script Key System Checker\n+ Organized Info Tab\n+ Fixed Discord Invite\n+ Fixed ESP\n+ Fixed Character Stats\n+ Fixed Player Movement Value\n+ Fixed Destroy GUI Button\n+ Fixed Fullbright\n+ Fixed Wind UI Notification\n+ Fixed Section Icons\n+ Fixed some bugs",
+	})
+updlog:Paragraph({
+		Title = "📜 Updates Logs #4 | v1.222.50",
+		Desc = "+ Added Universal Music Scripts\n+ Added Remote Executor\n+ Added Executor Script\n+ Added New Game Scripts\n+ Fixed No Clip Toggle\n+ Fixed Sections\n+ Fixed Icons\n+ Fixed Fly GUI 1 & 2\n+ Fixed Theme\n+ Fixed Other Bug",
+	})
+updlog:Paragraph({
+		Title = "📜 Updates Logs #5 | v1.333.00",
+		Desc = "+ Added Tabs (Troll & Teleport)\n+ Added Teleport Tool Button\n+ Added Refresh Player's List Button\n+ Added Icon in Destroy GUI Dialog\n+ Fixed Teleport Player\n+ Fixed Spectate Player\n+ Fixed Player Dropdown\n+ Fixed Custom FOV\n+ Fixed Dropdown Refresh\n+ Fixed UI Erorrs\n+ Fixed some bugs...",
+	})
+updlog:Paragraph({
+		Title = "📜 Updates Logs #6 | v1.444.00",
+		Desc = "+ Added Loader (start)\n+ Added New Game Script\n+ Added New Script Hub\n+ Added Search Bar on Dropdown\n+ Organized UI\n+ Fixed Dark Mode and Light Mode\n+ Fixed Icon Shape Tab\n+ Fixed Notification Error\n+ Fixed Infinite Jump Stucked\n+ Edited Popup Button\n+ Fixed Tag Colors\n+ Fixed some bugs",
+	})
+updlog:Paragraph({
+		Title = "📜 Updates Logs #7 | v1.444.50",
+		Desc = "+ Added Role Tag\n+ Added New Game Script\n+ Added New Script Hub\n+ Fixed some script not loading\n+ Fixed Player Dropdown\n+ Fixed Character Stats (pos XYZ)\n+ Fixed Other Details in Info\n+ Fixed some bugs",
+	})
+updlog:Paragraph({
+		Title = "📜 Updates Logs #8 | v1.555.00",
+		Desc = "+ Added Code Preview\n+ Wind Ui's HStack/VStack Supported\n+ Organized Tabs\n+ Fixed No Clip\n+ Fixed Window Size\n+ Fixed Jump Power\n+ Cancelled Gravity Function\n+ Improved Icons im Toggle\n+ Other bug has been fixed",
+	})
+updlog:Paragraph({
+		Title = "📜 Updates Logs #9 | v1.555.10",
+		Desc = "+ Added icons to some elements\n+ Added TP to Low Player Server\n+ Fixed Rejoin Button\n+ Fixed Server Hop\n+ Organized Elements in Server Tab\n+ Fixed Tag not showing\n+ Fixed Section Alignment\n+ Fixed Loader Notification\n+ Fixed Divider()\n+ Fixed other bug",
+	})
+updlog:Paragraph({
+		Title = "📜 Updates Logs #10 | v1.555.1-fix",
+		Desc = "+ Fixed Loader Error\n+ Fixed Main UI Error\n+ Fixed attempt to call a nil value Error\n+ Fixed Elements\n+ Fixed Bug",
 	})
 --[[local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
