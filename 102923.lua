@@ -265,22 +265,34 @@ local ClockTag = Window:Tag({
     Title = "Loading...",
     Icon = "clock",
     Color = Color3.fromHex("#1c1c1c"),
+    Border = true,
     Radius = 8,
 })
+
 
 task.spawn(function()
     while true do
         task.wait(1)
 			local Days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}
-            local Months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
+local Months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
+local is24Hour = true
 			
-
         local t = os.date("*t")
         local day = Days[t.wday]
         local month = Months[t.month]
         local min = string.format("%02d", t.min)
-        local hour = string.format("%02d", t.hour)
-        local timeStr = string.format("%s:%s", hour, min)
+        local timeStr
+
+        if is24Hour then
+            local hour = string.format("%02d", t.hour)
+            timeStr = string.format("%s:%s", hour, min)
+        else
+            local hour = t.hour
+            local suffix = hour >= 12 and "PM" or "AM"
+            hour = hour % 12
+            if hour == 0 then hour = 12 end
+            timeStr = string.format("%02d:%s %s", hour, min, suffix)
+        end
 
         ClockTag:SetTitle(string.format("%s | %s, %s %d", timeStr, day, month, t.day))
     end
@@ -4718,6 +4730,13 @@ UI67:Paragraph({
     Desc = "⏰ - Time/Date Tag\n📶 - Ping/FPS Tag\n📜 - Script Version Tag",
 })
 
+UI67:Toggle({
+    Title = "⏰ | 24-Hour Format",
+    Value = true,
+    Callback = function(state)
+        is24Hour = state
+    end,
+})
 
 local UI2 = UI:Section({
 		Title = "Theme Manager",
