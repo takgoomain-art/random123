@@ -18,6 +18,7 @@ local HttpService = game:GetService("HttpService")
 local Lighting = game:GetService("Lighting")
 local StarterGui = game:GetService("StarterGui")
 local Workspace = game:GetService("Workspace")
+local SoundService = game:GetService("SoundService")
 
 
 
@@ -3735,14 +3736,124 @@ local musics = More:Section({
 	    BoxBorder = true,
 	})
 
-local spotifymp = musics:Button({
+local GroupStack = musics:HStack()
+
+local LeftGS = GroupStack:VStack()
+local RightGS = GroupStack:VStack()
+
+
+-- Create Sound instance
+local Music = Instance.new("Sound")
+Music.Parent = SoundService
+Music.Volume = 0.5
+Music.Looped = false
+
+-- Music ID Input
+LeftGS:Input({
+    Title = "Music ID",
+    Desc = "Enter Roblox Music ID",
+    Icon = "music",
+    Placeholder = "e.g. 1234567890",
+    Callback = function(value)
+        local id = tonumber(value)
+        if id then
+            Music.SoundId = "rbxassetid://" .. id
+            if Music.IsPlaying then
+                Music:Stop()
+                Music:Play()
+            end
+        end
+    end,
+})
+
+-- Play Music Toggle
+LeftGS:Toggle({
+    Title = "Play Music",
+    Desc = "Toggle music on/off",
+    Icon = "play",
+    Value = false,
+    Callback = function(state)
+        if state then
+            Music:Play()
+        else
+            Music:Stop()
+        end
+    end,
+})
+
+-- Loop Music Toggle
+LeftGS:Toggle({
+    Title = "Loop Music",
+    Desc = "Toggle music loop",
+    Icon = "repeat",
+    Value = false,
+    Callback = function(state)
+        Music.Looped = state
+    end,
+})
+
+-- Volume Slider
+LeftGS:Slider({
+    Title = "Volume",
+    Desc = "Adjust music volume",
+    Icon = "volume-2",
+    Value = {
+        Min = 0,
+        Max = 100,
+        Default = 50,
+    },
+    Step = 1,
+    Callback = function(value)
+        Music.Volume = value / 100
+    end,
+})
+
+-- Playback Speed Dropdown
+LeftGS:Dropdown({
+    Title = "Playback Speed",
+    Desc = "Adjust music playback speed",
+    Icon = "activity",
+    Value = "1x (Default)",
+    Options = {
+        "0.5x",
+        "0.75x",
+        "1x (Default)",
+        "2x",
+        "3x",
+        "4x",
+        "5x",
+        "6x",
+        "7x",
+        "8x",
+        "9x",
+        "10x",
+    },
+    Callback = function(value)
+        local speeds = {
+            ["0.5x"] = 0.50,
+            ["0.75x"] = 0.75,
+            ["1x (Default)"] = 1,
+            ["2x"] = 2,
+            ["3x"] = 3,
+            ["4x"] = 4,
+            ["5x"] = 5,
+            ["6x"] = 6,
+            ["7x"] = 7,
+            ["8x"] = 8,
+            ["9x"] = 9,
+            ["10x"] = 10,
+        }
+        Music.PlaybackSpeed = speeds[value]
+    end,
+})
+local spotifymp = RightGS:Button({
 		Title = "🔓 Ares Spotify Music",
 		Desc = "Loads a universal music script.",
 		Locked = false,
 		Callback = function()
 			loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Spotify-Music-Player-Universal-207570"))()
 		end})
-local YTMusicMp = musics:Button({
+local YTMusicMp = RightGS:Button({
 		Title = "🔓 YouTube Music Player",
 		Desc = "Loads a universal music script.",
 		Locked = false,
