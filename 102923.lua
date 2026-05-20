@@ -1046,6 +1046,7 @@ local aboutme = GRStack1:Paragraph({
 				end,
         }
 		}
+	})
 local Credits = GRStack1:Paragraph({
     Title = "Credentials",
     Desc = "Takgoo - Dev/Owner\nWind UI\nLucide Icons\nLiquidians (Community)",
