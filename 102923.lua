@@ -269,13 +269,14 @@ local ClockTag = Window:Tag({
     Radius = 8,
 })
 
+local is24Hour = true
 
 task.spawn(function()
     while true do
         task.wait(1)
 			local Days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}
 local Months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
-local is24Hour = true
+
 			
         local t = os.date("*t")
         local day = Days[t.wday]
