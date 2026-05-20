@@ -554,59 +554,7 @@ local VStack3 = HStack:VStack() -- third
 
 
 
-local DiscordServerParagraph = VStack1:Paragraph({
-			Title = "Liquid Hub | Community",
-			Desc = "Join to our Discord Community!!",
-			Image = "rbxassetid://85217490213932",
-		--	.. Response.guild.id
-			--	.. "/"
-			--	.. Response.guild.icon
-			--	.. ".png?size=1024",
-		    Thumbnail = "",
-		--Thumbnail = "https://cdn.discordapp.com/banners/1300692552005189632/35981388401406a4b7dffd6f447a64c4.png?size=512",
-			ImageSize = 30,
-			Buttons = {
-				{
-					Title = "Copy link",
-					Icon = "link",
-					Callback = function()
-						local Dialog = Window:Dialog({
-    Icon = "external-link",
-    Title = "Liquid Hub | Discord Community",
-    Content = "Join to our discord servers.",
-    Buttons = {
-        {
-            Title = "NEW",
-			Icon = "link",
-            Callback = function()
-                setclipboard("https://discord.gg/jYkbeWtYsf")
-				WindUI:Notify({
-				Title = "Liquid Hub",
-				Content = "New discord server copied to clipboard",
-				Icon = "link",
-				Duration = 2
-											})
-            end,
-        },
-        {
-            Title = "OLD",
-			Icon = "link",
-            Callback = function()
-                setclipboard("https://discord.gg/wDMPK3QAmY")
-				WindUI:Notify({
-				Title = "Liquid Hub",
-				Content = "Old discord server copied to clipboard",
-				Icon = "link",
-				Duration = 2
-											})						
-            end,
-        },
-    },
-})	    
-					end,
-				},
-			},
-		})
+
 
 --InfoGroup1:Space()
 --[[
@@ -1078,13 +1026,32 @@ local Stackk1 = Stack22:HStack()
 local GRStack1 = Stackk1:VStack()
 local GRStack2 = Stackk1:VStack()
 
-
+local aboutme = GRStack1:Paragraph({
+		Title = "Dev/Owner",
+		Desc = "- Takgoo (a.k.a POGI)\n- Filipino\n- Not 18+\n- Always POGI",
+		Image = "https://i.pinimg.com/474x/0f/04/ac/0f04ac135a8d6db96514bd97261c1c97.jpg",
+        ImageSize = 60,
+		Buttons = {
+        {
+            Icon = "user",
+            Title = "Discord Account",
+            Callback = function() 
+				setclipboard("@takgoo.second")
+					WindUI:Notify({
+							Title = "Liquid Hub",
+							Content = "Discord username copied to clipboard",
+							Icon = "clipboard",
+							Duration = 2,
+						})
+				end,
+        }
+		}
 local Credits = GRStack1:Paragraph({
     Title = "Credentials",
     Desc = "Takgoo - Dev/Owner\nWind UI\nLucide Icons\nLiquidians (Community)",
    --Color = "Red",
     Image = "https://i.pinimg.com/474x/0f/04/ac/0f04ac135a8d6db96514bd97261c1c97.jpg",
-    ImageSize = 31,
+    ImageSize = 60,
     --Thumbnail = "",
     --ThumbnailSize you 80,
     Locked = false,
@@ -1098,6 +1065,88 @@ local Credits = GRStack1:Paragraph({
     ]]
 })
 
+GRStack1:Button({
+				Title = "Wind UI Github",
+				Desc = "Copies Wind UI's Github site",
+				Icon = "copy",
+				Callback = function()
+					setclipboard(("https://github.com/Footagesus/WindUI")
+						WindUI:Notify({
+								Title = "Liquid Hub",
+								Content = "Wind UI's Github Repository copied to clipboard",
+								Icon = "clipboard",
+								Duration = 2,
+							})
+					end
+				})
+
+GRStack1:Button({
+				Title = "Lucide Icon",
+				Desc = "Copies Lucide's website",
+				Icon = "copy",
+				Callback = function()
+						setclipboard("https://lucide.dev/")
+									WindUI:Notify({
+								Title = "Liquid Hub",
+								Content = "Lucide Icon's copied to clipboard",
+								Icon = "clipboard",
+								Duration = 2,
+							})
+					end
+				})
+local DiscordServerParagraph = GRStack2:Paragraph({
+			Title = "Liquid Hub | Community",
+			Desc = "Join to our Discord Community!!",
+			Image = "rbxassetid://85217490213932",
+		--	.. Response.guild.id
+			--	.. "/"
+			--	.. Response.guild.icon
+			--	.. ".png?size=1024",
+		    Thumbnail = "",
+		--Thumbnail = "https://cdn.discordapp.com/banners/1300692552005189632/35981388401406a4b7dffd6f447a64c4.png?size=512",
+			ImageSize = 45,
+			Buttons = {
+				{
+					Title = "Copy link",
+					Icon = "link",
+					Callback = function()
+						local Dialog = Window:Dialog({
+    Icon = "external-link",
+    Title = "Liquid Hub | Discord Community",
+    Content = "Join to our discord servers.",
+    Buttons = {
+        {
+            Title = "NEW",
+			Icon = "link",
+            Callback = function()
+                setclipboard("https://discord.gg/jYkbeWtYsf")
+				WindUI:Notify({
+				Title = "Liquid Hub",
+				Content = "New discord server copied to clipboard",
+				Icon = "link",
+				Duration = 2
+											})
+            end,
+        },
+        {
+            Title = "OLD",
+			Icon = "link",
+            Callback = function()
+                setclipboard("https://discord.gg/wDMPK3QAmY")
+				WindUI:Notify({
+				Title = "Liquid Hub",
+				Content = "Old discord server copied to clipboard",
+				Icon = "link",
+				Duration = 2
+											})						
+            end,
+        },
+    },
+})	    
+					end,
+				},
+			},
+		})
 local dscfeedb = Stack11:Section({
 		Title = "Feedback",
 		Icon = "pencil",
@@ -1105,9 +1154,14 @@ local dscfeedb = Stack11:Section({
 		Opened = true,
 	})
 
+local discordstack = dscfeedb:HStack()
+
+local discordstack1 = discordstack:VStack()
+local discordstack2 = discordstack:VStack()
+
 local messageValue = ""
 
-dscfeedb:Input({
+discordstack1:Input({
     Title = "Message",
     Desc = "Enter message to send to Discord",
     Icon = "message-circle",
@@ -1117,7 +1171,7 @@ dscfeedb:Input({
     end,
 })
 
-dscfeedb:Button({
+discordstack1:Button({
     Title = "Send Message",
     Desc = "Send message to Discord",
     Icon = "send",
@@ -1142,17 +1196,17 @@ dscfeedb:Button({
                 Body = HttpService:JSONEncode({
                     content = messageValue,
                     username = player.DisplayName .. " (@" .. player.Name .. ")",
-                    avatar_url = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. player.UserId .. "&width=420&height=420&format=png",
-                })
+                    avatar_url = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" .. player.UserId .. "&size=420x420&format=Png&isCircular=false",
+								})
             })
         end)
 
         if success then
-            WindUI:Notify({ Title = "Message Sent!", Content = "Your message was sent to Discord!", Icon = "check-circle", Duration = 3 })
+            WindUI:Notify({ Title = "Message Sent!", Content = "Your message was sent to Discord!", Icon = "message-circle-check", Duration = 3 })
             cooldown = true
             task.delay(5, function() cooldown = false end)
         else
-            WindUI:Notify({ Title = "Failed!", Content = "Something went wrong, try again.", Icon = "x-circle", Duration = 3 })
+            WindUI:Notify({ Title = "Failed!", Content = "Something went wrong, try again.", Icon = "message-circle-off", Duration = 3 })
         end
     end,
 })
