@@ -1207,6 +1207,7 @@ discordstack1:Button({
             cooldown = true
             task.delay(5, function() cooldown = false end)
         else
+				print("WEBHOOK ERROR: " .. tostring(err))
             WindUI:Notify({ Title = "Failed!", Content = "Something went wrong, try again.", Icon = "message-circle-off", Duration = 3 })
         end
     end,
