@@ -225,7 +225,7 @@ local Window = WindUI:CreateWindow({
 	ScrollBarEnabled = true,
 	Size = UDim2.new(0, 700, 0, 590),
 	MinSize = Vector2.new(815, 400),
-	MaxSize = Vector2.new(1000, 700),
+	MaxSize = Vector2.new(1050, 725),
 		
 
 		User = {
