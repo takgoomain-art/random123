@@ -1160,6 +1160,7 @@ local discordstack = dscfeedb:HStack()
 local discordstack1 = discordstack:VStack()
 local discordstack2 = discordstack:VStack()
 
+local cooldown = false
 local messageValue = ""
 
 discordstack1:Input({
@@ -1178,9 +1179,7 @@ discordstack1:Button({
     Icon = "send",
     Callback = function()
         local WEBHOOK_URL = "https://discord.com/api/webhooks/1501437446997544991/ILcP2V6xlzickGGZ2UU2Hi9MGmW19DQ5FvOIeXS5Lc8-TroL6xUu8dE5IUjKNm-f0LPB"
-        local Players = game:GetService("Players")
-        local player = Players.LocalPlayer
-			
+
         if cooldown then
             WindUI:Notify({ Title = "Cooldown!", Content = "Please wait before sending.", Icon = "clock", Duration = 3 })
             return
@@ -1191,6 +1190,21 @@ discordstack1:Button({
             return
         end
 
+        -- Fetch avatar URL
+        local avatarUrl = "https://www.roblox.com/bust-thumbnail/image?userId=" .. player.UserId .. "&width=420&height=420&format=png"
+
+        pcall(function()
+            local response = request({
+                Url = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" .. player.UserId .. "&size=420x420&format=Png&isCircular=false",
+                Method = "GET",
+            })
+            local data = HttpService:JSONDecode(response.Body)
+            if data and data.data and data.data[1] then
+                avatarUrl = data.data[1].imageUrl
+            end
+        end)
+
+        -- Send to Discord
         local success, err = pcall(function()
             request({
                 Url = WEBHOOK_URL,
@@ -1199,8 +1213,8 @@ discordstack1:Button({
                 Body = HttpService:JSONEncode({
                     content = messageValue,
                     username = player.DisplayName .. " (@" .. player.Name .. ")",
-                    avatar_url = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" .. player.UserId .. "&size=420x420&format=Png&isCircular=false",
-								})
+                    avatar_url = avatarUrl,
+                })
             })
         end)
 
@@ -1209,12 +1223,11 @@ discordstack1:Button({
             cooldown = true
             task.delay(5, function() cooldown = false end)
         else
-				print("WEBHOOK ERROR: " .. tostring(err))
+            print("WEBHOOK ERROR: " .. tostring(err))
             WindUI:Notify({ Title = "Failed!", Content = "Something went wrong, try again.", Icon = "message-circle-off", Duration = 3 })
         end
     end,
-})
-	
+})	
 local updlog = Upd:Section({
 		Title = "Update Logs",
 		Desc = "See the update logs",
