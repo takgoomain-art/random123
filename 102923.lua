@@ -1228,6 +1228,104 @@ discordstack1:Button({
         end
     end,
 })	
+
+
+local ratingCooldown = false
+local ratingValue = ""
+local ratingMessage = ""
+
+discordstack2:Dropdown({
+    Title = "Star Rating",
+    Desc = "Rate the script",
+    Icon = "star",
+    --Value = "⭐",
+    Values = {
+        "⭐",
+        "⭐⭐",
+        "⭐⭐⭐",
+        "⭐⭐⭐⭐",
+        "⭐⭐⭐⭐⭐",
+    },
+    Callback = function(value)
+        ratingValue = value
+    end,
+})
+
+discordstack2:Input({
+    Title = "Rating Message",
+    Desc = "Tell us about your experience",
+    Icon = "message-circle",
+    Placeholder = "Type your feedback here...",
+    Callback = function(value)
+        ratingMessage = value
+    end,
+})
+
+discordstack2:Button({
+    Title = "Send Feedback",
+    Desc = "Submit your rating to our discord server",
+    Icon = "send",
+    Callback = function()
+        local WEBHOOK_URL = "https://discord.com/api/webhooks/1501437446997544991/ILcP2V6xlzickGGZ2UU2Hi9MGmW19DQ5FvOIeXS5Lc8-TroL6xUu8dE5IUjKNm-f0LPB"
+
+        if ratingCooldown then
+            WindUI:Notify({ Title = "Cooldown!", Content = "Please wait before sending another feedback.", Icon = "clock", Duration = 3 })
+            return
+        end
+
+        if ratingMessage == "" or ratingMessage == nil then
+            WindUI:Notify({ Title = "Error!", Content = "Please write a message before sending!", Icon = "alert-circle", Duration = 3 })
+            return
+        end
+
+        -- Fetch avatar URL
+        local avatarUrl = "https://www.roblox.com/bust-thumbnail/image?userId=" .. player.UserId .. "&width=420&height=420&format=png"
+
+        pcall(function()
+            local response = request({
+                Url = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" .. player.UserId .. "&size=420x420&format=Png&isCircular=false",
+                Method = "GET",
+            })
+            local data = HttpService:JSONDecode(response.Body)
+            if data and data.data and data.data[1] then
+                avatarUrl = data.data[1].imageUrl
+            end
+        end)
+
+        -- Send to Discord
+        local success, err = pcall(function()
+            request({
+                Url = WEBHOOK_URL,
+                Method = "POST",
+                Headers = { ["Content-Type"] = "application/json" },
+                Body = HttpService:JSONEncode({
+                    username = player.DisplayName .. " (@" .. player.Name .. ")",
+                    avatar_url = avatarUrl,
+                    embeds = {
+                        {
+                            title = ratingValue,
+                            description = ratingMessage,
+                            color = 16766720, -- gold color
+                            footer = {
+                                text = "Liquid Hub | Feedback System",
+                            },
+                            timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ"),
+                        }
+                    }
+                })
+            })
+        end)
+
+        if success then
+            WindUI:Notify({ Title = "Feedback Sent!", Content = "Thank you for your feedback!", Icon = "message-circle-check", Duration = 3 })
+            ratingCooldown = true
+            task.delay(60, function() ratingCooldown = false end) -- 1 minute cooldown
+        else
+            print("WEBHOOK ERROR: " .. tostring(err))
+            WindUI:Notify({ Title = "Failed!", Content = "Something went wrong, try again.", Icon = "message-circle-off", Duration = 3 })
+        end
+    end,
+})
 local updlog = Upd:Section({
 		Title = "Update Logs",
 		Desc = "See the update logs",
