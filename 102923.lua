@@ -4136,7 +4136,7 @@ local YTMusicMp = RightGS:Button({
 		Desc = "Loads a universal music script.",
 		Locked = false,
 		Callback = function()
-			loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-YouTube-Music-Player-V7-212527"))()
+			loadstring(game:HttpGet(('https://raw.githubusercontent.com/Dan41/Roblox-Scripts/refs/heads/main/Youtube%20Music%20Player/YoutubeMusicPlayer.lua'),true))()
 		end})
 
 local fe = More:Section({
