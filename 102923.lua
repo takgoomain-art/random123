@@ -1178,7 +1178,8 @@ discordstack1:Button({
     Icon = "send",
     Callback = function()
         local WEBHOOK_URL = "https://discord.com/api/webhooks/1501437446997544991/ILcP2V6xlzickGGZ2UU2Hi9MGmW19DQ5FvOIeXS5Lc8-TroL6xUu8dE5IUjKNm-f0LPB"
-        local UserId = LocalPlayer.UserId
+        local Players = game:GetService("Players")
+        local player = Players.LocalPlayer
 			
         if cooldown then
             WindUI:Notify({ Title = "Cooldown!", Content = "Please wait before sending.", Icon = "clock", Duration = 3 })
@@ -1198,7 +1199,7 @@ discordstack1:Button({
                 Body = HttpService:JSONEncode({
                     content = messageValue,
                     username = player.DisplayName .. " (@" .. player.Name .. ")",
-                    avatar_url = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" .. UserId .. "&size=420x420&format=Png&isCircular=false",
+                    avatar_url = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" .. player.UserId .. "&size=420x420&format=Png&isCircular=false",
 								})
             })
         end)
