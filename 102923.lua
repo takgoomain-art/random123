@@ -3472,6 +3472,13 @@ if SailorPiece then
 		Locked = false,
 		Callback = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/Vavadragonss/VavaHubb/refs/heads/main/v1.lua"))()
+			end}))
+	local VHHub = spp:Button({
+		Title = "🔐 VH Hub",
+		Desc = "",
+		Locked = false,
+		Callback = function()
+				loadstring(game:HttpGet('https://vhapi.duckdns.org/v1/raw/VH_Sailor_Piece'))()
 			end})
 	local HOHOSP = spp:Button({
 			Title = "🔐 HoHo Hub",
