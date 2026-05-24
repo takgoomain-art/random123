@@ -4105,7 +4105,7 @@ LeftGS:Slider({
     Title = "Volume",
     Desc = "Adjust music volume",
     Icons = { 
-			From = "volume-1",
+			From = "volume",
 			To = "volume-2",
 		},
     Value = {
@@ -4188,6 +4188,24 @@ local iy = fe:Button({
 	Callback = function()
 			loadstring(game:HttpGet('https://cdn.robloxscripts.gg/public/furky/furky-infinite-yield-roblox-admin-script-source.lua'))()
 		end})
+
+local universal = More:Section({
+		Title = "Universal Scripts",
+		Desc = "",
+		Icon = "globe",
+		Opened = true,
+		Box = true,
+		BoxBorder = true,
+	})
+
+universal:Button({
+		Title = "🔐 Rey Hub",
+		Desc = "KEY: Kicaw",
+		Locked = false,
+		Callback = function()
+			loadstring(game:HttpGet("https://pastebin.com/raw/zbKAtUEn"))()
+		end 
+	})
 
 local exe = More:Section({
 		Title = "Execute Script",
