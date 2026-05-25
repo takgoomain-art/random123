@@ -2325,8 +2325,7 @@ local YourSection = lp:Section({
 		BoxBorder = true,
 	})
 
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+
 --[[local originalAnims = {}
 
 local animPacks = {
@@ -2457,7 +2456,7 @@ local packNames = {
     "Robot", "Rthro", "Stylish", "Superhero", "Toy",
     "Vampire", "Werewolf", "Zombie"
 }
-]]
+
 -- Init: save original animations
 local function initAnims()
     local char = player.Character or player.CharacterAdded:Wait()
