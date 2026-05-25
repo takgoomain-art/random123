@@ -4642,7 +4642,7 @@ end)
 -------------------------------------------------
 local tpConnection
 
-tpsection:Toggle({
+local tpplayer = tpsection:Toggle({
 	Title = "Teleport to Player",
 	Icon = "user",
 	Value = false,
@@ -4678,6 +4678,7 @@ tpsection:Toggle({
 			if tpConnection then
 				tpConnection:Disconnect()
 				tpConnection = nil
+				tpplayer:Set(false)
 			end
 
 			--[[:Notify({
