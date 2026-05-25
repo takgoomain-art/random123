@@ -20,7 +20,136 @@ local StarterGui = game:GetService("StarterGui")
 local Workspace = game:GetService("Workspace")
 local SoundService = game:GetService("SoundService")
 
+local originalAnims = {}
 
+local animPacks = {
+    ["Astronaut"] = {
+        idle = {a1 = "891621366", a2 = "891633237"},
+        walk = "891636393", run = "891636393",
+        jump = "891627522", fall = "891617961",
+        climb = "891609353", swim = "891639666",
+        swimidle = "891663592",
+    },
+    ["Bubbly"] = {
+        idle = {a1 = "910004836", a2 = "910009958"},
+        walk = "910034870", run = "910025107",
+        jump = "910016857", fall = "910001910",
+        climb = "909997997", swim = "910028158",
+        swimidle = "910030921",
+    },
+    ["Cartoony"] = {
+        idle = {a1 = "742637544", a2 = "742638445"},
+        walk = "742640026", run = "742638842",
+        jump = "742637942", fall = "742637151",
+        climb = "742636889", swim = "742639220",
+        swimidle = "742639812",
+    },
+    ["Elder"] = {
+        idle = {a1 = "845397899", a2 = "845400520"},
+        walk = "845403856", run = "845386501",
+        jump = "845398858", fall = "845396048",
+        climb = "845392038", swim = "845401742",
+        swimidle = "845403127",
+    },
+    ["Knight"] = {
+        idle = {a1 = "657595757", a2 = "657568135"},
+        walk = "657552124", run = "657564596",
+        jump = "658409194", fall = "657600338",
+        climb = "658360781", swim = "657560551",
+        swimidle = "657557095",
+    },
+    ["Levitation"] = {
+        idle = {a1 = "616006778", a2 = "616008087"},
+        walk = "616013216", run = "616010382",
+        jump = "616008936", fall = "616005863",
+        climb = "616003713", swim = "616011509",
+        swimidle = "616012453",
+    },
+    ["Mage"] = {
+        idle = {a1 = "707742142", a2 = "707855907"},
+        walk = "707897309", run = "707861613",
+        jump = "707853694", fall = "707829716",
+        climb = "707826056", swim = "707876443",
+        swimidle = "707894699",
+    },
+    ["Ninja"] = {
+        idle = {a1 = "656117400", a2 = "656118341"},
+        walk = "656121766", run = "656118852",
+        jump = "656117878", fall = "656115606",
+        climb = "656114359", swim = "656119721",
+        swimidle = "656121397",
+    },
+    ["Pirate"] = {
+        idle = {a1 = "750781874", a2 = "750782770"},
+        walk = "750785693", run = "750783738",
+        jump = "750782230", fall = "750780242",
+        climb = "750779899", swim = "750784579",
+        swimidle = "750785176",
+    },
+    ["Robot"] = {
+        idle = {a1 = "616088211", a2 = "616089559"},
+        walk = "616095330", run = "616091570",
+        jump = "616090535", fall = "616087089",
+        climb = "616086039", swim = "616092998",
+        swimidle = "616094091",
+    },
+    ["Rthro"] = {
+        idle = {a1 = "2510197257", a2 = "2510196951"},
+        walk = "2510202577", run = "2510198475",
+        jump = "2510197830", fall = "2510195892",
+        climb = "2510192778", swim = "2510199791",
+        swimidle = "2510201162",
+    },
+    ["Stylish"] = {
+        idle = {a1 = "616136790", a2 = "616138447"},
+        walk = "616146177", run = "616140816",
+        jump = "616139451", fall = "616134815",
+        climb = "616133594", swim = "616143378",
+        swimidle = "616144772",
+    },
+    ["Superhero"] = {
+        idle = {a1 = "616111295", a2 = "616113536"},
+        walk = "616122287", run = "616117076",
+        jump = "616115533", fall = "616108001",
+        climb = "616104706", swim = "616119360",
+        swimidle = "616120861",
+    },
+    ["Toy"] = {
+        idle = {a1 = "782841498", a2 = "782845736"},
+        walk = "782843345", run = "782842708",
+        jump = "782847020", fall = "782846423",
+        climb = "782843869", swim = "782844582",
+        swimidle = "782845186",
+    },
+    ["Vampire"] = {
+        idle = {a1 = "1083445855", a2 = "1083450166"},
+        walk = "1083473930", run = "1083462077",
+        jump = "1083455352", fall = "1083443587",
+        climb = "1083439238", swim = "1083464683",
+        swimidle = "1083467779",
+    },
+    ["Werewolf"] = {
+        idle = {a1 = "1083195517", a2 = "1083214717"},
+        walk = "1083178339", run = "1083216690",
+        jump = "1083218792", fall = "1083189019",
+        climb = "1083182000", swim = "1083222527",
+        swimidle = "1083225406",
+    },
+    ["Zombie"] = {
+        idle = {a1 = "616158929", a2 = "616160636"},
+        walk = "616168032", run = "616163682",
+        jump = "616161997", fall = "616157476",
+        climb = "616156119", swim = "616165109",
+        swimidle = "616166655",
+    },
+}
+
+local packNames = {
+    "Default", "Astronaut", "Bubbly", "Cartoony", "Elder",
+    "Knight", "Levitation", "Mage", "Ninja", "Pirate",
+    "Robot", "Rthro", "Stylish", "Superhero", "Toy",
+    "Vampire", "Werewolf", "Zombie"
+}
 
 local Roles = {
     Owner = {
@@ -2328,7 +2457,7 @@ local YourSection = lp:Section({
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
-local originalAnims = {}
+--[[local originalAnims = {}
 
 local animPacks = {
     ["Astronaut"] = {
@@ -2458,7 +2587,7 @@ local packNames = {
     "Robot", "Rthro", "Stylish", "Superhero", "Toy",
     "Vampire", "Werewolf", "Zombie"
 }
-
+]]
 -- Init: save original animations
 local function initAnims()
     local char = player.Character or player.CharacterAdded:Wait()
