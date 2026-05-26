@@ -2324,6 +2324,300 @@ local YourSection = lp:Section({
 		Box = true,
 		BoxBorder = true,
 	})
+local Players = game:GetService("Players")
+
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Animate = Character:WaitForChild("Animate")
+
+-- SAVE ORIGINAL ANIMATIONS
+local DefaultAnimations = {
+    Idle = {
+        Animate.idle.Animation1.AnimationId:gsub("rbxassetid://", ""),
+        Animate.idle.Animation2.AnimationId:gsub("rbxassetid://", "")
+    },
+
+    Walk = Animate.walk.WalkAnim.AnimationId:gsub("rbxassetid://", ""),
+    Run = Animate.run.RunAnim.AnimationId:gsub("rbxassetid://", ""),
+    Jump = Animate.jump.JumpAnim.AnimationId:gsub("rbxassetid://", ""),
+    Fall = Animate.fall.FallAnim.AnimationId:gsub("rbxassetid://", ""),
+    Climb = Animate.climb.ClimbAnim.AnimationId:gsub("rbxassetid://", ""),
+    Swim = Animate.swim.Swim.AnimationId:gsub("rbxassetid://", ""),
+    SwimIdle = Animate.swimidle.SwimIdle.AnimationId:gsub("rbxassetid://", "")
+}
+
+local AnimationPacks = {
+
+    ["Default"] = DefaultAnimations,
+
+    ["Zombie"] = {
+        Idle = {"616158929", "616160636"},
+        Walk = "616168032",
+        Run = "616163682",
+        Jump = "616161997",
+        Fall = "616157476",
+        Climb = "616156119",
+        Swim = "616165109",
+        SwimIdle = "616166655"
+    },
+
+    ["Ninja"] = {
+        Idle = {"656117400", "656118341"},
+        Walk = "656121766",
+        Run = "656118852",
+        Jump = "656117878",
+        Fall = "656115606",
+        Climb = "656114359",
+        Swim = "656119721",
+        SwimIdle = "656121397"
+    },
+
+    ["Vampire"] = {
+        Idle = {"1083445855", "1083450166"},
+        Walk = "1083473930",
+        Run = "1083462077",
+        Jump = "1083455352",
+        Fall = "1083443587",
+        Climb = "1083439238",
+        Swim = "1083464683",
+        SwimIdle = "1083467779"
+    },
+
+    ["Werewolf"] = {
+        Idle = {"1083195517", "1083214717"},
+        Walk = "1083178339",
+        Run = "1083216690",
+        Jump = "1083218792",
+        Fall = "1083189019",
+        Climb = "1083182000",
+        Swim = "1083222527",
+        SwimIdle = "1083225406"
+    },
+
+    ["Robot"] = {
+        Idle = {"616088211", "616089559"},
+        Walk = "616095330",
+        Run = "616091570",
+        Jump = "616090535",
+        Fall = "616087089",
+        Climb = "616086039",
+        Swim = "616092998",
+        SwimIdle = "616094091"
+    }
+}
+
+local AnimationNames = {}
+
+for Name in pairs(AnimationPacks) do
+    table.insert(AnimationNames, Name)
+end
+
+local function SetAnimation(Type, PackName)
+    local Pack = AnimationPacks[PackName]
+
+    if not Pack then
+        return
+    end
+
+    local Data = Pack[Type]
+
+    if not Data then
+        return
+    end
+
+    if Type == "Idle" then
+
+        Animate.idle.Animation1.AnimationId =
+            "rbxassetid://" .. Data[1]
+
+        Animate.idle.Animation2.AnimationId =
+            "rbxassetid://" .. Data[2]
+
+    elseif Type == "Walk" then
+
+        Animate.walk.WalkAnim.AnimationId =
+            "rbxassetid://" .. Data
+
+    elseif Type == "Run" then
+
+        Animate.run.RunAnim.AnimationId =
+            "rbxassetid://" .. Data
+
+    elseif Type == "Jump" then
+
+        Animate.jump.JumpAnim.AnimationId =
+            "rbxassetid://" .. Data
+
+    elseif Type == "Fall" then
+
+        Animate.fall.FallAnim.AnimationId =
+            "rbxassetid://" .. Data
+
+    elseif Type == "Climb" then
+
+        Animate.climb.ClimbAnim.AnimationId =
+            "rbxassetid://" .. Data
+
+    elseif Type == "Swim" then
+
+        Animate.swim.Swim.AnimationId =
+            "rbxassetid://" .. Data
+
+    elseif Type == "SwimIdle" then
+
+        Animate.swimidle.SwimIdle.AnimationId =
+            "rbxassetid://" .. Data
+    end
+
+    WindUI:Notify({
+        Title = "Liquid Hub",
+        Content = Type .. " animation set to " .. PackName,
+        Duration = 3
+    })
+end
+
+local function ApplyFullPack(PackName)
+    local Types = {
+        "Idle",
+        "Walk",
+        "Run",
+        "Jump",
+        "Fall",
+        "Climb",
+        "Swim",
+        "SwimIdle"
+    }
+
+    for _, Type in ipairs(Types) do
+        SetAnimation(Type, PackName)
+    end
+
+    WindUI:Notify({
+        Title = "Liquid Hub",
+        Content = PackName .. " animation pack equipped!",
+        Duration = 4
+    })
+end
+
+-- FULL PACK DROPDOWN
+YourSection:Dropdown({
+    Title = "Animation Pack",
+    Desc = "Equip a full animation pack",
+    Values = AnimationNames,
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+        ApplyFullPack(Value)
+    end
+})
+
+-- INDIVIDUAL DROPDOWNS
+YourSection:Dropdown({
+    Title = "Idle Animations",
+    Desc = "Change idle animation",
+    Values = AnimationNames,
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+        SetAnimation("Idle", Value)
+    end
+})
+
+YourSection:Dropdown({
+    Title = "Walk Animations",
+    Desc = "Change walk animation",
+    Values = AnimationNames,
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+        SetAnimation("Walk", Value)
+    end
+})
+
+YourSection:Dropdown({
+    Title = "Run Animations",
+    Desc = "Change run animation",
+    Values = AnimationNames,
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+        SetAnimation("Run", Value)
+    end
+})
+
+YourSection:Dropdown({
+    Title = "Jump Animations",
+    Desc = "Change jump animation",
+    Values = AnimationNames,
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+        SetAnimation("Jump", Value)
+    end
+})
+
+YourSection:Dropdown({
+    Title = "Fall Animations",
+    Desc = "Change fall animation",
+    Values = AnimationNames,
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+        SetAnimation("Fall", Value)
+    end
+})
+
+YourSection:Dropdown({
+    Title = "Climb Animations",
+    Desc = "Change climb animation",
+    Values = AnimationNames,
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+        SetAnimation("Climb", Value)
+    end
+})
+
+YourSection:Dropdown({
+    Title = "Swim Animations",
+    Desc = "Change swim animation",
+    Values = AnimationNames,
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+        SetAnimation("Swim", Value)
+    end
+})
+
+YourSection:Dropdown({
+    Title = "Swim Idle Animations",
+    Desc = "Change swim idle animation",
+    Values = AnimationNames,
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+        SetAnimation("SwimIdle", Value)
+    end
+})
+--[[
 local originalAnims = {}
 
 local animPacks = {
@@ -2704,6 +2998,7 @@ YourSection:Button({
         })
     end,
 })
+]]
 
 local ESPbro = lp:Section({
 		Title = "ESP",
