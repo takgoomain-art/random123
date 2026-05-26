@@ -2326,7 +2326,8 @@ local YourSection = lp:Section({
 	})
 
 -- IDLE
-local IdleDropdown = YourSection:Dropdown({
+ 
+YourSection:Dropdown({
     Title = "Idle Animation",
     Desc = "Change idle animation",
     Values = {
@@ -2406,7 +2407,7 @@ local IdleDropdown = YourSection:Dropdown({
 })
 
 -- WALK
-local WalkDropdown = YourSection:Dropdown({
+YourSection:Dropdown({
     Title = "Walk Animation",
     Desc = "Change walk animation",
     Values = {
@@ -2465,7 +2466,7 @@ local WalkDropdown = YourSection:Dropdown({
 })
 
 -- RUN
-local RunDropdown = YourSection:Dropdown({
+YourSection:Dropdown({
     Title = "Run Animation",
     Desc = "Change run animation",
     Values = {
@@ -2523,7 +2524,7 @@ local RunDropdown = YourSection:Dropdown({
     end
 })
 -- JUMP
-local JumpDropdown = YourSection:Dropdown({
+YourSection:Dropdown({
     Title = "Jump Animation",
     Desc = "Change jump animation",
     Values = {
@@ -2582,7 +2583,7 @@ local JumpDropdown = YourSection:Dropdown({
 })
 
 -- FALL
-local FallDropdown = YourSection:Dropdown({
+YourSection:Dropdown({
     Title = "Fall Animation",
     Desc = "Change fall animation",
     Values = {
@@ -2641,7 +2642,7 @@ local FallDropdown = YourSection:Dropdown({
 })
 
 -- CLIMB
-local ClimbDropdown = YourSection:Dropdown({
+YourSection:Dropdown({
     Title = "Climb Animation",
     Desc = "Change climb animation",
     Values = {
@@ -2700,7 +2701,7 @@ local ClimbDropdown = YourSection:Dropdown({
 })
 
 -- SWIM
-local SwimDropdown = YourSection:Dropdown({
+ YourSection:Dropdown({
     Title = "Swim Animation",
     Desc = "Change swim animation",
     Values = {
@@ -2759,7 +2760,7 @@ local SwimDropdown = YourSection:Dropdown({
 })
 
 -- SWIM IDLE
-local SwimIdleDropdown = YourSection:Dropdown({
+YourSection:Dropdown({
     Title = "Swim Idle Animation",
     Desc = "Change swim idle animation",
     Values = {
@@ -2817,7 +2818,7 @@ local SwimIdleDropdown = YourSection:Dropdown({
     end
 })
 
-local PackDropdown = YourSection:Dropdown({
+YourSection:Dropdown({
     Title = "Animation Pack",
     Desc = "Equip animation packs",
     Values = {
@@ -3056,6 +3057,38 @@ local PackDropdown = YourSection:Dropdown({
             Duration = 3,
             Icon = "sparkles"
         })
+    end
+})
+
+YourSection:Button({
+    Title = "Reset Animations",
+    Desc = "Restore avatar animations",
+
+    Callback = function()
+
+        local Players = game:GetService("Players")
+
+        local LocalPlayer = Players.LocalPlayer
+
+        local Character =
+            LocalPlayer.Character or
+            LocalPlayer.CharacterAdded:Wait()
+
+        local Animate =
+            Character:WaitForChild("Animate")
+
+        -- FORCE CHARACTER RELOAD
+        -- this restores original avatar/package animations
+
+        LocalPlayer:LoadCharacter()
+
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Avatar animations restored!",
+            Duration = 3,
+            Icon = "refresh-cw"
+        })
+
     end
 })
 --[[
