@@ -2324,7 +2324,7 @@ local YourSection = lp:Section({
 		Box = true,
 		BoxBorder = true,
 	})
-
+--[[
 local Players = game:GetService("Players")
 
 local LocalPlayer = Players.LocalPlayer
