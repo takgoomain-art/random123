@@ -2324,6 +2324,248 @@ local YourSection = lp:Section({
 		Box = true,
 		BoxBorder = true,
 	})
+
+YourSection:Dropdown({
+    Title = "Animation Pack",
+    Desc = "Equip animation packs",
+    Values = {
+        "Default",
+        "Zombie",
+        "Ninja",
+        "Robot",
+        "Vampire",
+        "Werewolf"
+    },
+
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+
+        local Players = game:GetService("Players")
+
+        local LocalPlayer = Players.LocalPlayer
+
+        local Character =
+            LocalPlayer.Character or
+            LocalPlayer.CharacterAdded:Wait()
+
+        local Animate =
+            Character:WaitForChild("Animate")
+
+        -- SAVE DEFAULTS INSIDE CALLBACK
+        local DefaultIdle1 =
+            Animate.idle.Animation1.AnimationId
+
+        local DefaultIdle2 =
+            Animate.idle.Animation2.AnimationId
+
+        local DefaultWalk =
+            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId
+
+        local DefaultRun =
+            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId
+
+        local DefaultJump =
+            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId
+
+        local DefaultFall =
+            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId
+
+        local DefaultClimb =
+            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId
+
+        local DefaultSwim =
+            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId
+
+        local DefaultSwimIdle =
+            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId
+
+        if Value == "Default" then
+
+            Animate.idle.Animation1.AnimationId =
+                DefaultIdle1
+
+            Animate.idle.Animation2.AnimationId =
+                DefaultIdle2
+
+            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId =
+                DefaultWalk
+
+            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId =
+                DefaultRun
+
+            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId =
+                DefaultJump
+
+            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId =
+                DefaultFall
+
+            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId =
+                DefaultClimb
+
+            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId =
+                DefaultSwim
+
+            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId =
+                DefaultSwimIdle
+
+        elseif Value == "Zombie" then
+
+            Animate.idle.Animation1.AnimationId =
+                "rbxassetid://616158929"
+
+            Animate.idle.Animation2.AnimationId =
+                "rbxassetid://616160636"
+
+            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616168032"
+
+            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616163682"
+
+            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616161997"
+
+            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616157476"
+
+            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616156119"
+
+            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616165109"
+
+            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616166655"
+
+        elseif Value == "Ninja" then
+
+            Animate.idle.Animation1.AnimationId =
+                "rbxassetid://656117400"
+
+            Animate.idle.Animation2.AnimationId =
+                "rbxassetid://656118341"
+
+            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://656121766"
+
+            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://656118852"
+
+            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://656117878"
+
+            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://656115606"
+
+            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://656114359"
+
+            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://656119721"
+
+            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://656121397"
+
+        elseif Value == "Robot" then
+
+            Animate.idle.Animation1.AnimationId =
+                "rbxassetid://616088211"
+
+            Animate.idle.Animation2.AnimationId =
+                "rbxassetid://616089559"
+
+            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616095330"
+
+            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616091570"
+
+            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616090535"
+
+            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616087089"
+
+            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616086039"
+
+            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616092998"
+
+            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616094091"
+
+        elseif Value == "Vampire" then
+
+            Animate.idle.Animation1.AnimationId =
+                "rbxassetid://1083445855"
+
+            Animate.idle.Animation2.AnimationId =
+                "rbxassetid://1083450166"
+
+            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083473930"
+
+            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083462077"
+
+            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083455352"
+
+            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083443587"
+
+            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083439238"
+
+            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083464683"
+
+            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083467779"
+
+        elseif Value == "Werewolf" then
+
+            Animate.idle.Animation1.AnimationId =
+                "rbxassetid://1083195517"
+
+            Animate.idle.Animation2.AnimationId =
+                "rbxassetid://1083214717"
+
+            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083178339"
+
+            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083216690"
+
+            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083218792"
+
+            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083189019"
+
+            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083182000"
+
+            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083222527"
+
+            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083225406"
+
+        end
+
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = Value .. " animation equipped!",
+            Duration = 3,
+            Icon = "sparkles"
+        })
+    end
+})
 --[[
 local Players = game:GetService("Players")
 
