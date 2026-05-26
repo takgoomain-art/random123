@@ -1094,9 +1094,9 @@ GRStack1:Button({
 							})
 					end
 				})
-local DiscordServerParagraph = GRStack2:Paragraph({
-			Title = "Liquid Hub | Community",
-			Desc = "Join to our Discord Community!!",
+local DiscordParagraph = GRStack2:Paragraph({
+			Title = "Liquid Hub",
+			Desc = "Loading...",
 			Image = "rbxassetid://85217490213932",
 		--	.. Response.guild.id
 			--	.. "/"
@@ -1105,7 +1105,7 @@ local DiscordServerParagraph = GRStack2:Paragraph({
 		    Thumbnail = "",
 		--Thumbnail = "https://cdn.discordapp.com/banners/1300692552005189632/35981388401406a4b7dffd6f447a64c4.png?size=512",
 			ImageSize = 45,
-			Buttons = {
+			--[[Buttons = {
 				{
 					Title = "Copy link",
 					Icon = "link",
@@ -1147,6 +1147,75 @@ local DiscordServerParagraph = GRStack2:Paragraph({
 				},
 			},
 		})
+		]]
+
+
+
+local HttpService = game:GetService("HttpService")
+
+local InviteCode = "jYkbeWtYsf"
+
+local function UpdateDiscordStatus()
+
+    local Success, Response = pcall(function()
+
+        return game:HttpGet(
+            "https://discord.com/api/v9/invites/" ..
+            InviteCode ..
+            "?with_counts=true"
+        )
+
+    end)
+
+    if Success then
+
+        local Data =
+            HttpService:JSONDecode(Response)
+
+        local Members =
+            Data.approximate_member_count or "Unknown"
+
+        local Online =
+            Data.approximate_presence_count or "Unknown"
+
+        DiscordParagraph:SetDesc(
+            "Members: " ..
+            tostring(Members) ..
+            "\nOnline: " ..
+            tostring(Online)
+        )
+
+    else
+
+        DiscordParagraph:SetDesc(
+            "Failed to fetch Discord status."
+        )
+
+    end
+
+end
+
+-- AUTO LOAD
+UpdateDiscordStatus()
+
+-- REFRESH BUTTON
+GRStack2:Button({
+    Title = "Refresh Discord Status",
+    Desc = "Refresh member & online count",
+
+    Callback = function()
+
+        UpdateDiscordStatus()
+
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Discord status refreshed!",
+            Duration = 3,
+            Icon = "refresh-cw"
+        })
+
+    end
+})
 local dscfeedb = Stack11:Section({
 		Title = "Feedback",
 		Icon = "pencil",
