@@ -2,7 +2,7 @@
 LIQUID HUB TEMP FILE 
 ]]
 --local WindUI = _G.WindUI
-local scriptVersion = "v1.667.00"
+local scriptVersion = "v1.667.00-fix"
 
 ---- services
 local Players = game:GetService("Players")
@@ -2326,7 +2326,7 @@ local YourSection = lp:Section({
 	})
 
 -- IDLE
-YourSection:Dropdown({
+local IdleDropdown = YourSection:Dropdown({
     Title = "Idle Animation",
     Desc = "Change idle animation",
     Values = {
@@ -2406,7 +2406,7 @@ YourSection:Dropdown({
 })
 
 -- WALK
-YourSection:Dropdown({
+local WalkDropdown = YourSection:Dropdown({
     Title = "Walk Animation",
     Desc = "Change walk animation",
     Values = {
@@ -2465,7 +2465,7 @@ YourSection:Dropdown({
 })
 
 -- RUN
-YourSection:Dropdown({
+local RunDropdown = YourSection:Dropdown({
     Title = "Run Animation",
     Desc = "Change run animation",
     Values = {
@@ -2523,7 +2523,7 @@ YourSection:Dropdown({
     end
 })
 -- JUMP
-YourSection:Dropdown({
+local JumpDropdown = YourSection:Dropdown({
     Title = "Jump Animation",
     Desc = "Change jump animation",
     Values = {
@@ -2582,7 +2582,7 @@ YourSection:Dropdown({
 })
 
 -- FALL
-YourSection:Dropdown({
+local FallDropdown = YourSection:Dropdown({
     Title = "Fall Animation",
     Desc = "Change fall animation",
     Values = {
@@ -2641,7 +2641,7 @@ YourSection:Dropdown({
 })
 
 -- CLIMB
-YourSection:Dropdown({
+local ClimbDropdown = YourSection:Dropdown({
     Title = "Climb Animation",
     Desc = "Change climb animation",
     Values = {
@@ -2700,7 +2700,7 @@ YourSection:Dropdown({
 })
 
 -- SWIM
-YourSection:Dropdown({
+local SwimDropdown = YourSection:Dropdown({
     Title = "Swim Animation",
     Desc = "Change swim animation",
     Values = {
@@ -2759,7 +2759,7 @@ YourSection:Dropdown({
 })
 
 -- SWIM IDLE
-YourSection:Dropdown({
+local SwimIdleDropdown = YourSection:Dropdown({
     Title = "Swim Idle Animation",
     Desc = "Change swim idle animation",
     Values = {
@@ -2816,7 +2816,8 @@ YourSection:Dropdown({
         end
     end
 })
-YourSection:Dropdown({
+
+local PackDropdown = YourSection:Dropdown({
     Title = "Animation Pack",
     Desc = "Equip animation packs",
     Values = {
@@ -3060,6 +3061,33 @@ YourSection:Dropdown({
 
 YourSection:Button({
     Title = "Reset Animations",
+    Desc = "Restore original avatar animations",
+
+    Callback = function()
+
+        IdleDropdown:Select("Default")
+        WalkDropdown:Select("Default")
+        RunDropdown:Select("Default")
+        JumpDropdown:Select("Default")
+        FallDropdown:Select("Default")
+        ClimbDropdown:Select("Default")
+        SwimDropdown:Select("Default")
+        SwimIdleDropdown:Select("Default")
+
+        PackDropdown:Select("Default")
+
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Animations reset successfully!",
+            Duration = 3,
+            Icon = "refresh-cw"
+        })
+
+    end
+})
+--[[
+YourSection:Button({
+    Title = "Reset Animations",
     Desc = "Restore to default animation",
 
     Callback = function()
@@ -3117,6 +3145,7 @@ YourSection:Button({
 
     end
 })
+]]
 --[[
 local Players = game:GetService("Players")
 
