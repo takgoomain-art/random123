@@ -3062,7 +3062,7 @@ YourSection:Dropdown({
 
 YourSection:Button({
     Title = "Reset Animations",
-    Desc = "Restore avatar animations",
+    Desc = "Restore original avatar animations",
 
     Callback = function()
 
@@ -3077,14 +3077,19 @@ YourSection:Button({
         local Animate =
             Character:WaitForChild("Animate")
 
-        -- FORCE CHARACTER RELOAD
-        -- this restores original avatar/package animations
+        -- REMOVE CURRENT ANIMATION SCRIPT
+        local OldAnimate = Animate:Clone()
 
-        LocalPlayer:LoadCharacter()
+        Animate:Destroy()
+
+        task.wait()
+
+        -- RELOAD ORIGINAL ROBLOX ANIMATE
+        OldAnimate.Parent = Character
 
         WindUI:Notify({
             Title = "Liquid Hub",
-            Content = "Avatar animations restored!",
+            Content = "Original avatar animations restored!",
             Duration = 3,
             Icon = "refresh-cw"
         })
