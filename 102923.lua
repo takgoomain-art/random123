@@ -2,7 +2,7 @@
 LIQUID HUB TEMP FILE 
 ]]
 --local WindUI = _G.WindUI
-local scriptVersion = "v1.555.50"
+local scriptVersion = "v1.667.00"
 
 ---- services
 local Players = game:GetService("Players")
