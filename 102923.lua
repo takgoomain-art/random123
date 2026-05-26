@@ -2325,6 +2325,497 @@ local YourSection = lp:Section({
 		BoxBorder = true,
 	})
 
+-- IDLE
+YourSection:Dropdown({
+    Title = "Idle Animation",
+    Desc = "Change idle animation",
+    Values = {
+        "Default",
+        "Zombie",
+        "Ninja",
+        "Robot",
+        "Vampire",
+        "Werewolf"
+    },
+
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+
+        local Animate =
+            game.Players.LocalPlayer.Character:WaitForChild("Animate")
+
+        local DefaultIdle1 =
+            Animate.idle.Animation1.AnimationId
+
+        local DefaultIdle2 =
+            Animate.idle.Animation2.AnimationId
+
+        if Value == "Default" then
+
+            Animate.idle.Animation1.AnimationId =
+                DefaultIdle1
+
+            Animate.idle.Animation2.AnimationId =
+                DefaultIdle2
+
+        elseif Value == "Zombie" then
+
+            Animate.idle.Animation1.AnimationId =
+                "rbxassetid://616158929"
+
+            Animate.idle.Animation2.AnimationId =
+                "rbxassetid://616160636"
+
+        elseif Value == "Ninja" then
+
+            Animate.idle.Animation1.AnimationId =
+                "rbxassetid://656117400"
+
+            Animate.idle.Animation2.AnimationId =
+                "rbxassetid://656118341"
+
+        elseif Value == "Robot" then
+
+            Animate.idle.Animation1.AnimationId =
+                "rbxassetid://616088211"
+
+            Animate.idle.Animation2.AnimationId =
+                "rbxassetid://616089559"
+
+        elseif Value == "Vampire" then
+
+            Animate.idle.Animation1.AnimationId =
+                "rbxassetid://1083445855"
+
+            Animate.idle.Animation2.AnimationId =
+                "rbxassetid://1083450166"
+
+        elseif Value == "Werewolf" then
+
+            Animate.idle.Animation1.AnimationId =
+                "rbxassetid://1083195517"
+
+            Animate.idle.Animation2.AnimationId =
+                "rbxassetid://1083214717"
+
+        end
+    end
+})
+
+-- WALK
+YourSection:Dropdown({
+    Title = "Walk Animation",
+    Desc = "Change walk animation",
+    Values = {
+        "Default",
+        "Zombie",
+        "Ninja",
+        "Robot",
+        "Vampire",
+        "Werewolf"
+    },
+
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+
+        local Animate =
+            game.Players.LocalPlayer.Character:WaitForChild("Animate")
+
+        local DefaultWalk =
+            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId
+
+        if Value == "Default" then
+
+            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId =
+                DefaultWalk
+
+        elseif Value == "Zombie" then
+
+            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616168032"
+
+        elseif Value == "Ninja" then
+
+            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://656121766"
+
+        elseif Value == "Robot" then
+
+            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616095330"
+
+        elseif Value == "Vampire" then
+
+            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083473930"
+
+        elseif Value == "Werewolf" then
+
+            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083178339"
+
+        end
+    end
+})
+
+-- RUN
+YourSection:Dropdown({
+    Title = "Run Animation",
+    Desc = "Change run animation",
+    Values = {
+        "Default",
+        "Zombie",
+        "Ninja",
+        "Robot",
+        "Vampire",
+        "Werewolf"
+    },
+
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+
+        local Animate =
+            game.Players.LocalPlayer.Character:WaitForChild("Animate")
+
+        local DefaultRun =
+            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId
+
+        if Value == "Default" then
+
+            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId =
+                DefaultRun
+
+        elseif Value == "Zombie" then
+
+            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616163682"
+
+        elseif Value == "Ninja" then
+
+            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://656118852"
+
+        elseif Value == "Robot" then
+
+            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616091570"
+
+        elseif Value == "Vampire" then
+
+            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083462077"
+
+        elseif Value == "Werewolf" then
+
+            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083216690"
+
+        end
+    end
+})
+-- JUMP
+YourSection:Dropdown({
+    Title = "Jump Animation",
+    Desc = "Change jump animation",
+    Values = {
+        "Default",
+        "Zombie",
+        "Ninja",
+        "Robot",
+        "Vampire",
+        "Werewolf"
+    },
+
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+
+        local Animate =
+            game.Players.LocalPlayer.Character:WaitForChild("Animate")
+
+        local DefaultJump =
+            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId
+
+        if Value == "Default" then
+
+            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId =
+                DefaultJump
+
+        elseif Value == "Zombie" then
+
+            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616161997"
+
+        elseif Value == "Ninja" then
+
+            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://656117878"
+
+        elseif Value == "Robot" then
+
+            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616090535"
+
+        elseif Value == "Vampire" then
+
+            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083455352"
+
+        elseif Value == "Werewolf" then
+
+            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083218792"
+
+        end
+    end
+})
+
+-- FALL
+YourSection:Dropdown({
+    Title = "Fall Animation",
+    Desc = "Change fall animation",
+    Values = {
+        "Default",
+        "Zombie",
+        "Ninja",
+        "Robot",
+        "Vampire",
+        "Werewolf"
+    },
+
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+
+        local Animate =
+            game.Players.LocalPlayer.Character:WaitForChild("Animate")
+
+        local DefaultFall =
+            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId
+
+        if Value == "Default" then
+
+            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId =
+                DefaultFall
+
+        elseif Value == "Zombie" then
+
+            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616157476"
+
+        elseif Value == "Ninja" then
+
+            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://656115606"
+
+        elseif Value == "Robot" then
+
+            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616087089"
+
+        elseif Value == "Vampire" then
+
+            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083443587"
+
+        elseif Value == "Werewolf" then
+
+            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083189019"
+
+        end
+    end
+})
+
+-- CLIMB
+YourSection:Dropdown({
+    Title = "Climb Animation",
+    Desc = "Change climb animation",
+    Values = {
+        "Default",
+        "Zombie",
+        "Ninja",
+        "Robot",
+        "Vampire",
+        "Werewolf"
+    },
+
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+
+        local Animate =
+            game.Players.LocalPlayer.Character:WaitForChild("Animate")
+
+        local DefaultClimb =
+            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId
+
+        if Value == "Default" then
+
+            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId =
+                DefaultClimb
+
+        elseif Value == "Zombie" then
+
+            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616156119"
+
+        elseif Value == "Ninja" then
+
+            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://656114359"
+
+        elseif Value == "Robot" then
+
+            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616086039"
+
+        elseif Value == "Vampire" then
+
+            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083439238"
+
+        elseif Value == "Werewolf" then
+
+            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083182000"
+
+        end
+    end
+})
+
+-- SWIM
+YourSection:Dropdown({
+    Title = "Swim Animation",
+    Desc = "Change swim animation",
+    Values = {
+        "Default",
+        "Zombie",
+        "Ninja",
+        "Robot",
+        "Vampire",
+        "Werewolf"
+    },
+
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+
+        local Animate =
+            game.Players.LocalPlayer.Character:WaitForChild("Animate")
+
+        local DefaultSwim =
+            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId
+
+        if Value == "Default" then
+
+            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId =
+                DefaultSwim
+
+        elseif Value == "Zombie" then
+
+            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616165109"
+
+        elseif Value == "Ninja" then
+
+            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://656119721"
+
+        elseif Value == "Robot" then
+
+            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616092998"
+
+        elseif Value == "Vampire" then
+
+            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083464683"
+
+        elseif Value == "Werewolf" then
+
+            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083222527"
+
+        end
+    end
+})
+
+-- SWIM IDLE
+YourSection:Dropdown({
+    Title = "Swim Idle Animation",
+    Desc = "Change swim idle animation",
+    Values = {
+        "Default",
+        "Zombie",
+        "Ninja",
+        "Robot",
+        "Vampire",
+        "Werewolf"
+    },
+
+    Value = "Default",
+    Multi = false,
+    SearchBarEnabled = true,
+
+    Callback = function(Value)
+
+        local Animate =
+            game.Players.LocalPlayer.Character:WaitForChild("Animate")
+
+        local DefaultSwimIdle =
+            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId
+
+        if Value == "Default" then
+
+            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId =
+                DefaultSwimIdle
+
+        elseif Value == "Zombie" then
+
+            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616166655"
+
+        elseif Value == "Ninja" then
+
+            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://656121397"
+
+        elseif Value == "Robot" then
+
+            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://616094091"
+
+        elseif Value == "Vampire" then
+
+            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083467779"
+
+        elseif Value == "Werewolf" then
+
+            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId =
+                "rbxassetid://1083225406"
+
+        end
+    end
+})
 YourSection:Dropdown({
     Title = "Animation Pack",
     Desc = "Equip animation packs",
