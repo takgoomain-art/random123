@@ -2324,28 +2324,74 @@ local YourSection = lp:Section({
 		Box = true,
 		BoxBorder = true,
 	})
+
 local Players = game:GetService("Players")
 
 local LocalPlayer = Players.LocalPlayer
-local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-local Animate = Character:WaitForChild("Animate")
 
--- SAVE ORIGINAL ANIMATIONS
-local DefaultAnimations = {
-    Idle = {
-        Animate.idle.Animation1.AnimationId:gsub("rbxassetid://", ""),
-        Animate.idle.Animation2.AnimationId:gsub("rbxassetid://", "")
-    },
+local Character =
+    LocalPlayer.Character or
+    LocalPlayer.CharacterAdded:Wait()
 
-    Walk = Animate.walk.WalkAnim.AnimationId:gsub("rbxassetid://", ""),
-    Run = Animate.run.RunAnim.AnimationId:gsub("rbxassetid://", ""),
-    Jump = Animate.jump.JumpAnim.AnimationId:gsub("rbxassetid://", ""),
-    Fall = Animate.fall.FallAnim.AnimationId:gsub("rbxassetid://", ""),
-    Climb = Animate.climb.ClimbAnim.AnimationId:gsub("rbxassetid://", ""),
-    Swim = Animate.swim.Swim.AnimationId:gsub("rbxassetid://", ""),
-    SwimIdle = Animate.swimidle.SwimIdle.AnimationId:gsub("rbxassetid://", "")
+local Animate =
+    Character:WaitForChild("Animate")
+
+-- AUTO REAPPLY
+local CurrentSelections = {
+    Pack = "Default",
+
+    Idle = "Default",
+    Walk = "Default",
+    Run = "Default",
+    Jump = "Default",
+    Fall = "Default",
+    Climb = "Default",
+    Swim = "Default",
+    SwimIdle = "Default"
 }
 
+-- GET ANIMATION
+local function GetAnimation(ObjectName)
+    local Folder = Animate:FindFirstChild(ObjectName)
+
+    if not Folder then
+        return nil
+    end
+
+    return Folder:FindFirstChildWhichIsA("Animation")
+end
+
+-- GET ID
+local function GetAnimId(AnimationObject)
+    if not AnimationObject then
+        return ""
+    end
+
+    return AnimationObject.AnimationId:gsub("rbxassetid://", "")
+end
+
+-- SAVE ORIGINALS
+local DefaultAnimations = {
+    Idle = {
+        GetAnimId(
+            Animate.idle:FindFirstChild("Animation1")
+        ),
+
+        GetAnimId(
+            Animate.idle:FindFirstChild("Animation2")
+        )
+    },
+
+    Walk = GetAnimId(GetAnimation("walk")),
+    Run = GetAnimId(GetAnimation("run")),
+    Jump = GetAnimId(GetAnimation("jump")),
+    Fall = GetAnimId(GetAnimation("fall")),
+    Climb = GetAnimId(GetAnimation("climb")),
+    Swim = GetAnimId(GetAnimation("swim")),
+    SwimIdle = GetAnimId(GetAnimation("swimidle"))
+}
+
+-- ANIMATION PACKS
 local AnimationPacks = {
 
     ["Default"] = DefaultAnimations,
@@ -2412,7 +2458,11 @@ for Name in pairs(AnimationPacks) do
     table.insert(AnimationNames, Name)
 end
 
+table.sort(AnimationNames)
+
+-- SET ANIMATION
 local function SetAnimation(Type, PackName)
+
     local Pack = AnimationPacks[PackName]
 
     if not Pack then
@@ -2425,58 +2475,49 @@ local function SetAnimation(Type, PackName)
         return
     end
 
+    CurrentSelections[Type] = PackName
+
     if Type == "Idle" then
 
-        Animate.idle.Animation1.AnimationId =
-            "rbxassetid://" .. Data[1]
+        local Anim1 =
+            Animate.idle:FindFirstChild("Animation1")
 
-        Animate.idle.Animation2.AnimationId =
-            "rbxassetid://" .. Data[2]
+        local Anim2 =
+            Animate.idle:FindFirstChild("Animation2")
 
-    elseif Type == "Walk" then
+        if Anim1 then
+            Anim1.AnimationId =
+                "rbxassetid://" .. Data[1]
+        end
 
-        Animate.walk.WalkAnim.AnimationId =
-            "rbxassetid://" .. Data
+        if Anim2 then
+            Anim2.AnimationId =
+                "rbxassetid://" .. Data[2]
+        end
 
-    elseif Type == "Run" then
+    else
 
-        Animate.run.RunAnim.AnimationId =
-            "rbxassetid://" .. Data
+        local AnimationObject =
+            GetAnimation(string.lower(Type))
 
-    elseif Type == "Jump" then
-
-        Animate.jump.JumpAnim.AnimationId =
-            "rbxassetid://" .. Data
-
-    elseif Type == "Fall" then
-
-        Animate.fall.FallAnim.AnimationId =
-            "rbxassetid://" .. Data
-
-    elseif Type == "Climb" then
-
-        Animate.climb.ClimbAnim.AnimationId =
-            "rbxassetid://" .. Data
-
-    elseif Type == "Swim" then
-
-        Animate.swim.Swim.AnimationId =
-            "rbxassetid://" .. Data
-
-    elseif Type == "SwimIdle" then
-
-        Animate.swimidle.SwimIdle.AnimationId =
-            "rbxassetid://" .. Data
+        if AnimationObject then
+            AnimationObject.AnimationId =
+                "rbxassetid://" .. Data
+        end
     end
 
     WindUI:Notify({
         Title = "Liquid Hub",
-        Content = Type .. " animation set to " .. PackName,
+        Content = Type .. " equipped: " .. PackName,
         Duration = 3
     })
 end
 
+-- FULL PACK
 local function ApplyFullPack(PackName)
+
+    CurrentSelections.Pack = PackName
+
     local Types = {
         "Idle",
         "Walk",
@@ -2499,10 +2540,28 @@ local function ApplyFullPack(PackName)
     })
 end
 
+-- AUTO REAPPLY AFTER RESPAWN
+LocalPlayer.CharacterAdded:Connect(function(NewCharacter)
+
+    Character = NewCharacter
+
+    Animate =
+        Character:WaitForChild("Animate")
+
+    task.wait(1)
+
+    for Type, PackName in pairs(CurrentSelections) do
+
+        if Type ~= "Pack" then
+            SetAnimation(Type, PackName)
+        end
+    end
+end)
+
 -- FULL PACK DROPDOWN
 YourSection:Dropdown({
     Title = "Animation Pack",
-    Desc = "Equip a full animation pack",
+    Desc = "Equip full animation pack",
     Values = AnimationNames,
     Value = "Default",
     Multi = false,
@@ -2513,110 +2572,79 @@ YourSection:Dropdown({
     end
 })
 
--- INDIVIDUAL DROPDOWNS
-YourSection:Dropdown({
-    Title = "Idle Animations",
-    Desc = "Change idle animation",
-    Values = AnimationNames,
-    Value = "Default",
-    Multi = false,
-    SearchBarEnabled = true,
+-- RESET BUTTON
+YourSection:Button({
+    Title = "Reset Animations",
+    Desc = "Restore default animations",
 
-    Callback = function(Value)
-        SetAnimation("Idle", Value)
+    Callback = function()
+
+        ApplyFullPack("Default")
+
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Animations reset.",
+            Duration = 3
+        })
     end
 })
 
-YourSection:Dropdown({
-    Title = "Walk Animations",
-    Desc = "Change walk animation",
-    Values = AnimationNames,
-    Value = "Default",
-    Multi = false,
-    SearchBarEnabled = true,
+-- SPEED SLIDER
+YourSection:Slider({
+    Title = "Animation Speed",
+    Desc = "Adjust humanoid animation speed",
+
+    Value = {
+        Min = 0.5,
+        Max = 3,
+        Default = 1
+    },
+
+    Step = 0.1,
 
     Callback = function(Value)
-        SetAnimation("Walk", Value)
+
+        local Humanoid =
+            Character:FindFirstChildOfClass("Humanoid")
+
+        if Humanoid then
+            for _, Track in ipairs(
+                Humanoid:GetPlayingAnimationTracks()
+            ) do
+                Track:AdjustSpeed(Value)
+            end
+        end
     end
 })
 
-YourSection:Dropdown({
-    Title = "Run Animations",
-    Desc = "Change run animation",
-    Values = AnimationNames,
-    Value = "Default",
-    Multi = false,
-    SearchBarEnabled = true,
+-- CUSTOM DROPDOWN CREATOR
+local function CreateDropdown(Type, Description)
 
-    Callback = function(Value)
-        SetAnimation("Run", Value)
-    end
-})
+    YourSection:Dropdown({
+        Title = Type .. " Animations",
+        Desc = Description,
 
-YourSection:Dropdown({
-    Title = "Jump Animations",
-    Desc = "Change jump animation",
-    Values = AnimationNames,
-    Value = "Default",
-    Multi = false,
-    SearchBarEnabled = true,
+        Values = AnimationNames,
+        Value = "Default",
 
-    Callback = function(Value)
-        SetAnimation("Jump", Value)
-    end
-})
+        Multi = false,
+        SearchBarEnabled = true,
 
-YourSection:Dropdown({
-    Title = "Fall Animations",
-    Desc = "Change fall animation",
-    Values = AnimationNames,
-    Value = "Default",
-    Multi = false,
-    SearchBarEnabled = true,
+        Callback = function(Value)
+            SetAnimation(Type, Value)
+        end
+    })
+end
 
-    Callback = function(Value)
-        SetAnimation("Fall", Value)
-    end
-})
-
-YourSection:Dropdown({
-    Title = "Climb Animations",
-    Desc = "Change climb animation",
-    Values = AnimationNames,
-    Value = "Default",
-    Multi = false,
-    SearchBarEnabled = true,
-
-    Callback = function(Value)
-        SetAnimation("Climb", Value)
-    end
-})
-
-YourSection:Dropdown({
-    Title = "Swim Animations",
-    Desc = "Change swim animation",
-    Values = AnimationNames,
-    Value = "Default",
-    Multi = false,
-    SearchBarEnabled = true,
-
-    Callback = function(Value)
-        SetAnimation("Swim", Value)
-    end
-})
-
-YourSection:Dropdown({
-    Title = "Swim Idle Animations",
-    Desc = "Change swim idle animation",
-    Values = AnimationNames,
-    Value = "Default",
-    Multi = false,
-    SearchBarEnabled = true,
-
-    Callback = function(Value)
-        SetAnimation("SwimIdle", Value)
-    end
-})
+CreateDropdown("Idle", "Change idle animations")
+CreateDropdown("Walk", "Change walk animation")
+CreateDropdown("Run", "Change run animation")
+CreateDropdown("Jump", "Change jump animation")
+CreateDropdown("Fall", "Change fall animation")
+CreateDropdown("Climb", "Change climb animation")
+CreateDropdown("Swim", "Change swim animation")
+CreateDropdown("SwimIdle", "Change swim idle animation")
+    
 --[[
 local originalAnims = {}
 
