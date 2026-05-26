@@ -2326,10 +2326,10 @@ local YourSection = lp:Section({
 	})
 
 
-local originalAnims = {}
+--[[local originalAnims = {}
 local animPacks = {}
 local packNames = {}
---[[
+]]
 local function initAnims()
     local char = player.Character or player.CharacterAdded:Wait()
     local animateScript = char:WaitForChild("Animate")
