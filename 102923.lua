@@ -1094,7 +1094,7 @@ GRStack1:Button({
 							})
 					end
 				})
-local DiscordParagraph = GRStack2:Paragraph({
+local discordParagraph = GRStack2:Paragraph({
 			Title = "Liquid Hub",
 			Desc = "Loading...",
 			Image = "rbxassetid://85217490213932",
@@ -1151,23 +1151,22 @@ local DiscordParagraph = GRStack2:Paragraph({
 
 
 
-local HttpService = game:GetService("HttpService")
 
-local InviteCode = "jYkbeWtYsf"
-
-local function UpdateDiscordStatus()
+-- 🔄 Update function
+local function updateDiscordUI()
 
     local Success, Response = pcall(function()
 
         return game:HttpGet(
-            "https://discord.com/api/v9/invites/" ..
-            InviteCode ..
-            "?with_counts=true"
+            "https://discord.com/api/v9/invites/jYkbeWtYsf?with_counts=true"
         )
 
     end)
 
     if Success then
+
+        local HttpService =
+            game:GetService("HttpService")
 
         local Data =
             HttpService:JSONDecode(Response)
@@ -1178,16 +1177,17 @@ local function UpdateDiscordStatus()
         local Online =
             Data.approximate_presence_count or "Unknown"
 
-        DiscordParagraph:SetDesc(
-            "Members: " ..
-            tostring(Members) ..
-            "\nOnline: " ..
+        local descText = string.format(
+            "Members: %s\nOnline: %s",
+            tostring(Members),
             tostring(Online)
         )
 
+        discordParagraph:SetDesc(descText)
+
     else
 
-        DiscordParagraph:SetDesc(
+        discordParagraph:SetDesc(
             "Failed to fetch Discord status."
         )
 
@@ -1195,17 +1195,17 @@ local function UpdateDiscordStatus()
 
 end
 
--- AUTO LOAD
-UpdateDiscordStatus()
+-- 🚀 Initial update
+updateDiscordUI()
 
--- REFRESH BUTTON
+-- 🔄 Refresh button
 GRStack2:Button({
     Title = "Refresh Discord Status",
     Desc = "Refresh member & online count",
 
     Callback = function()
 
-        UpdateDiscordStatus()
+        updateDiscordUI()
 
         WindUI:Notify({
             Title = "Liquid Hub",
