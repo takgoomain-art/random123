@@ -3057,6 +3057,66 @@ YourSection:Dropdown({
         })
     end
 })
+
+YourSection:Button({
+    Title = "Reset Animations",
+    Desc = "Restore to default animation",
+
+    Callback = function()
+
+        local Players = game:GetService("Players")
+        local Character =
+            Players.LocalPlayer.Character or
+            Players.LocalPlayer.CharacterAdded:Wait()
+
+        local Animate = Character:WaitForChild("Animate")
+
+        -- save current as "original" (safe fallback reset)
+        local OriginalIdle1 = Animate.idle.Animation1.AnimationId
+        local OriginalIdle2 = Animate.idle.Animation2.AnimationId
+
+        local OriginalWalk =
+            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId
+
+        local OriginalRun =
+            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId
+
+        local OriginalJump =
+            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId
+
+        local OriginalFall =
+            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId
+
+        local OriginalClimb =
+            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId
+
+        local OriginalSwim =
+            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId
+
+        local OriginalSwimIdle =
+            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId
+
+        -- apply reset
+        Animate.idle.Animation1.AnimationId = OriginalIdle1
+        Animate.idle.Animation2.AnimationId = OriginalIdle2
+
+        Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId = OriginalWalk
+        Animate.run:FindFirstChildWhichIsA("Animation").AnimationId = OriginalRun
+        Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId = OriginalJump
+        Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId = OriginalFall
+        Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId = OriginalClimb
+        Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId = OriginalSwim
+        Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId = OriginalSwimIdle
+
+        WindUI:Notify({
+            Title = "Reset Complete",
+            Content = "Animations restored!",
+					
+            Duration = 3
+        })
+
+    end
+})
 --[[
 local Players = game:GetService("Players")
 
