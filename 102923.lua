@@ -2325,12 +2325,11 @@ local YourSection = lp:Section({
 		BoxBorder = true,
 	})
 
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+
 local originalAnims = {}
 local animPacks = {}
 local packNames = {}
-
+--[[
 local function initAnims()
     local char = player.Character or player.CharacterAdded:Wait()
     local animateScript = char:WaitForChild("Animate")
