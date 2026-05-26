@@ -3058,7 +3058,7 @@ local PackDropdown = YourSection:Dropdown({
         })
     end
 })
-
+--[[
 YourSection:Button({
     Title = "Reset Animations",
     Desc = "Restore original avatar animations",
