@@ -6908,7 +6908,6 @@ local themeDropdown = UI2:Dropdown({
     Flag = "themeDropdown",
     SearchBarEnabled = true,
     MenuWidth = 280,
-    Value = "Dark",
     Callback = function(theme)
         canchangedropdown = false
         WindUI:SetTheme(theme)
