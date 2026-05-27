@@ -1096,7 +1096,7 @@ GRStack1:Button({
 				})
 local discordParagraph = GRStack2:Paragraph({
 			Title = "Liquid Hub",
-			Desc = "Loading...",
+			Desc = "join now",
 			Image = "rbxassetid://85217490213932",
 		--	.. Response.guild.id
 			--	.. "/"
@@ -1105,7 +1105,7 @@ local discordParagraph = GRStack2:Paragraph({
 		    Thumbnail = "",
 		--Thumbnail = "https://cdn.discordapp.com/banners/1300692552005189632/35981388401406a4b7dffd6f447a64c4.png?size=512",
 			ImageSize = 45,
-			--[[Buttons = {
+			Buttons = {
 				{
 					Title = "Copy link",
 					Icon = "link",
@@ -1147,75 +1147,14 @@ local discordParagraph = GRStack2:Paragraph({
 				},
 			},
 		})
-		]]
+		
 
 
 
 
--- 🔄 Update function
-local function updateDiscordUI()
 
-    local Success, Response = pcall(function()
 
-        return game:HttpGet(
-            "https://discord.com/api/v9/invites/jYkbeWtYsf?with_counts=true"
-        )
 
-    end)
-
-    if Success then
-
-        local HttpService =
-            game:GetService("HttpService")
-
-        local Data =
-            HttpService:JSONDecode(Response)
-
-        local Members =
-            Data.approximate_member_count or "Unknown"
-
-        local Online =
-            Data.approximate_presence_count or "Unknown"
-
-        local descText = string.format(
-            "Members: %s\nOnline: %s",
-            tostring(Members),
-            tostring(Online)
-        )
-
-        discordParagraph:SetDesc(descText)
-
-    else
-
-        discordParagraph:SetDesc(
-            "Failed to fetch Discord status."
-        )
-
-    end
-
-end
-
--- 🚀 Initial update
-updateDiscordUI()
-
--- 🔄 Refresh button
-GRStack2:Button({
-    Title = "Refresh Discord Status",
-    Desc = "Refresh member & online count",
-
-    Callback = function()
-
-        updateDiscordUI()
-
-        WindUI:Notify({
-            Title = "Liquid Hub",
-            Content = "Discord status refreshed!",
-            Duration = 3,
-            Icon = "refresh-cw"
-        })
-
-    end
-})
 local dscfeedb = Stack11:Section({
 		Title = "Feedback",
 		Icon = "pencil",
@@ -3132,38 +3071,30 @@ YourSection:Dropdown({
 YourSection:Button({
     Title = "Reset Animations",
     Desc = "Restore original avatar animations",
-
+    Icon = "rotate-ccw",
     Callback = function()
+        local LocalPlayer = game:GetService("Players").LocalPlayer
+        local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        local Animate = Character:WaitForChild("Animate")
 
-        local Players = game:GetService("Players")
-
-        local LocalPlayer = Players.LocalPlayer
-
-        local Character =
-            LocalPlayer.Character or
-            LocalPlayer.CharacterAdded:Wait()
-
-        local Animate =
-            Character:WaitForChild("Animate")
-
-        -- REMOVE CURRENT ANIMATION SCRIPT
+        -- Clone muna bago i-destroy
         local OldAnimate = Animate:Clone()
-
         Animate:Destroy()
+        task.wait(0.1)
 
-        task.wait()
-
-        -- RELOAD ORIGINAL ROBLOX ANIMATE
+        -- Re-parent
         OldAnimate.Parent = Character
+        OldAnimate.Disabled = true
+        task.wait(0.1)
+        OldAnimate.Disabled = false  -- restart the script
 
         WindUI:Notify({
-            Title = "Liquid Hub",
+            Title = "Animations Reset",
             Content = "Original avatar animations restored!",
             Duration = 3,
-            Icon = "refresh-cw"
+            Icon = "rotate-ccw"
         })
-
-    end
+    end,
 })
 --[[
 YourSection:Button({
