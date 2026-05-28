@@ -222,7 +222,7 @@ local Window = WindUI:CreateWindow({
 	NewElements = true,
 	Acrylic = true,
 	ScrollBarEnabled = true,
-	Size = UDim2.new(0, 700, 0, 590),
+	Size = UDim2.new(0, 800, 0, 600),
 	MinSize = Vector2.new(815, 400),
 	MaxSize = Vector2.new(1050, 725),
 		
