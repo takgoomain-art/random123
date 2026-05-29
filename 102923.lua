@@ -2127,7 +2127,7 @@ player.CharacterAdded:Connect(function()
     end
 end)
 
-local crouchToggle = moove:Toggle({
+moove:Toggle({
     Title = "Crouch",
     Desc = "Toggles a crouch button.",
     Icon = "person-standing",
