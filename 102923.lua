@@ -234,7 +234,19 @@ local Window = WindUI:CreateWindow({
         Callback = function()
             print("clicked")
         end,
-    }
+    },
+
+		KeySystem = {
+			Note = "Liquid Hub Key System",
+			API = {
+				{
+					Type = "junkiedev",
+					ServiceId = "Liquid Hub",
+					ApiKey = "a6d27d85-6647-4250-b6a3-3cec3250e8e7",
+					Provider = "Liquid",
+				}
+			}
+			
 		
 		
 })
@@ -1788,7 +1800,7 @@ UserInputService.JumpRequest:Connect(function()
     end
 end)
 
--- 🔥 UNIVERSAL ANTI AFK - Works sa ALL GAMES/EXECUTORS
+
 local AntiAFKEnabled = false
 
 
@@ -2079,42 +2091,8 @@ local antife = lp:Toggle({
 })
 ]]
 
-local crouchToggle = moove:Toggle({
-    Title = "Crouch",
-    Desc = "Press C or Left Ctrl to crouch",
-    Icon = "person-standing",
-    Value = false,
-    Callback = function(state)
-        if state then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/takgoomain-art/random123/refs/heads/main/ph.luau"))()
-				WindUI:Notify({
-                Title = "Crouch",
-                Content = "Crouch Enabled!",
-                Icon = "person-standing",
-                Duration = 2,
-            })
-        else
-            local vu4 = game:GetService("Players").LocalPlayer
-            local v5 = vu4:WaitForChild("PlayerGui")
-            local existing = v5:FindFirstChild("CrouchGui")
-            if existing then existing:Destroy() end
-            local char = vu4.Character
-            if char then
-                local humanoid = char:FindFirstChildOfClass("Humanoid")
-                if humanoid then
-                    humanoid.WalkSpeed = 16
-                    humanoid.JumpPower = 50
-                end
-            end
-            WindUI:Notify({
-                Title = "Crouch",
-                Content = "Crouch Disabled!",
-                Icon = "person-standing",
-                Duration = 3,
-            })
-        end
-    end,
-})
+
+
 
 local noclipEnabled = false
 local connection
