@@ -2367,18 +2367,18 @@ task.spawn(function()
     }
 
     local function getAnimate()
-        local c = game.Players.LocalPlayer.Character
-        if not c then return end
-        local animate = c:WaitForChild("Animate")
-        local humanoid = c:FindFirstChildOfClass("Humanoid")
-        local animator = humanoid and humanoid:FindFirstChildOfClass("Animator")
-        if animator then
-            for _, track in ipairs(animator:GetPlayingAnimationTracks()) do
-                track:Stop(0)
-            end
-        end
-        return animate
-    end
+        
+    local c = game.Players.LocalPlayer.Character
+    if not c then return end
+    local animate = c:WaitForChild("Animate")
+
+    -- Restart Animate script para instant mag-apply
+    animate.Disabled = true
+    task.wait(0.1)
+    animate.Disabled = false
+
+    return animate
+			end
 
     game.Players.LocalPlayer.CharacterAdded:Connect(function(newChar)
         task.wait(1)
