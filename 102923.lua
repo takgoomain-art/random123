@@ -222,7 +222,7 @@ local Window = WindUI:CreateWindow({
 	NewElements = true,
 	Acrylic = true,
 	ScrollBarEnabled = true,
-	Size = UDim2.new(0, 800, 0, 600),
+	Size = UDim2.new(0, 816, 0, 600),
 	MinSize = Vector2.new(815, 400),
 	MaxSize = Vector2.new(1050, 725),
 		
@@ -236,17 +236,7 @@ local Window = WindUI:CreateWindow({
         end,
     },
 
-		KeySystem = {
-			Note = "Liquid Hub Key System",
-			API = {
-				{
-					Type = "junkiedev",
-					ServiceId = "Liquid Hub",
-					ApiKey = "a6d27d85-6647-4250-b6a3-3cec3250e8e7",
-					Provider = "Liquid",
-				}
-			}
-		}
+		
 			
 		
 		
