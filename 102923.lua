@@ -2342,12 +2342,22 @@ local Section1 = lp:Section({
 	})
 
 -- IDLE
- 
 task.spawn(function()
+    local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+    local Animate = char:WaitForChild("Animate")
 
-    local function getAnimate()
-        return game.Players.LocalPlayer.Character:WaitForChild("Animate")
-    end
+    -- Save ONCE, hindi na magbabago
+    local Defaults = {
+        idle1 = Animate.idle.Animation1.AnimationId,
+        idle2 = Animate.idle.Animation2.AnimationId,
+        walk = Animate.walk.WalkAnim.AnimationId,
+        run = Animate.run.RunAnim.AnimationId,
+        jump = Animate.jump.JumpAnim.AnimationId,
+        fall = Animate.fall.FallAnim.AnimationId,
+        climb = Animate.climb.ClimbAnim.AnimationId,
+        swim = Animate.swim.Swim.AnimationId,
+        swimidle = Animate.swimidle.SwimIdle.AnimationId,
+    }
 
     local CurrentAnims = {
         idle1 = nil, idle2 = nil,
@@ -2357,158 +2367,114 @@ task.spawn(function()
         swimidle = nil,
     }
 
-    game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
+    local function getAnimate()
+        return game.Players.LocalPlayer.Character:WaitForChild("Animate")
+    end
+
+    game.Players.LocalPlayer.CharacterAdded:Connect(function(newChar)
         task.wait(1)
-        local Animate = char:WaitForChild("Animate")
+        local A = newChar:WaitForChild("Animate")
         if CurrentAnims.idle1 then
-            Animate.idle.Animation1.AnimationId = CurrentAnims.idle1
-            Animate.idle.Animation2.AnimationId = CurrentAnims.idle2
+            A.idle.Animation1.AnimationId = CurrentAnims.idle1
+            A.idle.Animation2.AnimationId = CurrentAnims.idle2
         end
-        if CurrentAnims.walk then
-            Animate.walk.WalkAnim.AnimationId = CurrentAnims.walk
-        end
-        if CurrentAnims.run then
-            Animate.run.RunAnim.AnimationId = CurrentAnims.run
-        end
-        if CurrentAnims.jump then
-            Animate.jump.JumpAnim.AnimationId = CurrentAnims.jump
-        end
-        if CurrentAnims.fall then
-            Animate.fall.FallAnim.AnimationId = CurrentAnims.fall
-        end
-        if CurrentAnims.climb then
-            Animate.climb.ClimbAnim.AnimationId = CurrentAnims.climb
-        end
-        if CurrentAnims.swim then
-            Animate.swim.Swim.AnimationId = CurrentAnims.swim
-        end
-        if CurrentAnims.swimidle then
-            Animate.swimidle.SwimIdle.AnimationId = CurrentAnims.swimidle
-        end
+        if CurrentAnims.walk then A.walk.WalkAnim.AnimationId = CurrentAnims.walk end
+        if CurrentAnims.run then A.run.RunAnim.AnimationId = CurrentAnims.run end
+        if CurrentAnims.jump then A.jump.JumpAnim.AnimationId = CurrentAnims.jump end
+        if CurrentAnims.fall then A.fall.FallAnim.AnimationId = CurrentAnims.fall end
+        if CurrentAnims.climb then A.climb.ClimbAnim.AnimationId = CurrentAnims.climb end
+        if CurrentAnims.swim then A.swim.Swim.AnimationId = CurrentAnims.swim end
+        if CurrentAnims.swimidle then A.swimidle.SwimIdle.AnimationId = CurrentAnims.swimidle end
     end)
 
-
-Section1:Dropdown({
-    Title = "Animation Pack",
-    Desc = "Equip all animations at once",
-    Icon = "package",
-    Values = {"Default", "Zombie", "Ninja", "Robot", "Vampire", "Werewolf"},
-    Value = "Default",
-    Multi = false,
-    SearchBarEnabled = true,
-    Callback = function(Value)
-        local Animate = getAnimate()
-
-        local packs = {
-            Default = {
-                idle1 = Animate.idle.Animation1.AnimationId,
-                idle2 = Animate.idle.Animation2.AnimationId,
-                walk = Animate.walk.WalkAnim.AnimationId,
-                run = Animate.run.RunAnim.AnimationId,
-                jump = Animate.jump.JumpAnim.AnimationId,
-                fall = Animate.fall.FallAnim.AnimationId,
-                climb = Animate.climb.ClimbAnim.AnimationId,
-                swim = Animate.swim.Swim.AnimationId,
-                swimidle = Animate.swimidle.SwimIdle.AnimationId,
-            },
-            Zombie = {
-                idle1 = "rbxassetid://616158929",
-                idle2 = "rbxassetid://616160636",
-                walk = "rbxassetid://616168032",
-                run = "rbxassetid://616163682",
-                jump = "rbxassetid://616161997",
-                fall = "rbxassetid://616157476",
-                climb = "rbxassetid://616156119",
-                swim = "rbxassetid://616165109",
-                swimidle = "rbxassetid://616166655",
-            },
-            Ninja = {
-                idle1 = "rbxassetid://656117400",
-                idle2 = "rbxassetid://656118341",
-                walk = "rbxassetid://656121766",
-                run = "rbxassetid://656118852",
-                jump = "rbxassetid://656117878",
-                fall = "rbxassetid://656115606",
-                climb = "rbxassetid://656114359",
-                swim = "rbxassetid://656119721",
-                swimidle = "rbxassetid://656121397",
-            },
-            Robot = {
-                idle1 = "rbxassetid://616088211",
-                idle2 = "rbxassetid://616089559",
-                walk = "rbxassetid://616095330",
-                run = "rbxassetid://616091570",
-                jump = "rbxassetid://616090535",
-                fall = "rbxassetid://616087089",
-                climb = "rbxassetid://616086039",
-                swim = "rbxassetid://616092998",
-                swimidle = "rbxassetid://616094091",
-            },
-            Vampire = {
-                idle1 = "rbxassetid://1083445855",
-                idle2 = "rbxassetid://1083450166",
-                walk = "rbxassetid://1083473930",
-                run = "rbxassetid://1083462077",
-                jump = "rbxassetid://1083455352",
-                fall = "rbxassetid://1083443587",
-                climb = "rbxassetid://1083439238",
-                swim = "rbxassetid://1083464683",
-                swimidle = "rbxassetid://1083467779",
-            },
-            Werewolf = {
-                idle1 = "rbxassetid://1083195517",
-                idle2 = "rbxassetid://1083214717",
-                walk = "rbxassetid://1083178339",
-                run = "rbxassetid://1083216690",
-                jump = "rbxassetid://1083218792",
-                fall = "rbxassetid://1083189019",
-                climb = "rbxassetid://1083182000",
-                swim = "rbxassetid://1083222527",
-                swimidle = "rbxassetid://1083225406",
-            },
-        }
-
-        local pack = packs[Value]
-        if not pack then return end
-
-        Animate.idle.Animation1.AnimationId = pack.idle1
-        Animate.idle.Animation2.AnimationId = pack.idle2
-        Animate.walk.WalkAnim.AnimationId = pack.walk
-        Animate.run.RunAnim.AnimationId = pack.run
-        Animate.jump.JumpAnim.AnimationId = pack.jump
-        Animate.fall.FallAnim.AnimationId = pack.fall
-        Animate.climb.ClimbAnim.AnimationId = pack.climb
-        Animate.swim.Swim.AnimationId = pack.swim
-        Animate.swimidle.SwimIdle.AnimationId = pack.swimidle
-
-        if Value ~= "Default" then
-            CurrentAnims.idle1 = pack.idle1
-            CurrentAnims.idle2 = pack.idle2
-            CurrentAnims.walk = pack.walk
-            CurrentAnims.run = pack.run
-            CurrentAnims.jump = pack.jump
-            CurrentAnims.fall = pack.fall
-            CurrentAnims.climb = pack.climb
-            CurrentAnims.swim = pack.swim
-            CurrentAnims.swimidle = pack.swimidle
-        else
-            CurrentAnims = {
-                idle1 = nil, idle2 = nil,
-                walk = nil, run = nil,
-                jump = nil, fall = nil,
-                climb = nil, swim = nil,
-                swimidle = nil,
+    -- Animation Pack
+    Section1:Dropdown({
+        Title = "Animation Pack",
+        Desc = "Equip all animations at once",
+        Icon = "package",
+        Values = {"Default", "Zombie", "Ninja", "Robot", "Vampire", "Werewolf"},
+        Value = "Default",
+        Multi = false,
+        SearchBarEnabled = true,
+        Callback = function(Value)
+            local A = getAnimate()
+            local packs = {
+                Default = {
+                    idle1 = Defaults.idle1, idle2 = Defaults.idle2,
+                    walk = Defaults.walk, run = Defaults.run,
+                    jump = Defaults.jump, fall = Defaults.fall,
+                    climb = Defaults.climb, swim = Defaults.swim,
+                    swimidle = Defaults.swimidle,
+                },
+                Zombie = {
+                    idle1 = "rbxassetid://616158929", idle2 = "rbxassetid://616160636",
+                    walk = "rbxassetid://616168032", run = "rbxassetid://616163682",
+                    jump = "rbxassetid://616161997", fall = "rbxassetid://616157476",
+                    climb = "rbxassetid://616156119", swim = "rbxassetid://616165109",
+                    swimidle = "rbxassetid://616166655",
+                },
+                Ninja = {
+                    idle1 = "rbxassetid://656117400", idle2 = "rbxassetid://656118341",
+                    walk = "rbxassetid://656121766", run = "rbxassetid://656118852",
+                    jump = "rbxassetid://656117878", fall = "rbxassetid://656115606",
+                    climb = "rbxassetid://656114359", swim = "rbxassetid://656119721",
+                    swimidle = "rbxassetid://656121397",
+                },
+                Robot = {
+                    idle1 = "rbxassetid://616088211", idle2 = "rbxassetid://616089559",
+                    walk = "rbxassetid://616095330", run = "rbxassetid://616091570",
+                    jump = "rbxassetid://616090535", fall = "rbxassetid://616087089",
+                    climb = "rbxassetid://616086039", swim = "rbxassetid://616092998",
+                    swimidle = "rbxassetid://616094091",
+                },
+                Vampire = {
+                    idle1 = "rbxassetid://1083445855", idle2 = "rbxassetid://1083450166",
+                    walk = "rbxassetid://1083473930", run = "rbxassetid://1083462077",
+                    jump = "rbxassetid://1083455352", fall = "rbxassetid://1083443587",
+                    climb = "rbxassetid://1083439238", swim = "rbxassetid://1083464683",
+                    swimidle = "rbxassetid://1083467779",
+                },
+                Werewolf = {
+                    idle1 = "rbxassetid://1083195517", idle2 = "rbxassetid://1083214717",
+                    walk = "rbxassetid://1083178339", run = "rbxassetid://1083216690",
+                    jump = "rbxassetid://1083218792", fall = "rbxassetid://1083189019",
+                    climb = "rbxassetid://1083182000", swim = "rbxassetid://1083222527",
+                    swimidle = "rbxassetid://1083225406",
+                },
             }
-        end
+            local pack = packs[Value]
+            if not pack then return end
+            A.idle.Animation1.AnimationId = pack.idle1
+            A.idle.Animation2.AnimationId = pack.idle2
+            A.walk.WalkAnim.AnimationId = pack.walk
+            A.run.RunAnim.AnimationId = pack.run
+            A.jump.JumpAnim.AnimationId = pack.jump
+            A.fall.FallAnim.AnimationId = pack.fall
+            A.climb.ClimbAnim.AnimationId = pack.climb
+            A.swim.Swim.AnimationId = pack.swim
+            A.swimidle.SwimIdle.AnimationId = pack.swimidle
+            if Value ~= "Default" then
+                CurrentAnims.idle1 = pack.idle1
+                CurrentAnims.idle2 = pack.idle2
+                CurrentAnims.walk = pack.walk
+                CurrentAnims.run = pack.run
+                CurrentAnims.jump = pack.jump
+                CurrentAnims.fall = pack.fall
+                CurrentAnims.climb = pack.climb
+                CurrentAnims.swim = pack.swim
+                CurrentAnims.swimidle = pack.swimidle
+            else
+                CurrentAnims = {idle1=nil,idle2=nil,walk=nil,run=nil,jump=nil,fall=nil,climb=nil,swim=nil,swimidle=nil}
+            end
+            WindUI:Notify({
+                Title = "Animation Pack",
+                Content = Value == "Default" and "Default animations restored!" or Value .. " pack equipped!",
+                Icon = Value == "Default" and "rotate-ccw" or "package",
+                Duration = 3,
+            })
+        end,
+    })
 
-        WindUI:Notify({
-            Title = "Animation Pack",
-            Content = Value == "Default" and "Default animations restored!" or Value .. " pack equipped!",
-            Icon = Value == "Default" and "rotate-ccw" or "package",
-            Duration = 3,
-        })
-    end,
-})
     -- IDLE
     Section1:Dropdown({
         Title = "Idle Animation",
@@ -2518,11 +2484,9 @@ Section1:Dropdown({
         Multi = false,
         SearchBarEnabled = true,
         Callback = function(Value)
-            local Animate = getAnimate()
-            local DefaultIdle1 = Animate.idle.Animation1.AnimationId
-            local DefaultIdle2 = Animate.idle.Animation2.AnimationId
+            local A = getAnimate()
             local ids = {
-                Default = {DefaultIdle1, DefaultIdle2},
+                Default = {Defaults.idle1, Defaults.idle2},
                 Zombie = {"rbxassetid://616158929", "rbxassetid://616160636"},
                 Ninja = {"rbxassetid://656117400", "rbxassetid://656118341"},
                 Robot = {"rbxassetid://616088211", "rbxassetid://616089559"},
@@ -2530,8 +2494,8 @@ Section1:Dropdown({
                 Werewolf = {"rbxassetid://1083195517", "rbxassetid://1083214717"},
             }
             local selected = ids[Value]
-            Animate.idle.Animation1.AnimationId = selected[1]
-            Animate.idle.Animation2.AnimationId = selected[2]
+            A.idle.Animation1.AnimationId = selected[1]
+            A.idle.Animation2.AnimationId = selected[2]
             if Value ~= "Default" then
                 CurrentAnims.idle1 = selected[1]
                 CurrentAnims.idle2 = selected[2]
@@ -2551,17 +2515,16 @@ Section1:Dropdown({
         Multi = false,
         SearchBarEnabled = true,
         Callback = function(Value)
-            local Animate = getAnimate()
-            local DefaultWalk = Animate.walk.WalkAnim.AnimationId
+            local A = getAnimate()
             local ids = {
-                Default = DefaultWalk,
+                Default = Defaults.walk,
                 Zombie = "rbxassetid://616168032",
                 Ninja = "rbxassetid://656121766",
                 Robot = "rbxassetid://616095330",
                 Vampire = "rbxassetid://1083473930",
                 Werewolf = "rbxassetid://1083178339",
             }
-            Animate.walk.WalkAnim.AnimationId = ids[Value]
+            A.walk.WalkAnim.AnimationId = ids[Value]
             CurrentAnims.walk = Value ~= "Default" and ids[Value] or nil
         end,
     })
@@ -2575,17 +2538,16 @@ Section1:Dropdown({
         Multi = false,
         SearchBarEnabled = true,
         Callback = function(Value)
-            local Animate = getAnimate()
-            local DefaultRun = Animate.run.RunAnim.AnimationId
+            local A = getAnimate()
             local ids = {
-                Default = DefaultRun,
+                Default = Defaults.run,
                 Zombie = "rbxassetid://616163682",
                 Ninja = "rbxassetid://656118852",
                 Robot = "rbxassetid://616091570",
                 Vampire = "rbxassetid://1083462077",
                 Werewolf = "rbxassetid://1083216690",
             }
-            Animate.run.RunAnim.AnimationId = ids[Value]
+            A.run.RunAnim.AnimationId = ids[Value]
             CurrentAnims.run = Value ~= "Default" and ids[Value] or nil
         end,
     })
@@ -2599,17 +2561,16 @@ Section1:Dropdown({
         Multi = false,
         SearchBarEnabled = true,
         Callback = function(Value)
-            local Animate = getAnimate()
-            local DefaultJump = Animate.jump.JumpAnim.AnimationId
+            local A = getAnimate()
             local ids = {
-                Default = DefaultJump,
+                Default = Defaults.jump,
                 Zombie = "rbxassetid://616161997",
                 Ninja = "rbxassetid://656117878",
                 Robot = "rbxassetid://616090535",
                 Vampire = "rbxassetid://1083455352",
                 Werewolf = "rbxassetid://1083218792",
             }
-            Animate.jump.JumpAnim.AnimationId = ids[Value]
+            A.jump.JumpAnim.AnimationId = ids[Value]
             CurrentAnims.jump = Value ~= "Default" and ids[Value] or nil
         end,
     })
@@ -2623,17 +2584,16 @@ Section1:Dropdown({
         Multi = false,
         SearchBarEnabled = true,
         Callback = function(Value)
-            local Animate = getAnimate()
-            local DefaultFall = Animate.fall.FallAnim.AnimationId
+            local A = getAnimate()
             local ids = {
-                Default = DefaultFall,
+                Default = Defaults.fall,
                 Zombie = "rbxassetid://616157476",
                 Ninja = "rbxassetid://656115606",
                 Robot = "rbxassetid://616087089",
                 Vampire = "rbxassetid://1083443587",
                 Werewolf = "rbxassetid://1083189019",
             }
-            Animate.fall.FallAnim.AnimationId = ids[Value]
+            A.fall.FallAnim.AnimationId = ids[Value]
             CurrentAnims.fall = Value ~= "Default" and ids[Value] or nil
         end,
     })
@@ -2647,17 +2607,16 @@ Section1:Dropdown({
         Multi = false,
         SearchBarEnabled = true,
         Callback = function(Value)
-            local Animate = getAnimate()
-            local DefaultClimb = Animate.climb.ClimbAnim.AnimationId
+            local A = getAnimate()
             local ids = {
-                Default = DefaultClimb,
+                Default = Defaults.climb,
                 Zombie = "rbxassetid://616156119",
                 Ninja = "rbxassetid://656114359",
                 Robot = "rbxassetid://616086039",
                 Vampire = "rbxassetid://1083439238",
                 Werewolf = "rbxassetid://1083182000",
             }
-            Animate.climb.ClimbAnim.AnimationId = ids[Value]
+            A.climb.ClimbAnim.AnimationId = ids[Value]
             CurrentAnims.climb = Value ~= "Default" and ids[Value] or nil
         end,
     })
@@ -2671,17 +2630,16 @@ Section1:Dropdown({
         Multi = false,
         SearchBarEnabled = true,
         Callback = function(Value)
-            local Animate = getAnimate()
-            local DefaultSwim = Animate.swim.Swim.AnimationId
+            local A = getAnimate()
             local ids = {
-                Default = DefaultSwim,
+                Default = Defaults.swim,
                 Zombie = "rbxassetid://616165109",
                 Ninja = "rbxassetid://656119721",
                 Robot = "rbxassetid://616092998",
                 Vampire = "rbxassetid://1083464683",
                 Werewolf = "rbxassetid://1083222527",
             }
-            Animate.swim.Swim.AnimationId = ids[Value]
+            A.swim.Swim.AnimationId = ids[Value]
             CurrentAnims.swim = Value ~= "Default" and ids[Value] or nil
         end,
     })
@@ -2695,17 +2653,16 @@ Section1:Dropdown({
         Multi = false,
         SearchBarEnabled = true,
         Callback = function(Value)
-            local Animate = getAnimate()
-            local DefaultSwimIdle = Animate.swimidle.SwimIdle.AnimationId
+            local A = getAnimate()
             local ids = {
-                Default = DefaultSwimIdle,
+                Default = Defaults.swimidle,
                 Zombie = "rbxassetid://616166655",
                 Ninja = "rbxassetid://656121397",
                 Robot = "rbxassetid://616094091",
                 Vampire = "rbxassetid://1083467779",
                 Werewolf = "rbxassetid://1083225406",
             }
-            Animate.swimidle.SwimIdle.AnimationId = ids[Value]
+            A.swimidle.SwimIdle.AnimationId = ids[Value]
             CurrentAnims.swimidle = Value ~= "Default" and ids[Value] or nil
         end,
     })
@@ -2716,23 +2673,17 @@ Section1:Dropdown({
         Desc = "Restore original avatar animations",
         Icon = "rotate-ccw",
         Callback = function()
-            local char = game.Players.LocalPlayer.Character
-            if not char then return end
-            local Animate = char:WaitForChild("Animate")
-            local OldAnimate = Animate:Clone()
-            Animate:Destroy()
-            task.wait(0.1)
-            OldAnimate.Parent = char
-            OldAnimate.Disabled = true
-            task.wait(0.1)
-            OldAnimate.Disabled = false
-            CurrentAnims = {
-                idle1 = nil, idle2 = nil,
-                walk = nil, run = nil,
-                jump = nil, fall = nil,
-                climb = nil, swim = nil,
-                swimidle = nil,
-            }
+            local A = getAnimate()
+            A.idle.Animation1.AnimationId = Defaults.idle1
+            A.idle.Animation2.AnimationId = Defaults.idle2
+            A.walk.WalkAnim.AnimationId = Defaults.walk
+            A.run.RunAnim.AnimationId = Defaults.run
+            A.jump.JumpAnim.AnimationId = Defaults.jump
+            A.fall.FallAnim.AnimationId = Defaults.fall
+            A.climb.ClimbAnim.AnimationId = Defaults.climb
+            A.swim.Swim.AnimationId = Defaults.swim
+            A.swimidle.SwimIdle.AnimationId = Defaults.swimidle
+            CurrentAnims = {idle1=nil,idle2=nil,walk=nil,run=nil,jump=nil,fall=nil,climb=nil,swim=nil,swimidle=nil}
             WindUI:Notify({
                 Title = "Animations Reset",
                 Content = "Original avatar animations restored!",
@@ -2742,36 +2693,8 @@ Section1:Dropdown({
         end,
     })
 
-end)                                    
-            
-                                    
---[[
-YourSection:Button({
-    Title = "Reset Animations",
-    Desc = "Restore original avatar animations",
-
-    Callback = function()
-
-        IdleDropdown:Select("Default")
-        WalkDropdown:Select("Default")
-        RunDropdown:Select("Default")
-        JumpDropdown:Select("Default")
-        FallDropdown:Select("Default")
-        ClimbDropdown:Select("Default")
-        SwimDropdown:Select("Default")
-        SwimIdleDropdown:Select("Default")
-
-        PackDropdown:Select("Default")
-
-        WindUI:Notify({
-            Title = "Liquid Hub",
-            Content = "Animations reset successfully!",
-            Duration = 3,
-            Icon = "refresh-cw"
-        })
-
-    end
-})
+end) 
+                                                
 --[[
 YourSection:Button({
     Title = "Reset Animations",
