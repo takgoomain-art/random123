@@ -2,7 +2,7 @@
 LIQUID HUB TEMP FILE 
 ]]
 --local WindUI = _G.WindUI
-local scriptVersion = "v1.667.00-fix"
+local scriptVersion = "v1.667.00-fix-2"
 
 ---- services
 local Players = game:GetService("Players")
@@ -2346,7 +2346,6 @@ task.spawn(function()
     local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
     local Animate = char:WaitForChild("Animate")
 
-    -- Save ONCE, hindi na magbabago
     local Defaults = {
         idle1 = Animate.idle.Animation1.AnimationId,
         idle2 = Animate.idle.Animation2.AnimationId,
@@ -2368,7 +2367,17 @@ task.spawn(function()
     }
 
     local function getAnimate()
-        return game.Players.LocalPlayer.Character:WaitForChild("Animate")
+        local c = game.Players.LocalPlayer.Character
+        if not c then return end
+        local animate = c:WaitForChild("Animate")
+        local humanoid = c:FindFirstChildOfClass("Humanoid")
+        local animator = humanoid and humanoid:FindFirstChildOfClass("Animator")
+        if animator then
+            for _, track in ipairs(animator:GetPlayingAnimationTracks()) do
+                track:Stop(0)
+            end
+        end
+        return animate
     end
 
     game.Players.LocalPlayer.CharacterAdded:Connect(function(newChar)
@@ -2398,6 +2407,7 @@ task.spawn(function()
         SearchBarEnabled = true,
         Callback = function(Value)
             local A = getAnimate()
+            if not A then return end
             local packs = {
                 Default = {
                     idle1 = Defaults.idle1, idle2 = Defaults.idle2,
@@ -2485,6 +2495,7 @@ task.spawn(function()
         SearchBarEnabled = true,
         Callback = function(Value)
             local A = getAnimate()
+            if not A then return end
             local ids = {
                 Default = {Defaults.idle1, Defaults.idle2},
                 Zombie = {"rbxassetid://616158929", "rbxassetid://616160636"},
@@ -2516,6 +2527,7 @@ task.spawn(function()
         SearchBarEnabled = true,
         Callback = function(Value)
             local A = getAnimate()
+            if not A then return end
             local ids = {
                 Default = Defaults.walk,
                 Zombie = "rbxassetid://616168032",
@@ -2539,6 +2551,7 @@ task.spawn(function()
         SearchBarEnabled = true,
         Callback = function(Value)
             local A = getAnimate()
+            if not A then return end
             local ids = {
                 Default = Defaults.run,
                 Zombie = "rbxassetid://616163682",
@@ -2562,6 +2575,7 @@ task.spawn(function()
         SearchBarEnabled = true,
         Callback = function(Value)
             local A = getAnimate()
+            if not A then return end
             local ids = {
                 Default = Defaults.jump,
                 Zombie = "rbxassetid://616161997",
@@ -2585,6 +2599,7 @@ task.spawn(function()
         SearchBarEnabled = true,
         Callback = function(Value)
             local A = getAnimate()
+            if not A then return end
             local ids = {
                 Default = Defaults.fall,
                 Zombie = "rbxassetid://616157476",
@@ -2608,6 +2623,7 @@ task.spawn(function()
         SearchBarEnabled = true,
         Callback = function(Value)
             local A = getAnimate()
+            if not A then return end
             local ids = {
                 Default = Defaults.climb,
                 Zombie = "rbxassetid://616156119",
@@ -2631,6 +2647,7 @@ task.spawn(function()
         SearchBarEnabled = true,
         Callback = function(Value)
             local A = getAnimate()
+            if not A then return end
             local ids = {
                 Default = Defaults.swim,
                 Zombie = "rbxassetid://616165109",
@@ -2654,6 +2671,7 @@ task.spawn(function()
         SearchBarEnabled = true,
         Callback = function(Value)
             local A = getAnimate()
+            if not A then return end
             local ids = {
                 Default = Defaults.swimidle,
                 Zombie = "rbxassetid://616166655",
@@ -2674,6 +2692,7 @@ task.spawn(function()
         Icon = "rotate-ccw",
         Callback = function()
             local A = getAnimate()
+            if not A then return end
             A.idle.Animation1.AnimationId = Defaults.idle1
             A.idle.Animation2.AnimationId = Defaults.idle2
             A.walk.WalkAnim.AnimationId = Defaults.walk
@@ -2693,7 +2712,7 @@ task.spawn(function()
         end,
     })
 
-end) 
+end)
                                                 
 --[[
 YourSection:Button({
