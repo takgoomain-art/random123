@@ -246,6 +246,7 @@ local Window = WindUI:CreateWindow({
 					Provider = "Liquid",
 				}
 			}
+		}
 			
 		
 		
