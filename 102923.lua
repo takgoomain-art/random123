@@ -3304,7 +3304,7 @@ loadstring(game:HttpGet('https://nexus-script.vercel.app/Brookhaven.lua'))()
 			end})
 
 	local redbbh = BH:Button({
-			Title = "🔓 Manox Hub",
+			Title = "🔐 Red Black Hub",
 			Desc = "",
 			Locked = false,
 			Callback = function()
@@ -3535,98 +3535,10 @@ local rtg = rtggg:Paragraph({
         }
     }
     ]]
-})
+})	
 
---[[ WORSTTTT
-	
-local ynotjoi2n = Script:Button({
-    Title = "Join Game",
-    Desc = "Join in Restaurant Tycoon 2.",
-    Locked = false,
-    Callback = function()
-        -- Extract PlaceId from URL (119048529960596)
-        local placeId = 3398014311
         
-        -- Method 1: TeleportService (Recommended)
-        local success, err = pcall(function()
-            game:GetService("TeleportService"):Teleport(placeId, game.Players.LocalPlayer)
-        end)
         
-        if success then
-				WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Teleporting to the game... Please wait!",
-                Duration = 5, -- 3 seconds
-                Icon = "bell",
-})
-            print("🚀 Teleporting to Restaurant Tycoon 2...")
-        else
-            warn("❌ Teleport failed: " .. tostring(err))
-        end
-        
-        -- Method 2: Fallback (Copy Link)
-        if not success then
-            WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Failed to join, please try again later!",
-                Duration = 5, -- 3 seconds
-                Icon = "bell",
-})
-            print("📋 Game link copied to clipboard!")
-        end
-    end
-})
-
-local ynotjoin = Script:Button({
-    Title = "Join Game",
-    Desc = "Join in Restaurant Tycoon 3.",
-    Locked = false,
-    Callback = function()
-        -- Extract PlaceId from URL (119048529960596)
-        local placeId = 119048529960596
-        
-        -- Method 1: TeleportService (Recommended)
-        local success, err = pcall(function()
-            game:GetService("TeleportService"):Teleport(placeId, game.Players.LocalPlayer)
-        end)
-        
-        if success then
-				WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Teleporting to the game... Please wait!",
-                Duration = 5, -- 3 seconds
-                Icon = "bell",
-})
-            print("🚀 Teleporting to Restaurant Tycoon 3...")
-        else
-            warn("❌ Teleport failed: " .. tostring(err))
-        end
-        
-        -- Method 2: Fallback (Copy Link)
-        if not success then
-            WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Failed to join, please try again later!",
-                Duration = 5, -- 3 seconds
-                Icon = "bell",
-})
-            print("📋 Game link copied to clipboard!")
-        end
-		end
-})
-end -- else end 
-
-local Button123 = Script:Button({
-    Title = "🎮 Join RT3",
-    Callback = function()
-        local TeleportService = game:GetService("TeleportService")
-        local placeId = 119048529960596
-        
-        pcall(function()
-            TeleportService:Teleport(placeId)
-        end)
-    end
-})]]
 end -- real else end
 
 
@@ -3644,6 +3556,12 @@ if SailorPiece then
 		Locked = false,
 		Callback = function()
 				loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/c6df1a32acc80543801abbdcbcb18819.lua"))()
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+									})
 			end})
 	local VAVA = spp:Button({
 		Title = "🔓 VAVA Hub",
@@ -3651,6 +3569,12 @@ if SailorPiece then
 		Locked = false,
 		Callback = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/Vavadragonss/VavaHubb/refs/heads/main/v1.lua"))()
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+									})
 			end})
 	local HOHOSP = spp:Button({
 			Title = "🔐 HoHo Hub",
@@ -3658,6 +3582,12 @@ if SailorPiece then
 			Locked = false,
 			Callback = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+									})
 			end})
 	local Nicuse = spp:Button({
 		Title = "🔐 Nicuse",
@@ -3665,7 +3595,13 @@ if SailorPiece then
 		Locked = false,
 		Callback = function()
 				loadstring(game:HttpGet("https://gist.githubusercontent.com/Nicuse101/cbfabe84baf69caee758ed4677f6e825/raw/31a245b32ed5502ffb9db18c730082bdfa7d1ce6/sailor%2520piece%2520loader"))()
-			end})
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+									})
+		end})
 				
 	local alch = spp:Button({
 		Title = "🔐 Alchemy Hub",
@@ -3673,6 +3609,12 @@ if SailorPiece then
 		Locked = false,
 		Callback = function()
 				loadstring(game:HttpGet('https://getalchemy.net/r'))()
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+									})
 			end})
 	local ZXhub = spp:Button({
 		Title = "🔐 ZXC Hub",
@@ -3680,6 +3622,12 @@ if SailorPiece then
 		Locked = false,
 		Callback = function()
 				loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/4b11c259bd6c83ee90ee87880e7cc7a7d3ed4f0f3845cd150bea27d6b8bde6cc/download"))()
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+									})
 			end})
 
 	local swy = spp:Button({
@@ -3688,6 +3636,12 @@ if SailorPiece then
 		Locked = false,
 		Callback = function()
 				loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/da18c7b3db7c1d82e01e3ac8b611af2186cf94aa973a2d48bb2302f2afc2fbac/download"))()
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+									})
 			end})
 
 	local hubbb = spp:Button({
@@ -3696,6 +3650,12 @@ if SailorPiece then
 		Locked = false,
 		Callback = function()
 				loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/ef529e68ff9a101094ee35813edcda8c2d8d323f33a4f3bff40899c9ddfdb778/download"))()
+			WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Script Executed!",
+                Duration = 5, -- 3 seconds
+                Icon = "bell",
+									})
 			end})
 	
 
@@ -4442,7 +4402,7 @@ local universal = More:Section({
 
 universal:Button({
 		Title = "🔐 Rey Hub",
-		Desc = "KEY: Kicaw",
+		Desc = "",
 		Locked = false,
 		Callback = function()
 			loadstring(game:HttpGet("https://pastebin.com/raw/zbKAtUEn"))()
