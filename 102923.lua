@@ -1690,7 +1690,10 @@ Cam:Toggle({
 Cam:Slider({
     Title = "FOV",
     Desc = "Adjust field of view",
-	Icon = "scan-eye",
+	Icon = {
+			From = "eye",
+			To = "scan-eye",
+		},
     Value = {
         Min = 50,
         Max = 120,
@@ -1704,6 +1707,14 @@ Cam:Slider({
         end
     end
 })
+
+Cam:Button({
+		Title = "Flick Camera",
+		Desc = "Loads a universal Flick Camera Script",
+		Callback = function()
+			loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Flick-Your-Camera-223673"))()
+		end
+	})
 
 -- 🔄 Handle respawn / camera reset
 player.CharacterAdded:Connect(function()
@@ -4356,13 +4367,40 @@ local fe = More:Section({
 	    BoxBorder = true,
 })
 
-local iy = fe:Button({
+local festack = fe:HStack()
+
+local LeftFE = festack:VStack()
+local RightFE = festack:VStack()
+
+local AdminFE = LeftFE:Section({
+		Title = "Admin Script",
+	})
+local iy = AdminFE:Button({
 	Title = "🔓 Infinite Yield",
 	Desc = "",
 	Locked = false,
 	Callback = function()
 			loadstring(game:HttpGet('https://cdn.robloxscripts.gg/public/furky/furky-infinite-yield-roblox-admin-script-source.lua'))()
 		end})
+
+local EmotesFE = RightFE:Section({
+		Title = "Emotes Script",
+	})
+
+EmotesFE:Button({
+		Title = "🔓 Emote GUI",
+		Desc = "Loads a universal Emote Script",
+		Callback = function()
+			loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-R15-Emotes-GUI-Open-Source-229171"))()
+		end
+	})
+EmotesFE:Button({
+		Title = "🔓 AFEM Max",
+		Desc = "Loads a universal Emote Script",
+		Callback = function()
+			loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-AFEM-Max-Open-Alpha-50210"))()
+		end
+	})
 
 local universal = More:Section({
 		Title = "Universal Scripts",
