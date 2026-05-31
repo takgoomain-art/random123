@@ -4360,9 +4360,10 @@ local YTMusicMp = RightGS:Button({
 		end})
 
 local fe = More:Section({
-		Title = "FE SCRIPTS",
+		Title = "FE Scripts",
+        Desc = "Explore FE-based utilities, social tools, and effects.",
 		Icon = "person-standing",
-		Opened = true,
+		Opened = false,
 		Box = true,
 	    BoxBorder = true,
 })
@@ -4373,7 +4374,9 @@ local LeftFE = festack:VStack()
 local RightFE = festack:VStack()
 
 local AdminFE = LeftFE:Section({
-		Title = "Admin Script",
+		Title = "Dev Tools",
+        TextXAlignment = "Center",
+        Opened = true
 	})
 local iy = AdminFE:Button({
 	Title = "🔓 Infinite Yield",
@@ -4382,9 +4385,42 @@ local iy = AdminFE:Button({
 	Callback = function()
 			loadstring(game:HttpGet('https://cdn.robloxscripts.gg/public/furky/furky-infinite-yield-roblox-admin-script-source.lua'))()
 		end})
+local dex = AdminFE:Button({
+		Title = "🔓 Dex",
+		Desc = "",
+		Locked = false,
+		Callback = function()
+			local Dialog = Window:Dialog({
+    Icon = "bolt", -- lucide icon or "rbxassetid://". optional
+    Title = "Liquid Hub | Dex",
+    IconThemed = true, -- use theme colors for icon. optional
+    Content = "There are 2 version of Dex Explorer, which version would you like to use?",
+    Buttons = {
+        {
+            Title = "Dex",
+            
+            Callback = function()
+						loadstring(game:HttpGet("https://raw.githubusercontent.com/LorekeeperZinnia/Dex/refs/heads/master/main.lua"))()
+                print("Loaded Dex (non ++)")
+            end
+        },
+        {
+            Title = "Dex++",
+            
+            Callback = function()
+						loadstring(game:HttpGet("https://github.com/AZYsGithub/DexPlusPlus/releases/latest/download/out.lua"))()
+                print("Loaded Dex++")
+            end
+        }
+    }
+})
+					end
+	})
 
 local EmotesFE = RightFE:Section({
-		Title = "Emotes Script",
+		Title = "Emotes ",
+        TextXAlignment = "Center",
+        Opened = true
 	})
 
 EmotesFE:Button({
