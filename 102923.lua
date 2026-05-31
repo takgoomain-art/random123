@@ -135,6 +135,8 @@ elseif game.PlaceId == 10260193230 then
 	MS = true
 elseif game.PlaceId == 142823291 then
 	MM2 = true
+elseif game.PlaceId == 70876832253163 then
+	DRL = true
 end
 
 --[[ 
@@ -160,7 +162,7 @@ AM. = Adopt Me
 99N = 99 Nights in the Forest
 MS. = Meme Sea
 MM2 = Murder Mystery 2
-
+DRL.= Dead Rails (Lobby)
 Tab: Script Tab
 
 ]]
