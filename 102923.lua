@@ -1843,8 +1843,8 @@ task.spawn(function()
                     climb = "rbxassetid://742636889", swim = "rbxassetid://742639220",
                     swimidle = "rbxassetid://742639812",
 				},
-			    Toy= {
-                    idle1 = "rbxassetid://782841498", idle2 = "rbxassetid://782845736"},
+			    Toy = {
+                    idle1 = "rbxassetid://782841498", idle2 = "rbxassetid://782845736",
                     walk = "rbxassetid://782843345", run = "rbxassetid://782842708",
                     jump = "rbxassetid://782847020", fall = "rbxassetid://782846423",
                     climb = "rbxassetid://782843869", swim = "rbxassetid://782844582",
@@ -3308,7 +3308,7 @@ loadstring(game:HttpGet('https://nexus-script.vercel.app/Brookhaven.lua'))()
 			Desc = "",
 			Locked = false,
 			Callback = function()
-			--loadstring(game:HttpGet("https://raw.githubusercontent.com/THEMRREDBLACK/RED-BLACK-HUB-BROOCKHAVEN-Lg/refs/heads/main/Original.Lua"))() 
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/THEMRREDBLACK/RED-BLACK-HUB-BROOCKHAVEN-Lg/refs/heads/main/Original.Lua"))() 
 
 			WindUI:Notify({
                 Title = "Liquid Hub",
