@@ -1285,10 +1285,6 @@ local lpS = lp:Section({
 	BoxBorder = true,
 })
 
-
-
-
-
 local player = game.Players.LocalPlayer
 
 player:SetAttribute("WalkSpeedEnabled", false)
@@ -1297,12 +1293,11 @@ player:SetAttribute("WalkSpeedValue", 16)
 player:SetAttribute("JumpHeightEnabled", false)
 player:SetAttribute("JumpHeightValue", 50)
 
-lpS:Slider({
+local SpeedSlider = lpS:Slider({
     Title = "Walkspeed",
     Desc = "Set walkspeed value",
     Icon = "sport-shoe",
     Step = 1,
-
     Value = {
         Min = 16,
         Max = 950,
@@ -1312,8 +1307,7 @@ lpS:Slider({
     Callback = function(Value)
         player:SetAttribute("WalkSpeedValue", Value)
 
-        local char = player.Character
-        local hum = char and char:FindFirstChild("Humanoid")
+        local hum = player.Character and player.Character:FindFirstChild("Humanoid")
 
         if hum and player:GetAttribute("WalkSpeedEnabled") then
             hum.WalkSpeed = Value
@@ -1321,7 +1315,7 @@ lpS:Slider({
     end
 })
 
-local WsToggle = lpS:Toggle({
+lpS:Toggle({
     Title = "Enable Walkspeed",
     Icon = "sport-shoe",
     Value = false,
@@ -1329,8 +1323,7 @@ local WsToggle = lpS:Toggle({
     Callback = function(Value)
         player:SetAttribute("WalkSpeedEnabled", Value)
 
-        local char = player.Character
-        local hum = char and char:FindFirstChild("Humanoid")
+        local hum = player.Character and player.Character:FindFirstChild("Humanoid")
 
         if hum then
             hum.WalkSpeed = Value and player:GetAttribute("WalkSpeedValue") or 16
@@ -1338,12 +1331,11 @@ local WsToggle = lpS:Toggle({
     end
 })
 
-lpS:Slider({
+local JumpSlider = lpS:Slider({
     Title = "Jump Height",
     Desc = "Set jump height value",
     Icon = "arrow-big-up-dash",
     Step = 1,
-
     Value = {
         Min = 50,
         Max = 1000,
@@ -1353,8 +1345,7 @@ lpS:Slider({
     Callback = function(Value)
         player:SetAttribute("JumpHeightValue", Value)
 
-        local char = player.Character
-        local hum = char and char:FindFirstChild("Humanoid")
+        local hum = player.Character and player.Character:FindFirstChild("Humanoid")
 
         if hum and player:GetAttribute("JumpHeightEnabled") then
             hum.JumpPower = Value
@@ -1362,7 +1353,7 @@ lpS:Slider({
     end
 })
 
-local JumpToggle = lpS:Toggle({
+lpS:Toggle({
     Title = "Enable Jump Height",
     Icon = "arrow-big-up-dash",
     Value = false,
@@ -1370,8 +1361,7 @@ local JumpToggle = lpS:Toggle({
     Callback = function(Value)
         player:SetAttribute("JumpHeightEnabled", Value)
 
-        local char = player.Character
-        local hum = char and char:FindFirstChild("Humanoid")
+        local hum = player.Character and player.Character:FindFirstChild("Humanoid")
 
         if hum then
             hum.JumpPower = Value and player:GetAttribute("JumpHeightValue") or 50
@@ -1392,21 +1382,15 @@ lpS:Button({
         player:SetAttribute("JumpHeightEnabled", false)
         player:SetAttribute("JumpHeightValue", 50)
 
-        local char = player.Character
-        local hum = char and char:FindFirstChild("Humanoid")
+        local hum = player.Character and player.Character:FindFirstChild("Humanoid")
 
         if hum then
             hum.WalkSpeed = 16
             hum.JumpPower = 50
         end
 
-        if WsToggle.SetValue then
-            WsToggle:SetValue(false)
-        end
-
-        if JumpToggle.SetValue then
-            JumpToggle:SetValue(false)
-        end
+        SpeedSlider:Set(16)
+        JumpSlider:Set(50)
 
         WindUI:Notify({
             Title = "Liquid Hub",
@@ -1418,20 +1402,21 @@ lpS:Button({
 })
 
 player.CharacterAdded:Connect(function(char)
+
     local hum = char:WaitForChild("Humanoid")
 
     task.wait(0.1)
 
-    hum.WalkSpeed =
-        player:GetAttribute("WalkSpeedEnabled")
+    hum.WalkSpeed = player:GetAttribute("WalkSpeedEnabled")
         and player:GetAttribute("WalkSpeedValue")
         or 16
 
-    hum.JumpPower =
-        player:GetAttribute("JumpHeightEnabled")
+    hum.JumpPower = player:GetAttribute("JumpHeightEnabled")
         and player:GetAttribute("JumpHeightValue")
         or 50
+
 end)
+
 
 local moove = lp:Section({
 		Title = "Other Movement",
