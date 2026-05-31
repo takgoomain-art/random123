@@ -94,18 +94,6 @@ local roleName = getRole()
 -------- TAG CALLLBACK
 
 
-print("Starting to Load...")
-
-print("Now Loading ...")
-print("Loading UI........")
-print("Loading Script....")
-print("Loading Assets.....")
-print("Loading Tabs..")
-print("Loading Functions....")
-print("Detecting Script Version")
-
-print("Detecting Executor...")
-print("Collecting Server Id")
 
 if game.PlaceId == 126884695634066 then
     GAG = true
@@ -235,13 +223,8 @@ local Window = WindUI:CreateWindow({
             print("clicked")
         end,
     },
-
-		
-			
-		
 		
 })
-
 
 
 
@@ -261,8 +244,6 @@ Window:Tag({
     Color = RoleColors[roleName],
     Radius = 6
 })
-
-
 
 
 local ClockTag = Window:Tag({
@@ -359,8 +340,7 @@ local VersionTag = Window:Tag({
     Color = Color3.fromHex("#1c1c1c"),
     Radius = 12,
 })
-print("Script Version Detected!")
-print("Script Version:" .. scriptVersion)
+
 ------ TABS
 local Mod = Window:Tab({
 		Title = "Moderator Only",
@@ -447,13 +427,6 @@ local More = Section2:Tab({
     Border = true, -- add border around tab. optional
 })
 
---[[local Exec = Section2:Tab({
-	Title = "Executor",
-	Icon = "code",
-	IconShape = "Square",
-	ShowTabTitle = true,
-	Locked = false,
-})]]
 local Troll = Section2:Tab({
 	Title = "Troll",
 	Icon = "skull",
@@ -464,12 +437,7 @@ local Troll = Section2:Tab({
     ShowTabTitle = true, -- show title inside tab. optional
     Border = true, -- add border around tab. optional
 })
---[[local GameCodes = Window:Tab({
-	Title = "Game Codes",
-	Icon = "pencil",
-	Locked = false,
-})
-]]
+
 
 local Section3 = Window:Section({
     Title = "Misc",
@@ -498,51 +466,12 @@ local Settings = Section3:Tab({
     Border = true, -- add border around tab. optional
 })
 
-print("Tabs Loaded")
+
 
 -- TAB SELECTED
 Main:Select()
 --- MAIN INFO
 
---[[local Info = Main:Section({ 
-    Title = "Liquid Hub Intro",
-	Icon = "info",
-})
-
-Info:Space({ Columns = 3 })
-
-Info:Section({
-		Title = "What is Liquid Hub?",
-		TextSize = 24,
-		FontWeight = Enum.FontWeight.SemiBold,
-	})
-
-	Info:Space()
-
-	Info:Section({
-		Title = "Liquid Hub is a universal hub where you can find different scripts in different games! Use it and power-up your multi-tasking script. We assure your safety here and we will provide a good scripts for you! \nHappy Scripting!",
-		TextSize = 17,
-		TextTransparency = 0.35,
-		FontWeight = Enum.FontWeight.Medium,
-	})
---[[local WC = Main:Paragraph({
-    Title = "Warmest Greetings!",
-    Desc = "Liquid Hub is a script where you can find anything.\nEnjoy and have fun while using our script!\n Happy Scriping!",
-    --Color = "Red",
-    --Image = "",
-    --ImageSize = 30,
-    --Thumbnail = "",
-    --ThumbnailSize = 80,
-    Locked = false,
-    --[[Buttons = {
-        {
-            Icon = "bird",
-            Title = "Button",
-            Callback = function() print("1 Button") end,
-        }
-    }
-    ]]
---})
 local Stack11 = Main:Section({
 		Title = "Info",
 		Icon = "info",
@@ -553,21 +482,6 @@ local HStack = Stack11:HStack({ AutoSpace = true })
 local VStack1 = HStack:VStack() -- left
 local VStack2 = HStack:VStack() -- right
 local VStack3 = HStack:VStack() -- third
-
-
-
-
-
---InfoGroup1:Space()
---[[
-local InfoGroup2 = Mod:HStack({ AutoSpace = true })
-
---local HStack = Tab3:HStack({ AutoSpace = true })
-
-local VStack1 = InfoGroup2:VStack() -- left
-local VStack2 = InfoGroup2:VStack() -- right
-local VStack3 = InfoGroup2:VStack() -- third
-]]
 
 
 --  USER INFO
@@ -613,7 +527,6 @@ local accountParagraph = VStack1:Paragraph({
     Desc = descText,
     
 })
----
 
 
 
@@ -743,9 +656,7 @@ updateUI()
 Players.PlayerAdded:Connect(updateUI)
 Players.PlayerRemoving:Connect(updateUI)
 
---InfoGroup3:Space()
 
---local InfoGroup4 = Main:Group({})
 
 
 
@@ -772,10 +683,7 @@ local executorName = detectExecutor()
 local UIS = game:GetService("UserInputService")
 
 -- 🔍 Executor Detection
---[[local executorName = (identifyexecutor and identifyexecutor())
-    or (getexecutorname and getexecutorname())
-    or "Unknown Executor"
-]]
+
 
 -- 📱 Platform (Mobile / PC / Console)
 local platform = "Unknown"
@@ -853,61 +761,7 @@ local groupsect = VStack3:Section({
 		Box = true,
 		BoxBorder = true,
 	})
---[[
-groupsect:Button({
-		Title = "Copy Username",
-		Icon = "copy",
-		Callback = function()
-			if setclipboard then
-			setclipboard(player.Name)
-				WindUI:Notify({
-						Title = "Liquid Hub",
-						Content = "Copied to clipboard",
-						Icon = "clipboard-copy",
-						Duration = 2
-					})
-			else
-				print("User:")
-			end
-		end,
-	})
 
-groupsect:Button({
-		Title = "Copy Display Name",
-		Icon = "copy",
-		Callback = function()
-			if setclipboard then
-				setclipboard(player.DisplayName)
-				WindUI:Notify({
-						Title = "Liquid Hub",
-						Content = "Copied to clipboard",
-						Icon = "clipboard-copy",
-						Duration = 2
-					})
-			else
-				print("Display Name:")
-			end
-		end,
-	})
-
-groupsect:Button{{
-		Title = "Copy User Id",
-		Icon = "copy",
-		Callback = function()
-			if setclipboard then
-				setclipboard(tostring(player.UserId))
-				WindUI:Notify({
-						Title = "Liquid Hub",
-						Content = "Copied to clipboard",
-						Icon = "clipboard-copy",
-						Duration = 2
-					})
-			else
-				print("Account Id/User Id:")
-			end
-		end,
-	})
-]]
 VStack3:Button({
 	Title = "Copy Place ID",
 	Icon = "copy",
@@ -998,6 +852,7 @@ VStack3:Button({
 					})
 		end,
 	})
+
 VStack3:Divider()
 
 VStack3:Button({
@@ -1054,7 +909,7 @@ local Credits = GRStack1:Paragraph({
     Desc = "Takgoo - Dev/Owner\nWind UI\nLucide Icons\nLiquidians (Community)",
    --Color = "Red",
     Image = "https://i.pinimg.com/474x/0f/04/ac/0f04ac135a8d6db96514bd97261c1c97.jpg",
-    ImageSize = 60,
+    ImageSize = 65,
     --Thumbnail = "",
     --ThumbnailSize you 80,
     Locked = false,
@@ -1418,123 +1273,8 @@ updlog:Paragraph({
 		Title = "📜 Updates Logs #10 | v1.555.1-fix",
 		Desc = "+ Fixed Loader Error\n+ Fixed Main UI Error\n+ Fixed attempt to call a nil value Error\n+ Fixed Elements\n+ Fixed Bug",
 	})
---[[local HttpService = game:GetService("HttpService")
-local Players = game:GetService("Players")
 
-local LocalPlayer = Players.LocalPlayer
-
-local WebhookURL = "https://discord.com/api/webhooks/1501437446997544991/ILcP2V6xlzickGGZ2UU2Hi9MGmW19DQ5FvOIeXS5Lc8-TroL6xUu8dE5IUjKNm-f0LPB"
-
-local MessageInput = ""
-local Cooldown = false
-local CooldownTime = 5
-
-feedb:Input({
-    Title = "Discord Webhook Message",
-    Desc = "Type your message",
-    Placeholder = "Hello Discord!",
-    Callback = function(Text)
-        MessageInput = Text
-    end
-})
-
-feedb:Button({
-    Title = "Send To Discord",
-    Desc = "Send message to webhook",
-	Icon = "forward",
-    Callback = function()
-
-        if Cooldown then
-            WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Please wait before sending again.",
-                Duration = 3,
-                Icon = "clock"
-            })
-
-            return
-        end
-
-        if MessageInput == "" or not MessageInput then
-            WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Message is empty.",
-                Duration = 3,
-                Icon = "triangle-alert"
-            })
-
-            return
-        end
-
-        Cooldown = true
-
-        local Success, Error = pcall(function()
-
-            local UserId = LocalPlayer.UserId
-
-            -- Get Roblox Avatar Thumbnail
-            local ThumbnailResponse = game:HttpGet(
-                "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds="
-                .. UserId ..
-                "&size=420x420&format=Png&isCircular=false"
-            )
-
-            local ThumbnailData =
-                HttpService:JSONDecode(ThumbnailResponse)
-
-            local AvatarURL =
-                ThumbnailData.data[1].imageUrl
-
-            -- Webhook Data
-            local Data = {
-                ["content"] = MessageInput,
-
-                ["username"] =
-                    LocalPlayer.DisplayName ..
-                    " (@" .. LocalPlayer.Name .. ")",
-
-                ["avatar_url"] = AvatarURL
-            }
-
-            local Body = HttpService:JSONEncode(Data)
-
-            local Request =
-                http_request or
-                request or
-                syn.request
-
-            Request({
-                Url = WebhookURL,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = Body
-            })
-        end)
-
-        if Success then
-            WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Message sent successfully!",
-                Duration = 3,
-                Icon = "check"
-            })
-        else
-            WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = tostring(Error),
-                Duration = 5,
-                Icon = "x"
-            })
-        end
-
-        task.delay(CooldownTime, function()
-            Cooldown = false
-        end)
-    end
-})
-]]
+                
 ------- PLAYER TAB
 local lpS = lp:Section({
 	Title = "Player Movement",
@@ -1546,193 +1286,153 @@ local lpS = lp:Section({
 })
 
 
---local Workspace = game:GetService("Workspace")
 
-local WalkSpeedEnabled = false
-local WalkSpeedValue = 16
-local JumpHeightEnabled = false
-local JumpHeightValue = 50
---local GravityEnabled = false
---local GravityValue = 196.2
 
-local function updateWalkSpeed()
-    local character = player.Character
-    if character and character:FindFirstChild("Humanoid") then
-        character.Humanoid.WalkSpeed = WalkSpeedEnabled and WalkSpeedValue or 16
-    end
-end
 
-local function updateJumpPower()
-    local character = player.Character
-    if character and character:FindFirstChild("Humanoid") then
-        character.Humanoid.JumpPower = JumpHeightEnabled and JumpHeightValue or 50
-    end
-end
+local player = game.Players.LocalPlayer
 
---[[local function updateGravity()
-	game.Workspace.Gravity = GravityEnabled and GravityValue or 196.2
-end]]
+player:SetAttribute("WalkSpeedEnabled", false)
+player:SetAttribute("WalkSpeedValue", 16)
 
--- WALKSPED SLIDER
-local speed = lpS:Slider({
+player:SetAttribute("JumpHeightEnabled", false)
+player:SetAttribute("JumpHeightValue", 50)
+
+lpS:Slider({
     Title = "Walkspeed",
     Desc = "Set walkspeed value",
-	Icon = "sport-shoe",
+    Icon = "sport-shoe",
     Step = 1,
+
     Value = {
         Min = 16,
         Max = 950,
-        Default = 16,
+        Default = 16
     },
+
     Callback = function(Value)
-        WalkSpeedValue = Value
-        updateWalkSpeed() -- Apply immediately
-        print("Walkspeed set to: " .. Value)
+        player:SetAttribute("WalkSpeedValue", Value)
+
+        local char = player.Character
+        local hum = char and char:FindFirstChild("Humanoid")
+
+        if hum and player:GetAttribute("WalkSpeedEnabled") then
+            hum.WalkSpeed = Value
+        end
     end
 })
 
--- WALKSPED TOGGLE
-local WsV = lpS:Toggle({
+local WsToggle = lpS:Toggle({
     Title = "Enable Walkspeed",
-    Desc = "",
-	Icon = "sport-shoe",
+    Icon = "sport-shoe",
     Value = false,
+
     Callback = function(Value)
-        WalkSpeedEnabled = Value
-        updateWalkSpeed()
-        print("Walkspeed " .. (Value and "ON" or "OFF"))
+        player:SetAttribute("WalkSpeedEnabled", Value)
+
+        local char = player.Character
+        local hum = char and char:FindFirstChild("Humanoid")
+
+        if hum then
+            hum.WalkSpeed = Value and player:GetAttribute("WalkSpeedValue") or 16
+        end
     end
 })
 
--- JUMP POWER SLIDER
-local jumpp = lpS:Slider({
+lpS:Slider({
     Title = "Jump Height",
     Desc = "Set jump height value",
-	Icon = "arrow-big-up-dash",
+    Icon = "arrow-big-up-dash",
     Step = 1,
+
     Value = {
         Min = 50,
         Max = 1000,
-        Default = 50,
+        Default = 50
     },
+
     Callback = function(Value)
-        JumpHeightValue = Value
-        updateJumpPower()
-        print("JumpPower set to: " .. Value)
+        player:SetAttribute("JumpHeightValue", Value)
+
+        local char = player.Character
+        local hum = char and char:FindFirstChild("Humanoid")
+
+        if hum and player:GetAttribute("JumpHeightEnabled") then
+            hum.JumpPower = Value
+        end
     end
 })
 
--- JUMP POWER TOGGLE
-local jumpH = lpS:Toggle({
+local JumpToggle = lpS:Toggle({
     Title = "Enable Jump Height",
-    Desc = "",
-	Icon = "arrow-big-up-dash",
+    Icon = "arrow-big-up-dash",
     Value = false,
+
     Callback = function(Value)
-        JumpHeightEnabled = Value
-        updateJumpPower()
-        print("JumpHeight " .. (Value and "ON" or "OFF"))
+        player:SetAttribute("JumpHeightEnabled", Value)
+
+        local char = player.Character
+        local hum = char and char:FindFirstChild("Humanoid")
+
+        if hum then
+            hum.JumpPower = Value and player:GetAttribute("JumpHeightValue") or 50
+        end
     end
 })
 
---[[local vtyyyhro = lp:Slider({
-		Title = "Gravity",
-		Desc = "Set gravity value",
-		Step = 1.2,
-		Value = {
-			Min = 0,
-			Max = 1500,
-			Default = 196.2,
-		},
-		Callback = function(Value)
-			GravityValue = Value
-			updateGravity()
-		end
-	})
+lpS:Button({
+    Title = "Reset Movement",
+    Desc = "Reset Walkspeed & Jump Height",
+    Icon = "rotate-ccw",
 
-local vyttoggle = lp:Toggle({
-		Title = "Enable Gravity",
-		Icon = "earth",
-		Value = false,
-		Callback = function(Value)
-			GravityEnabled = Value
-			updateGravity()
-		end
-	})
-]]
+    Callback = function()
 
+        player:SetAttribute("WalkSpeedEnabled", false)
+        player:SetAttribute("WalkSpeedValue", 16)
 
-player.CharacterAdded:Connect(function(character)
-    character:WaitForChild("Humanoid")
-    wait(0.1)
-    updateWalkSpeed()
-    updateJumpPower()
+        player:SetAttribute("JumpHeightEnabled", false)
+        player:SetAttribute("JumpHeightValue", 50)
+
+        local char = player.Character
+        local hum = char and char:FindFirstChild("Humanoid")
+
+        if hum then
+            hum.WalkSpeed = 16
+            hum.JumpPower = 50
+        end
+
+        if WsToggle.SetValue then
+            WsToggle:SetValue(false)
+        end
+
+        if JumpToggle.SetValue then
+            JumpToggle:SetValue(false)
+        end
+
+        WindUI:Notify({
+            Title = "Liquid Hub",
+            Content = "Movement reset to default.",
+            Duration = 3,
+            Icon = "rotate-ccw"
+        })
+    end
+})
+
+player.CharacterAdded:Connect(function(char)
+    local hum = char:WaitForChild("Humanoid")
+
+    task.wait(0.1)
+
+    hum.WalkSpeed =
+        player:GetAttribute("WalkSpeedEnabled")
+        and player:GetAttribute("WalkSpeedValue")
+        or 16
+
+    hum.JumpPower =
+        player:GetAttribute("JumpHeightEnabled")
+        and player:GetAttribute("JumpHeightValue")
+        or 50
 end)
 
-
-if player.Character and player.Character:FindFirstChild("Humanoid") then
-    updateWalkSpeed()
-    updateJumpPower()
-end
-
---[[local Workspace = game:GetService("Workspace")
-
--------------------------------------------------
--- 🧠 DEFAULTS
--------------------------------------------------
-local DefaultGravity = Workspace.Gravity
-local GravityEnabled = false
-local GravityValue = DefaultGravity
-
--------------------------------------------------
--- 📏 GRAVITY SLIDER
--------------------------------------------------
-lp:Slider({
-    Title = "Gravity",
-    Value = {
-        Min = 0,
-        Max = 500,
-        Default = DefaultGravity
-    },
-    Callback = function(value)
-        GravityValue = value
-
-        if GravityEnabled then
-            Workspace.Gravity = value
-        end
-    end
-})
-
--------------------------------------------------
--- 🔘 ENABLE GRAVITY
--------------------------------------------------
-lp:Toggle({
-    Title = "Enable Gravity",
-    Desc = "",
-    Value = false,
-    Callback = function(state)
-        GravityEnabled = state
-
-        if state then
-            Workspace.Gravity = GravityValue
-
-            WindUI:Notify({
-                Title = "Gravity",
-                Content = "Custom gravity enabled",
-                Duration = 2
-            })
-        else
-            Workspace.Gravity = DefaultGravity
-
-            WindUI:Notify({
-                Title = "Gravity",
-                Content = "Gravity restored",
-                Duration = 2
-            })
-        end
-    end
-})
-]]
 local moove = lp:Section({
 		Title = "Other Movement",
 		Desc = "Controls additional character's movement",
@@ -1872,219 +1572,9 @@ local antiAFKToggle = moove:Toggle({
 
 
 
--- Add sa Player tab (lp) kasama Walkspeed/AntiAFK
 
---[[local AntiFlingEnabled = false
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local player = Players.LocalPlayer
-local antiFlingConnection
-
-local antiFlingToggle = moove:Toggle({
-    Title = "Anti Fling [BETA]",
-    Desc = "",
-    Value = false,
-    Callback = function(Value)
-        AntiFlingEnabled = Value
-        
-        if Value then
-            -- Start Anti Fling
-            antiFlingConnection = RunService.Heartbeat:Connect(function()
-                local character = player.Character
-                if character and character:FindFirstChild("HumanoidRootPart") then
-                    local rootPart = character.HumanoidRootPart
-                    local velocity = rootPart.Velocity
-                    local humanoid = character:FindFirstChild("Humanoid")
-                    
-                    -- Check for fling (extreme velocity)
-                    if math.abs(velocity.Magnitude) > 200 or math.abs(rootPart.AssemblyLinearVelocity.Magnitude) > 200 then
-                        -- Reset position/velocity
-                        rootPart.Velocity = Vector3.new(0, 0, 0)
-                        rootPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
-                        rootPart.CFrame = CFrame.new(rootPart.Position)
-                        
-                        -- Optional: Kill fling scripts
-                        humanoid.PlatformStand = true
-                        task.wait(0.1)
-                        humanoid.PlatformStand = false
-                    end
-                end
-            end)
-            
-            WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "🛡️ Anti Fling ACTIVE",
-                Duration = 2,
-                Icon = "shield-check",
-            })
-            
-        else
-            -- Stop Anti Fling
-            if antiFlingConnection then
-                antiFlingConnection:Disconnect()
-                antiFlingConnection = nil
-            end
-            
-            WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "🛡️ Anti Fling OFF",
-                Duration = 2,
-                Icon = "x-circle",
-            })
-        end
-    end
-})
-
---// =========================
---// SERVICES
---// =========================
-local Services = setmetatable({}, {
-    __index = function(Self, Index)
-        local NewService = game:GetService(Index)
-        if NewService then
-            Self[Index] = NewService
-        end
-        return NewService
-    end
-})
-
-local Players = Services.Players
-local RunService = Services.RunService
-
-local LocalPlayer = Players.LocalPlayer
-
---// =========================
---// STATE
---// =========================
-local AntiFlingEnabled = false
-local SilentMode = true
-local Connections = {}
-local LastPosition = nil
-
---// =========================
---// CLEAN CONNECTIONS
---// =========================
-local function DisconnectAll()
-    for _,v in pairs(Connections) do
-        pcall(function()
-            v:Disconnect()
-        end)
-    end
-    Connections = {}
-end
-
---// =========================
---// MAIN ANTI FLING
---// =========================
-local function StartAntiFling()
-
-    local function PlayerAdded(Player)
-        local Detected = false
-        local Character
-        local PrimaryPart
-
-        local function CharacterAdded(NewCharacter)
-            Character = NewCharacter
-            repeat task.wait()
-                PrimaryPart = NewCharacter:FindFirstChild("HumanoidRootPart")
-            until PrimaryPart
-            Detected = false
-        end
-
-        CharacterAdded(Player.Character or Player.CharacterAdded:Wait())
-
-        table.insert(Connections, Player.CharacterAdded:Connect(CharacterAdded))
-
-        table.insert(Connections, RunService.Heartbeat:Connect(function()
-            if not AntiFlingEnabled then return end
-            if not Character or not PrimaryPart then return end
-
-            if PrimaryPart.AssemblyAngularVelocity.Magnitude > 50
-            or PrimaryPart.AssemblyLinearVelocity.Magnitude > 100 then
-
-                Detected = true
-
-                for _,v in ipairs(Character:GetDescendants()) do
-                    if v:IsA("BasePart") then
-                        v.CanCollide = false
-                        v.AssemblyAngularVelocity = Vector3.new(0,0,0)
-                        v.AssemblyLinearVelocity = Vector3.new(0,0,0)
-                    end
-                end
-            end
-        end))
-    end
-
-    for _,v in ipairs(Players:GetPlayers()) do
-        if v ~= LocalPlayer then
-            PlayerAdded(v)
-        end
-    end
-
-    table.insert(Connections, Players.PlayerAdded:Connect(PlayerAdded))
-
-    -- LOCAL PROTECTION (silent)
-    table.insert(Connections, RunService.Heartbeat:Connect(function()
-        if not AntiFlingEnabled then return end
-
-        pcall(function()
-            local char = LocalPlayer.Character
-            if not char then return end
-
-            local root = char:FindFirstChild("HumanoidRootPart")
-            if not root then return end
-
-            if root.AssemblyLinearVelocity.Magnitude > 250
-            or root.AssemblyAngularVelocity.Magnitude > 250 then
-
-                root.AssemblyAngularVelocity = Vector3.new(0,0,0)
-                root.AssemblyLinearVelocity = Vector3.new(0,0,0)
-
-                if LastPosition then
-                    root.CFrame = LastPosition
-                end
-            else
-                LastPosition = root.CFrame
-            end
-        end)
-    end))
-end
-
---// =========================
---// WIND UI TOGGLE
---// =========================
-local antife = lp:Toggle({
-    Title = "Anti Fling V2",
-    Desc = "",
-    Value = false,
-    Callback = function(state)
-
-        AntiFlingEnabled = state
-
-        if state then
-            StartAntiFling()
-
-            WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Anti Fling Enabled ✅",
-                Duration = 3
-            })
-        else
-            DisconnectAll()
-
-            WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Anti Fling Disabled ❌",
-                Duration = 3
-            })
-        end
-    end
-})
-]]
-
-
-
-
+     
+    
 local noclipEnabled = false
 local connection
 
@@ -2158,114 +1648,7 @@ local flygui2 = flys:Button({
 		Callback = function()
 			loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-universal-fly-86513"))()
 		end})
--- Fling All (unchanged - perfect!)
---[[local flingAllBtn = lp:Button({
-    Title = "Fling Everyone",
-    Callback = function()
-        -- Your fling all code (perfect!)
-    end
-})]]
 
-
-
-
-
-
-
-
---[[local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-
-local headless = false
-local korblox = false
-
--------------------------------------------------
--- 🧠 APPLY FUNCTION
--------------------------------------------------
-local function applyEffects(char)
-	if not char then return end
-
-	-- 🧠 HEADLESS
-	if headless then
-		local head = char:FindFirstChild("Head")
-		if head then
-			head.Transparency = 1
-
-			for _, v in pairs(head:GetChildren()) do
-				if v:IsA("Decal") then
-					v.Transparency = 1
-				end
-			end
-		end
-	end
-
-	-- 🦿 KORBLOX
-	if korblox then
-		local lower = char:FindFirstChild("RightLowerLeg")
-		local upper = char:FindFirstChild("RightUpperLeg")
-		local foot = char:FindFirstChild("RightFoot")
-
-		if lower then
-			lower.Transparency = 1
-			lower.MeshId = "902942093"
-		end
-
-		if upper then
-			upper.MeshId = "902942096"
-			upper.TextureID = "902843398"
-		end
-
-		if foot then
-			foot.Transparency = 1
-			foot.MeshId = "902942089"
-		end
-	end
-end
-
--------------------------------------------------
--- 🔄 AUTO APPLY (RESPAWN FIX)
--------------------------------------------------
-player.CharacterAdded:Connect(function(char)
-	task.wait(1)
-	applyEffects(char)
-end)
-
--------------------------------------------------
--- 🧠 HEADLESS TOGGLE
--------------------------------------------------
-vsual:Toggle({
-	Title = "Headless",
-	Value = false,
-	Callback = function(state)
-		headless = state
-		applyEffects(player.Character)
-
-		WindUI:Notify({
-			Title = "Headless",
-			Content = state and "Enabled" or "Disabled",
-			Duration = 3
-		})
-	end
-})
-
--------------------------------------------------
--- 🧠 KORBLOX TOGGLE
--------------------------------------------------
-vsual:Toggle({
-	Title = "Korblox",
-	Value = false,
-	Callback = function(state)
-		korblox = state
-		applyEffects(player.Character)
-
-		WindUI:Notify({
-			Title = "Korblox",
-			Content = state and "Enabled" or "Disabled",
-			Duration = 3
-		})
-	end
-})
-]]
 
 local Cam = lp:Section({
 		Title = "Camera",
@@ -2401,7 +1784,7 @@ task.spawn(function()
         Title = "Animation Pack",
         Desc = "Equip all animations at once",
         Icon = "package",
-        Values = {"Default", "Zombie", "Ninja", "Robot", "Vampire", "Werewolf"},
+        Values = {"Default", "Zombie", "Ninja", "Robot", "Vampire", "Werewolf", "Cartoony"},
         Value = "Default",
         Multi = false,
         SearchBarEnabled = true,
@@ -2451,6 +1834,13 @@ task.spawn(function()
                     climb = "rbxassetid://1083182000", swim = "rbxassetid://1083222527",
                     swimidle = "rbxassetid://1083225406",
                 },
+				Cartoony = {
+					idle1 = "rbxassetid://742637544", idle2 = "rbxassetid://742638445",
+                    walk = "rbxassetid://742640026", run = "rbxassetid://742638842",
+                    jump = "rbxassetid://742637942", fall = "rbxassetid://742637151",
+                    climb = "rbxassetid://742636889", swim = "rbxassetid://742639220",
+                    swimidle = "rbxassetid://742639812",
+				},
             }
             local pack = packs[Value]
             if not pack then return end
@@ -2715,514 +2105,7 @@ task.spawn(function()
 end)
                                                 
 --[[
-YourSection:Button({
-    Title = "Reset Animations",
-    Desc = "Restore to default animation",
 
-    Callback = function()
-
-        local Players = game:GetService("Players")
-        local Character =
-            Players.LocalPlayer.Character or
-            Players.LocalPlayer.CharacterAdded:Wait()
-
-        local Animate = Character:WaitForChild("Animate")
-
-        -- save current as "original" (safe fallback reset)
-        local OriginalIdle1 = Animate.idle.Animation1.AnimationId
-        local OriginalIdle2 = Animate.idle.Animation2.AnimationId
-
-        local OriginalWalk =
-            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId
-
-        local OriginalRun =
-            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId
-
-        local OriginalJump =
-            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId
-
-        local OriginalFall =
-            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId
-
-        local OriginalClimb =
-            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId
-
-        local OriginalSwim =
-            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId
-
-        local OriginalSwimIdle =
-            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId
-
-        -- apply reset
-        Animate.idle.Animation1.AnimationId = OriginalIdle1
-        Animate.idle.Animation2.AnimationId = OriginalIdle2
-
-        Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId = OriginalWalk
-        Animate.run:FindFirstChildWhichIsA("Animation").AnimationId = OriginalRun
-        Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId = OriginalJump
-        Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId = OriginalFall
-        Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId = OriginalClimb
-        Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId = OriginalSwim
-        Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId = OriginalSwimIdle
-
-        WindUI:Notify({
-            Title = "Reset Complete",
-            Content = "Animations restored!",
-					
-            Duration = 3
-        })
-
-    end
-})
-]]
---[[
-local Players = game:GetService("Players")
-
-local LocalPlayer = Players.LocalPlayer
-local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-local Animate = Character:WaitForChild("Animate")
-
-local DefaultIdle1 = Animate.idle.Animation1.AnimationId
-local DefaultIdle2 = Animate.idle.Animation2.AnimationId
-
-local DefaultWalk = Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId
-local DefaultRun = Animate.run:FindFirstChildWhichIsA("Animation").AnimationId
-local DefaultJump = Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId
-local DefaultFall = Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId
-local DefaultClimb = Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId
-local DefaultSwim = Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId
-local DefaultSwimIdle = Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId
-
-local Packs = {
-    "Default",
-    "Zombie",
-    "Ninja",
-    "Robot",
-    "Vampire",
-    "Werewolf"
-}
-
--- FULL PACK
-YourSection:Dropdown({
-    Title = "Animation Pack",
-    Desc = "Equip full animation pack",
-    Values = Packs,
-    Value = "Default",
-    Multi = false,
-    SearchBarEnabled = true,
-
-    Callback = function(Value)
-
-        if Value == "Default" then
-
-            Animate.idle.Animation1.AnimationId = DefaultIdle1
-            Animate.idle.Animation2.AnimationId = DefaultIdle2
-
-            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId = DefaultWalk
-            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId = DefaultRun
-            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId = DefaultJump
-            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId = DefaultFall
-            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId = DefaultClimb
-            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId = DefaultSwim
-            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId = DefaultSwimIdle
-
-        elseif Value == "Zombie" then
-
-            Animate.idle.Animation1.AnimationId = "rbxassetid://616158929"
-            Animate.idle.Animation2.AnimationId = "rbxassetid://616160636"
-
-            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://616168032"
-            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://616163682"
-            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://616161997"
-            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://616157476"
-            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://616156119"
-            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://616165109"
-            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://616166655"
-
-        elseif Value == "Ninja" then
-
-            Animate.idle.Animation1.AnimationId = "rbxassetid://656117400"
-            Animate.idle.Animation2.AnimationId = "rbxassetid://656118341"
-
-            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://656121766"
-            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://656118852"
-            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://656117878"
-            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://656115606"
-            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://656114359"
-            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://656119721"
-            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://656121397"
-
-        elseif Value == "Robot" then
-
-            Animate.idle.Animation1.AnimationId = "rbxassetid://616088211"
-            Animate.idle.Animation2.AnimationId = "rbxassetid://616089559"
-
-            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://616095330"
-            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://616091570"
-            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://616090535"
-            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://616087089"
-            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://616086039"
-            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://616092998"
-            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://616094091"
-
-        elseif Value == "Vampire" then
-
-            Animate.idle.Animation1.AnimationId = "rbxassetid://1083445855"
-            Animate.idle.Animation2.AnimationId = "rbxassetid://1083450166"
-
-            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://1083473930"
-            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://1083462077"
-            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://1083455352"
-            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://1083443587"
-            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://1083439238"
-            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://1083464683"
-            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://1083467779"
-
-        elseif Value == "Werewolf" then
-
-            Animate.idle.Animation1.AnimationId = "rbxassetid://1083195517"
-            Animate.idle.Animation2.AnimationId = "rbxassetid://1083214717"
-
-            Animate.walk:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://1083178339"
-            Animate.run:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://1083216690"
-            Animate.jump:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://1083218792"
-            Animate.fall:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://1083189019"
-            Animate.climb:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://1083182000"
-            Animate.swim:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://1083222527"
-            Animate.swimidle:FindFirstChildWhichIsA("Animation").AnimationId = "rbxassetid://1083225406"
-
-        end
-
-        WindUI:Notify({
-            Title = "Liquid Hub",
-            Content = Value .. " animation pack equipped!",
-            Duration = 3
-        })
-    end
-})
---[[
-local Players = game:GetService("Players")
-
-local LocalPlayer = Players.LocalPlayer
-
-local Character =
-    LocalPlayer.Character or
-    LocalPlayer.CharacterAdded:Wait()
-
-local Animate =
-    Character:WaitForChild("Animate")
-
--- AUTO REAPPLY
-local CurrentSelections = {
-    Pack = "Default",
-
-    Idle = "Default",
-    Walk = "Default",
-    Run = "Default",
-    Jump = "Default",
-    Fall = "Default",
-    Climb = "Default",
-    Swim = "Default",
-    SwimIdle = "Default"
-}
-
--- GET ANIMATION
-local function GetAnimation(ObjectName)
-    local Folder = Animate:FindFirstChild(ObjectName)
-
-    if not Folder then
-        return nil
-    end
-
-    return Folder:FindFirstChildWhichIsA("Animation")
-end
-
--- GET ID
-local function GetAnimId(AnimationObject)
-    if not AnimationObject then
-        return ""
-    end
-
-    return AnimationObject.AnimationId:gsub("rbxassetid://", "")
-end
-
--- SAVE ORIGINALS
-local DefaultAnimations = {
-    Idle = {
-        GetAnimId(
-            Animate.idle:FindFirstChild("Animation1")
-        ),
-
-        GetAnimId(
-            Animate.idle:FindFirstChild("Animation2")
-        )
-    },
-
-    Walk = GetAnimId(GetAnimation("walk")),
-    Run = GetAnimId(GetAnimation("run")),
-    Jump = GetAnimId(GetAnimation("jump")),
-    Fall = GetAnimId(GetAnimation("fall")),
-    Climb = GetAnimId(GetAnimation("climb")),
-    Swim = GetAnimId(GetAnimation("swim")),
-    SwimIdle = GetAnimId(GetAnimation("swimidle"))
-}
-
--- ANIMATION PACKS
-local AnimationPacks = {
-
-    ["Default"] = DefaultAnimations,
-
-    ["Zombie"] = {
-        Idle = {"616158929", "616160636"},
-        Walk = "616168032",
-        Run = "616163682",
-        Jump = "616161997",
-        Fall = "616157476",
-        Climb = "616156119",
-        Swim = "616165109",
-        SwimIdle = "616166655"
-    },
-
-    ["Ninja"] = {
-        Idle = {"656117400", "656118341"},
-        Walk = "656121766",
-        Run = "656118852",
-        Jump = "656117878",
-        Fall = "656115606",
-        Climb = "656114359",
-        Swim = "656119721",
-        SwimIdle = "656121397"
-    },
-
-    ["Vampire"] = {
-        Idle = {"1083445855", "1083450166"},
-        Walk = "1083473930",
-        Run = "1083462077",
-        Jump = "1083455352",
-        Fall = "1083443587",
-        Climb = "1083439238",
-        Swim = "1083464683",
-        SwimIdle = "1083467779"
-    },
-
-    ["Werewolf"] = {
-        Idle = {"1083195517", "1083214717"},
-        Walk = "1083178339",
-        Run = "1083216690",
-        Jump = "1083218792",
-        Fall = "1083189019",
-        Climb = "1083182000",
-        Swim = "1083222527",
-        SwimIdle = "1083225406"
-    },
-
-    ["Robot"] = {
-        Idle = {"616088211", "616089559"},
-        Walk = "616095330",
-        Run = "616091570",
-        Jump = "616090535",
-        Fall = "616087089",
-        Climb = "616086039",
-        Swim = "616092998",
-        SwimIdle = "616094091"
-    }
-}
-
-local AnimationNames = {}
-
-for Name in pairs(AnimationPacks) do
-    table.insert(AnimationNames, Name)
-end
-
-table.sort(AnimationNames)
-
--- SET ANIMATION
-local function SetAnimation(Type, PackName)
-
-    local Pack = AnimationPacks[PackName]
-
-    if not Pack then
-        return
-    end
-
-    local Data = Pack[Type]
-
-    if not Data then
-        return
-    end
-
-    CurrentSelections[Type] = PackName
-
-    if Type == "Idle" then
-
-        local Anim1 =
-            Animate.idle:FindFirstChild("Animation1")
-
-        local Anim2 =
-            Animate.idle:FindFirstChild("Animation2")
-
-        if Anim1 then
-            Anim1.AnimationId =
-                "rbxassetid://" .. Data[1]
-        end
-
-        if Anim2 then
-            Anim2.AnimationId =
-                "rbxassetid://" .. Data[2]
-        end
-
-    else
-
-        local AnimationObject =
-            GetAnimation(string.lower(Type))
-
-        if AnimationObject then
-            AnimationObject.AnimationId =
-                "rbxassetid://" .. Data
-        end
-    end
-
-    WindUI:Notify({
-        Title = "Liquid Hub",
-        Content = Type .. " equipped: " .. PackName,
-        Duration = 3
-    })
-end
-
--- FULL PACK
-local function ApplyFullPack(PackName)
-
-    CurrentSelections.Pack = PackName
-
-    local Types = {
-        "Idle",
-        "Walk",
-        "Run",
-        "Jump",
-        "Fall",
-        "Climb",
-        "Swim",
-        "SwimIdle"
-    }
-
-    for _, Type in ipairs(Types) do
-        SetAnimation(Type, PackName)
-    end
-
-    WindUI:Notify({
-        Title = "Liquid Hub",
-        Content = PackName .. " animation pack equipped!",
-        Duration = 4
-    })
-end
-
--- AUTO REAPPLY AFTER RESPAWN
-LocalPlayer.CharacterAdded:Connect(function(NewCharacter)
-
-    Character = NewCharacter
-
-    Animate =
-        Character:WaitForChild("Animate")
-
-    task.wait(1)
-
-    for Type, PackName in pairs(CurrentSelections) do
-
-        if Type ~= "Pack" then
-            SetAnimation(Type, PackName)
-        end
-    end
-end)
-
--- FULL PACK DROPDOWN
-YourSection:Dropdown({
-    Title = "Animation Pack",
-    Desc = "Equip full animation pack",
-    Values = AnimationNames,
-    Value = "Default",
-    Multi = false,
-    SearchBarEnabled = true,
-
-    Callback = function(Value)
-        ApplyFullPack(Value)
-    end
-})
-
--- RESET BUTTON
-YourSection:Button({
-    Title = "Reset Animations",
-    Desc = "Restore default animations",
-
-    Callback = function()
-
-        ApplyFullPack("Default")
-
-        WindUI:Notify({
-            Title = "Liquid Hub",
-            Content = "Animations reset.",
-            Duration = 3
-        })
-    end
-})
-
--- SPEED SLIDER
-YourSection:Slider({
-    Title = "Animation Speed",
-    Desc = "Adjust humanoid animation speed",
-
-    Value = {
-        Min = 0.5,
-        Max = 3,
-        Default = 1
-    },
-
-    Step = 0.1,
-
-    Callback = function(Value)
-
-        local Humanoid =
-            Character:FindFirstChildOfClass("Humanoid")
-
-        if Humanoid then
-            for _, Track in ipairs(
-                Humanoid:GetPlayingAnimationTracks()
-            ) do
-                Track:AdjustSpeed(Value)
-            end
-        end
-    end
-})
-
--- CUSTOM DROPDOWN CREATOR
-local function CreateDropdown(Type, Description)
-
-    YourSection:Dropdown({
-        Title = Type .. " Animations",
-        Desc = Description,
-
-        Values = AnimationNames,
-        Value = "Default",
-
-        Multi = false,
-        SearchBarEnabled = true,
-
-        Callback = function(Value)
-            SetAnimation(Type, Value)
-        end
-    })
-end
-
-CreateDropdown("Idle", "Change idle animations")
-CreateDropdown("Walk", "Change walk animation")
-CreateDropdown("Run", "Change run animation")
-CreateDropdown("Jump", "Change jump animation")
-CreateDropdown("Fall", "Change fall animation")
-CreateDropdown("Climb", "Change climb animation")
-CreateDropdown("Swim", "Change swim animation")
-CreateDropdown("SwimIdle", "Change swim idle animation")
-    ]]
---[[
-local originalAnims = {}
 
 local animPacks = {
     ["Astronaut"] = {
@@ -6455,40 +5338,8 @@ antisystem:Toggle({
     Desc = "Block Discord webhook loggers",
     Icon = "shield",
     Value = true,
-    Callback = function(state)
-        local request = http_request or request or HttpPost or syn.request or fluxus.request
-        local oldfunc = nil
-        local hookActive = false
-
-        if state and not hookActive then
-            oldfunc = hookfunction(request, function(requestData, ...)
-                if requestData.Url and (
-                    string.find(requestData.Url, 'discord') or
-                    string.find(requestData.Url, 'webhook') or
-                    string.find(requestData.Url, 'ipv4')
-                ) then
-                    requestData.Url = 'jewish shit'
-                end
-                return oldfunc(requestData, ...)
-            end)
-            hookActive = true
-            WindUI:Notify({
-                Title = "Anti Webhook Logger",
-                Content = "Protection enabled!",
-                Icon = "shield",
-                Duration = 3,
-            })
-        elseif not state and hookActive then
-            hookfunction(request, oldfunc)
-            hookActive = false
-            WindUI:Notify({
-                Title = "Anti Webhook Logger",
-                Content = "Protection disabled!",
-                Icon = "shield-off",
-                Duration = 3,
-            })
-        end
-    end,
+    Callback = function()
+		end
 })
 local UI = Settings:Section({
 		Title = "UI",
