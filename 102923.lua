@@ -5393,13 +5393,92 @@ local antisystem = Settings:Section({
         BoxBorder = true,
 })
 
-antisystem:Toggle({
-    Title = "Anti Webhook Logger",
-    Desc = "Block Discord webhook loggers",
+
+local AntiWebhookEnabled = false
+local OriginalRequest
+
+AntiWebhookToggle = antisystem:Toggle({
+    Title = "Anti Discord Webhook Logger",
+    Desc = "Blocks Discord webhook requests",
     Icon = "shield",
-    Value = true,
-    Callback = function()
-		end
+    Value = false,
+
+    Callback = function(Value)
+
+        AntiWebhookEnabled = Value
+
+        if Value and not OriginalRequest then
+
+            OriginalRequest = hookfunction(request, function(req)
+
+                if not AntiWebhookEnabled then
+                    return OriginalRequest(req)
+                end
+
+                if type(req) ~= "table" then
+                    return OriginalRequest(req)
+                end
+
+                local url = tostring(req.Url or req.url or ""):lower()
+
+                local blocked = {
+                    "discord.com/api/webhooks",
+                    "discordapp.com/api/webhooks",
+                    "webhook",
+                    "whook",
+                    "hook"
+                }
+
+                for _, v in ipairs(blocked) do
+                    if url:find(v, 1, true) then
+
+                        warn("[Liquid Hub] Blocked webhook request")
+
+                        return {
+                            Success = false,
+                            StatusCode = 403,
+                            Body = ""
+                        }
+                    end
+                end
+
+                if req.Method and req.Method:upper() == "POST" then
+
+                    local body = tostring(req.Body or "")
+
+                    if body:match("^[0-9A-Fa-f]+$") and #body > 100 then
+
+                        warn("[Liquid Hub] Blocked suspicious POST body")
+
+                        return {
+                            Success = false,
+                            StatusCode = 403,
+                            Body = ""
+                        }
+                    end
+                end
+
+                return OriginalRequest(req)
+
+            end)
+
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Anti Webhook Protection Enabled",
+                Duration = 3
+            })
+
+        elseif not Value then
+
+            WindUI:Notify({
+                Title = "Liquid Hub",
+                Content = "Anti Webhook Protection Disabled",
+                Duration = 3
+            })
+
+        end
+
+    end
 })
 local UI = Settings:Section({
 		Title = "UI",
