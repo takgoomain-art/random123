@@ -3303,13 +3303,14 @@ loadstring(game:HttpGet('https://nexus-script.vercel.app/Brookhaven.lua'))()
 })
 			end})
 
-	local manoxbh = BH:Button({
+	local redbbh = BH:Button({
 			Title = "🔓 Manox Hub",
 			Desc = "",
 			Locked = false,
 			Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/JAGAMES94ez/Manox-Hub/refs/heads/main/Brookhaven", true))()
-				WindUI:Notify({
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/THEMRREDBLACK/RED-BLACK-HUB-BROOCKHAVEN-Lg/refs/heads/main/Original.Lua"))() 
+
+			WindUI:Notify({
                 Title = "Liquid Hub",
                 Content = "Script Executed!",
                 Duration = 5, -- 3 seconds
