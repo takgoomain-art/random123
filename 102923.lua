@@ -3308,7 +3308,7 @@ loadstring(game:HttpGet('https://nexus-script.vercel.app/Brookhaven.lua'))()
 			Desc = "",
 			Locked = false,
 			Callback = function()
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/THEMRREDBLACK/RED-BLACK-HUB-BROOCKHAVEN-Lg/refs/heads/main/Original.Lua"))() 
+			--loadstring(game:HttpGet("https://raw.githubusercontent.com/THEMRREDBLACK/RED-BLACK-HUB-BROOCKHAVEN-Lg/refs/heads/main/Original.Lua"))() 
 
 			WindUI:Notify({
                 Title = "Liquid Hub",
@@ -3867,12 +3867,7 @@ if SAB then
 		Locked = false,
 		Callback = function()
 				loadstring(game:HttpGet("https://codeberg.org/hubs/sab/raw/branch/main/palkuhub"))()
-				WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Script Executed!",
-                Duration = 5, -- 3 seconds
-                Icon = "bell",
-})
+				
 			end})
 	local SABhubidk = SABsection:Button({
 			Title = "🔐 HoHo Hub",
@@ -3880,12 +3875,7 @@ if SAB then
 			Locked = false,
 			Callback = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
-				WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Script Executed!",
-                Duration = 5, -- 3 seconds
-                Icon = "bell",
-})
+				
 			end})
 	local SABhub2 = SABsection:Button({
 		Title = "🔐 Ather Hub",
@@ -3895,12 +3885,7 @@ if SAB then
 				--DISCORD please join: https://discord.gg/x4ux7pUVJu
 --script_key = "Add key here to auto verify"
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/2529a5f9dfddd5523ca4e22f21cceffa.lua"))()
-			WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Script Executed!",
-                Duration = 5, -- 3 seconds
-                Icon = "bell",
-})
+			
 			end})
 
 	local SABhub3 = SABsection:Button({
@@ -3910,12 +3895,7 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/2529a5f9dfddd5
 		Callback = function()
 				-- getgenv().GameName = "Steal A Brainrot" -- if u want to play copyes of original game
 loadstring(game:HttpGet('https://raw.githubusercontent.com/ago106/SpaceHub/refs/heads/main/loader.lua'))()
-				WindUI:Notify({
-                Title = "Liquid Hub",
-                Content = "Script Executed!",
-                Duration = 5, -- 3 seconds
-                Icon = "bell",
-})
+				
 			end})
 
 else
