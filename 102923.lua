@@ -6272,6 +6272,7 @@ tpbro:Button({
 ----------- SETTINGS TAB
 local light = Settings:Section({
 		Title = "Lighting",
+        Desc = "Customize lighting and light effect.",
 		Icon = "lightbulb",
 		Opened = true,
 		Box = true,
@@ -6440,13 +6441,64 @@ light:Button({
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/takgoomain-art/random123/refs/heads/main/shader.lua"))()
 
 		end})
+local antisystem = Settings:Section({
+        Title = "Protection System",
+        Desc = "Prevents harm",
+        Icon = "shield",
+        Opened = false,
+        Box = true,
+        BoxBorder = true,
+})
+
+task.spawn(function()
+    local request = http_request or request or HttpPost or syn.request or fluxus.request
+    local oldfunc = nil
+    local hookActive = false
+
+    antisystem:Toggle({
+        Title = "Anti Webhook Logger",
+        Desc = "Block Discord webhook loggers",
+        Icon = "shield",
+        Value = true,
+        Callback = function(state)
+            if state and not hookActive then
+                oldfunc = hookfunction(request, function(requestData, ...)
+                    if requestData.Url and (
+                        string.find(requestData.Url, 'discord') or
+                        string.find(requestData.Url, 'webhook') or
+                        string.find(requestData.Url, 'ipv4')
+                    ) then
+                        requestData.Url = 'jewish shit'
+                    end
+                    return oldfunc(requestData, ...)
+                end)
+                hookActive = true
+                WindUI:Notify({
+                    Title = "Anti Webhook Logger",
+                    Content = "Protection enabled!",
+                    Icon = "shield",
+                    Duration = 3,
+                })
+            elseif not state and hookActive then
+                hookfunction(request, oldfunc)
+                hookActive = false
+                WindUI:Notify({
+                    Title = "Anti Webhook Logger",
+                    Content = "Protection disabled!",
+                    Icon = "shield-off",
+                    Duration = 3,
+                })
+            end
+        end,
+    })
+end)
 
 local UI = Settings:Section({
 		Title = "UI",
 		Icon = "hammer",
 		Opened = true,
 		Box = true,
-		BoxBorder = true,
+		
 	})
 
 local UI67 = UI:Section({
