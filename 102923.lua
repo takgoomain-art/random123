@@ -135,8 +135,10 @@ elseif game.PlaceId == 10260193230 then
 	MS = true
 elseif game.PlaceId == 142823291 then
 	MM2 = true
-elseif game.PlaceId == 70876832253163 then
+elseif game.PlaceId == 116495829188952 then 
 	DRL = true
+elseif game.PlaceId == 70876832253163 then
+	DRG = true
 end
 
 --[[ 
@@ -163,6 +165,8 @@ AM. = Adopt Me
 MS. = Meme Sea
 MM2 = Murder Mystery 2
 DRL.= Dead Rails (Lobby)
+DRG = Dead Rails (game)
+
 Tab: Script Tab
 
 ]]
@@ -761,8 +765,7 @@ local groupsect = VStack3:Section({
 		Title = "Action Buttons",
 		Icon = "wand",
 		TextXAlignment = "Center",
-		Box = true,
-		BoxBorder = true,
+		
 	})
 
 VStack3:Button({
@@ -1697,7 +1700,7 @@ Cam:Slider({
 })
 
 Cam:Button({
-		Title = "Flick Camera",
+		Title = "🔓 Flick Camera",
 		Desc = "Loads a universal Flick Camera Script",
 		Callback = function()
 			loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Flick-Your-Camera-223673"))()
@@ -1783,7 +1786,7 @@ task.spawn(function()
         Title = "Animation Pack",
         Desc = "Equip all animations at once",
         Icon = "package",
-        Values = {"Default", "Zombie", "Ninja", "Robot", "Vampire", "Werewolf", "Cartoony"},
+        Values = {"Default", "Zombie", "Ninja", "Robot", "Vampire", "Werewolf", "Cartoony", "Toy"},
         Value = "Default",
         Multi = false,
         SearchBarEnabled = true,
@@ -1840,6 +1843,13 @@ task.spawn(function()
                     climb = "rbxassetid://742636889", swim = "rbxassetid://742639220",
                     swimidle = "rbxassetid://742639812",
 				},
+			    Toy= {
+                    idle1 = "rbxassetid://782841498", idle2 = "rbxassetid://782845736"},
+                    walk = "rbxassetid://782843345", run = "rbxassetid://782842708",
+                    jump = "rbxassetid://782847020", fall = "rbxassetid://782846423",
+                    climb = "rbxassetid://782843869", swim = "rbxassetid://782844582",
+                    swimidle = "rbxassetid://782845186",
+               },
             }
             local pack = packs[Value]
             if not pack then return end
@@ -2198,13 +2208,7 @@ local animPacks = {
         climb = "616104706", swim = "616119360",
         swimidle = "616120861",
     },
-    ["Toy"] = {
-        idle = {a1 = "782841498", a2 = "782845736"},
-        walk = "782843345", run = "782842708",
-        jump = "782847020", fall = "782846423",
-        climb = "782843869", swim = "782844582",
-        swimidle = "782845186",
-    },
+
     ["Vampire"] = {
         idle = {a1 = "1083445855", a2 = "1083450166"},
         walk = "1083473930", run = "1083462077",
