@@ -434,7 +434,7 @@ local More = Section2:Tab({
     Border = true, -- add border around tab. optional
 })
 
-local Troll = Section2:Tab({
+--[[local Troll = Section2:Tab({
 	Title = "Troll",
 	Icon = "skull",
 	IconColor = Color3.fromRGB(5, 5, 5), -- custom icon color. optional
@@ -444,7 +444,7 @@ local Troll = Section2:Tab({
     ShowTabTitle = true, -- show title inside tab. optional
     Border = true, -- add border around tab. optional
 })
-
+]]
 
 local Section3 = Window:Section({
     Title = "Misc",
@@ -1286,7 +1286,7 @@ local lpS = lp:Section({
 	Title = "Player Movement",
 	Desc = "Controls character's movements",
 	Icon = "move",
-	Opened = true,
+	Opened = false,
 	Box = true,
 	BoxBorder = true,
 })
@@ -1428,7 +1428,7 @@ local moove = lp:Section({
 		Title = "Other Movement",
 		Desc = "Controls additional character's movement",
 		Icon = "user-search",
-		Opened = true,
+		Opened = false,
 		Box = true,
 		BoxBorder = true,
 	})
@@ -1640,12 +1640,99 @@ local flygui2 = flys:Button({
 			loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-universal-fly-86513"))()
 		end})
 
+local Trol = lp:Section({
+		Title = "Troll",
+		Desc = "Prank and troll another player",
+		Icon = "laugh",
+		Opened = false,
+		Box = true,
+		BoxBorder = true,
+	})
+
+Trol:Toggle({
+    Title = "Walk Fling",
+    Desc = "Flings players you walk into",
+    Default = false,
+    Callback = function(Value)
+        local Players = game:GetService("Players")
+        local RunService = game:GetService("RunService")
+        local LocalPlayer = Players.LocalPlayer
+        
+        getgenv().WalkFlingEnabled = Value
+        getgenv().WalkFlingConns = getgenv().WalkFlingConns or {}
+        getgenv().WalkFlingThread = getgenv().WalkFlingThread or nil
+        
+        -- Stop function
+        local function StopFling()
+            for _,conn in pairs(getgenv().WalkFlingConns) do
+                if conn then conn:Disconnect() end
+            end
+            table.clear(getgenv().WalkFlingConns)
+            
+            if getgenv().WalkFlingThread then 
+                task.cancel(getgenv().WalkFlingThread)
+                getgenv().WalkFlingThread = nil
+            end
+            
+            if LocalPlayer.Character then
+                local Humanoid = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+                if Humanoid then
+                    Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, true)
+                    Humanoid.BreakJointsOnDeath = true
+                end
+            end
+        end
+        
+        -- Start function
+        local function StartFling(char)
+            local Root = char:WaitForChild("HumanoidRootPart")
+            local Humanoid = char:WaitForChild("Humanoid")
+            
+            Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
+            Humanoid.BreakJointsOnDeath = false
+            
+            getgenv().WalkFlingConns.Health = RunService.Stepped:Connect(function()
+                if not getgenv().WalkFlingEnabled then return end
+                Humanoid.Health = 9e9
+                Humanoid.MaxHealth = 9e9
+            end)
+            
+            Root.CanCollide = false
+            Humanoid:ChangeState(11)
+            
+            getgenv().WalkFlingThread = task.spawn(function()
+                while getgenv().WalkFlingEnabled and Root and Root.Parent do
+                    RunService.Heartbeat:Wait()
+                    local vel = Root.Velocity
+                    Root.Velocity = vel * 10000 + Vector3.new(0, 10000, 0)
+                    RunService.RenderStepped:Wait()
+                    Root.Velocity = vel
+                    RunService.Stepped:Wait()
+                    Root.Velocity = vel + Vector3.new(0, 0.1, 0)
+                end
+            end)
+        end
+        
+        if Value then
+            StopFling() -- cleanup muna para walang duplicate
+            getgenv().WalkFlingEnabled = true
+            
+            if LocalPlayer.Character then
+                StartFling(LocalPlayer.Character)
+            end
+            getgenv().WalkFlingConns.CharAdded = LocalPlayer.CharacterAdded:Connect(StartFling)
+        else
+            getgenv().WalkFlingEnabled = false
+            StopFling()
+        end
+    end
+})
 
 local Cam = lp:Section({
 		Title = "Camera",
 		Desc = "Controls player's camera and view",
 		Icon = "camera",
-		Opened = true,
+		Opened = false,
 		Box = true,
 		BoxBorder = true,
 	})
@@ -1721,7 +1808,7 @@ local Section1 = lp:Section({
 		Title = "Character Animation",
 		Desc = "Customize character's animation",
 		Icon = "person-standing",
-		Opened = true,
+		Opened = false,
 		Box = true,
 		BoxBorder = true,
 	})
@@ -2494,7 +2581,7 @@ local ESPbro = lp:Section({
 		Title = "ESP",
 		Desc = "Renders player and object highlights visible through obstacles",
 		Icon = "brush",
-		Opened = true,
+		Opened = false,
 		Box = true,
 		BoxBorder = true,
 	})
