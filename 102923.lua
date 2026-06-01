@@ -1662,7 +1662,6 @@ Trol:Toggle({
         getgenv().WalkFlingConns = getgenv().WalkFlingConns or {}
         getgenv().WalkFlingThread = getgenv().WalkFlingThread or nil
         
-        -- Stop function
         local function StopFling()
             for _,conn in pairs(getgenv().WalkFlingConns) do
                 if conn then conn:Disconnect() end
@@ -1674,16 +1673,26 @@ Trol:Toggle({
                 getgenv().WalkFlingThread = nil
             end
             
+            -- RESET DITO BRO
             if LocalPlayer.Character then
                 local Humanoid = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+                local Root = LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                
                 if Humanoid then
                     Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, true)
                     Humanoid.BreakJointsOnDeath = true
+                    Humanoid:ChangeState(8) -- 8 = GettingUp, para mag reset
+                    Humanoid.PlatformStand = false
+                end
+                
+                if Root then
+                    Root.Velocity = Vector3.new(0, 0, 0) -- Reset velocity
+                    Root.RotVelocity = Vector3.new(0, 0, 0) -- Reset rotation
+                    Root.CanCollide = true -- Balik collision
                 end
             end
         end
         
-        -- Start function
         local function StartFling(char)
             local Root = char:WaitForChild("HumanoidRootPart")
             local Humanoid = char:WaitForChild("Humanoid")
@@ -1698,7 +1707,7 @@ Trol:Toggle({
             end)
             
             Root.CanCollide = false
-            Humanoid:ChangeState(11)
+            Humanoid:ChangeState(11) -- 11 = Physics
             
             getgenv().WalkFlingThread = task.spawn(function()
                 while getgenv().WalkFlingEnabled and Root and Root.Parent do
@@ -1714,9 +1723,8 @@ Trol:Toggle({
         end
         
         if Value then
-            StopFling() -- cleanup muna para walang duplicate
+            StopFling()
             getgenv().WalkFlingEnabled = true
-            
             if LocalPlayer.Character then
                 StartFling(LocalPlayer.Character)
             end
