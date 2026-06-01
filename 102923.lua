@@ -1649,6 +1649,7 @@ local Trol = lp:Section({
 		BoxBorder = true,
 	})
 
+
 Trol:Toggle({
     Title = "Walk Fling",
     Desc = "Flings players you walk into",
@@ -1673,7 +1674,6 @@ Trol:Toggle({
                 getgenv().WalkFlingThread = nil
             end
             
-            -- RESET DITO BRO
             if LocalPlayer.Character then
                 local Humanoid = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
                 local Root = LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
@@ -1681,14 +1681,14 @@ Trol:Toggle({
                 if Humanoid then
                     Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, true)
                     Humanoid.BreakJointsOnDeath = true
-                    Humanoid:ChangeState(8) -- 8 = GettingUp, para mag reset
+                    Humanoid:ChangeState(8)
                     Humanoid.PlatformStand = false
                 end
                 
                 if Root then
-                    Root.Velocity = Vector3.new(0, 0, 0) -- Reset velocity
-                    Root.RotVelocity = Vector3.new(0, 0, 0) -- Reset rotation
-                    Root.CanCollide = true -- Balik collision
+                    Root.Velocity = Vector3.new(0, 0, 0)
+                    Root.RotVelocity = Vector3.new(0, 0, 0)
+                    Root.CanCollide = true
                 end
             end
         end
@@ -1707,7 +1707,8 @@ Trol:Toggle({
             end)
             
             Root.CanCollide = false
-            Humanoid:ChangeState(11) -- 11 = Physics
+            -- TINANGGAL KO NA YUNG Humanoid:ChangeState(11)
+            -- Pwede ka na mag jump ngayon
             
             getgenv().WalkFlingThread = task.spawn(function()
                 while getgenv().WalkFlingEnabled and Root and Root.Parent do
