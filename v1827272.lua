@@ -81,6 +81,7 @@ end)
 
 if success and script then
     notify("Loader", "Loading script...", "loader", 2)
+    
 
     local runSuccess, err = pcall(function()
         loadstring(script)()
@@ -89,7 +90,7 @@ if success and script then
     if runSuccess then
         notify("Success", "Script loaded successfully", "circle-check-big", 4)
     else
-        notify("Error", "Execution failed", "triangle-alert", 4)
+        notify("Error!", "Execution failed!", "triangle-alert", 4)
         warn(err)
     end
 else
