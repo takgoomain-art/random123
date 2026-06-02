@@ -488,22 +488,18 @@ local HStack = Stack11:HStack()
 
 local VStack1 = HStack:VStack() -- left
 local VStack2 = HStack:VStack() -- right
-local VStack3 = HStack:VStack() -- third
 
 
 --  USER INFO
---[[local VStack1Section = VStack1:Section({
+local VStack1Section = VStack1:Section({
 		Title = "User Info",
 		TextXAlignment = "Center",
 	})
-local VStack2Section = VStack2:Section({
-		Title = "Game Info",
-		TextXAlignment = "Center",
-	})]]
+--[[
 local groupsect = VStack3:Section({
 		Title = "Action Buttons",
 		TextXAlignment = "Center",
-	})
+	})]]
 
 local username = player.Name
 local displayName = player.DisplayName
@@ -593,7 +589,10 @@ end)
 
 
 -- 🎮 GAME INFO
-
+local VStack2Section = VStack2:Section({
+		Title = "Game Info",
+		TextXAlignment = "Center",
+	})
 
 local placeId = game.PlaceId
 local gameName = "Unknown Game"
@@ -777,7 +776,7 @@ local exe = VStack2:Paragraph({
 ]]
 
 
-
+--[[
 VStack3:Button({
 	Title = "Copy Place ID",
 	Icon = "copy",
@@ -886,7 +885,7 @@ VStack3:Button({
 		Players.LocalPlayer:Kick("You left the game.")
 	end,
 })
-
+]]
 local Stack22 = Stack11:Section({
 		Title = "Credits",
 		Icon = "heart",
