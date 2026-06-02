@@ -492,18 +492,19 @@ local VStack3 = HStack:VStack() -- third
 
 
 --  USER INFO
-local VStack1Section = VStack1:Section({
+--[[local VStack1Section = VStack1:Section({
 		Title = "User Info",
 		TextXAlignment = "Center",
 	})
 local VStack2Section = VStack2:Section({
 		Title = "Game Info",
 		TextXAlignment = "Center",
-	})
+	})]]
 local groupsect = VStack3:Section({
 		Title = "Action Buttons",
 		TextXAlignment = "Center",
 	})
+
 local username = player.Name
 local displayName = player.DisplayName
 local userId = player.UserId
