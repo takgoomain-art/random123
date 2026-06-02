@@ -782,30 +782,28 @@ local serverParagraph = VStack2:Paragraph({
     Locked = false,
 })
 
-local function updateServerDetails()
-    local currentPlayers = #Players:GetPlayers()
-    local maxPlayers = Players.MaxPlayers
+task.spawn(function()
 
-    local serverType = game.PrivateServerId ~= "" and "Private" or "Public"
+    while task.wait(1) do
 
-    local descText = string.format(
-        "Players: %d/%d\nServer Type: %s\nJob ID: %s",
-        currentPlayers,
-        maxPlayers,
-        serverType,
-        tostring(game.JobId)
-    )
+        local currentPlayers = #Players:GetPlayers()
+        local maxPlayers = Players.MaxPlayers
 
-    serverParagraph:SetDesc(descText)
-end
+        local serverType = game.PrivateServerId ~= "" and "Private" or "Public"
 
-updateServerDetails()
+        local descText = string.format(
+            "Players: %d/%d\nServer Type: %s\nJob ID: %s",
+            currentPlayers,
+            maxPlayers,
+            serverType,
+            tostring(game.JobId)
+        )
 
-Players.PlayerAdded:Connect(updateServerDetails)
-Players.PlayerRemoving:Connect(updateServerDetails)
+        serverParagraph:SetDesc(descText)
 
+    end
 
-
+end)
 
 
 
