@@ -217,7 +217,7 @@ local Window = WindUI:CreateWindow({
 	Acrylic = true,
 	ScrollBarEnabled = true,
 	SideBarWidth = 225,
-	Size = UDim2.frommOffset(640, 500),
+	Size = UDim2.fromOffset(640, 500),
 	MinSize = Vector2.new(580, 400),
 	MaxSize = Vector2.new(1050, 725),
 		
