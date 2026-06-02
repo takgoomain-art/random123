@@ -217,7 +217,7 @@ local Window = WindUI:CreateWindow({
 	Acrylic = true,
 	ScrollBarEnabled = true,
 	SideBarWidth = 180,
-	Size = UDim2.fromOffset(640, 580),
+	Size = UDim2.fromOffset(640, 500),
 	MinSize = Vector2.new(580, 400),
 	MaxSize = Vector2.new(1050, 725),
 		
@@ -741,10 +741,6 @@ local gameParagraph = VStack2:Paragraph({
 --InfoGroup2:Space()
 
 --local InfoGroup3 = Main:Group({})
-
-
-
-
 local placeId = game.PlaceId
 local gameId = game.GameId
 
@@ -760,38 +756,56 @@ pcall(function()
     end
 end)
 
-local maxPlayers = Players.MaxPlayers
-
---  Create Paragraph FIRST
 local gameDetailsParagraph = VStack2:Paragraph({
     Title = "Game Details",
     Desc = "Loading...",
     Locked = false,
 })
 
--- 🔄 Update function
 local function updateUI()
-    local currentPlayers = #Players:GetPlayers()
-    local playerText = string.format("%d/%d", currentPlayers, maxPlayers)
-
     local descText = string.format(
-        "Place Id: %s\nGame Id: %s\nCreator Name: %s\nCreator Id: %s\nPlayers: %s",
+        "Place Id: %s\nGame Id: %s\nCreator Name: %s\nCreator Id: %s",
         tostring(placeId),
         tostring(gameId),
         tostring(creatorName),
-        tostring(creatorId),
-        playerText
+        tostring(creatorId)
     )
 
     gameDetailsParagraph:SetDesc(descText)
 end
 
---  Initial update
 updateUI()
 
---  Live updates
-Players.PlayerAdded:Connect(updateUI)
-Players.PlayerRemoving:Connect(updateUI)
+local serverParagraph = VStack2:Paragraph({
+    Title = "Server Details",
+    Desc = "Loading...",
+    Locked = false,
+})
+
+local function updateServerDetails()
+    local currentPlayers = #Players:GetPlayers()
+    local maxPlayers = Players.MaxPlayers
+
+    local serverType = game.PrivateServerId ~= "" and "Private" or "Public"
+
+    local descText = string.format(
+        "Players: %d/%d\nServer Type: %s\nJob ID: %s",
+        currentPlayers,
+        maxPlayers,
+        serverType,
+        tostring(game.JobId)
+    )
+
+    serverParagraph:SetDesc(descText)
+end
+
+updateServerDetails()
+
+Players.PlayerAdded:Connect(updateServerDetails)
+Players.PlayerRemoving:Connect(updateServerDetails)
+
+
+
 
 
 
