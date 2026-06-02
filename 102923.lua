@@ -484,7 +484,7 @@ local Stack11 = Main:Section({
 		Icon = "info",
 		TextXAlignment = "Center",
 	})
-local HStack = Stack11:HStack({ AutoSpace = true })
+local HStack = Stack11:HStack()
 
 local VStack1 = HStack:VStack() -- left
 local VStack2 = HStack:VStack() -- right
