@@ -588,6 +588,28 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
+local function detectExecutor()
+    if identifyexecutor then
+        return identifyexecutor()
+    elseif syn then
+        return "Synapse X"
+    elseif KRNL_LOADED then
+        return "KRNL"
+    elseif is_sirhurt_closure then
+        return "SirHurt"
+    elseif pebc_execute then
+        return "ProtoSmasher"
+    elseif getexecutorname then
+        return getexecutorname()
+    else
+        return "Executor Unknown"
+    end
+end
+
+local executorName = detectExecutor()
+
+local UIS = game:GetService("UserInputService")
+
 local platform = "Unknown"
 
 if UIS.TouchEnabled and not UIS.KeyboardEnabled then
@@ -775,27 +797,7 @@ Players.PlayerRemoving:Connect(updateUI)
 
 
 
-local function detectExecutor()
-    if identifyexecutor then
-        return identifyexecutor()
-    elseif syn then
-        return "Synapse X"
-    elseif KRNL_LOADED then
-        return "KRNL"
-    elseif is_sirhurt_closure then
-        return "SirHurt"
-    elseif pebc_execute then
-        return "ProtoSmasher"
-    elseif getexecutorname then
-        return getexecutorname()
-    else
-        return "Executor Unknown"
-    end
-end
 
-local executorName = detectExecutor()
-
-local UIS = game:GetService("UserInputService")
 
 -- 🔍 Executor Detection
 
