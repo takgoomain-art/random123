@@ -496,6 +496,14 @@ local VStack1Section = VStack1:Section({
 		Title = "User Info",
 		TextXAlignment = "Center",
 	})
+local VStack2Section = VStack2:Section({
+		Title = "Game Info",
+		TextXAlignment = "Center",
+	})
+local groupsect = VStack3:Section({
+		Title = "Action Buttons",
+		TextXAlignment = "Center",
+	})
 local username = player.Name
 local displayName = player.DisplayName
 local userId = player.UserId
@@ -584,10 +592,7 @@ end)
 
 
 -- 🎮 GAME INFO
-local VStack2Section = VStack2:Section({
-		Title = "Game Info",
-		TextXAlignment = "Center",
-	})
+
 
 local placeId = game.PlaceId
 local gameName = "Unknown Game"
@@ -770,12 +775,7 @@ local exe = VStack2:Paragraph({
 	})
 ]]
 
-local groupsect = VStack3:Section({
-		Title = "Action Buttons",
-		Icon = "wand",
-		TextXAlignment = "Center",
-		
-	})
+
 
 VStack3:Button({
 	Title = "Copy Place ID",
