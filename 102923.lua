@@ -216,8 +216,8 @@ local Window = WindUI:CreateWindow({
 	NewElements = true,
 	Acrylic = true,
 	ScrollBarEnabled = true,
-	SideBarWidth = 150,
-	Size = UDim2.fromOffset(640, 500),
+	SideBarWidth = 180,
+	Size = UDim2.fromOffset(640, 580),
 	MinSize = Vector2.new(580, 400),
 	MaxSize = Vector2.new(1050, 725),
 		
@@ -559,15 +559,26 @@ RunService.RenderStepped:Connect(function()
     local root = char:FindFirstChild("HumanoidRootPart")
 
     if humanoid and root then
+        local health = math.floor(humanoid.Health)
+        local maxHealth = math.floor(humanoid.MaxHealth)
+
         local speed = humanoid.WalkSpeed
         local jump = humanoid.JumpPower
+
+        local rigType =
+            humanoid.RigType == Enum.HumanoidRigType.R15
+            and "R15"
+            or "R6"
 
         local pos = root.Position
 
         local text = string.format(
-            "Speed: %d\nJump: %d\nPos: X: %.1f | Y: %.1f | Z: %.1f",
+            "Health: %d/%d\nWalkSpeed: %d\nJumpPower: %d\nRig Type: %s\nPos: X: %.1f | Y: %.1f | Z: %.1f",
+            health,
+            maxHealth,
             speed,
             jump,
+            rigType,
             pos.X,
             pos.Y,
             pos.Z
@@ -577,6 +588,46 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
+local platform = "Unknown"
+
+if UIS.TouchEnabled and not UIS.KeyboardEnabled then
+    platform = "Mobile"
+elseif UIS.KeyboardEnabled then
+    platform = "PC"
+elseif UIS.GamepadEnabled then
+    platform = "Console"
+end
+
+local device = "Unknown"
+local platformEnum = UIS:GetPlatform()
+
+if platformEnum == Enum.Platform.IOS then
+    device = "iOS"
+elseif platformEnum == Enum.Platform.Android then
+    device = "Android"
+elseif platformEnum == Enum.Platform.Windows then
+    device = "Windows"
+elseif platformEnum == Enum.Platform.OSX then
+    device = "MacOS"
+else
+    device = "Unsupported"
+end
+
+local ExecuteTime = os.date("%H:%M:%S")
+
+local descText = string.format(
+    "Executor: %s\nPlatform: %s\nDevice: %s\nExecuted At: %s",
+    executorName,
+    platform,
+    device,
+    ExecuteTime
+)
+
+local exe = VStack1:Paragraph({
+    Title = "Client Info",
+    Desc = descText,
+    Locked = false,
+})
 
 local UserAction = VStack1:Section({
 		Title = "User Action",
@@ -750,66 +801,7 @@ local UIS = game:GetService("UserInputService")
 
 
 -- 📱 Platform (Mobile / PC / Console)
-local platform = "Unknown"
 
-if UIS.TouchEnabled and not UIS.KeyboardEnabled then
-    platform = "Mobile"
-elseif UIS.KeyboardEnabled then
-    platform = "PC"
-elseif UIS.GamepadEnabled then
-    platform = "Console"
-end
-
--- 🖥️ Device (iOS / Android / Windows / MacOS)
-local device = "Unknown"
-local platformEnum = UIS:GetPlatform()
-
-if platformEnum == Enum.Platform.IOS then
-    device = "iOS"
-elseif platformEnum == Enum.Platform.Android then
-    device = "Android"
-elseif platformEnum == Enum.Platform.Windows then
-    device = "Windows"
-elseif platformEnum == Enum.Platform.OSX then
-    device = "MacOS"
-else
-    device = "Unsupported"
-end
-
-
-local descText = string.format(
-    "Executor: %s\nPlatform: %s\nDevice: %s",
-    executorName,
-    platform,
-    device
-)
-
--- 📌 UI Output
---[[local exe = InfoGroup2:Paragraph({
-    Title = "Client Information",
-    Desc = descText,
-    Locked = false,
-})
-]]
-
-local exe = VStack2:Paragraph({
-    Title = "Client Details",
-    Desc = descText,
-    --Color = "Red",
-    --Image = "",
-    --ImageSize = 30,
-    --Thumbnail = "",
-    --ThumbnailSize you 80,
-    Locked = false,
-    --[[Buttons = {
-        {
-            Icon = "bird",
-            Title = "Button",
-            Callback = function() print("1 Button") end,
-        }
-    }
-    ]]
-})
 
 local GameAction = VStack2:Section({
 		Title = "Game Action",
