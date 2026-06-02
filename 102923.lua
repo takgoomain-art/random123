@@ -492,6 +492,10 @@ local VStack3 = HStack:VStack() -- third
 
 
 --  USER INFO
+local VStack1Section = VStack1:Section({
+		Title = "User Info",
+		TextXAlignment = "Center",
+	})
 local username = player.Name
 local displayName = player.DisplayName
 local userId = player.UserId
@@ -580,6 +584,11 @@ end)
 
 
 -- 🎮 GAME INFO
+local VStack2Section = VStack2:Section({
+		Title = "Game Info",
+		TextXAlignment = "Center",
+	})
+
 local placeId = game.PlaceId
 local gameName = "Unknown Game"
 local creatorName = "Unknown"
