@@ -217,8 +217,8 @@ local Window = WindUI:CreateWindow({
 	Acrylic = true,
 	ScrollBarEnabled = true,
 	SideBarWidth = 225,
-	Size = UDim2.new(0, 816, 0, 600),
-	MinSize = Vector2.new(815, 400),
+	Size = UDim2.frommOffset(640, 500),
+	MinSize = Vector2.new(580, 400),
 	MaxSize = Vector2.new(1050, 725),
 		
 
@@ -491,10 +491,7 @@ local VStack2 = HStack:VStack() -- right
 
 
 --  USER INFO
-local VStack1Section = VStack1:Section({
-		Title = "User Info",
-		TextXAlignment = "Center",
-	})
+
 --[[
 local groupsect = VStack3:Section({
 		Title = "Action Buttons",
@@ -638,10 +635,7 @@ VStack1:Button({
 
 
 -- 🎮 GAME INFO
-local VStack2Section = VStack2:Section({
-		Title = "Game Info",
-		TextXAlignment = "Center",
-	})
+
 
 local placeId = game.PlaceId
 local gameName = "Unknown Game"
