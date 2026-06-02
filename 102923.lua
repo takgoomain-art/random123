@@ -581,7 +581,56 @@ RunService.RenderStepped:Connect(function()
 end)
 
 
+local UserAction = VStack1:Section({
+		Title = "User Action",
+		TextXAlignment = "Center",
+	})
 
+VStack1:Button({
+		Title = "Copy Username",
+		Icon = "copy",
+		Callback = function()
+			setclipboard("" .. player.Name)
+			WindUI:Notify({
+						Title = "Liquid Hub",
+						Content = "Copied to clipboard",
+						Icon = "clipboard-copy",
+						Duration = 2
+					})
+		end,
+	})
+
+VStack1:Button({
+		Title = "Copy User ID",
+		Icon = "copy",
+		Callback = function()
+			setclipboard("" .. player.UserId)
+			WindUI:Notify({
+						Title = "Liquid Hub",
+						Content = "Copied to clipboard",
+						Icon = "clipboard-copy",
+						Duration = 2
+					})
+		end,
+	})
+
+VStack1:Divider()
+
+VStack1:Button({
+	Title = "Reset Character",
+	Icon = "rotate-ccw",
+	Callback = function()
+		Players.LocalPlayer.Character:BreakJoints()
+	end,
+})
+
+VStack1:Button({
+	Title = "Leave Game",
+	Icon = "door-open",
+	Callback = function()
+		Players.LocalPlayer:Kick("You left the game.")
+	end,
+})
 
 -- 📌 Paragraph
 
@@ -768,16 +817,12 @@ local exe = VStack2:Paragraph({
     ]]
 })
 
---[[local gs2 = VStack3:Section({
-		Title = "User Info",
-		Icon = "user",
-		
+local GameAction = VStack2:Section({
+		Title = "Game Action",
+		TextXAlignment = "Center",
 	})
-]]
 
-
---[[
-VStack3:Button({
+VStack2:Button({
 	Title = "Copy Place ID",
 	Icon = "copy",
 	Callback = function()
@@ -791,7 +836,7 @@ VStack3:Button({
 			end,
 })
 
-VStack3:Button({
+VStack2:Button({
 	Title = "Copy Game ID",
 	Icon = "copy",
 	Callback = function()
@@ -805,7 +850,7 @@ VStack3:Button({
 	end,
 })
 
-VStack3:Button({
+VStack2:Button({
 	Title = "Copy Creator ID",
 	Icon = "copy",
 	Callback = function()
@@ -823,7 +868,7 @@ VStack3:Button({
 	end,
 })
 
-VStack3:Button({
+VStack2:Button({
 	Title = "Copy Creator Name",
 	Icon = "copy",
 	Callback = function()
@@ -836,55 +881,12 @@ VStack3:Button({
 					})
 			end,
 })
-
-
-
-
-VStack3:Button({
-		Title = "Copy Username",
-		Icon = "copy",
-		Callback = function()
-			setclipboard("" .. player.Name)
-			WindUI:Notify({
-						Title = "Liquid Hub",
-						Content = "Copied to clipboard",
-						Icon = "clipboard-copy",
-						Duration = 2
-					})
-		end,
+--[[local gs2 = VStack3:Section({
+		Title = "User Info",
+		Icon = "user",
+		
 	})
 
-VStack3:Button({
-		Title = "Copy User ID",
-		Icon = "copy",
-		Callback = function()
-			setclipboard("" .. player.UserId)
-			WindUI:Notify({
-						Title = "Liquid Hub",
-						Content = "Copied to clipboard",
-						Icon = "clipboard-copy",
-						Duration = 2
-					})
-		end,
-	})
-
-VStack3:Divider()
-
-VStack3:Button({
-	Title = "Reset Character",
-	Icon = "rotate-ccw",
-	Callback = function()
-		Players.LocalPlayer.Character:BreakJoints()
-	end,
-})
-
-VStack3:Button({
-	Title = "Leave Game",
-	Icon = "door-open",
-	Callback = function()
-		Players.LocalPlayer:Kick("You left the game.")
-	end,
-})
 ]]
 local Stack22 = Stack11:Section({
 		Title = "Credits",
